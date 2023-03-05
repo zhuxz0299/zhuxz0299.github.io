@@ -4,12 +4,18 @@
   
     
     <entry>
-      <title></title>
-      <link href="/posts/0.html"/>
-      <url>/posts/0.html</url>
+      <title>Chapter3-Process</title>
+      <link href="/posts/98ec3252.html"/>
+      <url>/posts/98ec3252.html</url>
       
         <content type="html"><![CDATA[<h2 id="Process-Concept"><a href="#Process-Concept" class="headerlink" title="Process Concept"></a>Process Concept</h2><p>jobs $\leftrightarrow$ processes</p><p>In time-shared systems, many user programs can be run.<br>并发：一个CPU，多个程序。分时系统中每个程序执行一个小时间段。</p><h3 id="The-process"><a href="#The-process" class="headerlink" title="The process"></a>The process</h3><p><em>Process</em> – a program in execution; (process execution must progress in sequential fashion)</p><p>The status of the current activity of a process is represented by the value of the <em>program counter</em> and the contents of the processor’s registers. </p><p>The memory layout of a process is typically divided into multiple sections:</p><ul><li><em>Text section</em>: the executable code</li><li><em>Data section</em>: global variables</li><li><em>Heap section</em>: memory that is dynamically allocated during program run time</li><li><em>Stack section</em>: containing temporary data<ul><li>Function parameters, return addresses, local variables</li></ul></li></ul><div align=center><img src="../figure/Chapter3-Process/layout_of_process.png" width=400></div><p>differences between program and process:</p><ul><li>Program: passive entity stored on disk (executable file)</li><li>Process: active</li></ul><p>Program becomes process when executable file loaded into memory</p><p>Although two processes may be associated with the same program, they are nevertheless considered two separate execution sequences.(One process can be several processes.)</p><div align=center><img src="../figure/Chapter3-Process/program-process.png" width=300></div>]]></content>
       
+      
+      <categories>
+          
+          <category> Operating system </category>
+          
+      </categories>
       
       
     </entry>
