@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Linux基本命令</title>
+      <link href="/posts/4b6ea061.html"/>
+      <url>/posts/4b6ea061.html</url>
+      
+        <content type="html"><![CDATA[<p>内容来源：<a href="https://gnu-linux.readthedocs.io/zh/latest/index.html">这个网站</a></p><h3 id="cat-查看和连接文件内容"><a href="#cat-查看和连接文件内容" class="headerlink" title="cat 查看和连接文件内容"></a>cat 查看和连接文件内容</h3><p>cat 命令用于连接文件并打印到标准输出设备上。</p><p>命令格式：<code>cat [OPTION]... [FILE]...</code></p><p>常用选项：</p><ul><li><code>-b, --number-nonblank</code>：和 <code>-n</code> 相似，只不过对于空白行不编号。</li><li><code>-n, --number</code>：由 1 开始对所有输出的行数编号</li><li><code>-s, --squeeze-blank</code>：当遇到有连续两行以上的空白行，就代换为一行的空白行</li></ul><p>使用实例：<br><figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">[Linux]$ </span><span class="language-bash"><span class="built_in">cat</span> a.sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /usr/bin/bash</span></span><br><span class="line">echo &quot;Hello world !&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">[Linux]$ </span><span class="language-bash"><span class="built_in">cat</span> a.sh b.sh</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /usr/bin/bash</span></span><br><span class="line">echo &quot;Hello world !&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">! /usr/bin/bash</span></span><br><span class="line">name=&quot;Linus Benedict Torvalds&quot;</span><br><span class="line">echo $name</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">[Linux]$ </span><span class="language-bash"><span class="built_in">cat</span> -n a.sh b.sh</span></span><br><span class="line">     1      #! /usr/bin/bash</span><br><span class="line">     2      echo &quot;Hello world !&quot;</span><br><span class="line">     3      #! /usr/bin/bash</span><br><span class="line">     4      name=&quot;Linus Benedict Torvalds&quot;</span><br><span class="line">     5      echo $name</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">利用重定向功能，另存为拼接文件</span></span><br><span class="line"><span class="meta prompt_">[Linux]$ </span><span class="language-bash"><span class="built_in">cat</span> -n a.sh b.sh &gt; all.sh</span></span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用conda管理虚拟环境</title>
       <link href="/posts/757571af.html"/>
       <url>/posts/757571af.html</url>
