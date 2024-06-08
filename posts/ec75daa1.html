@@ -5,12 +5,12 @@
 <meta property="og:site_name" content="Zhuxz&#39;s Blog">
 <meta property="og:description" content="计算机网络——传输层">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://source.fomal.cc/img/default_cover_16.webp">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_14.webp">
 <meta property="article:published_time" content="2024-01-07T15:03:33.000Z">
 <meta property="article:modified_time" content="2024-01-08T09:40:42.196Z">
 <meta property="article:author" content="朱小志">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_16.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://zhuxz0299.github.io/posts/ec75daa1.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_14.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://zhuxz0299.github.io/posts/ec75daa1.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
@@ -160,18 +160,22 @@
       }
     }
     detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/double_row_bug_fix.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/category_card.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">117</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_16.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zhuxz's Blog"><span class="site-name">Zhuxz's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">传输层</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-07T15:03:33.000Z" title="发表于 2024-01-07 23:03:33">2024-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-08T09:40:42.196Z" title="更新于 2024-01-08 17:40:42">2024-01-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/computer-network/">computer network</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="传输层"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>为什么需要传输层？</p>
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/double_row_bug_fix.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="/css/category_card.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">117</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_14.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zhuxz's Blog"><span class="site-name">Zhuxz's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">传输层</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-07T15:03:33.000Z" title="发表于 2024-01-07 23:03:33">2024-01-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-08T09:40:42.196Z" title="更新于 2024-01-08 17:40:42">2024-01-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/computer-network/">computer network</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="传输层"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>为什么需要传输层？</p>
 <ul>
 <li>网络层虽然把数据从一台主机传输到另一台，但是还需要解决数据究竟传输到哪个应用程序的问题</li>
 <li>对于发送数据端而言，有数据需要发送，那么就需要把这些数据收集下来交给网络层进行传输</li>
 </ul>
-<h2 id="概述和传输层服务"><a href="#概述和传输层服务" class="headerlink" title="概述和传输层服务"></a>概述和传输层服务</h2><h3 id="传输层的位置"><a href="#传输层的位置" class="headerlink" title="传输层的位置"></a>传输层的位置</h3><ul>
+<h2 id="概述和传输层服务">概述和传输层服务</h2>
+<h3 id="传输层的位置">传输层的位置</h3>
+<ul>
 <li>传输层位于应用层和网络层之间。基于网络层提供的服务，向分布式应用程序提供通信服务</li>
 <li>按照因特网的“端到端”设计原则，应用程序只运行在终端上，即不需要为网络设备编写程序</li>
 <li>站在应用程序的角度，传输层应提供进程之间<strong>本地通信的抽象</strong>。(用户感受不到不同的应用运行在不同的终端上)</li>
 </ul>
-<h3 id="不同终端上的进程如何通信"><a href="#不同终端上的进程如何通信" class="headerlink" title="不同终端上的进程如何通信"></a>不同终端上的进程如何通信</h3><ul>
-<li>设想在应用程序和网络之间存在一扇“门”：<ul>
+<h3 id="不同终端上的进程如何通信">不同终端上的进程如何通信</h3>
+<ul>
+<li>设想在应用程序和网络之间存在一扇“门”：
+<ul>
 <li>需要发送报文时：发送进程将报文推到门外</li>
 <li>门外的运输设施（因特网）将报文送到接收进程的门口</li>
 <li>需要接收报文时：接收进程打开门，即可收到报文</li>
@@ -179,21 +183,26 @@
 </li>
 <li>在TCP/IP网络中，这扇“门”称为套接字（socket）</li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/套接字.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h3 id="传输层提供什么服务？"><a href="#传输层提供什么服务？" class="headerlink" title="传输层提供什么服务？"></a>传输层提供什么服务？</h3><ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/套接字.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+<h3 id="传输层提供什么服务？">传输层提供什么服务？</h3>
+<ul>
 <li>无连接的服务(不可靠)，UDP</li>
-<li>面向连接的服务(可靠)，TCP<ul>
+<li>面向连接的服务(可靠)，TCP
+<ul>
 <li>只能保证可靠，但是不能像虚电路一样保证传输质量。因为TCP建立在不可靠的IPv4之上。</li>
 </ul>
 </li>
 </ul>
-<h3 id="传输层实现什么功能？"><a href="#传输层实现什么功能？" class="headerlink" title="传输层实现什么功能？"></a>传输层实现什么功能？</h3><ul>
-<li>UDP，最低限度服务<ul>
+<h3 id="传输层实现什么功能？">传输层实现什么功能？</h3>
+<ul>
+<li>UDP，最低限度服务
+<ul>
 <li>进程到进程的传输</li>
 <li>错误校验</li>
 </ul>
 </li>
-<li>TCP，最低限度服务加上增强服务<ul>
+<li>TCP，最低限度服务加上增强服务
+<ul>
 <li>进程到进程的传输</li>
 <li>错误校验</li>
 <li>可靠传输(类似数据链路层，依靠ACK，或者还有pipline使用滑动窗口)</li>
@@ -202,7 +211,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="套接字编程"><a href="#套接字编程" class="headerlink" title="套接字编程"></a>套接字编程</h2><h3 id="创建一个网络应用"><a href="#创建一个网络应用" class="headerlink" title="创建一个网络应用"></a>创建一个网络应用</h3><p>首先编写一个分布式程序，使其运行在不同的端系统上，并通过网络通信。</p>
+<h2 id="套接字编程">套接字编程</h2>
+<h3 id="创建一个网络应用">创建一个网络应用</h3>
+<p>首先编写一个分布式程序，使其运行在不同的端系统上，并通过网络通信。</p>
 <p>然后选择应用程序体系结构，主流的是客户-服务器体系结构（C/S）</p>
 <ul>
 <li>有一台总是在线的主机，运行一个<strong>服务器程序(server)</strong>，服务器主机具有永久的、众所周知的地址</li>
@@ -212,78 +223,103 @@
 <p>进程需要一个标识，以便其它进程能够找到它。进程标识包括：</p>
 <ul>
 <li>主机地址</li>
-<li>主机上与该进程关联的<strong>端口号</strong><h3 id="应用编程接口：socket-API"><a href="#应用编程接口：socket-API" class="headerlink" title="应用编程接口：socket API"></a>应用编程接口：socket API</h3>应用需<strong>显式地</strong>创建、使用和释放套接字</li>
-<li>采用客户-服务器模式：<ul>
+<li>主机上与该进程关联的<strong>端口号</strong></li>
+</ul>
+<h3 id="应用编程接口：socket-API">应用编程接口：socket API</h3>
+<p>应用需<strong>显式地</strong>创建、使用和释放套接字</p>
+<ul>
+<li>采用客户-服务器模式：
+<ul>
 <li>客户总是主动发起通信的一方，服务器始终在等待客户的服务请求到来</li>
 </ul>
 </li>
-<li>应用可以通过socket API调用两种传输服务:<ul>
+<li>应用可以通过socket API调用两种传输服务:
+<ul>
 <li>不可靠的数据报服务：由UDP协议实现</li>
 <li>可靠的字节流服务：由TCP协议实现</li>
 </ul>
 </li>
 </ul>
-<h4 id="基于UDP的套接字通信流程"><a href="#基于UDP的套接字通信流程" class="headerlink" title="基于UDP的套接字通信流程"></a>基于UDP的套接字通信流程</h4><p>服务器端可以服务许多客户端，同时对客户端先来先服务的原则。<br>服务器可以被网络攻击者攻击，即控制大量机器访问该服务器，让正常用户无法访问。</p>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/UDP套接字通信流程.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h4 id="使用TCP套接字实现回音服务"><a href="#使用TCP套接字实现回音服务" class="headerlink" title="使用TCP套接字实现回音服务"></a>使用TCP套接字实现回音服务</h4><p>使用TCP套接字编程时，可将TCP连接想像成一对套接字之间的一条封闭管道：</p>
+<h4 id="基于UDP的套接字通信流程">基于UDP的套接字通信流程</h4>
+<p>服务器端可以服务许多客户端，同时对客户端先来先服务的原则。<br>
+服务器可以被网络攻击者攻击，即控制大量机器访问该服务器，让正常用户无法访问。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/UDP套接字通信流程.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+<h4 id="使用TCP套接字实现回音服务">使用TCP套接字实现回音服务</h4>
+<p>使用TCP套接字编程时，可将TCP连接想像成一对套接字之间的一条封闭管道：</p>
 <ul>
 <li>发送端TCP将要发送的字节序列从管道的一端（套接字）送入</li>
 <li>接收端TCP从管道的另一端（套接字）取出字节序列</li>
 <li>在管道中传输的字节不丢失，并<strong>保持顺序</strong></li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP套接字实现回音服务.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h4 id="服务器使用多个套接字服务客户"><a href="#服务器使用多个套接字服务客户" class="headerlink" title="服务器使用多个套接字服务客户"></a>服务器使用多个套接字服务客户</h4><ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP套接字实现回音服务.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+<h4 id="服务器使用多个套接字服务客户">服务器使用多个套接字服务客户</h4>
+<ul>
 <li>服务器进程在监听套接字上等待客户的连接请求</li>
-<li>客户进程创建一个本地套接字，与服务器的监听套接字通信。<ul>
+<li>客户进程创建一个本地套接字，与服务器的监听套接字通信。
+<ul>
 <li>在此过程中，客户TCP向服务器TCP发送连接请求</li>
 </ul>
 </li>
 <li>收到连接请求后，服务器进程创建一个临时套接字（称<strong>连接套接字</strong>）和一个<strong>新的服务器进程</strong>，与客户进程通信</li>
-<li>服务器进程回到监听套接字上继续等待。<ul>
+<li>服务器进程回到监听套接字上继续等待。
+<ul>
 <li>此举允许服务器同时服务多个客户</li>
 </ul>
 </li>
 <li>客户服务结束后，服务器销毁进程，关闭连接套接字</li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/基于TCP套接字的通信流程.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h2 id="传输层复用和分用"><a href="#传输层复用和分用" class="headerlink" title="传输层复用和分用"></a>传输层复用和分用</h2><ul>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/基于TCP套接字的通信流程.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+<h2 id="传输层复用和分用">传输层复用和分用</h2>
+<ul>
 <li>（发送端）复用：传输层从多个套接字收集数据，交给网络层发送</li>
 <li>（接收端）分用：传输层将从网络层收到的数据，交付给正确的套接字</li>
 </ul>
 <p>就像寄信，要把信送给同一个地方的每个人，地址就相当于IP地址，名字就相当于端口号。</p>
-<h3 id="套接字标识与端口号"><a href="#套接字标识与端口号" class="headerlink" title="套接字标识与端口号"></a>套接字标识与端口号</h3><ul>
-<li>端口号是套接字标识的一部分：<ul>
+<h3 id="套接字标识与端口号">套接字标识与端口号</h3>
+<ul>
+<li>端口号是套接字标识的一部分：
+<ul>
 <li>每个套接字在本地关联一个端口号</li>
 <li>端口号是一个16比特的数</li>
 </ul>
 </li>
-<li>端口号的分类：<ul>
+<li>端口号的分类：
+<ul>
 <li>熟知端口：0～1023，由公共域协议使用</li>
 <li>注册端口：1024～49151，需要向IANA注册才能使用</li>
 <li>动态和/或私有端口：49152～65535，一般程序使用</li>
 </ul>
 </li>
 </ul>
-<h2 id="无连接传输：UDP"><a href="#无连接传输：UDP" class="headerlink" title="无连接传输：UDP"></a>无连接传输：UDP</h2><h3 id="UDP提供的服务"><a href="#UDP提供的服务" class="headerlink" title="UDP提供的服务"></a>UDP提供的服务</h3><ul>
-<li>UDP提供的服务：<ul>
+<h2 id="无连接传输：UDP">无连接传输：UDP</h2>
+<h3 id="UDP提供的服务">UDP提供的服务</h3>
+<ul>
+<li>UDP提供的服务：
+<ul>
 <li>进程到进程之间的报文交付</li>
 <li>报文完整性检查（可选）：检测并丢弃出错的报文</li>
 </ul>
 </li>
-<li>UDP需要实现的功能：<ul>
+<li>UDP需要实现的功能：
+<ul>
 <li>复用和分用</li>
 <li>报文检错</li>
 </ul>
 </li>
 </ul>
-<h3 id="UDP报文段结构"><a href="#UDP报文段结构" class="headerlink" title="UDP报文段结构"></a>UDP报文段结构</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/UDP报文格式.png' width=300 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="UDP报文段结构">UDP报文段结构</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/UDP报文格式.png' width=300 style="display: block; margin-left: auto; margin-right: auto;">
 <ul>
 <li>用于复用和分用的字段：源端口号，目的端口号</li>
 <li>用于检测报文错误的字段：报文总长度，校验和（checksum）</li>
 </ul>
-<h3 id="UDP校验和计算"><a href="#UDP校验和计算" class="headerlink" title="UDP校验和计算"></a>UDP校验和计算</h3><p>计算UDP校验和时，要包括伪头、UDP头和数据三个部分<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/UDP校验和计算.png' width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h3 id="为什么需要UDP"><a href="#为什么需要UDP" class="headerlink" title="为什么需要UDP"></a>为什么需要UDP</h3><ul>
-<li>应用可以尽可能快地发送报文：<ul>
+<h3 id="UDP校验和计算">UDP校验和计算</h3>
+<p>计算UDP校验和时，要包括伪头、UDP头和数据三个部分<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/UDP校验和计算.png' width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="为什么需要UDP">为什么需要UDP</h3>
+<ul>
+<li>应用可以尽可能快地发送报文：
+<ul>
 <li>无建立连接的延迟</li>
 <li>不限制发送速率（不进行拥塞控制和流量控制）</li>
 </ul>
@@ -298,9 +334,12 @@
 <li>若应用要求基于UDP进行可靠传输。由应用层实现可靠性</li>
 </ul>
 <p>UDP包通常不能穿过防火墙。</p>
-<h2 id="面向连接的传输：TCP"><a href="#面向连接的传输：TCP" class="headerlink" title="面向连接的传输：TCP"></a>面向连接的传输：TCP</h2><h3 id="TCP-概述"><a href="#TCP-概述" class="headerlink" title="TCP 概述"></a>TCP 概述</h3><ul>
+<h2 id="面向连接的传输：TCP">面向连接的传输：TCP</h2>
+<h3 id="TCP-概述">TCP 概述</h3>
+<ul>
 <li>TCP服务模型在一对通信的进程之间提供一条理想的字节流管道</li>
-<li>点到点通信:仅涉及一对通信进程<ul>
+<li>点到点通信:仅涉及一对通信进程
+<ul>
 <li>因为会创建临时的套接字和进程来处理</li>
 </ul>
 </li>
@@ -309,83 +348,102 @@
 </ul>
 <p>需要的机制</p>
 <ul>
-<li>建立连接:<ul>
+<li>建立连接:
+<ul>
 <li>通信双方为本次通信建立数据传输所需的状态（套接字、缓存、变量等）</li>
 </ul>
 </li>
-<li>可靠数据传输：<ul>
+<li>可靠数据传输：
+<ul>
 <li>流水线式发送，报文段检错，丢失重传</li>
 </ul>
 </li>
-<li>流量控制:<ul>
+<li>流量控制:
+<ul>
 <li>发送方不会令接收方缓存溢出</li>
 </ul>
 </li>
 </ul>
-<h3 id="TCP报文段结构"><a href="#TCP报文段结构" class="headerlink" title="TCP报文段结构"></a>TCP报文段结构</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP报文格式.png' width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h4 id="重要的TCP选项"><a href="#重要的TCP选项" class="headerlink" title="重要的TCP选项"></a>重要的TCP选项</h4><ul>
-<li>最大段长度（MSS）：<ul>
+<h3 id="TCP报文段结构">TCP报文段结构</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP报文格式.png' width=500 style="display: block; margin-left: auto; margin-right: auto;">
+<h4 id="重要的TCP选项">重要的TCP选项</h4>
+<ul>
+<li>最大段长度（MSS）：
+<ul>
 <li>TCP段中可以携带的最大数据字节数</li>
 <li>建立连接时，每个主机可声明自己能够接受的MSS，缺省为536字节</li>
 </ul>
 </li>
-<li>窗口比例因子（window scale）：<ul>
+<li>窗口比例因子（window scale）：
+<ul>
 <li>建立连接时，双方可以协商一个窗口比例因子</li>
 <li>实际接收窗口大小 = window size * 2^window scale</li>
 </ul>
 </li>
-<li>选择确认（SACK）：<ul>
+<li>选择确认（SACK）：
+<ul>
 <li>最初的TCP协议只使用累积确认</li>
 <li>改进的TCP协议引入选择确认，允许接收端指出缺失的数据字节</li>
 </ul>
 </li>
 </ul>
-<h3 id="TCP可靠数据传输"><a href="#TCP可靠数据传输" class="headerlink" title="TCP可靠数据传输"></a>TCP可靠数据传输</h3><p>TCP 在不可靠的IP服务上建立可靠的数据传输</p>
+<h3 id="TCP可靠数据传输">TCP可靠数据传输</h3>
+<p>TCP 在不可靠的IP服务上建立可靠的数据传输</p>
 <ul>
-<li>基本机制<ul>
+<li>基本机制
+<ul>
 <li>发送端：流水线式发送数据、等待确认、超时重传</li>
 <li>接收端：进行差错检测，采用累积确认机制</li>
 </ul>
 </li>
-<li>乱序段处理：协议没有明确规定<ul>
+<li>乱序段处理：协议没有明确规定
+<ul>
 <li>接收端不缓存：可以正常工作，处理简单，但效率低</li>
 <li>接收端缓存：效率高，但处理复杂</li>
 </ul>
 </li>
 </ul>
-<h4 id="一个高度简化的TCP协议"><a href="#一个高度简化的TCP协议" class="headerlink" title="一个高度简化的TCP协议"></a>一个高度简化的TCP协议</h4><ul>
-<li>接收方：<ul>
+<h4 id="一个高度简化的TCP协议">一个高度简化的TCP协议</h4>
+<ul>
+<li>接收方：
+<ul>
 <li>确认方式：采用<strong>累积确认</strong>，仅在正确、按序收到报文段后，更新确认序号；其余情况，重复前一次的确认序号（与GBN类似）</li>
 <li>失序报文段处理：<strong>缓存</strong>失序的报文段（与SR类似）</li>
 </ul>
 </li>
-<li>发送方：<ul>
+<li>发送方：
+<ul>
 <li>发送策略：流水线式发送报文段</li>
 <li>定时器的使用：仅对最早未确认的报文段使用<strong>一个重传定时器</strong>（与GBN类似）</li>
 <li>重发策略：仅在超时后<strong>重发最早未确认的报文段</strong>（与SR类似，因为接收端缓存了失序的报文段）</li>
 </ul>
 </li>
 </ul>
-<h4 id="TCP-发送方"><a href="#TCP-发送方" class="headerlink" title="TCP 发送方"></a>TCP 发送方</h4><p>在此协议下，TCP发送方要处理的事件有：</p>
+<h4 id="TCP-发送方">TCP 发送方</h4>
+<p>在此协议下，TCP发送方要处理的事件有：</p>
 <ul>
-<li>收到应用数据：<ul>
+<li>收到应用数据：
+<ul>
 <li>创建并发送TCP报文段</li>
 <li>若当前没有定时器在运行（没有已发送、未确认的报文段），启动定时器</li>
 </ul>
 </li>
-<li>超时:<ul>
+<li>超时:
+<ul>
 <li>重传包含最小序号的、未确认的报文段</li>
 <li>重启定时器</li>
 </ul>
 </li>
-<li>收到ACK：<ul>
+<li>收到ACK：
+<ul>
 <li>如果确认序号大于基序号（已发送未确认的最小序号）：</li>
 <li>推进发送窗口（更新基序号）</li>
 <li>如果发送窗口中还有未确认的报文段，启动定时器，否则终止定时器</li>
 </ul>
 </li>
 </ul>
-<h5 id="如何设置超时值"><a href="#如何设置超时值" class="headerlink" title="如何设置超时值"></a>如何设置超时值</h5><ul>
+<h5 id="如何设置超时值">如何设置超时值</h5>
+<ul>
 <li>若超时值太小，容易产生不必要的重传</li>
 <li>若超时值太大，则丢包恢复的时间太长</li>
 </ul>
@@ -395,22 +453,29 @@
 <li><strong>EstimatedRTT</strong>：由于 SampleRTT 波动很大，更有意义的是计算其平均值，该平均值即为 EstimatedRTT。</li>
 </ul>
 <p>使用指数加权移动平均估算 EstimatedRTT：</p>
-<script type="math/tex; mode=display">
-EstimatedRTT = (1- a)* EstimatedRTT + a* SampleRTT</script><p>通常 $a=0.125$<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/采样RTT与估算RTT.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>+</mo><mi>a</mi><mo>∗</mo><mi>S</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>R</mi><mi>T</mi><mi>T</mi></mrow><annotation encoding="application/x-tex">EstimatedRTT = (1- a)* EstimatedRTT + a* SampleRTT
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">ima</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">ima</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4653em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">am</span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span></span></span></span></span></p>
+<p>通常 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.125</mn></mrow><annotation encoding="application/x-tex">a=0.125</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.125</span></span></span></span><br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/采样RTT与估算RTT.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
 <p>估算出RTT之后，我们希望超时值 TimeoutInterval 能够比 EstimatedRTT 大一些，满足使得大多数正常传输不超时。TimeoutInterval 和 TimeoutInterval 之间的差值应当与 RTT 的波动幅度相关，这里考虑 DevRTT。其中</p>
-<script type="math/tex; mode=display">
-DevRTT = (1-b)*DevRTT + b*|SampleRTT-EstimatedRTT|</script><p>通常 $b=0.25$</p>
-<h5 id="TCP确认的二义性"><a href="#TCP确认的二义性" class="headerlink" title="TCP确认的二义性"></a>TCP确认的二义性</h5><ul>
-<li>TCP确认的二义性问题：<ul>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>D</mi><mi>e</mi><mi>v</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>=</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>b</mi><mo stretchy="false">)</mo><mo>∗</mo><mi>D</mi><mi>e</mi><mi>v</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>+</mo><mi>b</mi><mo>∗</mo><mi mathvariant="normal">∣</mi><mi>S</mi><mi>a</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi><mi>R</mi><mi>T</mi><mi>T</mi><mo>−</mo><mi>E</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>m</mi><mi>a</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>R</mi><mi>T</mi><mi>T</mi><mi mathvariant="normal">∣</mi></mrow><annotation encoding="application/x-tex">DevRTT = (1-b)*DevRTT + b*|SampleRTT-EstimatedRTT|
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal">De</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">De</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">am</span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal">ima</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mord">∣</span></span></span></span></span></p>
+<p>通常 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mn>0.25</mn></mrow><annotation encoding="application/x-tex">b=0.25</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.25</span></span></span></span></p>
+<h5 id="TCP确认的二义性">TCP确认的二义性</h5>
+<ul>
+<li>TCP确认的二义性问题：
+<ul>
 <li>重传的TCP报文段使用与原报文段相同的序号</li>
 <li>发送端收到确认后 ，无法得知是对哪个报文段进行的确认</li>
 </ul>
 </li>
-<li>二义性确认带来的问题：<ul>
+<li>二义性确认带来的问题：
+<ul>
 <li>对重传报文段测量的SampleRTT，可能不准确</li>
 </ul>
 </li>
-<li>解决方法：<ul>
+<li>解决方法：
+<ul>
 <li>忽略有二义性的确认，只对一次发送成功的报文段测量SampleRTT ，并更新EstimtedRTT</li>
 <li>当TCP重传一个段时，停止测量SampleRTT</li>
 </ul>
@@ -420,15 +485,17 @@ DevRTT = (1-b)*DevRTT + b*|SampleRTT-EstimatedRTT|</script><p>通常 $b=0.25$</p
   <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP确认的二义性1.png' height=200 style="display: inline-block; margin-right: 10px;">
   <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP确认的二义性2.png' height=200 style="display: inline-block; margin-right: 10px;">
 </div>
-
-<h5 id="定时器补偿"><a href="#定时器补偿" class="headerlink" title="定时器补偿"></a>定时器补偿</h5><p>如果为了解决TCP确认的二义性，而停止测量SampleRTT，可能会面临下面的问题：</p>
+<h5 id="定时器补偿">定时器补偿</h5>
+<p>如果为了解决TCP确认的二义性，而停止测量SampleRTT，可能会面临下面的问题：</p>
 <ul>
-<li>简单忽略重传报文段的问题：<ul>
+<li>简单忽略重传报文段的问题：
+<ul>
 <li>重传意味着超时值可能偏小了，需要增大</li>
 <li>若简单忽略重传报文段（不更新EstimtedRTT），则超时值也不会更新，超时设置过小的问题没有解决</li>
 </ul>
 </li>
-<li>解决方法：<ul>
+<li>解决方法：
+<ul>
 <li>采用定时器补偿策略，发送方每重传一个报文段，就直接将超时值增大一倍（不依赖于RTT的更新）</li>
 <li>若连续发生超时事件，超时值呈指数增长（至一个设定的上限值）</li>
 </ul>
@@ -440,41 +507,55 @@ DevRTT = (1-b)*DevRTT + b*|SampleRTT-EstimatedRTT|</script><p>通常 $b=0.25$</p
 <li>若发生超时，每次重传时对定时器进行补偿，<em>直到成功传输一个报文段为止</em></li>
 <li>若收到上层应用数据、或某个报文段没有重传就被确认了，用最近的EstimatedRTT估计超时值</li>
 </ul>
-<h4 id="TCP的接收端"><a href="#TCP的接收端" class="headerlink" title="TCP的接收端"></a>TCP的接收端</h4><p>理论上，接收端只需区分两种情况：</p>
+<h4 id="TCP的接收端">TCP的接收端</h4>
+<p>理论上，接收端只需区分两种情况：</p>
 <ul>
 <li>收到期待的报文段：发送更新的确认序号</li>
 <li>其它情况：重复当前的确认序号</li>
 </ul>
-<h5 id="推迟确认"><a href="#推迟确认" class="headerlink" title="推迟确认"></a>推迟确认</h5><ul>
-<li>为减小通信量，TCP允许接收端推迟确认：<ul>
+<h5 id="推迟确认">推迟确认</h5>
+<ul>
+<li>为减小通信量，TCP允许接收端推迟确认：
+<ul>
 <li>接收端可以在收到若干个报文段后，发送一个累积确认的报文段</li>
 </ul>
 </li>
-<li>推迟确认带来的问题：<ul>
+<li>推迟确认带来的问题：
+<ul>
 <li>若延迟太大，会导致不必要的重传</li>
 <li>推迟确认造成RTT估计不准确</li>
 </ul>
 </li>
-<li>TCP协议规定：<ul>
+<li>TCP协议规定：
+<ul>
 <li>推迟确认的时间最多为500ms</li>
 <li>接收方至少每隔一个报文段使用正常方式进行确认</li>
 </ul>
 </li>
 </ul>
-<h5 id="快速重传"><a href="#快速重传" class="headerlink" title="快速重传"></a>快速重传</h5><p>仅靠超时重发丢失的报文段，恢复太慢，因此发送方可利用重复ACK检测报文段丢失：</p>
+<h5 id="快速重传">快速重传</h5>
+<p>仅靠超时重发丢失的报文段，恢复太慢，因此发送方可利用重复ACK检测报文段丢失：</p>
 <ul>
 <li>发送方通常连续发送许多报文段</li>
 <li>若仅有个别报文段丢失，发送方将收到多个重复序号的ACK</li>
 <li>多数情况下IP按序交付分组，重复ACK极有可能因丢包产生</li>
 </ul>
-<p>TCP协议规定：当发送方收到对同一序号的3次重复确认时，立即重发包含该序号的报文段。<br>所谓快速重传，就是在定时器到期前重发丢失的报文段</p>
-<h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><h4 id="接收缓存"><a href="#接收缓存" class="headerlink" title="接收缓存"></a>接收缓存</h4><p>TCP接收端有一个接收缓存，接收端TCP将收到的数据放入接收缓存，应用进程从接收缓存中读数据。如果接收缓存中的数据未及时取走，后续到达的数据可能会因缓存溢出而丢失。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/接收缓存.png' width=400 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>TCP协议规定：当发送方收到对同一序号的3次重复确认时，立即重发包含该序号的报文段。<br>
+所谓快速重传，就是在定时器到期前重发丢失的报文段</p>
+<h3 id="TCP流量控制">TCP流量控制</h3>
+<h4 id="接收缓存">接收缓存</h4>
+<p>TCP接收端有一个接收缓存，接收端TCP将收到的数据放入接收缓存，应用进程从接收缓存中读数据。如果接收缓存中的数据未及时取走，后续到达的数据可能会因缓存溢出而丢失。<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/接收缓存.png' width=400 style="display: block; margin-left: auto; margin-right: auto;"></p>
 <p>因此流量控制希望发送端TCP通过调节发送速率，不使接收端缓存溢出。</p>
-<h4 id="TCP如何进行流量控制"><a href="#TCP如何进行流量控制" class="headerlink" title="TCP如何进行流量控制"></a>TCP如何进行流量控制</h4><p>接收缓存中的可用空间称为接收窗口：</p>
-<script type="math/tex; mode=display">
-RcvWindow = RcvBuffer-[LastByteRcvd -LastByteRead]</script><p>接收方将 RcvWindow 放在报头中，向发送方通告接收缓存的可用空间，从而发送方限制未确认的字节数不超过接收窗口的大小，即：</p>
-<script type="math/tex; mode=display">
-LastByteSent-LastByteAcked ≦ RcvWindow</script><h4 id="非零窗口通告与零窗口探测"><a href="#非零窗口通告与零窗口探测" class="headerlink" title="非零窗口通告与零窗口探测"></a>非零窗口通告与零窗口探测</h4><p>在理论上，当接收窗口为0时，发送方必须停止发送；当接收窗口变为非0时，接收方应通告增大的接收窗口。而在TCP协议中，触发一次TCP传输需要满足以下三个条件之一：</p>
+<h4 id="TCP如何进行流量控制">TCP如何进行流量控制</h4>
+<p>接收缓存中的可用空间称为接收窗口：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mi>c</mi><mi>v</mi><mi>W</mi><mi>i</mi><mi>n</mi><mi>d</mi><mi>o</mi><mi>w</mi><mo>=</mo><mi>R</mi><mi>c</mi><mi>v</mi><mi>B</mi><mi>u</mi><mi>f</mi><mi>f</mi><mi>e</mi><mi>r</mi><mo>−</mo><mo stretchy="false">[</mo><mi>L</mi><mi>a</mi><mi>s</mi><mi>t</mi><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>R</mi><mi>c</mi><mi>v</mi><mi>d</mi><mo>−</mo><mi>L</mi><mi>a</mi><mi>s</mi><mi>t</mi><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>R</mi><mi>e</mi><mi>a</mi><mi>d</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">RcvWindow = RcvBuffer-[LastByteRcvd -LastByteRead]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">Win</span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">u</span><span class="mord mathnormal" style="margin-right:0.10764em;">ff</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">L</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.05017em;">tB</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.05017em;">tB</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">e</span><span class="mord mathnormal">a</span><span class="mord mathnormal">d</span><span class="mclose">]</span></span></span></span></span></p>
+<p>接收方将 RcvWindow 放在报头中，向发送方通告接收缓存的可用空间，从而发送方限制未确认的字节数不超过接收窗口的大小，即：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>a</mi><mi>s</mi><mi>t</mi><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>S</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>−</mo><mi>L</mi><mi>a</mi><mi>s</mi><mi>t</mi><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>A</mi><mi>c</mi><mi>k</mi><mi>e</mi><mi>d</mi><mo>≦</mo><mi>R</mi><mi>c</mi><mi>v</mi><mi>W</mi><mi>i</mi><mi>n</mi><mi>d</mi><mi>o</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">LastByteSent-LastByteAcked ≦ RcvWindow
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.05017em;">tB</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0117em;vertical-align:-0.2558em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.05017em;">tB</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">A</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel amsrm">≦</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">Win</span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span></span></p>
+<h4 id="非零窗口通告与零窗口探测">非零窗口通告与零窗口探测</h4>
+<p>在理论上，当接收窗口为0时，发送方必须停止发送；当接收窗口变为非0时，接收方应通告增大的接收窗口。而在TCP协议中，触发一次TCP传输需要满足以下三个条件之一：</p>
 <ul>
 <li>应用程序调用</li>
 <li>超时</li>
@@ -482,40 +563,52 @@ LastByteSent-LastByteAcked ≦ RcvWindow</script><h4 id="非零窗口通告与�
 </ul>
 <p>对于单向传输中的接收方，只有第三个条件能触发传输，但是当发送方停止发送后，接收方不再收到数据，无法返回确认。因此就产生了一个死锁。要解决这个问题，发送端在接收到<strong>零窗口通告之后</strong>，可以采用<strong>零窗口探测</strong>。</p>
 <p>即发送端收到零窗口通告时，启动一个<strong>坚持定时器</strong>，定时器超时后，发送端发送一个零窗口探测报文段（序号为上一个段中最后一个字节的序号）。接收端在响应的报文段中通告当前接收窗口的大小，若发送端仍收到零窗口通告，重新启动坚持定时器</p>
-<h3 id="TCP连接管理"><a href="#TCP连接管理" class="headerlink" title="TCP连接管理"></a>TCP连接管理</h3><h2 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h2><p>TCP拥塞控制需要回答三个问题：</p>
+<h3 id="TCP连接管理">TCP连接管理</h3>
+<h2 id="TCP拥塞控制">TCP拥塞控制</h2>
+<p>TCP拥塞控制需要回答三个问题：</p>
 <ul>
 <li>发送方如何感知网络拥塞？</li>
 <li>发送方采用什么机制来限制发送速率？</li>
 <li>发送方感知到网络拥塞后，采取什么策略调节发送速率？</li>
 </ul>
-<h3 id="拥塞检测和速率限制"><a href="#拥塞检测和速率限制" class="headerlink" title="拥塞检测和速率限制"></a>拥塞检测和速率限制</h3><p><strong>发送方如何感知网络拥塞</strong>：<br>由于拥塞发生在网络层，因此发送方只能利用丢包事件感知拥塞。拥塞会造成丢包和分组延迟增大，那么对于传输层来说，无论是丢包还是分组延迟过大，对于发送端来说都是丢包了。</p>
-<p><strong>发送方采用什么机制限制发送速率</strong>：<br>和流量控制中的接收窗口类似，发送方使用拥塞窗口 cwnd 限制已发送未确认的数据量。</p>
-<script type="math/tex; mode=display">
-LastByteSent-LastByteAcked \le  cwnd</script><script type="math/tex; mode=display">
-rate =\frac{cwnd}{RTT}Bytes/sec</script><h3 id="拥塞窗口的调节策略：AIMD"><a href="#拥塞窗口的调节策略：AIMD" class="headerlink" title="拥塞窗口的调节策略：AIMD"></a>拥塞窗口的调节策略：AIMD</h3><ul>
+<h3 id="拥塞检测和速率限制">拥塞检测和速率限制</h3>
+<p><strong>发送方如何感知网络拥塞</strong>：<br>
+由于拥塞发生在网络层，因此发送方只能利用丢包事件感知拥塞。拥塞会造成丢包和分组延迟增大，那么对于传输层来说，无论是丢包还是分组延迟过大，对于发送端来说都是丢包了。</p>
+<p><strong>发送方采用什么机制限制发送速率</strong>：<br>
+和流量控制中的接收窗口类似，发送方使用拥塞窗口 cwnd 限制已发送未确认的数据量。</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>L</mi><mi>a</mi><mi>s</mi><mi>t</mi><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>S</mi><mi>e</mi><mi>n</mi><mi>t</mi><mo>−</mo><mi>L</mi><mi>a</mi><mi>s</mi><mi>t</mi><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>A</mi><mi>c</mi><mi>k</mi><mi>e</mi><mi>d</mi><mo>≤</mo><mi>c</mi><mi>w</mi><mi>n</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">LastByteSent-LastByteAcked \le  cwnd
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.05017em;">tB</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal" style="margin-right:0.05017em;">tB</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">A</span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>r</mi><mi>a</mi><mi>t</mi><mi>e</mi><mo>=</mo><mfrac><mrow><mi>c</mi><mi>w</mi><mi>n</mi><mi>d</mi></mrow><mrow><mi>R</mi><mi>T</mi><mi>T</mi></mrow></mfrac><mi>B</mi><mi>y</mi><mi>t</mi><mi>e</mi><mi>s</mi><mi mathvariant="normal">/</mi><mi>s</mi><mi>e</mi><mi>c</mi></mrow><annotation encoding="application/x-tex">rate =\frac{cwnd}{RTT}Bytes/sec
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.0574em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">n</span><span class="mord mathnormal">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord mathnormal">t</span><span class="mord mathnormal">es</span><span class="mord">/</span><span class="mord mathnormal">sec</span></span></span></span></span></p>
+<h3 id="拥塞窗口的调节策略：AIMD">拥塞窗口的调节策略：AIMD</h3>
+<ul>
 <li>乘性减（<strong>M</strong>ultiplicative <strong>D</strong>ecrease）:发送方检测到丢包后，将cwnd的大小减半（但不能小于一个MSS）。目的：迅速减小发送速率，缓解拥塞</li>
 <li>加性增（<strong>A</strong>dditive <strong>I</strong>ncrease）：若无丢包，每经过一个RTT，将cwnd增大一个MSS，直到检测到丢包。目的：缓慢增大发送速率，避免振荡</li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/AIMD拥塞调节.png' width=350 style="display: block; margin-left: auto; margin-right: auto;"></p>
-<h3 id="TCP慢启动-Slow-Start"><a href="#TCP慢启动-Slow-Start" class="headerlink" title="TCP慢启动 (Slow Start)"></a>TCP慢启动 (Slow Start)</h3><p>优秀的拥塞窗口的调节策略希望发送速率能够尽可能地贴近可用的带宽，而AIMD策略使用加性增的变化速度太慢。因此这里引入慢启动。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/AIMD拥塞调节.png' width=350 style="display: block; margin-left: auto; margin-right: auto;">
+<h3 id="TCP慢启动-Slow-Start">TCP慢启动 (Slow Start)</h3>
+<p>优秀的拥塞窗口的调节策略希望发送速率能够尽可能地贴近可用的带宽，而AIMD策略使用加性增的变化速度太慢。因此这里引入慢启动。</p>
 <p>慢启动的基本思想：</p>
 <ul>
 <li>在新建连接上<strong>指数增大</strong>cwnd，直至检测到丢包（此时终止慢启动）</li>
 <li>希望迅速增大cwnd至可用的发送速度</li>
 </ul>
-<h3 id="区分不同的丢包事件"><a href="#区分不同的丢包事件" class="headerlink" title="区分不同的丢包事件"></a>区分不同的丢包事件</h3><p>超时和收到3个重复的ACK，它们反映出来的网络拥塞程度是步一样的。</p>
+<h3 id="区分不同的丢包事件">区分不同的丢包事件</h3>
+<p>超时和收到3个重复的ACK，它们反映出来的网络拥塞程度是步一样的。</p>
 <ul>
 <li>超时：说明网络交付能力很差</li>
 <li>收到3个重复的ACK：说明网络仍有一定的交付能力</li>
 </ul>
 <p>因此目前的TCP实现区分上述两种不同的丢包事件</p>
 <ul>
-<li>收到3个重复的ACK：<ul>
+<li>收到3个重复的ACK：
+<ul>
 <li>将cwnd降至一半</li>
 <li>使用AIMD调节cwnd</li>
 </ul>
 </li>
-<li>超时：<ul>
+<li>超时：
+<ul>
 <li>设置门限 =cwnd/2</li>
 <li>cwnd=1MSS</li>
 <li>使用慢启动增大cwnd至门限</li>
@@ -523,22 +616,35 @@ rate =\frac{cwnd}{RTT}Bytes/sec</script><h3 id="拥塞窗口的调节策略：AI
 </ul>
 </li>
 </ul>
-<h3 id="TCP拥塞控制的实现"><a href="#TCP拥塞控制的实现" class="headerlink" title="TCP拥塞控制的实现"></a>TCP拥塞控制的实现</h3><p>发送方维护变量ssthresh，发生丢包时，ssthresh=cwnd/2，<br>ssthresh是从慢启动转为拥塞避免(Congestion Avoidance) 的分水岭：</p>
+<h3 id="TCP拥塞控制的实现">TCP拥塞控制的实现</h3>
+<p>发送方维护变量ssthresh，发生丢包时，ssthresh=cwnd/2，<br>
+ssthresh是从慢启动转为拥塞避免(Congestion Avoidance) 的分水岭：</p>
 <ul>
 <li>cwnd低于门限时，执行慢启动</li>
-<li>cwnd高于门限：执行拥塞避免<br>拥塞避免阶段，拥塞窗口线性增长：每当收到ACK， cwnd=cwnd + MSS*(MSS/cwnd)</li>
+<li>cwnd高于门限：执行拥塞避免<br>
+拥塞避免阶段，拥塞窗口线性增长：每当收到ACK， cwnd=cwnd + MSS*(MSS/cwnd)</li>
 </ul>
 <p>检测到3个重复的ACK后：</p>
 <ul>
 <li>TCP Reno实现： cwnd= ssthresh+3MSS，线性增长</li>
 <li>TCP Tahoe实现：cwnd=1 MSS，慢启动</li>
 </ul>
-<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP拥塞实现.png' width=400 style="display: block; margin-left: auto; margin-right: auto;"></p>
-</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>传输层</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/ec75daa1.html">http://zhuxz0299.github.io/posts/ec75daa1.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>朱小志</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-01-07</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-01-08</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_16.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5f9d1835.html" title="Support Vector Machine"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_38.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Support Vector Machine</div></div></a></div><div class="next-post pull-right"><a href="/posts/967533ad.html" title="8253/4 Timer"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_4.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">8253/4 Timer</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0%E5%92%8C%E4%BC%A0%E8%BE%93%E5%B1%82%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">概述和传输层服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">传输层的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%A6%82%E4%BD%95%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.</span> <span class="toc-text">不同终端上的进程如何通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88%E6%9C%8D%E5%8A%A1%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">传输层提供什么服务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%9E%E7%8E%B0%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">传输层实现什么功能？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">套接字编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">创建一个网络应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3%EF%BC%9Asocket-API"><span class="toc-number">2.2.</span> <span class="toc-text">应用编程接口：socket API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EUDP%E7%9A%84%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">基于UDP的套接字通信流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8TCP%E5%A5%97%E6%8E%A5%E5%AD%97%E5%AE%9E%E7%8E%B0%E5%9B%9E%E9%9F%B3%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.2.2.</span> <span class="toc-text">使用TCP套接字实现回音服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E5%A5%97%E6%8E%A5%E5%AD%97%E6%9C%8D%E5%8A%A1%E5%AE%A2%E6%88%B7"><span class="toc-number">2.2.3.</span> <span class="toc-text">服务器使用多个套接字服务客户</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%A4%8D%E7%94%A8%E5%92%8C%E5%88%86%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">传输层复用和分用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%E6%A0%87%E8%AF%86%E4%B8%8E%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-number">3.1.</span> <span class="toc-text">套接字标识与端口号</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93%EF%BC%9AUDP"><span class="toc-number">4.</span> <span class="toc-text">无连接传输：UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.1.</span> <span class="toc-text">UDP提供的服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="toc-number">4.2.</span> <span class="toc-text">UDP报文段结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E6%A0%A1%E9%AA%8C%E5%92%8C%E8%AE%A1%E7%AE%97"><span class="toc-number">4.3.</span> <span class="toc-text">UDP校验和计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81UDP"><span class="toc-number">4.4.</span> <span class="toc-text">为什么需要UDP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BC%A0%E8%BE%93%EF%BC%9ATCP"><span class="toc-number">5.</span> <span class="toc-text">面向连接的传输：TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-%E6%A6%82%E8%BF%B0"><span class="toc-number">5.1.</span> <span class="toc-text">TCP 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="toc-number">5.2.</span> <span class="toc-text">TCP报文段结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84TCP%E9%80%89%E9%A1%B9"><span class="toc-number">5.2.1.</span> <span class="toc-text">重要的TCP选项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E5%8F%AF%E9%9D%A0%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93"><span class="toc-number">5.3.</span> <span class="toc-text">TCP可靠数据传输</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E9%AB%98%E5%BA%A6%E7%AE%80%E5%8C%96%E7%9A%84TCP%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.3.1.</span> <span class="toc-text">一个高度简化的TCP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-%E5%8F%91%E9%80%81%E6%96%B9"><span class="toc-number">5.3.2.</span> <span class="toc-text">TCP 发送方</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E5%80%BC"><span class="toc-number">5.3.2.1.</span> <span class="toc-text">如何设置超时值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TCP%E7%A1%AE%E8%AE%A4%E7%9A%84%E4%BA%8C%E4%B9%89%E6%80%A7"><span class="toc-number">5.3.2.2.</span> <span class="toc-text">TCP确认的二义性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E8%A1%A5%E5%81%BF"><span class="toc-number">5.3.2.3.</span> <span class="toc-text">定时器补偿</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP%E7%9A%84%E6%8E%A5%E6%94%B6%E7%AB%AF"><span class="toc-number">5.3.3.</span> <span class="toc-text">TCP的接收端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A8%E8%BF%9F%E7%A1%AE%E8%AE%A4"><span class="toc-number">5.3.3.1.</span> <span class="toc-text">推迟确认</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0"><span class="toc-number">5.3.3.2.</span> <span class="toc-text">快速重传</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">5.4.</span> <span class="toc-text">TCP流量控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E7%BC%93%E5%AD%98"><span class="toc-number">5.4.1.</span> <span class="toc-text">接收缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">5.4.2.</span> <span class="toc-text">TCP如何进行流量控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E9%9B%B6%E7%AA%97%E5%8F%A3%E9%80%9A%E5%91%8A%E4%B8%8E%E9%9B%B6%E7%AA%97%E5%8F%A3%E6%8E%A2%E6%B5%8B"><span class="toc-number">5.4.3.</span> <span class="toc-text">非零窗口通告与零窗口探测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86"><span class="toc-number">5.5.</span> <span class="toc-text">TCP连接管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-number">6.</span> <span class="toc-text">TCP拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E6%A3%80%E6%B5%8B%E5%92%8C%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6"><span class="toc-number">6.1.</span> <span class="toc-text">拥塞检测和速率限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E7%AA%97%E5%8F%A3%E7%9A%84%E8%B0%83%E8%8A%82%E7%AD%96%E7%95%A5%EF%BC%9AAIMD"><span class="toc-number">6.2.</span> <span class="toc-text">拥塞窗口的调节策略：AIMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%85%A2%E5%90%AF%E5%8A%A8-Slow-Start"><span class="toc-number">6.3.</span> <span class="toc-text">TCP慢启动 (Slow Start)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E4%B8%A2%E5%8C%85%E4%BA%8B%E4%BB%B6"><span class="toc-number">6.4.</span> <span class="toc-text">区分不同的丢包事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.5.</span> <span class="toc-text">TCP拥塞控制的实现</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By 朱小志</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/计算机网络笔记/传输层/TCP拥塞实现.png' width=400 style="display: block; margin-left: auto; margin-right: auto;">
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>传输层</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/ec75daa1.html">http://zhuxz0299.github.io/posts/ec75daa1.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>朱小志</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-01-07</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-01-08</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_14.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5f9d1835.html" title="Support Vector Machine"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_25.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Support Vector Machine</div></div></a></div><div class="next-post pull-right"><a href="/posts/967533ad.html" title="8253/4 Timer"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_15.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">8253/4 Timer</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0%E5%92%8C%E4%BC%A0%E8%BE%93%E5%B1%82%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">概述和传输层服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">传输层的位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E7%BB%88%E7%AB%AF%E4%B8%8A%E7%9A%84%E8%BF%9B%E7%A8%8B%E5%A6%82%E4%BD%95%E9%80%9A%E4%BF%A1"><span class="toc-number">1.2.</span> <span class="toc-text">不同终端上的进程如何通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88%E6%9C%8D%E5%8A%A1%EF%BC%9F"><span class="toc-number">1.3.</span> <span class="toc-text">传输层提供什么服务？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%9E%E7%8E%B0%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">传输层实现什么功能？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">套接字编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text">创建一个网络应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3%EF%BC%9Asocket-API"><span class="toc-number">2.2.</span> <span class="toc-text">应用编程接口：socket API</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EUDP%E7%9A%84%E5%A5%97%E6%8E%A5%E5%AD%97%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">基于UDP的套接字通信流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8TCP%E5%A5%97%E6%8E%A5%E5%AD%97%E5%AE%9E%E7%8E%B0%E5%9B%9E%E9%9F%B3%E6%9C%8D%E5%8A%A1"><span class="toc-number">2.2.2.</span> <span class="toc-text">使用TCP套接字实现回音服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E5%A5%97%E6%8E%A5%E5%AD%97%E6%9C%8D%E5%8A%A1%E5%AE%A2%E6%88%B7"><span class="toc-number">2.2.3.</span> <span class="toc-text">服务器使用多个套接字服务客户</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E5%A4%8D%E7%94%A8%E5%92%8C%E5%88%86%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">传输层复用和分用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%E6%A0%87%E8%AF%86%E4%B8%8E%E7%AB%AF%E5%8F%A3%E5%8F%B7"><span class="toc-number">3.1.</span> <span class="toc-text">套接字标识与端口号</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E8%BF%9E%E6%8E%A5%E4%BC%A0%E8%BE%93%EF%BC%9AUDP"><span class="toc-number">4.</span> <span class="toc-text">无连接传输：UDP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-number">4.1.</span> <span class="toc-text">UDP提供的服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="toc-number">4.2.</span> <span class="toc-text">UDP报文段结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UDP%E6%A0%A1%E9%AA%8C%E5%92%8C%E8%AE%A1%E7%AE%97"><span class="toc-number">4.3.</span> <span class="toc-text">UDP校验和计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81UDP"><span class="toc-number">4.4.</span> <span class="toc-text">为什么需要UDP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%BC%A0%E8%BE%93%EF%BC%9ATCP"><span class="toc-number">5.</span> <span class="toc-text">面向连接的传输：TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP-%E6%A6%82%E8%BF%B0"><span class="toc-number">5.1.</span> <span class="toc-text">TCP 概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%8A%A5%E6%96%87%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="toc-number">5.2.</span> <span class="toc-text">TCP报文段结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84TCP%E9%80%89%E9%A1%B9"><span class="toc-number">5.2.1.</span> <span class="toc-text">重要的TCP选项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E5%8F%AF%E9%9D%A0%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93"><span class="toc-number">5.3.</span> <span class="toc-text">TCP可靠数据传输</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E9%AB%98%E5%BA%A6%E7%AE%80%E5%8C%96%E7%9A%84TCP%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.3.1.</span> <span class="toc-text">一个高度简化的TCP协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP-%E5%8F%91%E9%80%81%E6%96%B9"><span class="toc-number">5.3.2.</span> <span class="toc-text">TCP 发送方</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E5%80%BC"><span class="toc-number">5.3.2.1.</span> <span class="toc-text">如何设置超时值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#TCP%E7%A1%AE%E8%AE%A4%E7%9A%84%E4%BA%8C%E4%B9%89%E6%80%A7"><span class="toc-number">5.3.2.2.</span> <span class="toc-text">TCP确认的二义性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E8%A1%A5%E5%81%BF"><span class="toc-number">5.3.2.3.</span> <span class="toc-text">定时器补偿</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP%E7%9A%84%E6%8E%A5%E6%94%B6%E7%AB%AF"><span class="toc-number">5.3.3.</span> <span class="toc-text">TCP的接收端</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A8%E8%BF%9F%E7%A1%AE%E8%AE%A4"><span class="toc-number">5.3.3.1.</span> <span class="toc-text">推迟确认</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0"><span class="toc-number">5.3.3.2.</span> <span class="toc-text">快速重传</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">5.4.</span> <span class="toc-text">TCP流量控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E7%BC%93%E5%AD%98"><span class="toc-number">5.4.1.</span> <span class="toc-text">接收缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TCP%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">5.4.2.</span> <span class="toc-text">TCP如何进行流量控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E9%9B%B6%E7%AA%97%E5%8F%A3%E9%80%9A%E5%91%8A%E4%B8%8E%E9%9B%B6%E7%AA%97%E5%8F%A3%E6%8E%A2%E6%B5%8B"><span class="toc-number">5.4.3.</span> <span class="toc-text">非零窗口通告与零窗口探测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86"><span class="toc-number">5.5.</span> <span class="toc-text">TCP连接管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-number">6.</span> <span class="toc-text">TCP拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E6%A3%80%E6%B5%8B%E5%92%8C%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6"><span class="toc-number">6.1.</span> <span class="toc-text">拥塞检测和速率限制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E7%AA%97%E5%8F%A3%E7%9A%84%E8%B0%83%E8%8A%82%E7%AD%96%E7%95%A5%EF%BC%9AAIMD"><span class="toc-number">6.2.</span> <span class="toc-text">拥塞窗口的调节策略：AIMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%85%A2%E5%90%AF%E5%8A%A8-Slow-Start"><span class="toc-number">6.3.</span> <span class="toc-text">TCP慢启动 (Slow Start)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84%E4%B8%A2%E5%8C%85%E4%BA%8B%E4%BB%B6"><span class="toc-number">6.4.</span> <span class="toc-text">区分不同的丢包事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">6.5.</span> <span class="toc-text">TCP拥塞控制的实现</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By 朱小志</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
   document.querySelectorAll('#article-container span.katex-display').forEach(item => {
     btf.wrap(item, 'div', { class: 'katex-wrap'})
   })
 })()</script></div><script defer src="/js/cursor.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_121.webp);"> <a class="categoryBar-list-link" href="categories/demo/">demo</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_122.webp);"> <a class="categoryBar-list-link" href="categories/latex/">latex</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_123.webp);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_124.webp);"> <a class="categoryBar-list-link" href="categories/ccf-csp/">ccf-csp</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_125.webp);"> <a class="categoryBar-list-link" href="categories/artificial-intelligence/">artificial intelligence</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_126.webp);"> <a class="categoryBar-list-link" href="categories/动手学深度学习/">动手学深度学习</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_127.webp);"> <a class="categoryBar-list-link" href="categories/game-theory/">game theory</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_128.webp);"> <a class="categoryBar-list-link" href="categories/Operating-system/">Operating system</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/data-science/">data science</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/machine-learning/">machine learning</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/自行车/">自行车</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-graphics-notes/">computer graphics notes</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-organization/">computer organization</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-network/">computer network</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/试卷解答/">试卷解答</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/量子力学/">量子力学</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
   function butterfly_footer_beautify_injector_config(){
     var parent_div_git = document.getElementById('footer-wrap');
     var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于Vercel" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://dashboard.4everland.org/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于4EVERLAND" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-4EVERLAND-22DDDD?style=flat&amp;logo=IPFS" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
@@ -562,16 +668,6 @@ rate =\frac{cwnd}{RTT}Bytes/sec</script><h3 id="拥塞窗口的调节策略：AI
   else if (epage === cpage){
     butterfly_footer_beautify_injector_config();
   }
-  </script><script data-pjax>
-    function butterfly_categories_card_injector_config(){
-      var parent_div_git = document.getElementById('recent-posts');
-      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_121.webp);"> <a class="categoryBar-list-link" href="categories/demo/">demo</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_122.webp);"> <a class="categoryBar-list-link" href="categories/latex/">latex</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_123.webp);"> <a class="categoryBar-list-link" href="categories/ccf-csp/">ccf-csp</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_124.webp);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_125.webp);"> <a class="categoryBar-list-link" href="categories/artificial-intelligence/">artificial intelligence</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_126.webp);"> <a class="categoryBar-list-link" href="categories/machine-learning/">machine learning</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_127.webp);"> <a class="categoryBar-list-link" href="categories/动手学深度学习/">动手学深度学习</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_128.webp);"> <a class="categoryBar-list-link" href="categories/game-theory/">game theory</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/data-science/">data science</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/Operating-system/">Operating system</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/试卷解答/">试卷解答</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/自行车/">自行车</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-graphics-notes/">computer graphics notes</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-organization/">computer organization</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/量子力学/">量子力学</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-network/">computer network</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
-      console.log('已挂载butterfly_categories_card')
-      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
-      }
-    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
-    butterfly_categories_card_injector_config()
-    }
   </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
 for(var i = 0;i<arr.length;i++){
     arr[i].classList.add('wow');
