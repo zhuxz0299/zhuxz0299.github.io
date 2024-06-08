@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Causal inference and causal discovery | Zhuxz's Blog</title><meta name="author" content="朱小志"><meta name="copyright" content="朱小志"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Association, Causation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Causal inference and causal discovery">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/19bfb1b0.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="Association, Causation">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_5.webp">
+<meta property="article:published_time" content="2024-06-08T03:09:21.000Z">
+<meta property="article:modified_time" content="2024-06-08T07:14:34.219Z">
+<meta property="article:author" content="朱小志">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_5.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://zhuxz0299.github.io/posts/19bfb1b0.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Causal inference and causal discovery',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-08 15:14:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/double_row_bug_fix.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/category_card.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">117</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">30</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_5.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zhuxz's Blog"><span class="site-name">Zhuxz's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Causal inference and causal discovery</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-08T03:09:21.000Z" title="发表于 2024-06-08 11:09:21">2024-06-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-08T07:14:34.219Z" title="更新于 2024-06-08 15:14:34">2024-06-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Causal inference and causal discovery"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Association-vs-Causation-Intervention"><a href="#Association-vs-Causation-Intervention" class="headerlink" title="Association vs. Causation (Intervention)"></a>Association vs. Causation (Intervention)</h2><h3 id="What-Is-Association"><a href="#What-Is-Association" class="headerlink" title="What Is Association?"></a>What Is Association?</h3><ul>
+<li>An <strong>associational</strong> concept is any relationship that can be defined in terms of a joint distribution of observed variables<ul>
+<li>The term “association” refers broadly to any such relationship, whereas the narrower term “correlation” refers to a linear relationship between two quantities.</li>
+</ul>
+</li>
+<li><strong>causal</strong> concepts must be traced to some premises that invoke such concepts; it cannot be inferred or derived from statistical associations alone.”</li>
+</ul>
+<h3 id="Yule-Simpson’s-Paradox"><a href="#Yule-Simpson’s-Paradox" class="headerlink" title="Yule-Simpson’s Paradox"></a>Yule-Simpson’s Paradox</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/simpson_paradox.png' width=450 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h2 id="Structural-Causal-Model"><a href="#Structural-Causal-Model" class="headerlink" title="Structural Causal Model"></a>Structural Causal Model</h2><h3 id="POTENTIAL-OUTCOME-FRAMEWORK"><a href="#POTENTIAL-OUTCOME-FRAMEWORK" class="headerlink" title="POTENTIAL-OUTCOME FRAMEWORK"></a>POTENTIAL-OUTCOME FRAMEWORK</h3><p><strong>The Counterfactual (Potential Outcomes/Neyman-Rubin) Framework</strong></p>
+<ul>
+<li>Causal questions are “what if” questions.</li>
+<li>Extend the logic of randomized experiments to observational data.</li>
+</ul>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p>假如选择为 $T \in { 0 , 1 }$，对应最终结果为 $Y_0, Y_1$，那么可以定义 Individual causal effect (ICE) $=Y_1-Y_0$。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/ice_example.png' width=450 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h4 id="Fundamental-Problem-of-Causal-Inference"><a href="#Fundamental-Problem-of-Causal-Inference" class="headerlink" title="Fundamental Problem of Causal Inference"></a>Fundamental Problem of Causal Inference</h4><p>对于同一个个体而言，我们无法真正同时观察到其做出两种选择之后得到的结果。</p>
+<ul>
+<li>Average causal effect (ACE) $= \mathbb{E}[Y_1] - \mathbb{E}[Y_0]$<ul>
+<li>对所有人做平均。同时需要注意，这里的“所有人”是包含了 $T=0,1$ 的情况</li>
+<li>在实际情况下我们能算的平均应该只是 $\mathbb{E}[Y_1|T=1], \mathbb{E}[Y_0|T=0]$</li>
+</ul>
+</li>
+<li>Standard estimator $S^{*} = \mathbb{E}[Y_1|T=1]-\mathbb{E}[Y_0|T=0]$<ul>
+<li>用于估计 ACE</li>
+<li>但是需要知道　ACE measures causation $\neq$ $S^{*}$ measures association</li>
+</ul>
+</li>
+</ul>
+<h4 id="Solve-the-Problem-by-Randomized-Experiments"><a href="#Solve-the-Problem-by-Randomized-Experiments" class="headerlink" title="Solve the Problem by Randomized Experiments"></a>Solve the Problem by Randomized Experiments</h4><p>如果 </p>
+<script type="math/tex; mode=display">
+\mathrm{E[Y_{1}\mid T=1]=E[Y_{1}\mid T=0]=E[Y_{1}]}\\\mathrm{E[Y_{0}\mid T=1]=E[Y_{0}\mid T=0]=E[Y_{0}]}</script><p>那么 ACE $=S^{*}$。也就是说 $T=0, 1$ 的个体需要 random assignment。</p>
+<p>如果 random assignment 无法实现，该怎么办？Ignorability $(Y_0, Y_1) \perp T$ 很难，但是可以考虑 Conditional Ignorability $(\mathrm{Y}_0,\mathrm{Y}_1)\perp\mathrm{T}\mid\mathrm{X}$</p>
+<h5 id="Propensity-score"><a href="#Propensity-score" class="headerlink" title="Propensity score"></a>Propensity score</h5><p>倾向性得分</p>
+<script type="math/tex; mode=display">
+e(X)=P(T=1|X)</script><p>这里的 $X$ 称为混杂因子，可以理解为环境变量。Rubin认为，如果在给定 $X$ 时，$Z$ 对 $𝑌$ 的因果效应消除了混杂因子的影响，那么，在给定一维的倾向性得分 $e(X)$ 时，$𝑍$ 对 $𝑌$ 的因果效应也是没有混杂因子的影响的，即：</p>
+<script type="math/tex; mode=display">
+Z_i\perp\{Y_i(1),Y_i(0)\}\mid e(X_i)</script><p>比如在高考完之后，两名同学通过计算倾向性得分，得到上交大的概率都是 $0.8$，那么可以认为对这两名同学进行比较是没有 bias 的。</p>
+<p>从而 ACE 可以计算为：</p>
+<script type="math/tex; mode=display">
+ACE=E\big[E\big(Y_i|T_i=1,e(X_i)\big)\big]-E\big[E\big(Y_i|T_i=0,e(X_i)\big)\big]</script><h5 id="Inverse-probability-weighting"><a href="#Inverse-probability-weighting" class="headerlink" title="Inverse probability weighting"></a>Inverse probability weighting</h5><p>逆概率加权</p>
+<p>由于倾向性得分是一维的，那么可以分层，得到平均因果作用的估计。逆概率加权就是连续版本的分层：</p>
+<script type="math/tex; mode=display">
+ACE=\frac1n\sum_i\frac{T_iY_i}{e(X_i)}-\frac{(1-T_i)Y_i}{1-e(X_i)}</script><p>比如对于下图，点的分布本身就与横轴相关。为了消除这个影响，那么就需要除以倾向性得分，使其分布更加趋于均匀。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/inverse_prob_weighting.png' width=300 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="STRUCTURAL-EQUATION-MODELS"><a href="#STRUCTURAL-EQUATION-MODELS" class="headerlink" title="STRUCTURAL EQUATION MODELS"></a>STRUCTURAL EQUATION MODELS</h3><p><strong>Wright’s Structural Equation Models</strong></p>
+<ul>
+<li>How can one express mathematically the common understanding that symptoms do not cause diseases?</li>
+</ul>
+<p>使用 $y=\beta x+u_Y$ 表示因果不合适，因为方程还可以写成 $x=(y-u_Y)/\beta$ 的对称形式。所以引入 Path Diagram，有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}&x=u_{X}\\&y=\beta x+u_{Y}\end{aligned}</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/path_diagram.png' width=200 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="DIRECTED-ACYCLIC-GRAPH"><a href="#DIRECTED-ACYCLIC-GRAPH" class="headerlink" title="DIRECTED ACYCLIC GRAPH"></a>DIRECTED ACYCLIC GRAPH</h3><h4 id="DAGs-Encode-Causal-Knowledge"><a href="#DAGs-Encode-Causal-Knowledge" class="headerlink" title="DAGs Encode Causal Knowledge"></a>DAGs Encode Causal Knowledge</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/dag_encode_causal.png' width=400 style="display: block; margin-left: auto; margin-right: auto;"><br><br></p>
+<p>Causual assumptions $\xrightarrow{Encoded\ by}$ DAG $\xrightarrow{Deduce}$ All associations in the system.</p>
+<ul>
+<li>在 DAG 中，如果两个点之间存在连线，那么说明这两点之间可能存在因果关系</li>
+<li>如果两个点之间不存在连线，那么说明两点之间一定没有因果关系。</li>
+</ul>
+<h4 id="DAGs-as-SEM"><a href="#DAGs-as-SEM" class="headerlink" title="DAGs as SEM"></a>DAGs as SEM</h4><p>对于 DAG 中的每一个变量 $V$，如果写成 SEM 的形式，那么有 $V = f<em>{V}(pa(V), e</em>{V})$。在上图中即为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&U_{1}= f_{U 1}(e_{U1})  \\
+&U_{2}= f_{U2}(e_{U2})  \\
+&X=f_{X}(U_{1},U_{2},e_{X})  \\
+&T=f_{T}(X,e_{T}) \\
+&C=f_{C}(X,T,e_{C}) \\
+& Y=f_Y(U_1,U_2,X,C,e_Y)n
+\end{aligned}</script><h4 id="d-separation"><a href="#d-separation" class="headerlink" title="d-separation"></a>d-separation</h4><p>如果一个集合 $S$ 能够阻断所有 $X$ 到 $Y$ 的 path，那么称 $S$ $d$-separate $X$ 和 $Y$，即 $X\perp Y |S$。</p>
+<h2 id="Discover-causal-structure-by-conditional-independence"><a href="#Discover-causal-structure-by-conditional-independence" class="headerlink" title="Discover causal structure by conditional independence"></a>Discover causal structure by conditional independence</h2><p>基本思想：<br>如果能找到 $S$ d-separate $X$ 和 $Y$，然后固定 $S$ 中的取值，如果 $X \perp Y |S$，那么说明 $X,Y$ 之间没有直接因果关系。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/basic_idea.png' width=300 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="PC-algorithm"><a href="#PC-algorithm" class="headerlink" title="PC algorithm"></a>PC algorithm</h3><p>通过条件独立行区分出因果关系来。</p>
+<ul>
+<li>A.) Form the complete undirected graph;</li>
+<li>B.) Remove edges according to n-order conditional independence relations;</li>
+<li>C.) Orient edges by v-structures<ul>
+<li>对于 $X-Y-Z$ 的结构，当且仅当 $Y$ 不在 $Sepset(X,Z)$ 中，有 $X \rightarrow Y \leftarrow Z$</li>
+</ul>
+</li>
+<li>D.) Orient edges</li>
+</ul>
+<h4 id="Step-B-Example"><a href="#Step-B-Example" class="headerlink" title="Step B Example"></a>Step B Example</h4><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/step_b_example.png' width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="Markov-equivalent-class"><a href="#Markov-equivalent-class" class="headerlink" title="Markov equivalent class"></a>Markov equivalent class</h3><p>PC 算法无法还原所有的边的方向<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/pc_results.png' width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>这一因为有些因果关系是无法用条件独立性得出的。比如左图的三个结构和右图的两个结构，它们的条件独立性都是相同的。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/markov_equal_class.png' width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<ul>
+<li><strong>Theorem (Verma and Pearl, 1990)</strong>: two DAGs are Markov equivalent iff they have the same skeleton and the same v-structures. skeleton: corresponding undirected graph</li>
+<li><strong>v-structure</strong>: substructure $X \rightarrow Y \leftarrow Z$ with no edge between $X$ and $Z$</li>
+</ul>
+<!-- TODO Functional Causal Model -->
+<h2 id="Pearl’s-do-calculus"><a href="#Pearl’s-do-calculus" class="headerlink" title="Pearl’s do-calculus"></a>Pearl’s do-calculus</h2><p>do 操作可以理解为强制的将变量设置为某个值。</p>
+<script type="math/tex; mode=display">
+p(.|do\ x)=p(.|x)</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/do_example1.png' width=400 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<script type="math/tex; mode=display">
+p(Y|do\ x)=P(Y)\neq P(Y|x)</script><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/机器学习笔记/6-Causal-inference-and-causal-discovery/do_example2.png' width=200 style="display: block; margin-left: auto; margin-right: auto;"></p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>Causal inference and causal discovery</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/19bfb1b0.html">http://zhuxz0299.github.io/posts/19bfb1b0.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>朱小志</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-06-08</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-06-08</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_5.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/597ff9ab.html" title="Associative Containers"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_18.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Associative Containers</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Association-vs-Causation-Intervention"><span class="toc-number">1.</span> <span class="toc-text">Association vs. Causation (Intervention)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-Association"><span class="toc-number">1.1.</span> <span class="toc-text">What Is Association?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Yule-Simpson%E2%80%99s-Paradox"><span class="toc-number">1.2.</span> <span class="toc-text">Yule-Simpson’s Paradox</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structural-Causal-Model"><span class="toc-number">2.</span> <span class="toc-text">Structural Causal Model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#POTENTIAL-OUTCOME-FRAMEWORK"><span class="toc-number">2.1.</span> <span class="toc-text">POTENTIAL-OUTCOME FRAMEWORK</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Example"><span class="toc-number">2.1.1.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Fundamental-Problem-of-Causal-Inference"><span class="toc-number">2.1.2.</span> <span class="toc-text">Fundamental Problem of Causal Inference</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Solve-the-Problem-by-Randomized-Experiments"><span class="toc-number">2.1.3.</span> <span class="toc-text">Solve the Problem by Randomized Experiments</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Propensity-score"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">Propensity score</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Inverse-probability-weighting"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">Inverse probability weighting</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STRUCTURAL-EQUATION-MODELS"><span class="toc-number">2.2.</span> <span class="toc-text">STRUCTURAL EQUATION MODELS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DIRECTED-ACYCLIC-GRAPH"><span class="toc-number">2.3.</span> <span class="toc-text">DIRECTED ACYCLIC GRAPH</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DAGs-Encode-Causal-Knowledge"><span class="toc-number">2.3.1.</span> <span class="toc-text">DAGs Encode Causal Knowledge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAGs-as-SEM"><span class="toc-number">2.3.2.</span> <span class="toc-text">DAGs as SEM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d-separation"><span class="toc-number">2.3.3.</span> <span class="toc-text">d-separation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Discover-causal-structure-by-conditional-independence"><span class="toc-number">3.</span> <span class="toc-text">Discover causal structure by conditional independence</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PC-algorithm"><span class="toc-number">3.1.</span> <span class="toc-text">PC algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Step-B-Example"><span class="toc-number">3.1.1.</span> <span class="toc-text">Step B Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Markov-equivalent-class"><span class="toc-number">3.2.</span> <span class="toc-text">Markov equivalent class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pearl%E2%80%99s-do-calculus"><span class="toc-number">4.</span> <span class="toc-text">Pearl’s do-calculus</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By 朱小志</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js"></script><script>(() => {
+  document.querySelectorAll('#article-container span.katex-display').forEach(item => {
+    btf.wrap(item, 'div', { class: 'katex-wrap'})
+  })
+})()</script></div><script defer src="/js/cursor.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于Vercel" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://dashboard.4everland.org/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于4EVERLAND" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-4EVERLAND-22DDDD?style=flat&amp;logo=IPFS" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_121.webp);"> <a class="categoryBar-list-link" href="categories/demo/">demo</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_122.webp);"> <a class="categoryBar-list-link" href="categories/latex/">latex</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_123.webp);"> <a class="categoryBar-list-link" href="categories/ccf-csp/">ccf-csp</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_124.webp);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_125.webp);"> <a class="categoryBar-list-link" href="categories/artificial-intelligence/">artificial intelligence</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_126.webp);"> <a class="categoryBar-list-link" href="categories/machine-learning/">machine learning</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_127.webp);"> <a class="categoryBar-list-link" href="categories/动手学深度学习/">动手学深度学习</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_128.webp);"> <a class="categoryBar-list-link" href="categories/game-theory/">game theory</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/data-science/">data science</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/Operating-system/">Operating system</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/试卷解答/">试卷解答</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/自行车/">自行车</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-graphics-notes/">computer graphics notes</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-organization/">computer organization</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/量子力学/">量子力学</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(undefined);"> <a class="categoryBar-list-link" href="categories/computer-network/">computer network</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '500ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
