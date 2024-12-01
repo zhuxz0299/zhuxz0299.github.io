@@ -1,0 +1,340 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>文件系统概述 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="文件系统的分区、格式以及架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件系统概述">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/5a5a34b7.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="文件系统的分区、格式以及架构">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_130.webp">
+<meta property="article:published_time" content="2024-11-30T18:29:52.000Z">
+<meta property="article:modified_time" content="2024-12-01T12:36:33.644Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="operating system">
+<meta property="article:tag" content="file system">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_130.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://zhuxz0299.github.io/posts/5a5a34b7.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '文件系统概述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-01 20:36:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/double_row_bug_fix.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/category_card.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/HoYoWiki-image.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">130</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">37</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_130.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zhuxz's Blog"><span class="site-name">Zhuxz's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">文件系统概述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-11-30T18:29:52.000Z" title="发表于 2024-12-01 02:29:52">2024-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-01T12:36:33.644Z" title="更新于 2024-12-01 20:36:33">2024-12-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="文件系统概述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.freecodecamp.org/news/file-systems-architecture-explained/">参考文章</a></p>
+</blockquote>
+<p>什么是文件系统？文件系统决定着从存储设备中对文件进行<em>命名</em>、<em>存储</em>和<em>检索</em>的方式。</p>
+<p>存储设备在使用之前，需要进行分区以及格式化。</p>
+<h2 id="从分区开始">从分区开始</h2>
+<p>什么是分区？分区就是将存储设备划分成若干个<em>逻辑区域</em>，以便它们能像彼此独立的存储设备一样被管理。</p>
+<p>根据需求，一个存储设备通常会有至少一个乃至多个分区。比如说一个基础的Linux安装就具有三个分区：一个专门用于存储操作系统，一个专门用于存放用户文件，外加一个交换分区。在Windows和Mac OS系统中并没有专门的交换分区，它们在操作系统所安装的分区内管理交换，但二者的分区布局与Linux相似。(交换分区：当 RAM 空间不足时，交换分区可充当 RAM 扩展。例如，操作系统可能会将一块数据（临时）从 RAM 移动到交换分区，以释放 RAM 上的部分空间。操作系统不断使用各种内存管理技术来确保每个进程都有足够的内存空间来运行。)</p>
+<p>在具有多个分区的计算机上，你可以安装多种操作系统，并且每次可以选择不同的分区来启动系统。当然，分区的意义不仅仅限于可安装多种操作系统和工具。通过分区，我们还可以将重要系统文件与普通文件分开存放。对于一些操作系统，比如Windows，会对磁盘分区分配以不同的字母编号（A，B，C，D），其中主分区（Windows所安装的分区）的命名为 C：或驱动器C。而在Unix一类的操作系统中，分区则以根目录下的普通目录显示，这点在后面会介绍到。</p>
+<p>在对存储设备进行分区时，有两种分区方法可供选择：</p>
+<ul>
+<li>主引导记录（MBR）方案</li>
+<li>GUID分区表（GPT）方案</li>
+</ul>
+<p>无论选择哪种方案，存储设备上的前几个存储块所存储的始终都是有关分区的关键数据。利用这些数据结构，系统的固件便能启动操作系统。</p>
+<h3 id="系统固件">系统固件</h3>
+<p>首先解释一下什么是固件。固件是嵌入电子设备中以操作该设备或引导另一个程序来操作该设备的低级软件。固件存在于计算机，外围设备（键盘，鼠标和打印机）中，甚至存在于家用电器中。在计算机中，固件为诸如操作系统之类的复杂软件提供了启动和使用硬件组件的标准环境；但是，在打印机等较为简单的系统上，固件却是设备的主要操作系统。打印机菜单就是其固件的交互界面。</p>
+<p>计算机固件依据以下两个规范执行：</p>
+<ul>
+<li>基本输入/输出（BIOS）</li>
+<li>统一可扩展固件接口（UEFI）</li>
+</ul>
+<p>固件（基于BIOS或基于UEFI）存储在非易失性存储器中，例如连接到主板的Flash ROM（闪存）。当打开计算机电源时，固件是第一个运行的程序，其任务包括启动计算机，运行操作系统，并将整个系统的控制权传递给操作系统。固件在连网环境下还可以运行预操作系统，例如恢复或诊断工具，甚至还可以运行特殊的壳层来运行基于文本的命令。在操作系统的徽标出现之前，你所看到的那几个页面就是计算机固件的输出，该输出用于验证硬件组件和内存的运行状况。</p>
+<h3 id="MBR分区方案与基于BIOS的固件">MBR分区方案与基于BIOS的固件</h3>
+<h4 id="MBR分区方案结构">MBR分区方案结构</h4>
+<p>MBR分区方案是BIOS规范的一部分，由基于BIOS的固件使用。在采用MBR分区方案的磁盘上，存储设备上的第一个扇区存储着启动系统所需的基本数据，这一扇区被称为MBR（主引导扇区）。</p>
+<p>MBR中存有以下信息：</p>
+<ul>
+<li>引导程序，它是机器代码中的一个简单程序，用于启动引导过程的第一阶段</li>
+<li>分区表，其中包含有关分区的信息。</li>
+</ul>
+<p>下面是MBR分区存储设备的图示：<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/文件系统概述/MBR分区图示.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>如果放大MBR这部分，那么其内容为：<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/文件系统概述/MBR图示.png' width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h4 id="MBR如何引导系统启动">MBR如何引导系统启动</h4>
+<p>系统启动后，BIOS固件启动，并将包含了MBR的<em>引导加载程序</em>(boot loader program)载入到内存中。当程序进入内存，CPU将会运行这段引导加载程序。通过将引导加载程序和分区表放置在MBR之类的预定义位置中，便可使BIOS来引导系统而无需处理任何文件。</p>
+<p>MBR中的引导加载程序代码占用MBR 512字节空间中的434字节至446字节，另有64字节分配给了分区表，其中最多包含四个分区的信息。446字节并不足以容纳很多的代码，正因如此，复杂的引导加载程序（例如Linux上的GRUB 2）会将其功能切分为多个部分或多个阶段：</p>
+<ul>
+<li>其中最小的部分被称为<em>第一阶段引导加载程序</em>(first-stage boot loader)，位于MBR内，它的任务就是启动引导过程的下一个阶段。MBR之后紧接第一个分区之前，还有一个很小的空间，大约1MB，被称为<em>MBR间隙</em>(MBR gap)。必要时，它也可以用来放置一部分引导加载程序。</li>
+<li>利用MBR间隙，引导加载程序（例如GRUB 2）存储其功能的另一阶段。GRUB将此称为引导加载程序的<em>第1.5个阶段</em>，其中包含文件系统驱动程序。1.5阶段使GRUB的下一阶段可以处理文件，而不再是再向第一阶段引导加载程序那样从存储设备中加载原始数据。</li>
+<li><em>第二阶段引导加载程序</em>现在已经能够与文件系统协同工作，它可以加载操作系统的引导加载程序文件，从而启动相应的操作系统。此时也是操作系统徽标逐渐淡出的时候。</li>
+</ul>
+<h4 id="MBR的局限">MBR的局限</h4>
+<ul>
+<li>前面提到分区表最多包含四个分区的信息，因此在MBR的数据结构中，最多只能有四个<em>主要分区</em>(primary patitions)。
+<ul>
+<li>对于分区数量的限制，一个常见的解决方法是在主分区旁创建一个<em>拓展分区</em>(extended partition)，而一个拓展分区可以被分为几个<em>逻辑分区</em>(logical partitions)。总之，只要主分区和拓展分区总数不超过四个即可。</li>
+</ul>
+</li>
+<li>每个分区的最大空间为 2TiB</li>
+<li>MBR扇区的内容没有备份，这意味着如果MBR因为某些因素损坏，那么我们的存储设备就变成废铁了。</li>
+</ul>
+<p>为了应对这些问题，GPT分区出现了。</p>
+<h3 id="GPT分区方案与基于UEFI的固件">GPT分区方案与基于UEFI的固件</h3>
+<p>GPT分区方案解决了上述MBR的问题，用户可以创建尽可能多的分区（具体数量取决于操作系统的支持），每个分区的大小可以达到市场上最大存储设备的容量。</p>
+<p>尽管MBR仍然在许多旧电脑和新电脑中得到广泛支持，但是GPT正逐渐取代MBR。因为GPT是UEFI规范的一部分，而UEFI正在取代传统的BIOS。如今，许多硬件和操作系统都支持UEFI，并使用GPT方案来对存储设备进行分区。</p>
+<h4 id="GPT分区方案结构">GPT分区方案结构</h4>
+<p>在GPT分区方案中，出于与基于BIOS的系统兼容的考虑，保留了存储设备的第一个扇区。因为某些系统可能仍使用基于BIOS的固件，但存储设备却采用了GPT分区。这个扇区被称为<em>保护性MBR</em>(Protective MBR)（这也是第一阶段引导加载程序在MBR分区的磁盘中存储的位置）。</p>
+<p>在第一个扇区之后，存储了GPT数据结构，包括<em>GPT头</em>(GPT header)和<em>分区项</em>(partition entries)。GPT头和分区项会在存储设备的末尾进行备份，以便在主副本损坏时进行恢复，这个备份被称为<em>次级GPT</em>(Secondary GPT)。</p>
+<p>GPT分区存储设备的结构如下图所示：<br>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/文件系统概述/gpt_patition_table_scheme.png' width=400 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>在GPT中，所有的引导服务（引导加载程序，引导管理器，预操作系统环境和shell）都位于名为 <em>EFI系统分区(EFI System Partions, ESP)</em> 的特殊分区中，UEFI固件可以使用该分区。ESP甚至拥有自己专属的文件系统，该系统是FAT的一个特定版本。在Linux上，ESP存储在 <code>/sys/firmware/efi</code> 路径下。如果你在自己的系统上找不到此路径，那你的固件可能是基于BIOS的固件。</p>
+<h4 id="GPT分区方案引导系统启动">GPT分区方案引导系统启动</h4>
+<p>基于UEFI的固件会假定其存储设备使用GPT进行分区，并在GPT分区表中查找ESP，找到后，该固件将查找已配置的引导加载程序，该引导加载程序通常是以 .efi 结尾的文件。</p>
+<h2 id="分区格式化">分区格式化</h2>
+<p>完成了分区之后，就需要考虑对分区进行格式化了。大多数操作系统都支持使用一组文件系统来格式化分区，例如在Windows上格式化分区时，可以选择 FAT32，NTFS 或 exFAT。</p>
+<p>格式化还会涉及创建各种数据结构和用于管理分区内文件的元数据，这些数据结构便是文件系统诸多定义中的一个方面。以NTFS文件系统为例，在将一个分区格式化为NTFS时，格式化过程会将关键NTFS数据结构以及 <em>主引导表</em>(Master file table, MFT)放置在该分区上。</p>
+<h3 id="文件系统一开始是怎么出现的，如今又发展到了什么地步">文件系统一开始是怎么出现的，如今又发展到了什么地步</h3>
+<p>文件系统由一套数据结构、接口、抽象和API构成，它们协同工作，管理各种存储设备上的各种文件。每种操作系统会使用特定的文件系统来管理文件。</p>
+<ul>
+<li>Windows
+<ul>
+<li>Microsoft曾在 MS-DOS 和 Windows 9x 家族系统中使用过 FAT（FAT12，FAT16和FAT32）。</li>
+<li>但自Windows NT 3.1 开始，Microsoft研发了<em>新技术文件系统</em>(New Technology File System, NTFS)。比起FAT32，NTFS具有诸多多优势，如支持更大的文件，更长的文件名，数据加密，访问管理，日志记录等等。从那时起，NTFS就成为了Window NT家族（2000，XP，Vista，7、10等）的默认文件系统。
+<ul>
+<li>不过NTFS并不适用于非Windows环境。例如在Mac OS上，你只能读取NTFS格式存储设备（如闪存）上的内容，但无法写入任何内容，除非安装具有写入支持的NTFS驱动程序。</li>
+</ul>
+</li>
+<li>2006年，Microsoft创建<em>扩展文件分配表</em>(Extended File Allocaiton Table, exFAT)文件系统，该系统堪称NTFS的精简版。exFAT的设计面向对象是大容量可移动设备（例如外部硬盘，USB驱动器和存储卡），它也是 SDXC 卡使用的默认文件系统。
+<ul>
+<li>与NTFS不同，exFAT在非Windows环境（包括Mac OS）上也支持读写，这也使其成为最佳的高容量可移动存储设备跨平台文件系统。因此基本上可以说，如果你想同时在Windows、Mac和Linux上使用同一块可移动磁盘，就需要将其格式化为exFAT格式。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Apple：
+<ul>
+<li>多年以来，Apple也在研发利用自己的各种文件系统，这就包括分层文件系统（HFS）, HFS+ 以及苹果文件系统（APFS）。和NTFS类似，APFS也是一个日志文件系统。自苹果在2017年推出 OS X High Sierra 以来，APFS一直使用至今。</li>
+</ul>
+</li>
+<li>Linux：
+<ul>
+<li>文件系统中的<em>扩展文件系统</em>(Extended File Syetem, ext)家族是专门为Linux内核创建的。</li>
+<li>ext 的第一版发布于1991年，但不久便在1993年被第二代扩展文件系统（ext2）取代。</li>
+<li>进入21世纪，针对Linux开发的具有日志功能的 第三代扩展文件系统（ext3）和第四代扩展文件系统（ext4）也相继出现。如今，ext4 成为Linux的许多发行版本中的默认文件系统，这就包括 Debian 和 Ubuntu。</li>
+</ul>
+</li>
+</ul>
+<h2 id="文件系统的体系结构">文件系统的体系结构</h2>
+<h3 id="文件系统分层">文件系统分层</h3>
+<p>一个操作系统中的文件系统有三层结构：</p>
+<ul>
+<li>物理文件系统(Physical file system)</li>
+<li>虚拟文件系统(Virtual file system)</li>
+<li>逻辑文件系统(Logical file system)</li>
+</ul>
+<p>不同层次之间既可彼此独立存在，也可紧密耦合为诸多抽象。当人们谈论文件系统时，他们所指的就是这三层中的某一层或是这三层组成的整体。尽管这些层次在不同操作系统之间有所不同，但这些概念基本是相通的。</p>
+<h4 id="物理文件系统">物理文件系统</h4>
+<p>物理层是文件系统的具体实现，负责数据存储和检索，以及存储设备上的空间管理（或者更确切地说是分区）。物理文件系统通过设备驱动程序与实际的存储硬件进行交互。</p>
+<h4 id="虚拟文件系统">虚拟文件系统</h4>
+<p>下一层是虚拟文件系统，简称 VFS。虚拟文件系统提供了一种支持在操作系统上安装的各类文件系统的<em>一致视图</em>(consistent view)。那么这是否意味着一个操作系统可以同时使用多种文件系统呢？答案是肯定的！</p>
+<p>可移动存储工具通常都具有与计算机不同的文件系统，例如在使用NTFS作为主要文件系统的Windows环境下，闪存可能已格式化为exFAT或FAT32。也就是说，操作系统需要能够在处理不同程序（文件浏览器和其他处理文件的应用）和不同的挂载文件系统（例如NTFS，APFS，EXT4， FAT32，exFAT和UDF）时提供一种<em>一致接口</em>(unified interface)。比如说，当你打开文件资源管理器时，你可以从EXT4文件系统复制一份图像，然后将其直接粘贴到exFAT格式的闪存中，而不必去管文件在后台进行了不同的管理。</p>
+<p>VFS堪称连接用户（你）和后台文件系统的“便利层”。它制定了一种<em>合同</em>(contract)，要求所有的物理文件系统都必须以操作系统支持的方式工作。但是这种合规性(compliance)并未内置于文件系统的核心中，也就是说，文件系统的源代码并不包含对各种操作系统的支持。事实是，这些源代码利用<em>文件系统驱动程序</em>(file system driver)来遵守VFS的规则。(驱动程序是一种能够使软件与另一个软件或硬件进行通信的特殊程序。)</p>
+<h4 id="逻辑文件系统">逻辑文件系统</h4>
+<p>虽然VFS负责为程序与各种文件系统之间提供标准接口，但用户程序并不会直接与VFS交互，而是会利用程序和VFS之间的统一API。这就是接下来要说的就是逻辑文件系统。</p>
+<p>逻辑文件系统是文件系统中面向用户的一层。通过提供API，它能使用户程序无需处理任何存储硬件便能执行各种文件操作，例如 <code>OPEN</code>, <code>READ</code>, <code>WRITE</code>。从另一方面来说，VFS也在逻辑文件系统（程序与之交互）和一组物理文件系统之间搭建了桥梁。</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src='../../figure/文件系统概述/filesystem-1.jpg' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+<h3 id="什么叫挂载文件系统">什么叫挂载文件系统</h3>
+<p>在类Unix系统上，VFS为每个分区或可移动存储设备都分配一个 device ID（如 <code>dev/disk1s1</code>）。接着，它会创建一个 <em>虚拟目录树</em>(virtual directory tree)，并将每个设备的内容作为单独的目录放在该目录树下。在根目录树下给存储设备分配目录的活动就是<em>挂载</em>(mounting)，分配的目录被称为<em>挂载点</em>(mount point)。就是说，在类Unix操作系统上，所有分区和可移动存储设备看起来就都好像是根目录下的目录。</p>
+<p>例如在Linux上，除非有所配置，否则默认情况下可移动设备（例如存储卡）的挂载点就是根目录下的 <code>/media</code>。也就是说，当将闪存连接到一个操作系统时，它会被自动挂载在默认挂载点（在Linux环境下就是 <code>/media</code>），其内容也将在 <code>/media</code> 目录下显示。但有些时候会需要你手动挂载文件系统。</p>
+<p>在Linux上，可进行如下操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/disk1s1 /media/usb</span><br></pre></td></tr></table></figure>
+<p>在上面的命令中，第一个参数（<code>/dev/disk1s1</code>）是设备ID，第二个参数（<code>/media/usb</code>）是挂载点。请注意，挂载点应当已经作为目录存在，如果没有则需要先进行创建。</p>
+<p>如果挂载点目录中已经存在文件，那么这些文件在存储设备挂在期间会一直被隐藏。</p>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>文件系统概述</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/5a5a34b7.html">http://zhuxz0299.github.io/posts/5a5a34b7.html</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>Zhuxz</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2024-12-01</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-12-01</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/operating-system/">operating system</a><a class="post-meta__tags" href="/tags/file-system/">file system</a></div><div class="post_share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_130.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/78dbfa7.html" title="git 拉取子模块"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_129.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">git 拉取子模块</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%88%86%E5%8C%BA%E5%BC%80%E5%A7%8B"><span class="toc-number">1.</span> <span class="toc-text">从分区开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%9B%BA%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">系统固件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MBR%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88%E4%B8%8E%E5%9F%BA%E4%BA%8EBIOS%E7%9A%84%E5%9B%BA%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">MBR分区方案与基于BIOS的固件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MBR%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">MBR分区方案结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MBR%E5%A6%82%E4%BD%95%E5%BC%95%E5%AF%BC%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">MBR如何引导系统启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MBR%E7%9A%84%E5%B1%80%E9%99%90"><span class="toc-number">1.2.3.</span> <span class="toc-text">MBR的局限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPT%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88%E4%B8%8E%E5%9F%BA%E4%BA%8EUEFI%E7%9A%84%E5%9B%BA%E4%BB%B6"><span class="toc-number">1.3.</span> <span class="toc-text">GPT分区方案与基于UEFI的固件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GPT%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.1.</span> <span class="toc-text">GPT分区方案结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GPT%E5%88%86%E5%8C%BA%E6%96%B9%E6%A1%88%E5%BC%95%E5%AF%BC%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">GPT分区方案引导系统启动</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">分区格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%B8%80%E5%BC%80%E5%A7%8B%E6%98%AF%E6%80%8E%E4%B9%88%E5%87%BA%E7%8E%B0%E7%9A%84%EF%BC%8C%E5%A6%82%E4%BB%8A%E5%8F%88%E5%8F%91%E5%B1%95%E5%88%B0%E4%BA%86%E4%BB%80%E4%B9%88%E5%9C%B0%E6%AD%A5"><span class="toc-number">2.1.</span> <span class="toc-text">文件系统一开始是怎么出现的，如今又发展到了什么地步</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">文件系统的体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E5%B1%82"><span class="toc-number">3.1.</span> <span class="toc-text">文件系统分层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.1.1.</span> <span class="toc-text">物理文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.1.2.</span> <span class="toc-text">虚拟文件系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.1.3.</span> <span class="toc-text">逻辑文件系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E5%8F%AB%E6%8C%82%E8%BD%BD%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.</span> <span class="toc-text">什么叫挂载文件系统</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Zhuxz</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script defer src="/js/cursor.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.3.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_196.webp);"> <a class="categoryBar-list-link" href="categories/demo/">demo</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_195.webp);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_194.webp);"> <a class="categoryBar-list-link" href="categories/latex/">latex</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_193.webp);"> <a class="categoryBar-list-link" href="categories/ccf-csp/">ccf-csp</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_192.webp);"> <a class="categoryBar-list-link" href="categories/artificial-intelligence/">artificial intelligence</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_191.webp);"> <a class="categoryBar-list-link" href="categories/动手学深度学习/">动手学深度学习</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_190.webp);"> <a class="categoryBar-list-link" href="categories/game-theory/">game theory</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_189.webp);"> <a class="categoryBar-list-link" href="categories/Operating-system/">Operating system</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_188.webp);"> <a class="categoryBar-list-link" href="categories/machine-learning/">machine learning</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_187.webp);"> <a class="categoryBar-list-link" href="categories/data-science/">data science</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_186.webp);"> <a class="categoryBar-list-link" href="categories/自行车/">自行车</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_185.webp);"> <a class="categoryBar-list-link" href="categories/computer-organization/">computer organization</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_184.webp);"> <a class="categoryBar-list-link" href="categories/computer-network/">computer network</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_183.webp);"> <a class="categoryBar-list-link" href="categories/computer-graphics-notes/">computer graphics notes</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_182.webp);"> <a class="categoryBar-list-link" href="categories/试卷解答/">试卷解答</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_181.webp);"> <a class="categoryBar-list-link" href="categories/量子力学/">量子力学</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1s');
+    arr[i].setAttribute('data-wow-delay', '500ms');
+    arr[i].setAttribute('data-wow-offset', '100');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --></body></html>
