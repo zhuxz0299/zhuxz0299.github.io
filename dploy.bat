@@ -5,10 +5,10 @@ for /f "tokens=1-3 delims=/- " %%a in ('date /t') do (
   set _month=%%b
   set _day=%%c
 )
-REM 补零：确保月份和日期是两位数
-if %_month% lss 10 set _month=0%_month%
-if %_day% lss 10 set _day=0%_day%
-set _date=%_year%-%_month%-%_day%
+@REM REM 补零：确保月份和日期是两位数
+@REM if %_month% lss 10 set _month=0%_month%
+@REM if %_day% lss 10 set _day=0%_day%
+@REM set _date=%_year%-%_month%-%_day%
 
 for /f "tokens=1-3 delims=:." %%a in ("%time%") do (
   set _hour=%%a
