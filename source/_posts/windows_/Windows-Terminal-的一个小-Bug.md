@@ -1,9 +1,12 @@
 ---
 title: Windows Terminal 的一个小 Bug
+cover: https://source.fomal.cc/img/default_cover_136.webp
+description: 使用 Windows terminal 的时候发现按下空格之后，字体背景会变黑的问题。
+tags:
+  - windows terminal
+  - windows
+abbrlink: 179fe542
 date: 2025-04-02 16:33:19
-tags: 
-    - "windows terminal"
-    - windows
 ---
 
 ### 问题
