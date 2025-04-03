@@ -1,0 +1,136 @@
+---
+title: First Order Logic
+cover: 'https://source.fomal.cc/img/default_cover_137.webp'
+categories: discrete math
+katex: true
+description: >-
+  Logic Behind Natural Language Proof, Syntax of First Order Logic, The
+  semantics of first order language
+abbrlink: c86fd2a
+date: 2025-04-03 13:05:24
+tags:
+---
+
+### Logic Behind Natural Language Proof
+下面使用 $\vdash$ 表示推出。暂时不做严格定义。
+
+**Example 1.**
+* Assumptions: $A$ is a set, $R \subseteq A\times A$ is a binary relation, ...
+* Proof step: In order to prove that $R$ is an equivalence relation on $A$, we prove that $k$ is reflexive on $A$, symmetric and transitive.
+* Logic: If $\Phi \vdash \psi_1, \Phi \vdash \psi_2$ and $\Phi \vdash \psi_3$, then $\Phi \vdash \psi_1 \land \psi_2 \land \psi_3$
+* Logic (Alternative): (1) $\psi_1, \psi_2, \psi_3 \vdash \psi_1 \land \psi_2 \land \psi_3$ (2) If $\Phi \vdash \psi_1, \Phi \vdash \psi_2, \Phi \vdash \psi_3$ and $\psi_1, \psi_2, \psi_3 \vdash \psi_4$, then $\Phi \vdash \psi_3$
+
+**Example 2.**
+* Assumptions: $A$ is a set, ...
+* Proof step: Because $A$ is an inductive set, $\varnothing \in A$.
+* Logic: $\phi \land \psi \vdash \phi$
+
+**Example 3.**
+* Proof step: We know that the highest digit of $2501^{2025}$ is either $1$ or not $1$.
+* Logic: $\vdash \phi \lor \lnot \phi$
+
+
+**Example 4.**
+* Assumptions: A1, A2, B1 and B2 are sets, ...
+* Proof step: We apply case analysis on whether $B_2 = \varnothing$ for proving $(A_1 \to B_1) \preceq (A_2 \to B_2)$
+* Logic: If $\Phi, \psi_1 \vdash \psi_2$, $\Phi, \lnot \psi_1 \vdash \psi_2$, then $\Phi \vdash \psi_2$
+* Logic (Alternative): (1) $\vdash \psi \lor \lnot \psi$; (2) If $\Phi, \psi_1 \vdash \psi_3$, $\Phi, \psi_2 \vdash  \psi_3$ and $\Phi \vdash \psi_1 \lor \psi_2$, then $\Phi \vdash \psi_3$
+
+### Syntax of First Order Logic
+只是用原子命题和逻辑连接词，表达能力不够。
+
+**Example**
+* Commutative law of addition: for any natural number $x$ and $y$, $x+y = y+x$
+* $3+5 = 5+3$
+
+这两个命题之间的关系无法由原子命题体现。
+
+Suppose
+* $P(t_1, t_2, t_3, t_4)$ means (informally) $t_1+t_2 = t_3+t_4$
+* $c_{\text{three}}$ is a constant symbol representing $3$
+* $c_{\text{five}}$ is a constant symbol representing $5$
+
+Then 
+* Commutative law of addition: $\forall x, \forall y, P(x, y, y, x)$
+* $3+5 = 5+3$: $P(c_{\text{three}}, c_{\text{five}}, c_{\text{five}}, c_{\text{three}})$
+
+**Example**
+How to formulate the following sentence in a logic expression? 
+The cube of cube of $32$ is a number ends in $2$.
+
+Strategy #1:
+- $P_1(t_1,t_2)$: the cube of $t_1$ ends in $t_2$.
+- $c_c$: the cube of $32$.
+- $P_1(c,c_{two})$: The cube of cube of $32$ is a number ends in $2$.
+
+Strategy #2:
+- $P_2(t_1,t_2)$: the cube of cube of $t_1$ ends in $t_2$.
+- $c_{thirty-two}$: $32$.
+- $P_2(c_{thirty-two},c_{two})$: The cube of cube of $32$ is a number ends in $2$.
+
+在两个不同的 Strategy 中，对于同一个结论："The cube of cube of $32$ is a number ends in $2$."，可以做出两个推论：
+* $\exists x, P_1(x, c_{\text{two}})$
+* $\exists x, P_2(x, c_{\text{two}})$
+
+但是想导出这两个推论，有需要对逻辑结构做不同的解读，这说明上面使用的逻辑语言的表达能力还不够。因此不仅要引入谓词符号，还需要引入函数符号。
+
+- $P_3(t_1,t_2)$: $t_1$ ends in $t_2$.
+- $f(t)$: the cube of $t$
+- $c_{\text{thirty--two}}$: $32$.
+- $P_3(f(c_{\text{thirty--two}}),c_{\text{two}})$: The cube of cube of $32$ is a number ends in $2$.
+
+那么此时就可以说：
+* $\exists x, P_3(f(x),c_\text{two})$
+* $\exists x, P_3(f(f(x)), c_\text{two})$
+
+**Definition 5** (FOL Syntax).
+* Variables symbols: $x, y, z, \ldots $
+* Constants symbols: $c_1, c_2, \ldots $
+* Function symbols: $f, g, h, \ldots $
+* Predicate symbols: $P, Q, R, \ldots $
+* Terms ($t$): $x, y, z, \ldots , c_1, c_2, \ldots ,f(t_1, t_2, \ldots )$
+* Proposition ($\phi$): $P(t), Q(t_1, t_2), \phi_1 \land \phi_2, \lnot \phi, \exists x\phi, \forall y \psi$
+
+Predicate symbols, function symbols and constants forms the *symbol set* of a first order language.
+
+**Example 6** (Quiz).
+* If $x, y, z, \ldots $ are varibale symbols, $c_0, c_1, \ldots $ are constant symbols, $f, g, \ldots $are function symbols, and $P, Q, R, \ldots $ are predicate symbols, then
+* which of the following are first order logic terms?
+    * $x + 1, x + y, f(x, y), f(x) + g(y)$
+    * $c_1 + c_2, f(g(c_1)), h(f(x), g(c_2))$
+* which of the following are first order logic propositions?
+    * $P(x), Q(f(c_0)), f(x) < f(x + 1), R(x, y) \land  R(y, x)$
+    * $\forall x \exists y (x < y), \forall x\forall y (R(x, y) \lor  R(y, x))$
+
+Answer: $f(x, y), f(g(c_1))$ and $h(f(x), g(c_2))$; $P(x), Q(f(c_0)), R(x, y)\land R(y, x)$ and $\forall x\forall y (R(x, y) \lor (y, x))$.
+加号不是合法的symbol。
+
+### The semantics of first order language
+命题逻辑在给定真值指派之后就能得到真值，但是一阶逻辑就更加复杂。比如在使用量词的时候，量词的范围会影响真值。
+
+**Definition 7** ($S$-structures).
+Given a symbol set $S$, an $S$-structure $\mathcal{A} = (A, \alpha)$ contains
+* a domain(论域) $A$, which is a nonempty set
+* an interpretation of every predicate symbol, e.g. if $P$ is a symbol of binary predicate, then $\alpha(P)$ is a mapping from $A\times A \to \{ T, F \}$
+* an interpretation of every function symbol, e.g. if $f$ is a symbol of unary function, then $\alpha(f)$ is a mapping from $A \to A$
+* an interpretation of every constant symbol, e.g. if $c$ is a constant symbol, then $\alpha(c)$ is an element in $A$
+
+上面四条，第一条用 $A$ 指定论域；后面三条用 $\alpha$ 解释一阶逻辑的符号，有了 $\alpha$ 之后，这些符号的意义才确定下来（就像命题逻辑中，$p$只是一个符号，只有给定了真值指派之后，真值才确定下来）。$S$ 指的就是一阶逻辑的符号集。
+
+**Example 8.**
+* $N$ is a unary predicate symbol.(一元谓词符号)
+* $S = \{ N \}$ is a set of symbols.
+* $\forall x (\lnot N(x))$ is a proposition of the $S$-language.
+* For any $a \in \mathbb{R}, \alpha(N)(a) = T$ if $a^{2}<0$; otherwise $\alpha(N)(a) = F$.
+* $\mathcal{A} = (R, \alpha)$ is an $S$-structure.
+* $\forall x (\lnot N(x))$ is true on $\mathcal{A}$.
+
+**Example 9.**
+* $L$ is a binary predicate symbol.
+* $f$ is a unary function symbol.
+* $S = \{ L, f \}$ is a set of symbols.
+* $\forall x(L(x, f(x)))$ is a proposition of the $S$-language.
+* For any $a, b \in \mathbb{Z}^{+}, \alpha(L)(a, b) = T$ if $a<b$; otherwise $\alpha(L)(a, b) = F$.
+* For any $a\in \mathbb{Z}^{+}$, $\alpha(f)(a) = 2a$
+* $\mathcal{A} = (\mathbb{Z}^{+}, \alpha)$ is an $S$-structure.
+* $\forall x(L(x, f(x)))$ is true on $\mathcal{A}$.
