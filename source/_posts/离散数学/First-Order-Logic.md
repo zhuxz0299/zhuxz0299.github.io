@@ -1,6 +1,6 @@
 ---
 title: First Order Logic
-cover: 'https://source.fomal.cc/img/default_cover_137.webp'
+cover: 'https://source.fomal.cc/img/default_cover_138.webp'
 categories: discrete math
 katex: true
 description: >-
@@ -115,7 +115,7 @@ Given a symbol set $S$, an $S$-structure $\mathcal{A} = (A, \alpha)$ contains
 * an interpretation of every function symbol, e.g. if $f$ is a symbol of unary function, then $\alpha(f)$ is a mapping from $A \to A$
 * an interpretation of every constant symbol, e.g. if $c$ is a constant symbol, then $\alpha(c)$ is an element in $A$
 
-上面四条，第一条用 $A$ 指定论域；后面三条用 $\alpha$ 解释一阶逻辑的符号，有了 $\alpha$ 之后，这些符号的意义才确定下来（就像命题逻辑中，$p$只是一个符号，只有给定了真值指派之后，真值才确定下来）。$S$ 指的就是一阶逻辑的符号集。
+上面四条，第一条用 $A$ 指定论域；后面三条用 $\alpha$ 解释一阶逻辑的符号（谓词符号，函数符号，常量符号），有了 $\alpha$ 之后，这些符号的意义才确定下来（就像命题逻辑中，$p$只是一个符号，只有给定了真值指派之后，真值才确定下来）。$S$ 指的就是一阶逻辑的符号集。
 
 **Example 8.**
 * $N$ is a unary predicate symbol.(一元谓词符号)
