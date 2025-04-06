@@ -1,6 +1,6 @@
 ---
 title: FOL semantics
-cover: 'https://source.fomal.cc/img/default_cover_138.webp'
+cover: 'https://source.fomal.cc/img/default_cover_139.webp'
 categories: discrete math
 katex: true
 description: 'FOL semantics, Properties of first order propositions'
