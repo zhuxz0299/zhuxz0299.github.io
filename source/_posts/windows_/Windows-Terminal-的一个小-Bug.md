@@ -20,6 +20,9 @@ date: 2025-04-02 16:33:19
 
 因此可以避免某天打开软件发现突然出问题的情况。
 
+(update: 2025-4-22)
+后面发现还是会偷偷自动更新的，想要禁止更新，需要在 Microsoft Store 中设置。
+
 ### Assets 下的多个文件
 在 release page 的 assets 中可以看见提供了多个文件：
 * GroupPolicyTemplates_1.22.10352.0.zip
