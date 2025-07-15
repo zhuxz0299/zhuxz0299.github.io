@@ -203,6 +203,7 @@ systemd-resolved 默认会同时向所有配置的主 DNS 服务器（`DNS=` 列
 * remote – 在容器或远程位置运行的 Node.js extension host.
 
 下表展示了在不同配置的 VS Code 中可用的 extension host：
+
 | Configuration | local extension host | web extension host | remote extension host |
 |---------------|----------------------|--------------------|-----------------------|
 | VS Code on the desktop | ✔️ | ✔️ |  |
