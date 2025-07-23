@@ -12,8 +12,7 @@ menu:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
   # Link: /link/ || fas fa-link
-  About: /about/ || fas fa-heart
-
+  About: /about/ || fa-solid fa-user
 nav:
   logo: # image
   display_title: true
@@ -43,6 +42,7 @@ copy:
 social:
   fab fa-github: https://github.com/zhuxz0299 || Github
   fas fa-envelope: mailto:zhuxz0299@gmail.com || Email
+  fa-brands fa-bilibili: https://space.bilibili.com/1040684632 || Bilibili
 
 # search (搜索)
 # see https://butterfly.js.org/posts/ceeb73f/#搜索系統
