@@ -16,6 +16,8 @@ cover: 'https://source.fomal.cc/img/default_cover_153.webp'
 为项目添加新的文件：
 右键项目——添加——类，
 
+---
+
 为了方便别人使用自己写的库：打包成 .dll
 右键解决方案——添加——新建项目——类库
 在类库项目点击“生成”或者“重新生成”，可以生成 .dll 文件。该项目中的 .cs 文件都会被放到 .dll 中。
@@ -29,6 +31,9 @@ cover: 'https://source.fomal.cc/img/default_cover_153.webp'
 
 如果一个 .exe 调用了别的 .dll，那么这个时候单独把 .exe 拿出来，无法正常运行。
 
+---
+
+.csproj 文件是项目管理文件。用 VS 双击打开该文件，就能直接打开当前项目。
 
 ## 基本命令
 System.Console.WriteLine()：在控制台中打印
