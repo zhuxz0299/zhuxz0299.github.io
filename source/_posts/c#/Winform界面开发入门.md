@@ -1,12 +1,16 @@
 ---
 title: Winform界面开发入门
-date: 2025-07-26 16:07:49
 tags:
-description: 
+  - c#
+  - Winform
 cover: 'https://source.fomal.cc/img/default_cover_155.webp'
+abbrlink: 67555dd6
+date: 2025-07-26 16:07:49
+description:
 ---
 
-从 Program.cs 开始
+## 代码执行入口
+使用 VS 创建 Winform 项目之后，通常会有一个 `Program.cs` 文件，例如以下所示：
 ```c#
 namespace FolderMonitorApp
 {
@@ -31,36 +35,40 @@ namespace FolderMonitorApp
 }
 ```
 
+`static void Main()` 函数指明了这个项目中代码执行的入口。
+
+接下来对这段示例代码进行解释：
 * `internal static class Program`:
-  * internal：限制访问范围，只在本项目内可见。
-  * static：不允许实例化，只能有静态成员。
-* [DllImport("user32.dll")]：指定函数位于 user32.dll 系统库
-* extern bool SetProcessDpiAwareness()：声明函数签名
-* SetProcessDpiAwareness(2)
-  * 参数 2 的含义：动态适应各显示器DPI	多显示器混合DPI环境
+  * `internal`：限制访问范围，只在本项目内可见。
+  * `static`：不允许实例化，只能有静态成员。
+* `[DllImport("shcore.dll")]`：指定函数位于 `shcore.dll` 系统库
+* `extern int SetProcessDpiAwareness()`：声明函数签名
+* `SetProcessDpiAwareness(2)`
+  * 参数 `2` 的含义：动态适应各显示器 DPI，并且适用于多显示器混合 DPI 环境
   * 作用：系统不再拉伸位图，字体和矢量元素保持清晰锐利
-* [STAThread]
-  * [STAThread] 是 C# 中一个关键的特性(Attribute)，方括号 [] 是 C# 中声明特性的语法。
+* `[STAThread]`
+  * `[STAThread]` 是 C# 中一个关键的特性(Attribute)，方括号 `[]` 是 C# 中声明特性的语法。
   * STA = Single Threaded Apartment (单线程单元)，它声明应用程序的主线程使用 COM 单线程单元模型
 
 
 
----
-Form1.cs 和 Form1.Designer.cs 文件，同一个命名空间中，有同名的 class。这个在正常的两个 .cs 文件中是不可行的。
-这是因为 C# 中，有个东西叫“分部类”，把一个类拆分到不同的文件中。
+## 分部类
+`Form1.cs` 和 `Form1.Designer.cs` 文件在同一个命名空间中使用了同名的 `class`。这个在正常的两个 `.cs` 文件中是不可行的。这是因为 C# 中，有个东西叫“分部类”，把一个类拆分到不同的文件中。
+
 注意一下拆分的语法：
-Form1.cs 中：public partial class Form1 : Form
-Form1.Designer.cs 中：partial class Form1
-利用了 partial 关键字
-目的是开发的时候让代码结构更清晰，编译的时候两个文件会合并起来。
+* `Form1.cs` 中：`public partial class Form1 : Form`
+* `Form1.Designer.cs` 中：`partial class Form1`
+
+利用了 `partial` 关键字。目的是开发的时候让代码结构更清晰，编译的时候两个文件会合并起来。
 
 
-## Form1.Designer.cs 文件
+## 界面设计与处理文件
+利用 VS 生成 Winform 项目时，会默认给出 `Form1.Designer.cs` 以及 `Form1.cs` 文件。前者主要用于界面外观的设计；后者用于界面上交互功能的设计。
 
----
+### 界面初始化
+`Form1.Designer.cs` 是用于设计界面的文件，其中主要包含一个初始化函数 `private void InitializeComponent()`，作用就是把对界面初始化的部分写好。
 
-Form1.Designer.cs 这种用于设计界面的文件，作用通常就是在里面写 private void InitializeComponent()，就是把对界面初始化的部分写好。
-给一个初始化某个按钮的示例：
+以下为初始化某个按钮的示例：
 ```c#
     // 
     // saveRemarkButton
@@ -82,16 +90,15 @@ Form1.Designer.cs 这种用于设计界面的文件，作用通常就是在里�
     this.saveRemarkButton.Click += new System.EventHandler(this.saveRemarkButton_Click);
 ```
 
-这里不仅设置了这个按钮的颜色、大小、位置之类的静态参数，同时 `this.saveRemarkButton.Click +=` 还增加了点击事件，表示点击之后会调用 saveRemarkButton_Click 函数。
-同时注意到这里用的是 `+=`，因此一个点击事件可以绑定好几个函数。
+这里不仅设置了这个按钮的颜色、大小、位置之类的静态参数，同时 `this.saveRemarkButton.Click +=` 还增加了点击事件，表示点击之后会调用 `saveRemarkButton_Click` 函数。同时注意到这里用的是 `+=`，因此一个点击事件可以绑定好几个函数。
 
----
-事件处理函数中参数作用：
+### 事件处理函数
+事件处理函数通常位于 `Form1.cs` 文件中。其形式如下：
 ```c#
 private void saveRemarkButton_Click(object sender, EventArgs e)
 ```
 
-object sender
+#### `object sender` 参数
 * 含义：触发事件的对象（事件源）
 * 作用：
   * 告知你哪个控件触发了这个事件
@@ -124,7 +131,7 @@ private void Button_Click(object sender, EventArgs e)
 }
 ```
 
-或者说如果某些控件是用 for 循环定义的，没有自己的名字，这个时候也可以利用 sender 这个参数来告知需要处理的是哪个控件
+或者说如果某些控件是用 for 循环定义的，没有自己的名字，这个时候也可以利用 `sender` 这个参数来告知需要处理的是哪个控件
 ```c#
 public Forml(){
     InitializeComponent ();
@@ -154,7 +161,8 @@ private void Button_Click(object sender, EventArgs e)
 
 就能达到想要的效果。
 
-不过直接使用 `Button btn = (Button)sender;` 时，如果 sender 不是 Button 类型（比如意外绑定到 Label 的点击事件），程序会崩溃。因此可以采用更加安全的方法：
+#### 安全类型转换
+不过直接使用 `Button btn = (Button)sender;` 时，如果 `sender` 不是 `Button` 类型（比如意外绑定到 `Label` 的点击事件），程序会崩溃。因此可以采用更加安全的方法：
 * 使用 `as` 操作符：
 ```c#
 Button button = sender as Button;  // 尝试转换
@@ -164,6 +172,7 @@ if (button != null)                // 检查是否转换成功
     // ……
 }
 ```
+
 * 使用 `is` 操作符：
 ```c#
 if (sender is Button button)  // 在条件中同时检查和转换
@@ -173,20 +182,20 @@ if (sender is Button button)  // 在条件中同时检查和转换
 }
 ```
 
----
+### `SuspendLayout` 方法
+该方法被用于 `Form1.Designer.cs` 文件中。例如：
 ```c#
 this.mainPanel.SuspendLayout();
 ```
 
-`SuspendLayout()` 方法作用：
-暂停控件及其子控件的布局逻辑，避免每次添加/修改控件时立即重绘界面。
+`SuspendLayout()` 方法作用：暂停控件及其子控件的布局逻辑，避免每次添加/修改控件时立即重绘界面。
 
 底层工作原理——布局计数器：
 * 每个控件内部有 LayoutSuspendCount 计数器
-  * SuspendLayout() 使计数器 +1
-  * ResumeLayout() 使计数器 -1
+  * `SuspendLayout()` 使计数器 +1
+  * `ResumeLayout()` 使计数器 -1
 
-ResumeLayout() 参数：
+`ResumeLayout()` 参数：
 ```c#
 panel.ResumeLayout(false); // 仅恢复计数，不立即布局
 panel.ResumeLayout(true);  // 恢复计数并立即执行布局
@@ -204,9 +213,8 @@ private void InitializeComponent()
 }
 ```
 
----
 
-`#region` 语法
+### `#region` 语法
 
 例子：
 ```c#
@@ -217,6 +225,6 @@ int b = 2;
 #endregion
 ```
 
-#region ... #endregion 是用来折叠和分组代码块，在 Visual Studio 这类 IDE 里可以收起/展开，适合管理大段代码（比如设计器自动生成的代码）。
+`#region` ... `#endregion` 是用来折叠和分组代码块，在 Visual Studio 这类 IDE 里可以收起/展开，适合管理大段代码（比如设计器自动生成的代码）。
 
-可以将#region看成能控制阅读源代码的复杂度的一种方式。因为你可以将一些相关的代码放在一个区域（#region）里面。但是，这不是你随便就创建新方法或者新类的借口。其实Region并不能消除复杂度，它只是在你阅读代码的时候，隐藏了部分代码。你必须通过写出小巧，清晰，重点突出的方法和类，才能控制代码的复杂度。
+> 可以将 `#region` 看成能控制阅读源代码的复杂度的一种方式。因为你可以将一些相关的代码放在一个区域（`#region`）里面。但是，这不是你随便就创建新方法或者新类的借口。其实 Region 并不能消除复杂度，它只是在你阅读代码的时候，隐藏了部分代码。你必须通过写出小巧，清晰，重点突出的方法和类，才能控制代码的复杂度。

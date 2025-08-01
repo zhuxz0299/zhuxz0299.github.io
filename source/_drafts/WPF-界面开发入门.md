@@ -1,7 +1,11 @@
 ---
 title: WPF 界面开发入门
 date: 2025-07-27 14:05:00
-tags:
+tags: 
+    - c#
+    - WPF
+description: 
+cover: 'https://source.fomal.cc/img/default_cover_156.webp'
 ---
 
 WPF 学习用 xaml 描述页面，以及 xaml 如何与 c# 交互。
