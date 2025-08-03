@@ -3,6 +3,8 @@ title: Windows 注册表
 abbrlink: 5ef1aa76
 date: 2025-08-01 16:53:50
 tags:
+description: 对 Windows 中注册表的简要介绍
+cover: 'https://source.fomal.cc/img/default_cover_154.webp'
 ---
 
 
