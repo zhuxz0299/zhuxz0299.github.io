@@ -1,25 +1,20 @@
 ---
 title: WPF 界面开发入门
-date: 2025-07-27 14:05:00
-tags: 
-    - c#
-    - WPF
-description: 
+tags:
+  - c#
+  - WPF
+description: 学习 WPF 框架时了解的一些内容
 cover: 'https://source.fomal.cc/img/default_cover_156.webp'
+abbrlink: 22ab31c
+date: 2025-07-27 14:05:00
 ---
 
-WPF 学习用 xaml 描述页面，以及 xaml 如何与 c# 交互。
-与 winform 中直接用 c# 相比，使用 xaml 描述界面更加简单
+* WPF 学习用 xaml 描述页面，以及 xaml 如何与 c# 交互。与 winform 中直接用 c# 相比，使用 xaml 描述界面更加简单。
+* WPF 是像素无关的，会随着 DPI 变化。每个单位为 1/96 英寸；而 WinForm 中，一个单位就是一个像素。
 
-winform 想要更新界面中的值
-1. 修改变量的值
-2. 同步更新到界面中（告诉屏幕需要绘制）
 
-wpf：绑定
-可以将界面中的某个属性绑定到某个界面中，
-
----
-
+## `App.xaml` 文件
+使用 VS 创建 WPF 项目之后，通常会生成一个 `App.xaml` 文件，其内容形如：
 ```xml
 <Application x:Class="WPF_Study.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -32,11 +27,12 @@ wpf：绑定
 </Application>
 ```
 
-App.xaml 中的 StartupUri="MainWindow.xaml" 决定了项目编译启动之后第一个显示的窗体为 MainWindow.xaml 的对应窗体
+文件中的 `StartupUri="MainWindow.xaml"` 决定了项目编译启动之后第一个显示的窗体为 `MainWindow.xaml` 的对应窗体
 
----
 
-窗体 .xaml <Window> 解析
+## 窗体 `.xaml` 文件解析
+
+用于描述窗体的 `.xaml` 文件中是一个 `<Window>`，其基本内容如下：
 
 ```xml
 <Window x:Class="WPF_Study.MainWindow"
@@ -54,59 +50,51 @@ App.xaml 中的 StartupUri="MainWindow.xaml" 决定了项目编译启动之后�
 
 
 * 窗口声名：`<Window x:Class="WPF_Study.MainWindow"`
-  * <Window>：根元素，表示这是一个 WPF 窗口。
-  * x:Class="WPF_Study.MainWindow"：将 XAML 文件与后台代码类关联（位于 WPF_Study 命名空间中的 MainWindow 类）。
+  * `<Window>`：根元素，表示这是一个 WPF 窗口。
+  * `x:Class="WPF_Study.MainWindow"`：将 XAML 文件与后台代码类关联（位于 WPF_Study 命名空间中的 MainWindow 类）。
 * XML 命名空间声明
   * `xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"`
     * 默认命名空间：包含所有标准 WPF 控件（如 Grid, Button, TextBox 等）。
     * 这是最重要的命名空间，运行时必需
     * •	没有前缀，所以直接写 `<Button>` 而不是 `<presentation:Button>`
   * `xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"`
-    * XAML 语言命名空间（x: 前缀）：提供 XAML 语言特性（如 x:Name, x:Class）。
+    * XAML 语言命名空间（`x: 前缀`）：提供 XAML 语言特性（如 `x:Name`, `x:Class`）。
   * `xmlns:d="http://schemas.microsoft.com/expression/blend/2008"`
-    * 设计时命名空间（d: 前缀）：用于设计工具（如 Visual Studio、Blend）的辅助属性（例如 d:DesignHeight）。
-    * 设计时特性 - 仅在设计器中生效（因为后面有 mc:Ignorable="d"）
+    * 设计时命名空间（`d: 前缀`）：用于设计工具（如 Visual Studio、Blend）的辅助属性（例如 `d:DesignHeight`）。
+    * 设计时特性 - 仅在设计器中生效（因为后面有 `mc:Ignorable="d"`）
   * `xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"`
-    * 标记兼容性命名空间（mc: 前缀）：支持 XAML 版本兼容性。
+    * 标记兼容性命名空间（`mc: 前缀`）：支持 XAML 版本兼容性。
   * `xmlns:local="clr-namespace:WPF_Study"`
-    * 本地项目命名空间（local: 前缀）：允许引用当前项目中的自定义类（如用户控件、转换器等）。
+    * 本地项目命名空间（`local: 前缀`）：允许引用当前项目中的自定义类（如用户控件、转换器等）。
 * 设计时属性：`mc:Ignorable="d"`
-  * 忽略设计时属性：指示 XAML 解析器在运行时忽略 d: 前缀的属性。
+  * 忽略设计时属性：指示 XAML 解析器在运行时忽略 `d:` 前缀的属性。
 * `d:DataContext="{d:DesignInstance local:MainWindow}"`
   * 自己加的，方便在绑定变量的时候让 VS 识别到变量，以及支持自动补全
-  * d:DataContext - 设计时数据上下文
+  * `d:DataContext` - 设计时数据上下文
     * 作用：告诉 XAML 设计器在设计时使用什么作为数据上下文。
-  * DesignInstance 是一个特殊的标记扩展，它告诉设计器：
+  * `DesignInstance` 是一个特殊的标记扩展，它告诉设计器：
     * 创建类型实例：在设计时创建指定类型的实例
     * 提供智能提示：基于这个实例提供属性绑定的 IntelliSense
     * 设计时预览：可能在设计视图中显示默认数据
-  * local:MainWindow 的含义
-    * local: - 引用本地命名空间
-    * MainWindow - 您的窗口类
-    * 所以 local:MainWindow 等同于 WPF_LoginUI.MainWindow。
+  * `local:MainWindow` 的含义
+    * `local`: - 引用本地命名空间
+    * `MainWindow` - 您的窗口类
+    * 所以 `local:MainWindow` 等同于 `WPF_LoginUI.MainWindow`。
 
 说明：
-xmlns 是 "XML Namespace" 的缩写，它是 XML 标准的一部分，用于声明命名空间。这个概念类似于 C# 中的 using 语句。
-基本语法：
-```xml
-xmlns:[前缀]="[命名空间URI]"
-```
+* `xmlns` 是 "XML Namespace" 的缩写，它是 XML 标准的一部分，用于声明命名空间。这个概念类似于 C# 中的 `using` 语句。
+  * 基本语法：
+    ```xml
+    xmlns:[前缀]="[命名空间URI]"
+    ```
+* 上面提到的 URL，例如 `"http://schemas.microsoft.com/winfx/2006/xaml/presentation"` 仅仅是唯一标识符，类型信息已内置在 .NET 中，因此不需要真的访问网站。
+* `<Grid></Grid>` 里面是客户区
+* `<Window></Window>` 里面只能有一个 Content，例如里面不能放两个 Button。所以一般中间塞一个 `<Grid></Grid>`
 
-上面提到的 URL，例如 `"http://schemas.microsoft.com/winfx/2006/xaml/presentation"` 仅仅是唯一标识符，类型信息已内置在 .NET 中，因此不需要真的访问网站。
 
 
-`<Grid></Grid>` 里面是客户区
-
----
-
-`<Window></Window>` 里面只能有一个 Content，例如里面不能放两个 Button。所以一般中间赛一个 `<Grid></Grid>`
-
----
-
-WPF 是像素无关的，会随着 DPI 变化。每个单位为 1/96 英寸；而 WinForm 中，一个单位就是一个像素。
-
----
-常见布局控件：
+## 常见布局控件：
+### Grid 控件
 
 `<Grid></Grid>`
 Grid 是表格布局，默认看到的 Grid 是一行一列，所以控件默认在中间
@@ -154,11 +142,12 @@ Grid 是表格布局，默认看到的 Grid 是一行一列，所以控件默认
 
 Grid 里面也可以继续嵌套 Grid
 
+### StackPanel 控件
 
 `<StackPanel></StackPanel>`
 控件从上到下堆叠（修改 `Orientation` 属性可以改变堆叠方向）
 
----
+## 样式控制
 `<Window.Resources>` 作用类似 CSS
 
 ```xml
@@ -205,9 +194,9 @@ Grid 里面也可以继续嵌套 Grid
 ```
 
 
----
 
-C# 程序属性与绑定
+
+<!-- ## C# 程序属性与绑定
 
 首先设置一下数据上下文，这里先设置为 `this`，表示 `MainWindow` 类底下的属性都是可以绑定的
 ```c#
@@ -240,4 +229,4 @@ public string Username { get; set; } = "111";
 ```xml
 <TextBox Text="{Binding Username}" Grid.Row="0" Grid.Column="1"/>
 ```
-
+ -->
