@@ -10,7 +10,7 @@ description: 介绍了 npm 包的管理机制以及 Hexo 博客的构建原理
 ---
 
 ## 从 Node.js 开始
-Node.js 是一个开源的、跨平台的 JavaScript 运行时环境，基于 Chrome V8 JavaScript 引擎构建。它的核心价值在于将 JavaScript 从浏览器拓展到了服务器端，彻底改变了前后端开发模式16。在博客网站构建中的主要作用为：
+Node.js 是一个开源的、跨平台的 JavaScript 运行时环境，基于 Chrome V8 JavaScript 引擎构建。它的核心价值在于将 JavaScript 从浏览器拓展到了服务器端，彻底改变了前后端开发模式。在博客网站构建中的主要作用为：
 
 ### Node.js 在博客构建中的作用
 Hexo 本质上是 Node.js 应用，其作用可分三层：
