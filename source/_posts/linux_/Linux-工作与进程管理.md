@@ -2,7 +2,7 @@
 title: Linux 工作与进程管理
 cover: 'https://source.fomal.cc/img/default_cover_149.webp'
 tags:
-  - Linux
+  - linux
   - process
   - job
 abbrlink: b69ef682
