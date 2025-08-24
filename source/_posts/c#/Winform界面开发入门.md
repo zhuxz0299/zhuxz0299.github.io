@@ -2,7 +2,7 @@
 title: Winform界面开发入门
 tags:
   - c#
-  - Winform
+  - winform
 cover: 'https://source.fomal.cc/img/default_cover_155.webp'
 abbrlink: 67555dd6
 date: 2025-07-26 16:07:49

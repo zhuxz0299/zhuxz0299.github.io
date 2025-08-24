@@ -1,7 +1,7 @@
 ---
 title: Convolutional neural networks
 cover: https://source.fomal.cc/img/default_cover_56.webp
-tags: PyTorch
+tags: pytorch
 categories: 动手学深度学习
 description: 卷积层，填充和步幅，多输入输出通道，池化层，LeNet
 order: 6

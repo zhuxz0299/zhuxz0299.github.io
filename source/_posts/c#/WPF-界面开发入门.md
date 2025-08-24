@@ -2,7 +2,7 @@
 title: WPF 界面开发入门
 tags:
   - c#
-  - WPF
+  - wpf
 description: 学习 WPF 框架时了解的一些内容
 cover: 'https://source.fomal.cc/img/default_cover_156.webp'
 abbrlink: 22ab31c

@@ -2,7 +2,7 @@
 title: C# 基础学习以及 VS 使用
 tags:
   - c#
-  - VS2022
+  - vs2022
 description: 初次使用 VS2022 构建 C# 项目了解到的知识
 cover: 'https://source.fomal.cc/img/default_cover_153.webp'
 abbrlink: 2950997e

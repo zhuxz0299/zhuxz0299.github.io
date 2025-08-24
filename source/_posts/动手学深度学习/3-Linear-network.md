@@ -1,7 +1,7 @@
 ---
 title: Linear network
 cover: https://source.fomal.cc/img/default_cover_54.webp
-tags: PyTorch
+tags: pytorch
 categories: 动手学深度学习
 description: 线性回归，softmax回归
 order: 3

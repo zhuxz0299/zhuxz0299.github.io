@@ -7,7 +7,7 @@ categories: 自行车
 tags: 
     - 套件
     - 公路车
-    - Shimano
+    - shimano
 description: 对shimano套件类型和价格的介绍（公路车）
 ---
 

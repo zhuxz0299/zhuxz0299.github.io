@@ -1,7 +1,7 @@
 ---
 title: PyTorch Datasets & DataLoaders 代码分析
 cover: https://source.fomal.cc/img/default_cover_36.webp
-tags: PyTorch
+tags: pytorch
 abbrlink: 2432c26f
 date: 2023-03-26 20:22:58
 ---

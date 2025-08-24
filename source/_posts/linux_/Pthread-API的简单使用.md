@@ -2,7 +2,7 @@
 title: Pthread API的简单使用
 cover: https://source.fomal.cc/img/default_cover_18.webp
 tags:
-  - Pthread
+  - pthread
   - operating system
 abbrlink: 2be5aa7c
 date: 2023-05-03 23:50:53

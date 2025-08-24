@@ -2,8 +2,8 @@
 title: 在Jetson设备上安装Pytorch
 cover: 'https://source.fomal.cc/img/default_cover_131.webp'
 tags:
-  - PyTorch
-  - Jetson
+  - pytorch
+  - jetson
 description: 在 Jetson Xavier NX 上安装 Pytorch 遇到了问题，发现只能使用 NVIDIA 编译好的 .whl 文件安装
 abbrlink: e5733f44
 date: 2024-12-02 21:08:06

@@ -1,7 +1,7 @@
 ---
 title: PyTorch Quickstart 代码分析
 cover: https://source.fomal.cc/img/default_cover_37.webp
-tags: PyTorch
+tags: pytorch
 abbrlink: f5508786
 date: 2023-03-25 17:19:10
 ---

@@ -1,7 +1,7 @@
 ---
 title: Pytorch相关库版本对应
 cover: https://source.fomal.cc/img/default_cover_38.webp
-tags: PyTorch
+tags: pytorch
 abbrlink: 67d74f7
 date: 2023-05-04 23:54:23
 description: 使用pytorch及其相关库的时候经常遇到版本不匹配的问题，所以记录一下对应版本

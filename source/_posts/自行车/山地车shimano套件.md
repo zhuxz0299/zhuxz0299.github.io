@@ -5,7 +5,7 @@ categories: 自行车
 tags:
   - 套件
   - 山地车
-  - Shimano
+  - shimano
 description: 对shimano套件类型介绍（山地车）
 abbrlink: e51f1f85
 date: 2023-07-06 12:31:10

@@ -3,7 +3,7 @@ title: CUDA版本
 cover: 'https://source.fomal.cc/img/default_cover_132.webp'
 tags:
   - cuda
-  - PyTorch
+  - pytorch
 description: 关于`nvidia-smi`和nvcc显示的CUDA版本不同的问题
 abbrlink: d1c883fc
 date: 2024-12-03 13:59:55

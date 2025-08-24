@@ -2,7 +2,7 @@
 title: Makefile编写
 cover: https://source.fomal.cc/img/default_cover_22.webp
 tags:
-  - Makefile
+  - makefile
   - C语言
 abbrlink: f353ec85
 date: 2023-05-13 15:58:06
