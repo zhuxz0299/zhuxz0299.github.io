@@ -100,3 +100,34 @@ Rclone 是一个功能强大的命令行工具，用于管理和同步云存储�
 配置完成之后，可以在文件 `~/.config/rclone/rclone.conf` 中看到配置内容。或者运行 `rclone config show` ，也会将文件内容输出到控制台。
 
 此时就可以对云存储的内容进行操作了。例如运行 `rclone lsd Tbox:/` 查看云存储中的内容。
+
+#### WebDAV 挂载
+| 参数名称 | 说明与用途 | 常见值/示例 |
+| :--- | :--- | :--- |
+| **基本挂载参数** | | |
+| `<remote>:<path>` | 远程存储名称和路径 | `dav:/` |
+| `<local_path>` | 本地挂载点路径 | `/webdav` |
+| `--daemon` | **后台守护进程**模式，允许命令在后台运行，关闭终端也不中断。 | |
+| **缓存与性能优化** | | |
+| `--cache-dir <dir>` | **指定缓存目录**，存放文件缓存、临时文件等。**强烈建议设置**，可提升性能并避免磁盘空间问题。 | `--cache-dir /webdav_cache` |
+| `--vfs-cache-mode <mode>` | **VFS缓存模式**，控制文件缓存策略。 | `off`, `minimal`, `writes`, `full` |
+| `--vfs-cache-max-age <duration>` | **缓存最大时间**，在缓存期再次访问同一文件，rclone 会优先使用本地缓存副本| `72h`, `2h` |
+| `--vfs-cache-max-size <size>` | 限制了缓存目录（由 `--cache-dir` 指定）可以占用的**最大磁盘空间** | `2G`, `10G` |
+| `--vfs-read-chunk-size <size>` | **指定读取块大小**，影响顺序读取大文件的性能和高清视频流播放流畅度。 | `32M`, `64M` |
+| `--buffer-size <size>` | 内存缓冲区大小，用于在上传/下载前缓存数据。 | `32M`, `512M` |
+| `--dir-cache-time <duration>` | **目录条目缓存时间**，在缓存期内重复列出目录内容会非常快。 | `72h`, `30m` |
+| **权限与访问控制** | | |
+| `--allow-other` | **允许其他系统用户**（包括非root用户）访问挂载点。 | |
+| `--allow-non-empty` | 允许挂载到**非空目录**上。 | |
+| `--umask <value>` | 设置新创建文件和目录的默认权限掩码（Linux挂载时常用）。 | `000` (对应权限 777), `022` (对应权限 755) |
+| `--file-perms <value>` | 明确设置文件的权限模式（Windows挂载时可能无效）。 | `0777` |
+| **其他实用参数** | | |
+| `--log-level <LEVEL>` | 设置日志详细程度，调试时有用。 | `INFO`, `DEBUG` |
+| `--log-file <FILE>` | 将日志输出到指定文件。 | `--log-file /var/log/rclone.log` |
+| `--read-only` | **以只读模式挂载**，防止意外修改或删除远程文件。 | |
+
+
+运行示例：
+```bash
+rclone mount Tbox:/ /mnt/Tbox/ --cache-dir /mnt/Tbox_cache --allow-non-empty --vfs-cache-mode full --vfs-cache-max-age 2h --vfs-cache-max-size 5G --vfs-read-chunk-size 64M --buffer-size 64M
+```
