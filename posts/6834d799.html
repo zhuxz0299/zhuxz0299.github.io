@@ -162,51 +162,63 @@
       }
     }
     detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/double_row_bug_fix.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/category_card.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/zhuyuan3.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">165</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_151.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zhuxz's Blog"><span class="site-name">Zhuxz's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo 构建原理解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-16T06:51:13.000Z" title="发表于 2025-07-16 14:51:13">2025-07-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-02T12:57:14.036Z" title="更新于 2025-09-02 20:57:14">2025-09-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="从-Node-js-开始"><a href="#从-Node-js-开始" class="headerlink" title="从 Node.js 开始"></a>从 Node.js 开始</h2><p>Node.js 是一个开源的、跨平台的 JavaScript 运行时环境，基于 Chrome V8 JavaScript 引擎构建。它的核心价值在于将 JavaScript 从浏览器拓展到了服务器端，彻底改变了前后端开发模式。在博客网站构建中的主要作用为：</p>
-<h3 id="Node-js-在博客构建中的作用"><a href="#Node-js-在博客构建中的作用" class="headerlink" title="Node.js 在博客构建中的作用"></a>Node.js 在博客构建中的作用</h3><p>Hexo 本质上是 Node.js 应用，其作用可分三层：</p>
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/double_row_bug_fix.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="/css/category_card.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/zhuyuan3.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">74</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-user"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://source.fomal.cc/img/default_cover_151.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Zhuxz's Blog"><span class="site-name">Zhuxz's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-user"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Hexo 构建原理解析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-16T06:51:13.000Z" title="发表于 2025-07-16 14:51:13">2025-07-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-02T12:57:14.036Z" title="更新于 2025-09-02 20:57:14">2025-09-02</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="从-Node-js-开始">从 Node.js 开始</h2>
+<p>Node.js 是一个开源的、跨平台的 JavaScript 运行时环境，基于 Chrome V8 JavaScript 引擎构建。它的核心价值在于将 JavaScript 从浏览器拓展到了服务器端，彻底改变了前后端开发模式。在博客网站构建中的主要作用为：</p>
+<h3 id="Node-js-在博客构建中的作用">Node.js 在博客构建中的作用</h3>
+<p>Hexo 本质上是 Node.js 应用，其作用可分三层：</p>
 <ol>
 <li>运行时环境：所有 Hexo 命令都通过 node 执行，包括 <code>hexo server</code> 这样的实时服务</li>
 <li>包管理：npm 管理 Hexo 核心、主题、插件等数百个依赖</li>
 <li>构建引擎：Markdown 渲染、模板处理、资源优化等构建环节全由 Node.js 驱动</li>
 </ol>
 <p>特别值得注意的是，Hexo 的扩展性完全依赖 Node.js 的模块化设计。比如 Butterfly 主题的 Pug 模板编译，就是通过 <code>hexo-renderer-pug</code> 这个 npm 包实现的。用户修改主题配置时，背后其实是 Node.js 的 require 机制在加载 <code>_config.butterfly.yml</code>。</p>
-<h3 id="npm-的工作原理"><a href="#npm-的工作原理" class="headerlink" title="npm 的工作原理"></a>npm 的工作原理</h3><p>npm（Node Package Manager）是 Node.js 的官方包管理工具，负责依赖安装、版本管理和脚本执行。其工作流程如下：</p>
+<h3 id="npm-的工作原理">npm 的工作原理</h3>
+<p>npm（Node Package Manager）是 Node.js 的官方包管理工具，负责依赖安装、版本管理和脚本执行。其工作流程如下：</p>
 <ul>
-<li>依赖解析：<ul>
+<li>依赖解析：
+<ul>
 <li>读取项目中的 <code>package.json</code> 文件，解析 <code>dependencies</code> 和 <code>devDependencies</code> 字段。</li>
 <li>根据语义化版本规则（如 ^1.2.3）确定兼容的包版本范围。</li>
 </ul>
 </li>
-<li>构建依赖树：<ul>
+<li>构建依赖树：
+<ul>
 <li>npm v3+ 采用扁平化依赖结构（hoisting），将可共用的依赖提升到顶层 <code>node_modules</code>，减少嵌套和冗余。</li>
 <li>若版本冲突，则局部依赖会嵌套安装在子包的 <code>node_modules</code> 中。</li>
 </ul>
 </li>
-<li>下载与安装：<ul>
-<li>查询 npm Registry（默认源：<a target="_blank" rel="noopener" href="https://registry.npmjs.org/）获取包信息。">https://registry.npmjs.org/）获取包信息。</a></li>
+<li>下载与安装：
+<ul>
+<li>查询 npm Registry（默认源：<a target="_blank" rel="noopener" href="https://registry.npmjs.org/%EF%BC%89%E8%8E%B7%E5%8F%96%E5%8C%85%E4%BF%A1%E6%81%AF%E3%80%82">https://registry.npmjs.org/）获取包信息。</a></li>
 <li>下载压缩包（tarball）到本地缓存目录（<code>~/.npm/_cacache</code>），再解压到项目 <code>node_modules</code>。</li>
 </ul>
 </li>
-<li>版本锁定与一致性：<ul>
+<li>版本锁定与一致性：
+<ul>
 <li>生成 <code>package-lock.json</code> 文件，精确锁定所有依赖的版本，确保多环境安装一致性。</li>
 </ul>
 </li>
-<li>脚本与生命周期钩子：<ul>
-<li>支持通过 <code>package.json</code> 的 <code>scripts</code> 字段定义命令。<ul>
-<li>例如 Hexo 项目的 <code>package.json</code> 文件中就提供了<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;clean&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo server&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-此时运行 <code>npm run build</code> 就相当于运行 <code>hexo generate</code>。</li>
+<li>脚本与生命周期钩子：
+<ul>
+<li>支持通过 <code>package.json</code> 的 <code>scripts</code> 字段定义命令。
+<ul>
+<li>例如 Hexo 项目的 <code>package.json</code> 文件中就提供了</li>
 </ul>
-</li>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;clean&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;deploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;server&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo server&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+此时运行 <code>npm run build</code> 就相当于运行 <code>hexo generate</code>。</li>
 <li>提供生命周期钩子（如 preinstall、postinstall）在安装前后执行自定义逻辑。</li>
 </ul>
 </li>
 </ul>
-<h3 id="npm-相关的重要文件夹"><a href="#npm-相关的重要文件夹" class="headerlink" title="npm 相关的重要文件夹"></a>npm 相关的重要文件夹</h3><p>npm 包的安装位置取决于安装方式（本地 or 全局）：</p>
+<h3 id="npm-相关的重要文件夹">npm 相关的重要文件夹</h3>
+<p>npm 包的安装位置取决于安装方式（本地 or 全局）：</p>
 <ol>
-<li><p>本地安装（项目级依赖）</p>
+<li>
+<p>本地安装（项目级依赖）</p>
 <ul>
 <li>位置：项目根目录下的 <code>node_modules</code> 文件夹（例如：<code>/your-project/node_modules/</code>）</li>
-<li>特点：<ul>
+<li>特点：
+<ul>
 <li>每个项目独立一套依赖，避免版本冲突。</li>
 <li>依赖通过 <code>require()</code> 直接引入代码。</li>
 <li>默认安装命令：<code>npm install &lt;package&gt;</code>。</li>
@@ -214,14 +226,17 @@
 </li>
 </ul>
 </li>
-<li><p>全局安装（系统级工具）</p>
+<li>
+<p>全局安装（系统级工具）</p>
 <ul>
-<li>位置：系统级的 <code>node_global</code> 文件夹（路径可自定义）。<ul>
+<li>位置：系统级的 <code>node_global</code> 文件夹（路径可自定义）。
+<ul>
 <li>Windows：<code>%AppData%\npm\node_modules</code></li>
 <li>macOS/Linux：<code>/usr/local/lib/node_modules</code> 或 <code>~/.npm-global/</code></li>
 </ul>
 </li>
-<li>特点：<ul>
+<li>特点：
+<ul>
 <li>包作为全局命令行工具使用（如 <code>vue-cli</code>、<code>http-server</code>）。</li>
 <li>安装命令：<code>npm install -g &lt;package&gt;</code>。</li>
 <li>需将 <code>node_global</code> 路径加入系统 PATH 才能直接运行命令。</li>
@@ -229,27 +244,69 @@
 </li>
 </ul>
 </li>
-<li><p>缓存目录（加速重复安装）</p>
+<li>
+<p>缓存目录（加速重复安装）</p>
 <ul>
 <li>位置：<code>~/.npm/_cacache</code>（npm v5+）。</li>
 <li>作用：存储已下载包的压缩副本，避免重复下载。</li>
 </ul>
 </li>
-<li><p>Node.js 安装根目录下的 <code>node_modules</code></p>
+<li>
+<p>Node.js 安装根目录下的 <code>node_modules</code></p>
 <ul>
 <li>这些模块的更新和版本管理是跟随 Node.js 本身的版本一起发布的。你不能用 <code>npm install</code> 或 <code>npm uninstall</code> 来操作它们。升级 Node.js 版本会整体替换这个文件夹的内容。</li>
 </ul>
 </li>
 </ol>
-<h3 id="npm-相关配置"><a href="#npm-相关配置" class="headerlink" title="npm 相关配置"></a>npm 相关配置</h3><p>配置文件优先级<br>|配置类型|    存放位置/方式|    优先级|    作用范围|<br>|—-|—-|—-|—-|<br>|命令行参数|    <code>npm install --registry=xxx</code>|    最高|    单次命令生效|<br>|项目级 .npmrc    |项目根目录：<code>/your-project/.npmr</code>|    中高|    仅当前项目生效|<br>|用户级 .npmrc|    <code>~/.npmrc</code> (用户主目录)|    中|    当前用户所有项目生效<br>|npm 默认配置|    Node.js 安装目录：<code>nodejs/node_modules/npm/npmrc</code>|    最低|    全局默认值</p>
+<h3 id="npm-相关配置">npm 相关配置</h3>
+<p>配置文件优先级</p>
+<table>
+<thead>
+<tr>
+<th>配置类型</th>
+<th>存放位置/方式</th>
+<th>优先级</th>
+<th>作用范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>命令行参数</td>
+<td><code>npm install --registry=xxx</code></td>
+<td>最高</td>
+<td>单次命令生效</td>
+</tr>
+<tr>
+<td>项目级 .npmrc</td>
+<td>项目根目录：<code>/your-project/.npmr</code></td>
+<td>中高</td>
+<td>仅当前项目生效</td>
+</tr>
+<tr>
+<td>用户级 .npmrc</td>
+<td><code>~/.npmrc</code> (用户主目录)</td>
+<td>中</td>
+<td>当前用户所有项目生效</td>
+</tr>
+<tr>
+<td>npm 默认配置</td>
+<td>Node.js 安装目录：<code>nodejs/node_modules/npm/npmrc</code></td>
+<td>最低</td>
+<td>全局默认值</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><code>npm config list -l</code> 显示的大部分配置是 npm 自身代码中定义的默认值（”default” config from default values）</li>
+<li><code>npm config list -l</code> 显示的大部分配置是 npm 自身代码中定义的默认值（“default” config from default values）</li>
 <li><code>npm config set</code> 命令改变的是 ~/.npmrc 的内容</li>
 </ul>
-<h2 id="Hexo-项目构建"><a href="#Hexo-项目构建" class="headerlink" title="Hexo 项目构建"></a>Hexo 项目构建</h2><h3 id="Hexo-文件夹创建"><a href="#Hexo-文件夹创建" class="headerlink" title="Hexo 文件夹创建"></a>Hexo 文件夹创建</h3><p><code>npm install hexo-cli -g</code></p>
+<h2 id="Hexo-项目构建">Hexo 项目构建</h2>
+<h3 id="Hexo-文件夹创建">Hexo 文件夹创建</h3>
+<p><code>npm install hexo-cli -g</code></p>
 <ul>
 <li>作用：全局安装 Hexo 命令行工具</li>
-<li>工作原理：<ul>
+<li>工作原理：
+<ul>
 <li>将 hexo-cli 安装到全局 <code>node_modules</code>（如 <code>D:\nodejs\node_global\node_modules</code> 文件夹下）</li>
 <li>在全局 <code>D:\nodejs\node_global</code> 目录创建可执行文件（这个目录在系统路径中）</li>
 </ul>
@@ -259,39 +316,49 @@
 <p><code>hexo init blog</code></p>
 <ul>
 <li>作用：创建 Hexo 项目骨架</li>
-<li>工作原理：<ol>
+<li>工作原理：
+<ol>
 <li>创建 <code>blog</code> 目录</li>
 <li>从 GitHub 仓库 hexojs/hexo-starter 下载配置文件</li>
 <li>生成 <code>package.json</code> 文件（包含核心依赖）</li>
 </ol>
 </li>
 </ul>
-<p>执行完之后会有如下文件与文件夹<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Mode                 LastWriteTime         Length Name</span><br><span class="line">----                 -------------         ------ ----</span><br><span class="line">d-----         2025/7/16     18:41                .github</span><br><span class="line">d-----         2025/7/16     18:41                node_modules</span><br><span class="line">d-----         2025/7/16     18:41                scaffolds</span><br><span class="line">d-----         2025/7/16     18:41                source</span><br><span class="line">d-----         2025/7/16     18:41                themes</span><br><span class="line">-a----         2025/7/16     18:41             89 .gitignore</span><br><span class="line">-a----         2025/7/16     18:41          94272 package-lock.json</span><br><span class="line">-a----         2025/7/16     18:41            641 package.json</span><br><span class="line">-a----         2025/7/16     18:41              0 _config.landscape.yml</span><br><span class="line">-a----         2025/7/16     18:41           2547 _config.yml</span><br></pre></td></tr></table></figure></p>
+<p>执行完之后会有如下文件与文件夹</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Mode                 LastWriteTime         Length Name</span><br><span class="line">----                 -------------         ------ ----</span><br><span class="line">d-----         2025/7/16     18:41                .github</span><br><span class="line">d-----         2025/7/16     18:41                node_modules</span><br><span class="line">d-----         2025/7/16     18:41                scaffolds</span><br><span class="line">d-----         2025/7/16     18:41                source</span><br><span class="line">d-----         2025/7/16     18:41                themes</span><br><span class="line">-a----         2025/7/16     18:41             89 .gitignore</span><br><span class="line">-a----         2025/7/16     18:41          94272 package-lock.json</span><br><span class="line">-a----         2025/7/16     18:41            641 package.json</span><br><span class="line">-a----         2025/7/16     18:41              0 _config.landscape.yml</span><br><span class="line">-a----         2025/7/16     18:41           2547 _config.yml</span><br></pre></td></tr></table></figure>
 <p>且此时 <code>node_modules</code> 中已经安装了很多包，看起来是已经执行了 <code>npm install</code> 的步骤。因为 <code>package.json</code> 中的依赖都可以在 <code>node_modules</code> 中找到。</p>
-<h3 id="Hexo-博客内容文件生成"><a href="#Hexo-博客内容文件生成" class="headerlink" title="Hexo 博客内容文件生成"></a>Hexo 博客内容文件生成</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] <span class="string">&quot;Title&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Hexo-博客内容文件生成">Hexo 博客内容文件生成</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] <span class="string">&quot;Title&quot;</span></span><br></pre></td></tr></table></figure>
 <p>layout 参数：<code>post</code>（默认）或 <code>page</code>, <code>draft</code>。生成文件的模板放在 <code>scaffolds/</code> 文件夹下，因此理论上可以往里面添加其他模板。</p>
-<h3 id="Butterfly-主题与静态网页生成"><a href="#Butterfly-主题与静态网页生成" class="headerlink" title="Butterfly 主题与静态网页生成"></a>Butterfly 主题与静态网页生成</h3><p>下载 Butterfly 主题，将文件夹放在 <code>themes</code> 中。将其 <code>_config.yml</code> 复制出来，放在 Hexo 根目录下，并且将其重命名为 <code>_config.butterfly.yml</code>。</p>
+<h3 id="Butterfly-主题与静态网页生成">Butterfly 主题与静态网页生成</h3>
+<p>下载 Butterfly 主题，将文件夹放在 <code>themes</code> 中。将其 <code>_config.yml</code> 复制出来，放在 Hexo 根目录下，并且将其重命名为 <code>_config.butterfly.yml</code>。</p>
 <p>有了主题之后，静态网页生成的流程为：</p>
 <ol>
-<li>配置加载阶段<ol>
-<li>站点配置：<code>_config.yml</code><ul>
+<li>配置加载阶段
+<ol>
+<li>站点配置：<code>_config.yml</code>
+<ul>
 <li>控制全局设置（URL/目录/部署等）</li>
 </ul>
 </li>
-<li>主题配置：<code>_config.butterfly.yml</code><ul>
+<li>主题配置：<code>_config.butterfly.yml</code>
+<ul>
 <li>覆盖主题默认设置（菜单/样式/插件等）</li>
 </ul>
 </li>
 <li>最终配置 = 合并 <code>_config.yml</code> + <code>_config.butterfly.yml</code></li>
 </ol>
 </li>
-<li>源文件处理阶段<ul>
-<li>内容来源：<ul>
+<li>源文件处理阶段
+<ul>
+<li>内容来源：
+<ul>
 <li>用户文章：<code>source/_posts/*.md</code></li>
 <li>主题资源：<code>themes/butterfly/source/</code> (CSS/JS/图片)</li>
 </ul>
 </li>
-<li>关键处理：<ul>
+<li>关键处理：
+<ul>
 <li>Markdown → HTML 转换</li>
 <li>Front-Matter 元数据提取</li>
 <li>资源文件复制/压缩</li>
@@ -299,23 +366,29 @@
 </li>
 </ul>
 </li>
-<li>模板渲染阶段<ul>
+<li>模板渲染阶段
+<ul>
 <li>模板引擎：pug</li>
-<li>内容来源：<ul>
+<li>内容来源：
+<ul>
 <li>post 与 page：<code>source/</code> 下的 <code>.md</code> 文件。</li>
 <li>模板路径 <code>/theme/butterfly/layout</code>，其中有很多 <code>.pug</code> 文件</li>
 </ul>
 </li>
-<li>数据注入，例如   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//- 使用站点配置</span><br><span class="line">title= config.title</span><br><span class="line">//- 使用主题配置</span><br><span class="line">if theme.fancybox</span><br><span class="line">script(src=&#x27;/js/fancybox.js&#x27;)</span><br><span class="line">//- 使用页面数据</span><br><span class="line">h1= page.title</span><br><span class="line">.content!= page.content</span><br></pre></td></tr></table></figure></li>
-<li>主题资源注入：<ul>
+<li>数据注入，例如   <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//- 使用站点配置</span><br><span class="line">title= config.title</span><br><span class="line">//- 使用主题配置</span><br><span class="line">if theme.fancybox</span><br><span class="line">script(src=&#x27;/js/fancybox.js&#x27;)</span><br><span class="line">//- 使用页面数据</span><br><span class="line">h1= page.title</span><br><span class="line">.content!= page.content</span><br></pre></td></tr></table></figure>
+</li>
+<li>主题资源注入：
+<ul>
 <li>自动插入主题的 CSS/JS 文件</li>
 <li>应用 <code>_config.butterfly.yml</code> 中的样式变量</li>
-<li>例如： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//- 根据主题配置显示搜索框</span><br><span class="line">if theme.search.enable</span><br><span class="line">include includes/widget/search.pug</span><br></pre></td></tr></table></figure></li>
-</ul>
+<li>例如： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//- 根据主题配置显示搜索框</span><br><span class="line">if theme.search.enable</span><br><span class="line">include includes/widget/search.pug</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li>静态文件生成<ul>
+</ul>
+</li>
+<li>静态文件生成
+<ul>
 <li>HTML：根据模板 + 内容生成</li>
 <li>资源：<code>source/</code> 和 <code>themes/butterfly/source/</code> → 合并到 <code>public/</code></li>
 </ul>
@@ -394,6 +467,16 @@
     }
   }
 })()</script></div><script defer src="/js/cursor.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_196.webp);"> <a class="categoryBar-list-link" href="categories/demo/">demo</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_195.webp);"> <a class="categoryBar-list-link" href="categories/latex/">latex</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_194.webp);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_193.webp);"> <a class="categoryBar-list-link" href="categories/ccf-csp/">ccf-csp</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_192.webp);"> <a class="categoryBar-list-link" href="categories/artificial-intelligence/">artificial intelligence</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_191.webp);"> <a class="categoryBar-list-link" href="categories/动手学深度学习/">动手学深度学习</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_190.webp);"> <a class="categoryBar-list-link" href="categories/game-theory/">game theory</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_189.webp);"> <a class="categoryBar-list-link" href="categories/Operating-system/">Operating system</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_188.webp);"> <a class="categoryBar-list-link" href="categories/data-science/">data science</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_187.webp);"> <a class="categoryBar-list-link" href="categories/machine-learning/">machine learning</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_186.webp);"> <a class="categoryBar-list-link" href="categories/discrete-math/">discrete math</a><span class="categoryBar-list-count">8</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_185.webp);"> <a class="categoryBar-list-link" href="categories/computer-graphics-notes/">computer graphics notes</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_184.webp);"> <a class="categoryBar-list-link" href="categories/自行车/">自行车</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_183.webp);"> <a class="categoryBar-list-link" href="categories/computer-organization/">computer organization</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_182.webp);"> <a class="categoryBar-list-link" href="categories/computer-network/">computer network</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_181.webp);"> <a class="categoryBar-list-link" href="categories/试卷解答/">试卷解答</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_180.webp);"> <a class="categoryBar-list-link" href="categories/量子力学/">量子力学</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script data-pjax>
   function butterfly_footer_beautify_injector_config(){
     var parent_div_git = document.getElementById('footer-wrap');
     var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
@@ -417,16 +500,6 @@
   else if (epage === cpage){
     butterfly_footer_beautify_injector_config();
   }
-  </script><script data-pjax>
-    function butterfly_categories_card_injector_config(){
-      var parent_div_git = document.getElementById('recent-posts');
-      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_196.webp);"> <a class="categoryBar-list-link" href="categories/linux/">linux</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_195.webp);"> <a class="categoryBar-list-link" href="categories/demo/">demo</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_194.webp);"> <a class="categoryBar-list-link" href="categories/latex/">latex</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_193.webp);"> <a class="categoryBar-list-link" href="categories/ccf-csp/">ccf-csp</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_192.webp);"> <a class="categoryBar-list-link" href="categories/artificial-intelligence/">artificial intelligence</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_191.webp);"> <a class="categoryBar-list-link" href="categories/动手学深度学习/">动手学深度学习</a><span class="categoryBar-list-count">4</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_190.webp);"> <a class="categoryBar-list-link" href="categories/Operating-system/">Operating system</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_189.webp);"> <a class="categoryBar-list-link" href="categories/game-theory/">game theory</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_188.webp);"> <a class="categoryBar-list-link" href="categories/data-science/">data science</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_187.webp);"> <a class="categoryBar-list-link" href="categories/machine-learning/">machine learning</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_186.webp);"> <a class="categoryBar-list-link" href="categories/discrete-math/">discrete math</a><span class="categoryBar-list-count">8</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_185.webp);"> <a class="categoryBar-list-link" href="categories/自行车/">自行车</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_184.webp);"> <a class="categoryBar-list-link" href="categories/computer-organization/">computer organization</a><span class="categoryBar-list-count">3</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_183.webp);"> <a class="categoryBar-list-link" href="categories/computer-graphics-notes/">computer graphics notes</a><span class="categoryBar-list-count">7</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_182.webp);"> <a class="categoryBar-list-link" href="categories/computer-network/">computer network</a><span class="categoryBar-list-count">6</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_181.webp);"> <a class="categoryBar-list-link" href="categories/试卷解答/">试卷解答</a><span class="categoryBar-list-count">1</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://source.fomal.cc/img/default_cover_180.webp);"> <a class="categoryBar-list-link" href="categories/量子力学/">量子力学</a><span class="categoryBar-list-count">13</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
-      console.log('已挂载butterfly_categories_card')
-      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
-      }
-    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
-    butterfly_categories_card_injector_config()
-    }
   </script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
 for(var i = 0;i<arr.length;i++){
     arr[i].classList.add('wow');
