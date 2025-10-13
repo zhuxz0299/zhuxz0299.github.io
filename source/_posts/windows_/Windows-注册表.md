@@ -3,6 +3,8 @@ title: Windows 注册表
 abbrlink: 5ef1aa76
 date: 2025-08-01 16:53:50
 tags:
+    - windows
+    - regedit
 description: 对 Windows 中注册表的简要介绍
 cover: 'https://source.fomal.cc/img/default_cover_154.webp'
 ---
@@ -48,3 +50,6 @@ com.tencent.cofile    REG_SZ   C:\Program Files (x86)\SJTU_Drive\交大云盘.ex
 ```
 
 的 value，任务管理器的启动项中也会出现交大云盘。反之如果取消勾选，那么注册表中的这个 value 就会没掉。
+
+### Windows 更新时间
+路径为 `计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings`，在其中新建 key 为 `FlightSettingsMaxPauseDays`，类型选为 `REG_DWORD`，然后填一个足够大的值，就可以在“设置”-“Windows更新”-“暂停更新”中选一个足够晚的时间。
