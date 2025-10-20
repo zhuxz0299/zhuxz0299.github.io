@@ -384,9 +384,9 @@
       
         <tags>
             
-            <tag> python </tag>
-            
             <tag> c# </tag>
+            
+            <tag> python </tag>
             
             <tag> c/c++ </tag>
             
@@ -1079,9 +1079,9 @@
             
             <tag> linux </tag>
             
-            <tag> apt </tag>
-            
             <tag> docker </tag>
+            
+            <tag> apt </tag>
             
         </tags>
       
