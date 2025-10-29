@@ -1,10 +1,11 @@
 ---
 title: Arch Linux 启动问题修复
-date: 2025-10-27 21:17:07
 cover: 'https://source.fomal.cc/img/default_cover_172.webp'
 tags:
   - arch linux
 description: 记录 Arch Linux 无法开机问题的修复过程
+abbrlink: 91c6fd1a
+date: 2025-10-27 21:17:07
 ---
 ## 内存盘镜像故障
 ### 问题描述
@@ -191,3 +192,13 @@ Unable to resume from device '/dev/disk/by-uuid/455e3566-b69f-4cb7-9083-d31f3f7a
 ### 问题分析
 `Unable to resume from device ... continuing boot process.` 说明系统找到了我们指定的 swap 分区 (UUID是对的)，尝试从它恢复休眠（失败了，这是正常的，因为这是电脑关机后开机），然后它放弃了恢复，并继续正常启动。同时可以从 tty 登录，说明系统启动本身没有问题，只是图形桌面坏了。
 
+这时候问题可以被定位到显卡驱动或者是显示服务协议上（Wayland 和 X11 的选择）。
+
+### 修复方法
+最后首先通过运行
+```bash
+systemctl status gdm.service
+journalctl -u gdm.service -b
+```
+
+发现无异常，然后在 `/etc/gdm/custom.conf` 文件中注释掉了 `WaylandEnable=false`，重启后就成功进入图形界面了。原理尚不清楚。
