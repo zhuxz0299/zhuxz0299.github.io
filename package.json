@@ -14,7 +14,7 @@
   "dependencies": {
     "@renbaoshuo/markdown-it-katex": "^2.0.2",
     "gulp": "^5.0.1",
-    "hexo": "^7.3.0",
+    "hexo": "^8.1.1",
     "hexo-abbrlink": "^2.2.1",
     "hexo-bilibili-bangumi": "^1.11.1",
     "hexo-butterfly-article-double-row": "^1.0.2",
