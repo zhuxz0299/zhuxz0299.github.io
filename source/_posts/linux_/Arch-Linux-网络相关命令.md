@@ -194,5 +194,63 @@ default via 192.168.1.1 dev wlp0s20f3 proto dhcp src 192.168.1.120 metric 600
 192.168.1.0/24 dev wlp0s20f3 proto kernel scope link src 192.168.1.120 metric 600
 ```
 
+* `default via 192.168.1.1 dev wlp0s20f3 proto dhcp src 192.168.1.120 metric 600`
+  * `default`：路由表默认规则
+  * `via 192.168.1.1`：`192.168.1.1` 是网关地址，在这里是路由器 ip
+  * `dev wlp0s20f3`：表示使用的设备，这里使用的是无线网卡 `wlp0s20f3`
+  * `proto dhcp`：说明这条路由规则是由 DHCP 协议自动配置的。即路由器（DHCP 服务器）在分配给电脑 IP 的同时，也电脑网关的 ip。
+  * `src 192.168.1.120`：电脑自身 ip。
+  * `metric 600`：跃点数为 600，这是这条路由的“优先级”。如果同时插了网线（`metric` 可能是 `100`），系统会优先使用 `metric` 值更低（成本更低）的网线
+* `192.168.1.0/24 dev wlp0s20f3 proto kernel scope link src 192.168.1.120 metric 600`
+  * `192.168.1.0/24`：局域网所有设备地址，表示这是局域网的路由规则
+  * `proto kernel`：这条规则是 Linux 内核在用户为 `wlp0s20f3` 配置 `192.168.1.120/24` 这个 IP 地址时，自动添加的。
+  * `scope link`：表示 `192.168.1.0/24` 整个网络在链路上，不需要经过网关。
+
 ### ip 和 nmcli 的关系
-`nmcli` 是上层的网络管理工具；ip 是底层的配置工具。`nmcli` 在幕后会使用 `ip` (或类似的功能) 来完成实际的工作。
+* `nmcli` 是上层的网络管理工具；`ip` 是配置工具，直接与 Linux 内核的网络栈对话。
+* `ip` 用于配置内核中的对象，如：IP 地址（`ip addr`）、路由表（`ip route`）和网络接口的状态（`ip link set up/down`）。
+* `nmcli` 在幕后会使用 `ip` (或类似的功能) 来完成实际的工作。
+
+## 有线网协商速率获取
+前面的 `nmcli` 有时可能无法获取协商速率，此时需要使用别的方法。
+1. 使用 `ethtool`：`ethtool <dev>`
+2. 使用 `/sys` 文件系统：`cat /sys/class/net/<dev>/speed`
+
+其中使用 `ethtool` 得到的结果形如：
+```
+ ethtool enp0s20f0u1u1
+Settings for enp0s20f0u1u1:
+        Supported ports: [ TP    MII ]
+        Supported link modes:   10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Half 1000baseT/Full
+        Supported pause frame use: No
+        Supports auto-negotiation: Yes
+        Supported FEC modes: Not reported
+        Advertised link modes:  10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+        Advertised pause frame use: No
+        Advertised auto-negotiation: Yes
+        Advertised FEC modes: Not reported
+        Link partner advertised link modes:  10baseT/Half 10baseT/Full
+                                             100baseT/Half 100baseT/Full
+                                             1000baseT/Full
+        Link partner advertised pause frame use: Symmetric
+        Link partner advertised auto-negotiation: Yes
+        Link partner advertised FEC modes: Not reported
+        Speed: 1000Mb/s
+        Duplex: Full
+        Auto-negotiation: on
+        Port: MII
+        PHYAD: 32
+        Transceiver: internal
+netlink error: Operation not permitted
+        Current message level: 0x00007fff (32767)
+                               drv probe link timer ifdown ifup rx_err tx_err tx_queued intr tx_done rx_status pktdata hw wol
+        Link detected: yes
+```
+
+### ethtool 和 ip 的关系
+* `ip` 在内核层面工作，不关心硬件的“协商速率”或“双工模式”，它只关心内核如何看待这个接口。
+* `ethtool` 更加底层，直接与网络设备驱动程序 (driver) 对话。它的工作是查询和设置物理网卡（PHY）本身的参数。
