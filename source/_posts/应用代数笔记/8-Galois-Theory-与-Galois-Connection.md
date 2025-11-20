@@ -49,7 +49,7 @@ $\forall \alpha, \beta \in fix(H)$，$\forall \sigma \in H$：
 因此，$fix(H)$ 对域运算封闭，是 $E$ 的一个子域。
 
 ### 伽罗瓦基本对应
-利用不动域以及伽罗瓦扩张的定义，可以在 $E/F$ 的中间域集合 $\mathcal{F} \overset{\underset{\mathrm{def}}{}}{=}\{ L | F<L<E \}$ 与 $G_F(E)$ 的子群集合 $\mathcal{G} = \{ H | \{ \iota \} < H < G_{F}(E) \}$ 之间构造一个对应关系。
+利用不动域以及伽罗瓦扩张的定义，可以在 $E/F$ 的中间域集合 $\mathcal{F} \overset{\underset{\mathrm{def}}{}}{=}\{ L | F<L<E \}$ 与 $G_F(E)$ 的子群集合 $\mathcal{G} \overset{\underset{\mathrm{def}}{}}{=} \{ H | \{ \iota \} < H < G_{F}(E) \}$ 之间构造一个对应关系。
 
 我们现在有两个核心映射：
 
@@ -94,7 +94,7 @@ $\forall \alpha, \beta \in fix(H)$，$\forall \sigma \in H$：
 因此 $G_F(E) = G_{\mathbb{Q}}(E) = \{ \iota \}$。
 那么 $fix(G_F(E)) = fix(\{ \iota \}) = E = \mathbb{Q}(\sqrt[3]{2})$。
 但是 $F = \mathbb{Q}$。
-所以 $F \subsetneq fix(G_F(E))$。
+所以 $F \neq fix(G_F(E))$。
 
 ## 抽象化：伽罗瓦连接 (Galois Connection)
 
