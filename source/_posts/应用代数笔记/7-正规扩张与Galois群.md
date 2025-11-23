@@ -5,7 +5,7 @@ categories: applied algebra
 katex: true
 abbrlink: f636573c
 date: 2025-11-08 16:38:53
-description:
+description: 从正规扩张的等价定义以及性质开始，再简要介绍可分扩张，最后定义伽罗瓦扩张以及伽罗瓦群
 ---
 
 ## 分裂域与同构延展
@@ -17,23 +17,23 @@ description:
 
 #### 证明思路（关于根的映射）
 
-{% note warning %}
-得改
-<!-- TODO -->
-{% endnote %}
-
-设 $E$ 是 $F$ 的代数扩张。给定一个 $F$-嵌入 $\sigma: E \to L$。
-
-1.  设 $f(x) \in F[x]$。 $f(x)$ 在 $E$ 中的根集为 $X = \{ \alpha_1, \dots, \alpha_n \}$。
-2.  在 $E$ 中，$f(x) = c(x-\alpha_1)\dots(x-\alpha_n)$。
-3.  我们将 $\sigma$ 作用于 $f(x)$。由于 $\sigma$ 是一个 $F$-嵌入，它固定 $F$ 中的所有元素，因此 $f(x)$ 的所有系数（均在 $F$ 中）都保持不变。
-    $$\sigma(f(x)) = f(\sigma(x))$$
-4.  同时，$\sigma$ 作用在 $f(x)$ 分解后的形式上：
-    $$\sigma(f(x)) = \sigma(c(x-\alpha_1)\dots(x-\alpha_n)) = c(x-\sigma(\alpha_1))\dots(x-\sigma(\alpha_n))$$
-5.  因此，我们得到：
-    $$f(x) = c(x-\sigma(\alpha_1))\dots(x-\sigma(\alpha_n))$$
-6.  这表明，集合 $\{\sigma(\alpha_1), \dots, \sigma(\alpha_n)\}$ 必须等于 $f(x)$ 在 $L$ 中的根集。
-7.  结论：$F$-嵌入 $\sigma$ 必然将 $f(x)$ 在 $E$ 中的根 $\alpha_i$ 映射到 $f(x)$ 在 $L$ 中的根 $\sigma(\alpha_i)$。它诱导了 $f(x)$ 根集 $X$ 的一个置换（如果 $E=L$ 且 $\sigma$ 是自同构）。
+设 $K, L$ 是 $F$ 的两个代数闭包，要证 $\mathcal{F}$ 在 $K$ 中的分裂域同构于在 $L$ 中的分裂域。
+1. 设 $X$ 是 $\mathcal{F}$ 在 $K$ 中的全体根
+2. 那么可以得到 $\mathcal{F}$ 在 $K$ 中的分裂域 $F(X)$，且 $F(X)$ 也是 $F$ 的代数扩张
+3. 由此可以利用代数扩张的延展定理，得到 $F$ -嵌入 $\sigma: F(X) \hookrightarrow L$
+4. $F(X) \cong \sigma(F(X))$，希望证明 $\sigma(F(X))$ 是 $\mathcal{F}$ 在 $L$ 中的分裂域
+5. 由于 $\sigma(F(X)) = F(\sigma(X))$，即证 $\sigma(X)$ 是 $\mathcal{F}$ 在 $L$ 上全体根，记为 $X'$
+6. 先证 $X' \subseteq \sigma(X)$
+   1. $\forall f \in \mathcal{F}$，$f$ 在 $K$ 中的根为 $\alpha_1, \ldots \alpha_n \in X$
+   2. $f(x) = (x-\alpha_1)\cdots (x-\alpha_n)$
+   3. $\sigma(f(x)) = (x - \sigma(\alpha_1))\cdots (x- \sigma(\alpha_n))$
+   4. 即 $f$ 在 $L$ 上的根都具有 $\sigma(\alpha_i)$ 的形式
+   5. 所以 $X' \subseteq \sigma(X)$
+7. 再证 $\sigma(X) = X'$
+   1. $\forall \beta \in \sigma(X)$，$\exists \alpha \in X \text{ s.t. } \beta = \sigma(\alpha)$
+   2. $\exists f \in \mathcal{F} \text{ s.t } f(\alpha) = 0 \Rightarrow f(\sigma(\alpha)) = 0 \Rightarrow f(\beta) = 0$
+   3. 所以 $\beta$ 是 $\mathcal{F}$ 在 $L$ 上的根
+   4. $\sigma(X) \subseteq X'$
 
 
 ## 正规扩张 (Normal Extensions)

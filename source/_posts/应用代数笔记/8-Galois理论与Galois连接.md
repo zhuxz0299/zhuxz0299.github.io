@@ -1,11 +1,11 @@
 ---
-title: Galois Theory 与 Galois Connection
+title: Galois理论与Galois连接
 cover: 'https://source.fomal.cc/img/default_cover_180.webp'
 categories: applied algebra
 katex: true
 abbrlink: 3d2c8e8d
 date: 2025-11-13 22:13:07
-description:
+description: 从伽罗瓦不动域引入伽罗瓦基本对应，再引入抽象的伽罗瓦连接来分析域和伽罗瓦群之间的关系
 ---
 
 ## 伽罗瓦理论 (Galois Theory)
@@ -200,7 +200,7 @@ $H$ 是闭元 $\iff H = H'^* = G_{fix(H)}(E)$。
     **结论：** $1_{P}, 1_{Q}$ 都是闭元。
 2. 既然 top 元素是闭元，那么就会在映射的像中，例如考虑 $1_{P}$，$\exists q\in Q, q' = 1_{P}$。同时利用伽罗瓦连接的 order-reversing 的性质，这个 $q$ 恰好应当为 $0_{Q}$。
     **结论：** $1_{P} = 0_{Q}' \quad 1_{Q} = 0_{P}^{*}$
-3. 不难看出 $Q$ 中的最小闭元为 $1_{P}*$，那么 
+3. 不难看出 $Q$ 中的最小闭元为 $1_{P}^*$，那么 
     **结论：** $0_{Q}$ 是闭元 $\iff$ $0_{Q} = 1_{P}^{*}$；$0_{P}$ 是闭元 $\iff$ $0_{P} = 1_{Q}^{*}$
 
 接下来考察具体的 $\mathcal{F}$ 与 $\mathcal{G}$：
