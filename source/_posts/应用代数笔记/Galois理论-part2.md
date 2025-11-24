@@ -94,30 +94,26 @@ $$
 > (课上不证)
 
 ## Closed 与 Galois 扩张的关系
+> **定理**
+> $F$ 为 closed，即 $F = fix(G_F(E))$ $\iff$ $E / F$ 是有限伽罗瓦扩张
 
-下面讨论 $0_p$ 为 closed 的情况，即什么时候 $F = fix(G_F(E))$？
+**证明**：
+$\Rightarrow$：
+* 假如 $F$ 是闭元，考虑 $\forall \alpha \in E \setminus F$，有 $[F(\alpha): F]<\infty$
+* 利用闭元的有限扩张还是闭元的性质，得到 $F(\alpha)$ 是闭元。
+* 再利用闭元度保持的性质，有 $[F(\alpha) :F] = (G_{F}(E): G_{F(\alpha)}(E))$，将其记为 $d$
+* 设 $\sigma_1, \ldots \sigma_{d}$ 是 $G_{F}(E)/ G_{F(\alpha)}(E)$ 的一组完全代表系，即每个元素在不同的陪集中
+* 由于 $\sigma_i$ 是 $E$ 的 $F$-自同构，因此 $\sigma_1(\alpha) , \ldots \sigma_{d}(\alpha)$ 都是 $\alpha$ 的共轭元
+* 接下来希望证明 $\sigma_1(\alpha) , \ldots \sigma_{d}(\alpha)$ 两两互不相同
+  * 如果 $\sigma_i(\alpha) = \sigma_j(\alpha) \Rightarrow \sigma_j^{-1}\sigma_i(\alpha) = \alpha \Rightarrow \sigma_j^{-1}\sigma_i \in G_{F(\alpha)}(E)$
+  * 那么 $\sigma_i, \sigma_j$ 在同一陪集中，与假设矛盾
+  * 因此 $\sigma_1(\alpha) , \ldots \sigma_{d}(\alpha)$ 为 $d$ 个不同的 $\alpha$ 的共轭元
+* 而 $\alpha$ 共有 $d$ 个共轭元，因此 $\sigma_1(\alpha) , \ldots \sigma_{d}(\alpha)$ 为 $\alpha$ 的极小多形式 $p_{\alpha}(x)$ 的所有根
+* $\forall i, \sigma_i(\alpha) \in E$，说明 $p_{\alpha}$ 在 $E$ 中分裂
+* 所以 $E / F$ 是正规扩张
+* 得到 $E / F$ 是有限伽罗瓦扩张
 
-记 $cl(F) = fix(G_F(E))$。
-$F \subseteq cl(F)$ 总是成立的。我们关注何时取等号。
 
-考察 $cl(F)$ 和 $F$ 的关系：
-$$F < cl(F) < E$$
-$$G_{cl(F)}(E) = G_F(E)$$
-(因为 $cl(F)$ 是由 $G_F(E)$固定的，所以群没变)
-
-取 $\alpha \in cl(F)$。
-设 $\alpha$ 的共轭元为 $\sigma_1(\alpha), \dots, \sigma_d(\alpha)$。
-构造多项式：
-$$f(x) = \prod (x - \sigma_i(\alpha))$$
-系数由基本对称多项式给出，且在 $G_F(E)$ 作用下不变。
-$\Rightarrow f(x) \in (fix(G_F(E)))[x] = cl(F)[x]$。
-
-如果 $F$ 是 closed ($F = cl(F)$)，则 $f(x) \in F[x]$。
-这意味着：
-1.  $\alpha$ 的极小多项式在 $E$ 中 Split (分裂)。
-2.  且无重根 (Separable)。
-$\Rightarrow E/F$ 是 Normal 且 Separable。
-$\Rightarrow E/F$ 是有限 Galois 扩张。
 
 反之，若 $E/F$ 是 Galois 扩张，则 $cl(F) = F$。即 $F$ 是 closed。
 
