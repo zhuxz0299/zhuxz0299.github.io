@@ -113,43 +113,47 @@ $\Rightarrow$：
 * 所以 $E / F$ 是正规扩张
 * 得到 $E / F$ 是有限伽罗瓦扩张
 
-
-
-反之，若 $E/F$ 是 Galois 扩张，则 $cl(F) = F$。即 $F$ 是 closed。
+$\Leftarrow$：
+* 假如 $E / F$ 是伽罗瓦扩张，记 $cl(F) = fix(G_{F}(E))$
+* 由伽罗瓦连接的性质，有 $F\le cl(F)$ 以及 $G_{F}(E) = G_{cl(F)}(E)$
+* 后续希望证明 $F = cl(F)$
+* 考虑 $\forall \alpha \in cl(F)$，记 $\alpha$ 极小多项式为 $p(x)\in F[x]$
+* 记 $p(x)$ 的任意某个根为 $\beta$
+* 根据代数扩张的延展定理，知存在 $F$-嵌入 $\sigma: E \hookrightarrow \bar{F}$ 使得 $\sigma(\alpha) = \beta$
+* 又因为 $E /F$ 是正规扩张，得到 $\sigma(E) = E$
+* 因此 $\sigma \in G_{F}(E) \Rightarrow \sigma \in G_{cl(F)}(E)$ （利用了 $G_{F}(E) = G_{cl(F)}(E)$）
+* 得到 $\sigma$ fixes $cl(F)$，从而 $\beta = \sigma(\alpha) = \alpha$
+* $p(x)$ 任意根都为 $\alpha$
+* 并且 $E / F$ 为可分扩张，$p(x)$ 无重根，因此 $p(x) = x - \alpha$
+* $\therefore \alpha \in F \Rightarrow cl(F) = F$，$F$ 为闭元
 
 ## Fundamental Theorem of Galois Theory (Galois 理论基本定理)
 
 设 $F < E$ 为有限 Galois 扩张。
 
 > **定理 (Galois Theory)**
-> 1.  $F, E$ 的中间域与 $G_F(E)$ 的子群存在 **一一对应** (互逆双射)。
->     $$K \longleftrightarrow G_K(E)$$
->     $$H \longleftrightarrow fix(H)$$
->
+> 1.  $F, E$ 的中间域 $\mathcal{F}$ 与 $G_F(E)$ 的子群 $\mathcal{G}$ 存在 **一一对应** (互逆双射)。
 > 2.  对于 $F < K < L < E$：
 >     $$[L : K] = (G_K(E) : G_L(E))$$
->     对于 $1 < J < H < G_F(E)$：
+> 
+>     对于 $J < H < G_F(E)$：
 >     $$(H : J) = [fix(J) : fix(H)]$$
+> 
 >     特别地：$[E : F] = |G_F(E)|$。
->     注：$\overline{L} = L \iff L = fix(G_L(E))$。
->
-> 3.  $K/F$ 是 Galois 扩张 $\iff G_K(E) \triangleleft G_F(E)$ (正规子群)。
+> 3.  $F<L<E$，$L/F$ 是 Galois 扩张 $\iff G_L(E) \triangleleft G_F(E)$ (正规子群)。
 >     且此时：
->     $$G_F(K) \cong G_F(E) / G_K(E)$$
+>     $$G_F(L) \cong G_F(E) / G_L(E)$$
 
 ## 例子：$E = \mathbb{Q}(\sqrt{2}, \sqrt{3})$
 
-考虑多项式 $(x^2 - 2)(x^2 - 3)$ 的分裂域。这是一个 Galois 扩张。
-我们写出 $G_{\mathbb{Q}}(E)$ 的子群及对应的中间域。
+可以看出 $E$ 是多项式 $(x^2 - 2)(x^2 - 3)$ 在 $\mathbb{Q}$ 上的分裂域。这是一个 Galois 扩张。求： $G_{\mathbb{Q}}(E)$ 的子群及对应的中间域。
 
 **1. 基本参数**
-$[E : \mathbb{Q}] = 4$
-$|G_{\mathbb{Q}}(E)| = 4$
+首先可以得到 $|G_{\mathbb{Q}}(E)| = [E : \mathbb{Q}] = 4$
 
 **2. 群元素**
-令 $\hat{\sigma}$ 作用如下：
-$\sqrt{2} \to \pm \sqrt{2}$
-$\sqrt{3} \to \pm \sqrt{3}$
+对于 $\forall f \in G_{\mathbb{Q}}(E)$，由代数扩张的延展的性质可知：
+$f: \sqrt{2} \to \pm \sqrt{2} \quad \sqrt{3} \to \pm \sqrt{3}$
 
 具体元素 $G_{\mathbb{Q}}(E) = \{id, \sigma, \tau, \sigma\tau\}$：
 * $id$: 恒等
@@ -161,21 +165,14 @@ $\sqrt{3} \to \pm \sqrt{3}$
 
 * **子群 $\{id\}$**
     对应域 $E = \mathbb{Q}(\sqrt{2}, \sqrt{3})$
+* **子群 $\lang \sigma\rang = \{id, \sigma\}$**
+    $\sigma$ fixes $\sqrt{3}$ $\Rightarrow \mathbb{Q}(\sqrt{3}) \subseteq fix(\lang \sigma\rang)$
+    计算次数：$[fix(\lang \sigma\rang) : \mathbb{Q}] = (G_{\mathbb{Q}}(E) : \lang \sigma\rang) = 4/2 = 2$
+    同时 $[\mathbb{Q}(\sqrt{3}) : \mathbb{Q}] = 2$ $\Rightarrow fix(\lang \sigma\rang) = \mathbb{Q}(\sqrt{3})$
+* **子群 $\lang \tau\rang = \{id, \tau\}$**
+    $\tau$ fixes $\sqrt{2}$ $\Rightarrow fix(\lang \tau\rang) = \mathbb{Q}(\sqrt{2})$
 
-* **子群 $<\sigma> = \{id, \sigma\}$**
-    $\sigma$ fixes $\sqrt{3}$.
-    $\Rightarrow \mathbb{Q}(\sqrt{3}) \subseteq fix(<\sigma>)$
-    计算次数：
-    $[fix(<\sigma>) : \mathbb{Q}] = (G_{\mathbb{Q}}(E) : <\sigma>) = 4/2 = 2$
-    同时 $[\mathbb{Q}(\sqrt{3}) : \mathbb{Q}] = 2$
-    $\Rightarrow fix(<\sigma>) = \mathbb{Q}(\sqrt{3})$
-
-* **子群 $<\tau> = \{id, \tau\}$**
-    $\tau$ fixes $\sqrt{2}$.
-    $\Rightarrow fix(<\tau>) = \mathbb{Q}(\sqrt{2})$
-
-* **子群 $<\sigma\tau> = \{id, \sigma\tau\}$**
-    $\sigma\tau$ fixes $\sqrt{2}\cdot\sqrt{3} = \sqrt{6}$.
-    $\Rightarrow fix(<\sigma\tau>) = \mathbb{Q}(\sqrt{6})$
+* **子群 $\lang \sigma\tau\rang = \{id, \sigma\tau\}$**
+    $\sigma\tau$ fixes $\sqrt{2}\cdot\sqrt{3} = \sqrt{6}$ $\Rightarrow fix(\lang \sigma\tau\rang) = \mathbb{Q}(\sqrt{6})$
 
 正好 3 个中间域 (考试可能会考)。
