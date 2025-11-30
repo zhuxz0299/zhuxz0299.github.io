@@ -11,7 +11,7 @@ date: 2025-04-22 16:23:54
 ---
 
 {% note info %}
-文章所有内容翻译并整理自 [StackExchange](https://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib)。
+文章内容翻译并整理自 [StackExchange](https://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib)。
 {% endnote %}
 
 ## 总览图与处理流程
@@ -92,3 +92,18 @@ natbib 的许多缺点源于其对 bibtex 的依赖以进行格式化。这是 n
 缺点
 * 仅适用于 biblatex ，不适用于 natbib 。
 * 因为它比 bibtex 做得更多，所以速度要慢得多。有关讨论，请参见 Why is biber so slow?。
+
+## vscode latex 配置中使用 biber
+网上教程给的默认配置使用的都是 `bibtex`，因此这里补充一下 `biber` 的配置，和 `bibtex` 类似：
+```json
+"latex-workshop.latex.tools": [
+  {
+      "name": "biber",
+      "command": "biber",
+      "args": [
+          "%DOCFILE%"
+      ],
+      "env": {}
+  }
+]
+```

@@ -6,7 +6,7 @@ tags:
   - network manager
 abbrlink: 488724ec
 date: 2025-11-05 18:51:52
-description:
+description: 常用工具 NetworkManager、iproute2、ethtool，以及如何查询 ip 地址、网关、DNS 以及协商速率
 ---
 
 ## NetworkManager
