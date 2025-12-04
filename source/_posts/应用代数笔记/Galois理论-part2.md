@@ -115,8 +115,6 @@ $\Rightarrow$：
 
 
 
-反之，若 $E/F$ 是 Galois 扩张，则 $cl(F) = F$。即 $F$ 是 closed。
-
 ## Fundamental Theorem of Galois Theory (Galois 理论基本定理)
 
 设 $F < E$ 为有限 Galois 扩张。
