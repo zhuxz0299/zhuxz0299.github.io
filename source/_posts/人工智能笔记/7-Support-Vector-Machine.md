@@ -199,7 +199,7 @@ $$
 
 记 $\bm{\tilde{x}}\in D$ 为主问题可行域中的一个点，主问题的最优值为 $p^{*}$，有
 $$
-\Gamma(\bm{\lambda},\bm{\mu})\leq L(\tilde{\bm{x}},\bm{\lambda},\bm{\mu})\leq f(\tilde{\bm{x}})\le p^{*}
+\Gamma(\bm{\lambda},\bm{\mu})\leq L(\tilde{\bm{x}},\bm{\lambda},\bm{\mu})\leq f(\tilde{\bm{x}}) \Rightarrow \Gamma(\bm{\lambda},\bm{\mu})\le f(\bm{x}^{*}) = p^{*}
 $$
 
 可以看出对偶函数给出了主问题的下界。这个下界取决于 $\bm{\lambda}$ 和 $\bm{\mu}$，于是我们开始考虑：基于对偶函数能够获得的最好的下界是什么？这就引出了**对偶问题**
