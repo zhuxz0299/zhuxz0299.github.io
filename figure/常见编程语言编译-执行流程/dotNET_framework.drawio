@@ -1,0 +1,93 @@
+<mxfile host="65bd71144e">
+    <diagram id="ln9jyccV73bOnjjEtUbg" name="第 1 页">
+        <mxGraphModel dx="2833" dy="1798" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;.NET Framework（老的.NET，不支持跨平台）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-293" y="-200" width="580" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;Winform&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;WPF&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;UWP&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-293" y="-342" width="145" height="142" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;做桌面程序的框架&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="-290" y="-444" width="139" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;提供的是底层的、能让程序跑起来的基础功能&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;FCL（Framework Class Library），相当于一个功能集合&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="-7" y="-86" width="652" height="76" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;WCF&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;WF&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-148" y="-342" width="145" height="142" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;用于构建比较复杂的企业流程应用&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="-142" y="-461" width="139" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px; background-color: transparent;&quot;&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;ASP&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-3" y="-342" width="145" height="142" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;响应HTTP请求，对外提供Web服务&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="3" y="-458" width="139" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px; background-color: transparent;&quot;&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;ADO&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="142" y="-342" width="145" height="142" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;和数据库打交道&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="148" y="-446.5" width="139" height="73" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;.NET Core（重新开发的 .NET 运行时，支持跨平台）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="304" y="-200" width="580" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;div&gt;&lt;span style=&quot;font-size: 24px; background-color: transparent;&quot;&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;ASP&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="304" y="-342" width="145" height="142" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;……&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="466" y="-297.75" width="139" height="53.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;从ASP这种比较好调整的开始，把旧平台的功能逐渐移到新的上&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="582" y="-309.87" width="351" height="77.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;2014年发布，用 Core 与原有的 Framework 进行区分&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="895" y="-195" width="227.5" height="77.75" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="shape=flexArrow;endArrow=classic;html=1;strokeColor=#FF8000;entryX=0.544;entryY=0.048;entryDx=0;entryDy=0;entryPerimeter=0;endWidth=67.26643598615917;endSize=14.200000000000001;width=37.64705882352941;" edge="1" parent="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="303.40999999999997" y="-415" as="sourcePoint"/>
+                        <mxPoint x="303.4140000000003" y="-530" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;.NET Standard（在 .NET 5 推出之前，为了防止 .NET Framework 和 .NET Core 不统一推出的标准）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-591" y="-8" width="1475" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;.NET 5（合并了原有的两套官方框架，版本号从5开始命名是为了防止和老的.NET Framewok混淆）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-293" y="-627" width="1177" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;mono （开源社区开发的，支持跨平台）&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-588" y="-200" width="280" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="edgeStyle=none;html=1;strokeColor=#FF8000;" edge="1" parent="1" source="26" target="29">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;Touch&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-500" y="-269" width="145" height="69" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#FF8000;" edge="1" parent="1" source="29" target="24">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;Android&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px; color: rgb(255, 128, 0);&quot;&gt;IOS&lt;/font&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;" vertex="1" connectable="0" parent="31">
+                    <mxGeometry x="0.0167" y="-4" relative="1" as="geometry">
+                        <mxPoint x="-191" y="139" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;Xamarin&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF8000;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-500" y="-370" width="145" height="69" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;……&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="-592" y="-263" width="92" height="53.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="&lt;span style=&quot;color: rgb(206, 97, 0); font-family: Helvetica; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;收购&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="-426" y="-555" width="99" height="42" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
