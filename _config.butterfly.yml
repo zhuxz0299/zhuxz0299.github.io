@@ -587,6 +587,7 @@ inject:
 
 
 # Other settings (其他设置，配置文件里面有但是没有详细说明的设置项)
+# -----------------------------------------------
 # Replace Broken Images (无法显示图片时的替代图片)
 error_img:
   flink: /img/friend_404.gif
@@ -623,3 +624,20 @@ wowjs:
   animate_css: https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/animate.min.css
   wow_js: https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js
   wow_init_js: https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js
+
+
+# Sitemap (网站地图设置, 供搜索引擎使用)
+# TODO后续似乎还有需要配置的？
+sitemap:
+  path: 
+  template:
+  template_txt:
+  rel: false
+  tags: true
+  categories: true
+
+
+# Archive Generator (归档页面设置)
+archive_generator:
+  enabled: true
+  per_page: 15

@@ -88,3 +88,12 @@ markdown:
 * 导航栏配置：通过 `/source/css/nav_bar.css` 配置，实现页面顶部导航栏菜单居中
 * 页面整体配置：通过 `/source/css/page_border.css` 配置，实现了页面组件的圆角
 * 滚动条配置：通过 `/source/css/scroll_bar.css` 配置，配置文件利用了一些 Chromium 内核提供的私有属性，因此在 Chrome 与 Firefox 中的呈现会略有不同
+
+## 多端同步
+为了方便在不同的电脑上编写博客并且保持同步，可以将源码也放到 Github 中。
+```bash
+git init
+git remote add origin https://github.com/zhuxz0299/zhuxz0299.github.io.git
+git checkout -b hexo-v2
+git push -u origin hexo-v2
+```
