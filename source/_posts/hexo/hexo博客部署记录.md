@@ -88,6 +88,7 @@ markdown:
 * 导航栏配置：通过 `/source/css/nav_bar.css` 配置，实现页面顶部导航栏菜单居中
 * 页面整体配置：通过 `/source/css/page_border.css` 配置，实现了页面组件的圆角
 * 滚动条配置：通过 `/source/css/scroll_bar.css` 配置，配置文件利用了一些 Chromium 内核提供的私有属性，因此在 Chrome 与 Firefox 中的呈现会略有不同
+* category 页面修改：通过 `scripts/category_card_injector.js` 对页面元素进行调整，配置的数据路径为 `source/_data/category_images.yml`
 
 ## 多端同步
 为了方便在不同的电脑上编写博客并且保持同步，可以将源码也放到 Github 中。
@@ -97,3 +98,15 @@ git remote add origin https://github.com/zhuxz0299/zhuxz0299.github.io.git
 git checkout -b hexo-v2
 git push -u origin hexo-v2
 ```
+
+同时为了方便部署，还在 `package.json` 的 `"scripts"` 项中添加了这几条命令：
+```json
+  "scripts": {
+    ...
+    "dev": "hexo clean && hexo generate && hexo server",
+    "publish": "hexo generate && hexo deploy",
+    "redeploy": "hexo clean && hexo generate && hexo deploy"
+  },
+```
+
+在调用的 hexo 命令中，`hexo generate` 用于将写好的 `.md` 渲染成 `.html`，并且将 `source` 文件夹下的其他资源文件（如图片）复制到 `public` 文件夹下；`hexo deploy` 则是将数据推送到 github 相应分支，这两个命令在部署网站的时候都必不可少。而 `hexo clean` 命令通常用于修改了修改了配置文件、主题代码之后清理缓存，防止页面错乱，不需要每次都运行。
