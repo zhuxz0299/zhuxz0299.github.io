@@ -1,0 +1,33 @@
+# - author: Butterfly
+#   avatar: https://butterfly.js.org/img/avatar.png
+#   date: 2024-06-21 23:33:26
+#   key: key-1
+#   content: |
+#     This is a sample content for **Author 1**.
+#     ![Sample Image](https://via.placeholder.com/150)
+#   tags:
+#     - tags1
+#     - tags2
+# - author: Butterfly
+#   avatar: https://butterfly.js.org/img/avatar.png
+#   date: 2024-06-20 23:33:26
+#   key: key-2
+#   content: |
+#     This is a sample content for **Author 2**.
+#     ![Sample Image](https://via.placeholder.com/150)
+#   tags:
+#     - tag2
+#     - tag3
+
+# - author: Butterfly
+#   avatar: https://butterfly.js.org/img/avatar.png
+#   date: 2024-06-19 23:33:26
+#   key: key-3
+#   content: |
+#     This is a sample content for **Author 3**.
+
+- author: zhuxz0299
+  date: 2025-12-11 01:50:00
+  key: log
+  content: |
+    为了方便更新 butterfly 主题，将原本的 git 下载的方式改为了 npm 安装。同时由于配置文件规则变动，重新配置了一遍博客的主题设置。

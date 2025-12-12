@@ -1,0 +1,66 @@
+/* 1. 隐藏原有的列表样式，改为 Grid 网格布局 */
+.category-lists .category-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 自适应列宽 */
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+}
+
+/* 2. 卡片样式设计 */
+.category-lists .category-list > .category-list-item {
+  position: relative;
+  background-color: #333; /* 默认背景色，防止图片加载失败 */
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden; /* 必须隐藏溢出，否则圆角不生效 */
+  height: 120px; /* 卡片固定高度，可按需调整 */
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 3. 给卡片添加遮罩，保证文字清晰 */
+.category-lists .category-list > .category-list-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* 黑色半透明遮罩 */
+  z-index: 1;
+  transition: 0.3s;
+}
+
+.category-lists .category-list > .category-list-item:hover::before {
+  background: rgba(0, 0, 0, 0.6); /* 悬停加深 */
+}
+
+/* 4. 文字链接样式 */
+.category-lists .category-list > .category-list-item a {
+  position: relative;
+  z-index: 2; /* 保证文字在遮罩之上 */
+  color: #fff !important; /* 强制白色 */
+  font-weight: bold;
+  font-size: 1.2em;
+  text-decoration: none;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* 5. 数量 Count 样式 */
+.category-lists .category-list-count {
+  position: relative;
+  z-index: 2;
+  color: #eee;
+  font-size: 0.9em;
+}
+
+
+/* 纯 CSS 方案只能给具体的 item 上色，如果 li 上没有具体 class，
+   我们需要用 nth-child (不推荐) 或者下面提到的 JS 自动注入背景图。
+   为了演示，这里暂时用统一的渐变色代替图片 */
+.category-lists .category-list > .category-list-item {
+  background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+}
