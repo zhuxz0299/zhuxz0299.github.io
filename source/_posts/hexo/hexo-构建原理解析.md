@@ -6,7 +6,7 @@ tags:
   - npm
 abbrlink: 6834d799
 date: 2025-07-16 14:51:13
-description: 介绍了 npm 包的管理机制以及 Hexo 博客的构建原理
+description: 介绍了 npm 包的管理机制以及 Hexo 博客的构建原理，还有关于 Twikoo 评论区如何工作
 ---
 
 ## 从 Node.js 开始
@@ -86,6 +86,9 @@ npm 包的安装位置取决于安装方式（本地 or 全局）：
 * `npm config list -l` 显示的大部分配置是 npm 自身代码中定义的默认值（"default" config from default values）
 * `npm config set` 命令改变的是 ~/.npmrc 的内容
 
+### Node.js 版本管理
+如果电脑中需要多个版本的 Node.js，可以使用 nvm 来管理版本。在 [Node.js 的下载官网](https://nodejs.org/en/download) 可以就可以找到通过 nvm 安装不同版本 Node.js 的方法。
+
 ## Hexo 项目构建
 ### Hexo 文件夹创建
 
@@ -142,7 +145,7 @@ layout 参数：`post`（默认）或 `page`, `draft`。生成文件的模板放
 2. 源文件处理阶段
    * 内容来源：
      * 用户文章：`source/_posts/*.md`
-     * 主题资源：`themes/butterfly/source/` (CSS/JS/图片)
+     * 主题资源：`[butterfly_path]/source/` (CSS/JS/图片)
    * 关键处理：
      * Markdown → HTML 转换
      * Front-Matter 元数据提取
@@ -151,7 +154,7 @@ layout 参数：`post`（默认）或 `page`, `draft`。生成文件的模板放
    * 模板引擎：pug
    * 内容来源：
      * post 与 page：`source/` 下的 `.md` 文件。
-     * 模板路径 `/theme/butterfly/layout`，其中有很多 `.pug` 文件
+     * 模板路径 `[butterfly_path]/layout`，其中有很多 `.pug` 文件
    * 数据注入，例如
         ```pug
         //- 使用站点配置
@@ -174,4 +177,47 @@ layout 参数：`post`（默认）或 `page`, `draft`。生成文件的模板放
         ```
 4. 静态文件生成
    * HTML：根据模板 + 内容生成
-   * 资源：`source/` 和 `themes/butterfly/source/` → 合并到 `public/`
+   * 资源：`source/` 和 `[butterfly_path]/source/` → 合并到 `public/`
+
+
+## 评论区设置 (Twikoo)
+### 工作原理
+可以通过配置 Vercel + MongoDB 的方式让评论区能够工作。在这种配置下，假如在评论区添加一条评论，其工作流程为：
+1. 发起请求 (前端 -> Vercel)
+  评论者点击“提交”按钮。博客网页上的 Twikoo.js 代码会发起一个 HTTP 请求（POST 请求），目标地址是配置好的 Vercel 域名（例如 https://your-twikoo.vercel.app/api）。
+   * POST 请求包含的东西： 评论内容、昵称、邮箱、文章的 URL。
+2. 处理逻辑 (Vercel 唤醒)
+  Vercel 收到请求，发现是找 Twikoo 的，于是瞬间启动一个云函数容器（Serverless Function）。
+   * 逻辑处理：Twikoo 的后端代码开始运行：
+     1. （如果有）检查评论内容是否违规。
+     2. 连接 MongoDB 数据库。
+3. 数据存取 (Vercel <-> MongoDB)
+   Vercel 里的 Twikoo 代码通过密钥（`MONGODB_URI`）访问 MongoDB 数据库。MongoDB 执行完操作后把结果（比如“保存成功”或具体的评论列表）返回给 Vercel。
+   * 写操作：Vercel 要求 MongoDB 将评论数据写入
+   * 读操作：（如果是刷新页面）Vercel 向 MongoDB 请求文章下的所有评论
+4. 返回结果 (Vercel -> 前端)
+   Vercel 拿到数据后，将其打包成 JSON 格式，返回给读者的浏览器。
+   * 此时 Vercel 的任务完成，云函数实例随即冻结或销毁，不再占用资源（也不再计费）。
+5. 展示 (前端渲染)
+   读者的浏览器收到了 Vercel 的回复“保存成功”，Twikoo.js 就会在页面上动态插入刚刚那条评论的 HTML，读者就看到评论上墙了
+
+### 配置信息
+Vercel 域名：
+* 第一步提到的用于向 Vercel 发起请求的目标地址
+* 需要填写在配置文件 `_config.butterfly.yml` 的 `twikoo:envId:` 项下
+* 域名可以在 Vercel 部署好的 project（这里一键部署的 project 名称叫 twikoo-api）下的 Overview 页面看到
+
+`MONGODB_URI`：
+* 第三步提到的 Vercel 访问 MongoDB 数据库的密钥
+* 需要填写在 Vercel twikoo-api 这个 project 的 setting-Environment Variable 中。格式为 `mongodb+srv://用户名:密码@服务器地址/数据库名`
+* 登录 MongoDB 会指引创建一个 Cluster，同时会设置项目名和密码。在创建得到的 Cluster 面板上点击 Connect，然后选择 Drivers，设置好驱动版本，复制提供的 `MONGODB_URI` (密码部分需要手动修改)，完成设置，即可使用。
+  * 这里选 Drivers 是为了与 Twikoo 这个使用 Node.js 开发的插件适配
+
+MongoDB 网络设置：
+* Vercel 的服务器 IP 是动态的（不固定的），所以需要允许任意 IP连接数据库，否则 Vercel 会被挡在门外。
+* 因此需要在项目的 DataBase/Network Access 中添加 IP 地址 0.0.0.0/0
+
+### 迁移博客是否影响评论
+在博客评论区能够找到齿轮图标⚙️，点击之后在“配置管理”-“通用”中存在设置项 CORS_ALLOW_ORIGIN，这个被用来配置能够访问评论数据库的域名。如果没有设置，那么别的网站假如也能拿到上面提到的 Vercel 域名，那么同样可以读取、写入评论的数据库。因此在没有配置 CORS_ALLOW_ORIGIN 的情况下，迁移博客不影响评论使用。
+
+但是需要注意的是，Twikoo 通过 Permalink 来加载评论，因此迁移博客之后要保证每篇文章的链接结构不变。这一点可以到 `_config.yml` 的 `permalinks:` 项进行检查。
