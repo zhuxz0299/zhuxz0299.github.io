@@ -1,0 +1,445 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>视频编码与封装 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="介绍一些视频编码格式与封装格式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频编码与封装">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/a47f6917.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="介绍一些视频编码格式与封装格式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_140.webp">
+<meta property="article:published_time" content="2025-04-05T15:16:57.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.912Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="视频编码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_140.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "视频编码与封装",
+  "url": "http://zhuxz0299.github.io/posts/a47f6917.html",
+  "image": "https://source.fomal.cc/img/default_cover_140.webp",
+  "datePublished": "2025-04-05T15:16:57.000Z",
+  "dateModified": "2025-12-12T13:59:51.912Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/a47f6917.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '视频编码与封装',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_140.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">视频编码与封装</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">视频编码与封装</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-05T15:16:57.000Z" title="发表于 2025-04-05 23:16:57">2025-04-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.912Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note info flat"><p>参考文章与视频：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://sspai.com/post/59174">少数派——视频与编码</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19Y4113788/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4818ed7eb881f1eba75c12df1d2bd43c">差评君——这么多视频编码，为啥就不能统一成一种呢？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Xs411Q7o1/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4818ed7eb881f1eba75c12df1d2bd43c">影视飓风——完全解析：编码与封装</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ds411T7F4/?spm_id_from=333.788.recommend_more_video.-1&amp;vd_source=4818ed7eb881f1eba75c12df1d2bd43c">影视飓风——422，420，10bit，8bit？这些究竟是什么</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nt411Q7S6/?spm_id_from=333.337.search-card.all.click&amp;vd_source=4818ed7eb881f1eba75c12df1d2bd43c">极客湾——“视频”是怎么来的？H.264、码率这些词又是什么意思？</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/521617590">知乎文章——令人拍案叫绝的JPEG图像压缩原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%A7%86%E9%A2%91%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F">维基百科——视频文件格式</a></li>
+</ul>
+</div>
+<h2 id="色深、色度采样">色深、色度采样</h2>
+<p>这两个参数常见于拍摄设备。</p>
+<h3 id="色深">色深</h3>
+<p>色深指图像或显示设备中每个像素能显示的颜色总数，通常以总位数表示。比如灰度图就是 8bit 色深，只有一个通道，共有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>8</mn></msup><mo>=</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">2^{8} = 256</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span></span></span></span> 种灰度。</p>
+<p>不过通常 8bit 色深指的是一个通道内的灰度数，那假如是 RGB 图像的话，总共就是 24bit。常见的色深还有 10bit，能够表示更多的信息。在面对渐变的环境，如果拍摄 8bit 视频，那么很容易遇到色彩断层；如果用 10bit，就能避免这个问题。</p>
+<h3 id="色度采样">色度采样</h3>
+<h4 id="明度值与色度值">明度值与色度值</h4>
+<p>一个像素可以被认为包含两个信息：</p>
+<ul>
+<li>明度值：表示了像素的亮度。</li>
+<li>色度值：表示了像素的颜色。</li>
+</ul>
+<p>研究发现，如果想要较好的显示画面，每个像素一定要保留明度信息，但是不一定要保留色度信息：多个像素可以共享一个色度值，呈现同一个颜色。这就可以在大大减少数据量的同时，使得画面看起来依然没有什么问题。</p>
+<p>为了实现上面提到的方案，就不能使用 RGB 来呈现画面了。这是可以单独分离画面的明度，将它称之为 Y，然后分离出两个色度通道 Cr 和 Cb。再这些信息结合在一起，仍然可以获得正确的画面。所以 YCrCb 就是色度采样中最常用的色彩模式。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/视频封装与编码/色度采样常用色彩模式.png" width=450 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h4 id="4-4-4-4-2-2-4-2-0-的含义">4:4:4, 4:2:2, 4:2:0 的含义</h4>
+<p>第一个数字代表了色度采样时像素的横向数量（纵向数量为 2，即共有两行），第二个数字代表了第一行像素的色度采样值，第三个数字代表了第二行像素的采样值。</p>
+<ul>
+<li>对于 4:4:4 而言，所有的像素都有着自己的色度信息，精度最高。这是很多电影机具有的记录能力。</li>
+<li>4:2:2，即第一行和第二行都只有两个像素保留了自己的色度信息，剩下的两个像素和边上的像素共享色度信息。虽然此时丢失了 50% 的色度信息，但是画面依然不错。</li>
+<li>4:2:0，此时只有第一行的两个像素具有色度信息，边上的像素沿用这两个像素的色度值，第二行直接继承第一行的色度值。某些微单和单反都会用 4:2:0 压缩数据量。在正常的拍摄环境下，即便使用 4:2:0 拍摄，依然可以获得不错的画面。但是如果需要进行抠像或者二级调色的时候，因为许多像素并没有自己的色度值。所以相比 4:4:4 色度采用的画面，想获得一个干净的抠像，则需要花上更多的时间和精力。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/视频封装与编码/三种采样方式.png" width=450 style="display: block; margin-left: auto; margin-right: auto;"></li>
+</ul>
+<h2 id="视频编码">视频编码</h2>
+<h3 id="什么是视频编码">什么是视频编码</h3>
+<p>严格来说我们所说的视频编码全名其实叫做视频编解码器，英文名叫 codec，是 encoder 和 decoder 的缩写，我们拍摄、剪辑、转码时候会将图像的光信号处理完成 encoder 的过程；播放时则会借助 decoder 将信号中的视频信息呈现出来。</p>
+<h3 id="视频编码的起源与原理">视频编码的起源与原理</h3>
+<p>最早的视频编码标准诞生在1984年，它被命名为 H.120，由 ITU-T 的视频编码专家组制定。不过这个编码主要是用来保存电视内容，也没有被大规模的使用。直到 90 年代，互联网逐渐发展起来。人们有了在互联网上观看视频的需求，视频压缩编码就被重新提了出来。此时诞生了H.261。</p>
+<h4 id="帧内压缩">帧内压缩</h4>
+<p>由于人眼是有极限的，因此视频压缩的第一步就是去除画面中人眼不太注意得到的细节。通常使用 JPEG 压缩算法。</p>
+<ul>
+<li>压缩技术一：颜色空间转换(RGB-&gt;YCrCb)+色彩下采样(Chroma Subsampling)
+<ul>
+<li>用到的和<a href="#%E8%89%B2%E5%BA%A6%E9%87%87%E6%A0%B7">色度采样</a>中提到的方法差不多。</li>
+</ul>
+</li>
+<li>压缩技术二：DCT变换，留低频，弃高频
+<ul>
+<li>通过大量的视觉实验，研究者人类视觉对高频信息并不那么敏感。因此可以将一幅图进行 DCT 变换，将其分成两个部分：低频部分一般存储的图像中物体的轮廓部分；而高频部分则会存储的图像的一些细节部分。在删除图像的高频部分后，再将图片给变换回来，人眼是几乎看不出什么差别。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/视频封装与编码/DCT变换.png" width=500 style="display: block; margin-left: auto; margin-right: auto;"></li>
+</ul>
+</li>
+</ul>
+<h4 id="帧间压缩">帧间压缩</h4>
+<p>为了使视频压缩再进一步，在压缩视频时可以将画面分成动和不动的两部分，不动的部分就用原来的，动的就当信息保存。</p>
+<p>首先开发者在视频里引入了宏块的概念，这些宏块将视频的每一帧分成了数个小块，这样两帧之间重复且没有运动的区块可以沿用前一帧的画面；而产生了运动的区块则给它增加一个方向和距离的矢量，需要存储的只有少量的和前一帧完全不同的区块，这样就大大减少了连续画面的存储空间。这就是最初的视频帧分类。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/视频封装与编码/宏块.png" width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>和动画一样，拥有完整帧的信息，并且作为后一帧参考的帧，被称为关键帧 I 帧，I 帧可以被直接解码出来。另一类需要通过关键帧预测出来帧则被称之为预测帧 P 帧。以上这两种压缩方式相结合，就成为了现代一系列视频编码的开山鼻祖 H.261。</p>
+<p>而在几年之后的 ISO 和 IEC 两大国际标准组织开发的 MPEG-1 编码标准，不仅大量参考了 H.261 的编码技术，而且在预测帧 P 帧的基础上，引入了双向预测 B 帧以及帧序列的概念。帧序列就是一段开头包含关键帧 I 帧基准的一系列帧，中间则包含着 P 帧和 B 帧。双向预测帧和前面的预测帧类似，只不过双向预测帧多了一个参考选项，它不仅会参考关键帧的画面，从画面中预测像素的运动，还会从后面的预测帧中补充前一次预测所缺失的画面。这样由一比预测针参考了更多的信息，双向预测针相对预测针能省下更多的空间。不过由于双向预测针的引入，视频编码解码需要的算力就更大。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/视频封装与编码/B帧与双向预测.png" width=700 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>关于 GOP (Group Of Picture)：</p>
+<ul>
+<li>每一组 IPB 帧的序列包含了多少帧</li>
+<li>即一个 I 帧之后要经过多少帧才会出现下一个 I 帧。</li>
+</ul>
+<p>同码率下，GOP 值越大，B 帧与 P 帧越多，视频质量越高。因为压缩率高了，就会有更多的闲置码率来提高视画面量。</p>
+<p>无论是现在最广泛的 H.264 编码还是 H.265 编码，这两者相对于几十年前的编码技术手段并无大的区别，也就是宏块划分更加智能化，运动预测模型更加完善等等。</p>
+<h3 id="常见的视频编码格式">常见的视频编码格式</h3>
+<h4 id="H-264-AVC">H.264/AVC</h4>
+<p>无论是叫 H.264、AVC、MPEG-4 Part 10 还是 Advanced Video Coding，都是指的这一个。这是在 2003 年就由 MPEG（Moving Picture Experts Group 动态影像专家组）发布了的、至今为止已经有 17 年历史的视频编码，也是迄今为止最流行、最通用的视频编码。</p>
+<p>H.264 的适应范围非常广，不同系统的电脑、浏览器、手机、电视、数码相机、流媒体、播放器、剪辑软件等几乎都有在使用这种编码。</p>
+<h4 id="H-265-HEVC">H.265/HEVC</h4>
+<p>无论是叫 H.265、HEVC（High Efficiency Video Coding）还是 MPEG-H Part 2，指的都是这个编码。H.265 可以说是 H.264 的继任者，它主要解决了 H.264 存在的两个问题：</p>
+<ul>
+<li>首先是效率。H.265 的效率要高很多，相同画质下 H.265 比 H.264 节省了大约一倍的带宽（1080P 下节省了 57% 左右，4K UHD 下更是能节省大约 64% 的带宽 ），这对于一众流媒体视频网站的诱惑可以说是十分巨大，因为视频网站往往有一半甚至更多的开销得花费在带宽上面；不过还是有缺点的，播放 H.265 编码的视频内容的设备需要更好的性能，因而目前很多设备往往也并不支持 H.265 视频的播放，这时候就要在服务端放两份，一份 H.264 的一份 H.265 的，然后分发给不同的客户端。</li>
+<li>另一方面，目前 4K 已经比较普及，很多专业设备甚至手机都能拍摄 8K 的内容，很多 8K 电视也已经开卖。而 H.264 因为有最高只支持 4K 分辨率这个限制存在，已经不太适合更高质量视频的拍摄、制作、和播放了，H.265 支持 8K 更能满足当前的需求。</li>
+</ul>
+<p>H.265 最大的坏处是收费，并且比 H.264 更贵了。</p>
+<h4 id="H-266-VVC">H.266/VVC</h4>
+<p>2020 年 7 月 7 日，德国电信通讯研究所 Fraunhofer HHI（弗劳恩霍夫协会）正式宣布 与 Apple、Intel、华为、微软合作推出新一代视频编码标准 H.266/VCC。</p>
+<p>据介绍，相比上一代视频编码标准（H.265/HEVC），H.266/VCC 的视频压缩效率提高了 50%，一部 10GB 的 H.265/HEVC 高清视频，在 H.266/VCC 下只需要 5GB 即可，大幅节省传输带宽，更加适合 4K、8K 的超高清流媒体视频传输。</p>
+<h4 id="VP9">VP9</h4>
+<p>上面提到无论是 H.264 还是 H.265 都有一个非常大的问题就是收费，并且非常昂贵。不管是硬件解码还是软件解码，都得获得相应视频编码的解码授权。因此一些在线影片租赁或者收费观看平台，比如 iTunes 电影租赁、Netflix、Hulu+ 等等，都需要按用户量支付专利费用。</p>
+<p>于是 2009 年 Google 花了 106.5 万美元收购了视频编码公司 On2 并很快推出了免费的 VP8 视频编码。不过彼时天下早已经是 H.264 的了，VP8 本身的编码效率也不够好，除了 YouTube 和少数几家浏览器支持外并没有被特别大规模地使用过。</p>
+<p>所以 2010 年 Google 又进一步推出了 VP9，目标直指 H.265，这一次不仅有 YouTube、Netflix 等视频网站巨头的相继支持，除了 Safari 以外的主流浏览器也纷纷加入，另外，这也是你的 Safari 看 YouTube 没有 1080p 以上选项的根本原因。</p>
+<p>根据 Netflix 分享过的对比测试，VP9 相比较 H.265 在 1080P 往上分辨率的视频流播中有着不小的优势。</p>
+<h4 id="AV1">AV1</h4>
+<p>虽然 Google 的 VP9 效果还不错，但仍有几家巨头不怎么愿意使用，比如 Apple 就始终未支持 VP9/VP8，很多买了 Apple TV 的朋友也因此无法观看 4K 分辨率的 YouTube。</p>
+<p>所以 Apple、亚马逊、思科、 Google、英特尔、 微软、Mozilla 以及 Netflix 等厂商又共同组建了 Alliance for Open Media（开放媒体联盟）并在 2018 年推出了对抗 H.265 的新视频编码 AV1（AOMedia Video 1）。对于该编码格式，Google 也贡献出了自己的 VP9 作为基础，AV1 比起 VP9 又能节省约 20% 的带宽，同时依然免收版权费。</p>
+<p>而且最重要的一点，这个联盟拥有非常强大的号召力，Netflix、YouTube 这些大家常见的视频平台也因此陆续开始分发 AV1 编码的视频了。</p>
+<h4 id="Apple-ProRes">Apple ProRes</h4>
+<p>与上述几种帧间编码的视频编码不同，多用于专业相机拍摄的编码 Apple ProRes 属于帧内编码。根据「帧内压缩只参考本帧数据，压缩率小；帧间压缩要参考其他帧数据，压缩率大」 这个原理，Apple ProRes 这种帧内编码的视频编码的体积会比帧间编码的大很多，一般的数码相机、微单也很少使用这种编码。</p>
+<p>不过 Apple ProRes 这种帧内编码的好处也是有的，这种编码往往会使用更大的体积保存更多的信息；因为是帧内编码不需要计算出其它帧，剪辑的时候对性能的要求也要低很多，即使用低配置的电脑剪辑高分辨率的视频也会很流畅。</p>
+<p>此外很多专业级别的拍摄设备也会开发 Apple ProRes 这样的自有编码，甚至有些会记录「无损」的数据方便后期处理。这些专业拍摄设备一般用户不会接触到，网络视频传播基本也不会使用帧内编码，正如上面所说，采用这类编码的视频体积实在太大了，既烧钱又不利于传播。</p>
+<h2 id="视频封装格式">视频封装格式</h2>
+<table>
+<thead>
+<tr>
+<th>视频档</th>
+<th>简介</th>
+<th>扩展名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flash Video</td>
+<td>由Adobe Flash延伸出来的的一种流行网络视频封装格式。此格式作为早期网络视频载体而曾非常普及，但已于2020年被替换性淘汰。</td>
+<td>flv</td>
+</tr>
+<tr>
+<td>AVI<br>（Audio Video Interleave）</td>
+<td>比较早的AVI是微软开发的。其含义是Audio Video Interactive，就是把视频和音频编码混合在一起存储。AVI也是最长寿的格式，首次发布于 1992 年，虽然发布过改版（V2.0于1996年发布），但已显老态。AVI格式上限制比较多，只能有一个视频轨道和一个音频轨道（现在有非标准插件可加入最多两个音频轨道），还可以有一些附加轨道，如文字等。AVI格式不提供任何控制功能。</td>
+<td>avi</td>
+</tr>
+<tr>
+<td>WMV<br>（Windows Media Video）</td>
+<td>同样是微软开发的一组数字视频编解码格式的通称，ASF（Advanced Systems Format）是其封装格式。ASF封装的WMV档具有“数字版权保护”功能。</td>
+<td>wmv/asf <br> wmvhd</td>
+</tr>
+<tr>
+<td>MPEG<br>（Moving Picture Experts Group）</td>
+<td>是一个国际标准化组织（ISO）认可的媒体封装形式，受到大部分机器的支持。其存储方式多样，可以适应不同的应用环境。MPEG-4档的档容器格式在Part 1（mux）、14（asp）、15（avc）等中规定。MPEG的控制功能丰富，可以有多个视频（即角度）、音轨、字幕（位图字幕）等等。MPEG的一个简化版本3GP还广泛的用于准3G手机上。</td>
+<td>mpg/mpeg<br>mp4<br>3gp/3g2（手机）</td>
+</tr>
+<tr>
+<td>Matroska</td>
+<td>是一种新的多媒体封装格式，这个封装格式可把多种不同编码的视频及16条或以上不同格式的音频和语言不同的字幕封装到一个Matroska Media档内。它也是其中一种开放源代码的多媒体封装格式。Matroska同时还可以提供非常好的交互功能，而且比MPEG更方便、强大。</td>
+<td>mkv</td>
+</tr>
+<tr>
+<td>Real Media（RM）</td>
+<td>是由RealNetworks开发的一种档容器。它通常只能容纳Real Video和Real Audio编码的媒体。该档带有一定的交互功能，允许编写脚本以控制播放。RM，尤其是可变比特率的RMVB格式，没有复杂的Profile/Level，制作起来较H.264视频格式简单，非常受到网络上传者的欢迎。此外很多人仍有RMVB体积小高质量的错误认知，这个不太正确的观念也导致很多人倾向使用rmvb，事实上在相同码率下，rmvb编码和H.264这个高度压缩的视频编码相比，体积会较大。</td>
+<td>rm/rmvb</td>
+</tr>
+<tr>
+<td>QuickTime File Format</td>
+<td>是由苹果公司开发的容器。1998年2月11日，国际标准化组织（ISO）认可QuickTime文件格式作为MPEG-4标准的基础。QuickTime可存储的内容相当丰富，除了视频、音频以外还可支持图片、文字（文本字幕）等。</td>
+<td>mov<br>qt</td>
+</tr>
+<tr>
+<td>Ogg</td>
+<td>Media是一个完全开放性的多媒体系统项目，OGM（Ogg Media File）是其容器格式。OGM可以支持多视频、音频、字幕（文本字幕）等多种轨道。</td>
+<td>ogg/ogv/oga</td>
+</tr>
+</tbody>
+</table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/a47f6917.html">http://zhuxz0299.github.io/posts/a47f6917.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81/">视频编码</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_140.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%89%B2%E6%B7%B1%E3%80%81%E8%89%B2%E5%BA%A6%E9%87%87%E6%A0%B7"><span class="toc-number">1.</span> <span class="toc-text">色深、色度采样</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%89%B2%E6%B7%B1"><span class="toc-number">1.1.</span> <span class="toc-text">色深</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%89%B2%E5%BA%A6%E9%87%87%E6%A0%B7"><span class="toc-number">1.2.</span> <span class="toc-text">色度采样</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%8E%E5%BA%A6%E5%80%BC%E4%B8%8E%E8%89%B2%E5%BA%A6%E5%80%BC"><span class="toc-number">1.2.1.</span> <span class="toc-text">明度值与色度值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-4-4-2-2-4-2-0-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">4:4:4, 4:2:2, 4:2:0 的含义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">视频编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81"><span class="toc-number">2.1.</span> <span class="toc-text">什么是视频编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81%E7%9A%84%E8%B5%B7%E6%BA%90%E4%B8%8E%E5%8E%9F%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">视频编码的起源与原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A7%E5%86%85%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.2.1.</span> <span class="toc-text">帧内压缩</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%A7%E9%97%B4%E5%8E%8B%E7%BC%A9"><span class="toc-number">2.2.2.</span> <span class="toc-text">帧间压缩</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">常见的视频编码格式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#H-264-AVC"><span class="toc-number">2.3.1.</span> <span class="toc-text">H.264&#x2F;AVC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#H-265-HEVC"><span class="toc-number">2.3.2.</span> <span class="toc-text">H.265&#x2F;HEVC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#H-266-VVC"><span class="toc-number">2.3.3.</span> <span class="toc-text">H.266&#x2F;VVC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VP9"><span class="toc-number">2.3.4.</span> <span class="toc-text">VP9</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AV1"><span class="toc-number">2.3.5.</span> <span class="toc-text">AV1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Apple-ProRes"><span class="toc-number">2.3.6.</span> <span class="toc-text">Apple ProRes</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E5%B0%81%E8%A3%85%E6%A0%BC%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">视频封装格式</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

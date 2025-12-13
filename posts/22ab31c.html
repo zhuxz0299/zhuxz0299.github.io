@@ -1,0 +1,454 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>WPF 界面开发入门 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="学习 WPF 框架时了解的一些内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WPF 界面开发入门">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/22ab31c.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="学习 WPF 框架时了解的一些内容">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_156.webp">
+<meta property="article:published_time" content="2025-07-27T06:05:00.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.871Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="c#">
+<meta property="article:tag" content="wpf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_156.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WPF 界面开发入门",
+  "url": "http://zhuxz0299.github.io/posts/22ab31c.html",
+  "image": "https://source.fomal.cc/img/default_cover_156.webp",
+  "datePublished": "2025-07-27T06:05:00.000Z",
+  "dateModified": "2025-12-12T13:59:51.871Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/22ab31c.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'WPF 界面开发入门',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_156.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">WPF 界面开发入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">WPF 界面开发入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-07-27T06:05:00.000Z" title="发表于 2025-07-27 14:05:00">2025-07-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.871Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><ul>
+<li>WPF 学习用 xaml 描述页面，以及 xaml 如何与 c# 交互。与 winform 中直接用 c# 相比，使用 xaml 描述界面更加简单。</li>
+<li>WPF 是像素无关的，会随着 DPI 变化。每个单位为 1/96 英寸；而 WinForm 中，一个单位就是一个像素。</li>
+</ul>
+<h2 id="App-xaml-文件"><code>App.xaml</code> 文件</h2>
+<p>使用 VS 创建 WPF 项目之后，通常会生成一个 <code>App.xaml</code> 文件，其内容形如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Application</span> <span class="attr">x:Class</span>=<span class="string">&quot;WPF_Study.App&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:x</span>=<span class="string">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">xmlns:local</span>=<span class="string">&quot;clr-namespace:WPF_Study&quot;</span></span></span><br><span class="line"><span class="tag">             <span class="attr">StartupUri</span>=<span class="string">&quot;MainWindow.xaml&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Application.Resources</span>&gt;</span></span><br><span class="line">         </span><br><span class="line">    <span class="tag">&lt;/<span class="name">Application.Resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Application</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>文件中的 <code>StartupUri=&quot;MainWindow.xaml&quot;</code> 决定了项目编译启动之后第一个显示的窗体为 <code>MainWindow.xaml</code> 的对应窗体</p>
+<h2 id="窗体-xaml-文件解析">窗体 <code>.xaml</code> 文件解析</h2>
+<p>用于描述窗体的 <code>.xaml</code> 文件中是一个 <code>&lt;Window&gt;</code>，其基本内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window</span> <span class="attr">x:Class</span>=<span class="string">&quot;WPF_Study.MainWindow&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:x</span>=<span class="string">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:d</span>=<span class="string">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:mc</span>=<span class="string">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:local</span>=<span class="string">&quot;clr-namespace:WPF_Study&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">mc:Ignorable</span>=<span class="string">&quot;d&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">d:DataContext</span>=<span class="string">&quot;&#123;d:DesignInstance local:MainWindow&#125;&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">Title</span>=<span class="string">&quot;MainWindow&quot;</span> <span class="attr">Height</span>=<span class="string">&quot;450&quot;</span> <span class="attr">Width</span>=<span class="string">&quot;800&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Grid</span>&gt;</span><span class="tag">&lt;/<span class="name">Grid</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>窗口声名：<code>&lt;Window x:Class=&quot;WPF_Study.MainWindow&quot;</code>
+<ul>
+<li><code>&lt;Window&gt;</code>：根元素，表示这是一个 WPF 窗口。</li>
+<li><code>x:Class=&quot;WPF_Study.MainWindow&quot;</code>：将 XAML 文件与后台代码类关联（位于 WPF_Study 命名空间中的 MainWindow 类）。</li>
+</ul>
+</li>
+<li>XML 命名空间声明
+<ul>
+<li><code>xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</code>
+<ul>
+<li>默认命名空间：包含所有标准 WPF 控件（如 Grid, Button, TextBox 等）。</li>
+<li>这是最重要的命名空间，运行时必需</li>
+<li>•	没有前缀，所以直接写 <code>&lt;Button&gt;</code> 而不是 <code>&lt;presentation:Button&gt;</code></li>
+</ul>
+</li>
+<li><code>xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</code>
+<ul>
+<li>XAML 语言命名空间（<code>x: 前缀</code>）：提供 XAML 语言特性（如 <code>x:Name</code>, <code>x:Class</code>）。</li>
+</ul>
+</li>
+<li><code>xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</code>
+<ul>
+<li>设计时命名空间（<code>d: 前缀</code>）：用于设计工具（如 Visual Studio、Blend）的辅助属性（例如 <code>d:DesignHeight</code>）。</li>
+<li>设计时特性 - 仅在设计器中生效（因为后面有 <code>mc:Ignorable=&quot;d&quot;</code>）</li>
+</ul>
+</li>
+<li><code>xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</code>
+<ul>
+<li>标记兼容性命名空间（<code>mc: 前缀</code>）：支持 XAML 版本兼容性。</li>
+</ul>
+</li>
+<li><code>xmlns:local=&quot;clr-namespace:WPF_Study&quot;</code>
+<ul>
+<li>本地项目命名空间（<code>local: 前缀</code>）：允许引用当前项目中的自定义类（如用户控件、转换器等）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设计时属性：<code>mc:Ignorable=&quot;d&quot;</code>
+<ul>
+<li>忽略设计时属性：指示 XAML 解析器在运行时忽略 <code>d:</code> 前缀的属性。</li>
+</ul>
+</li>
+<li><code>d:DataContext=&quot;{d:DesignInstance local:MainWindow}&quot;</code>
+<ul>
+<li>自己加的，方便在绑定变量的时候让 VS 识别到变量，以及支持自动补全</li>
+<li><code>d:DataContext</code> - 设计时数据上下文
+<ul>
+<li>作用：告诉 XAML 设计器在设计时使用什么作为数据上下文。</li>
+</ul>
+</li>
+<li><code>DesignInstance</code> 是一个特殊的标记扩展，它告诉设计器：
+<ul>
+<li>创建类型实例：在设计时创建指定类型的实例</li>
+<li>提供智能提示：基于这个实例提供属性绑定的 IntelliSense</li>
+<li>设计时预览：可能在设计视图中显示默认数据</li>
+</ul>
+</li>
+<li><code>local:MainWindow</code> 的含义
+<ul>
+<li><code>local</code>: - 引用本地命名空间</li>
+<li><code>MainWindow</code> - 您的窗口类</li>
+<li>所以 <code>local:MainWindow</code> 等同于 <code>WPF_LoginUI.MainWindow</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>说明：</p>
+<ul>
+<li><code>xmlns</code> 是 “XML Namespace” 的缩写，它是 XML 标准的一部分，用于声明命名空间。这个概念类似于 C# 中的 <code>using</code> 语句。
+<ul>
+<li>基本语法：<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:[前缀]=&quot;[命名空间URI]&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>上面提到的 URL，例如 <code>&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;</code> 仅仅是唯一标识符，类型信息已内置在 .NET 中，因此不需要真的访问网站。</li>
+<li><code>&lt;Grid&gt;&lt;/Grid&gt;</code> 里面是客户区</li>
+<li><code>&lt;Window&gt;&lt;/Window&gt;</code> 里面只能有一个 Content，例如里面不能放两个 Button。所以一般中间塞一个 <code>&lt;Grid&gt;&lt;/Grid&gt;</code></li>
+</ul>
+<h2 id="常见布局控件：">常见布局控件：</h2>
+<h3 id="Grid-控件">Grid 控件</h3>
+<p><code>&lt;Grid&gt;&lt;/Grid&gt;</code><br>
+Grid 是表格布局，默认看到的 Grid 是一行一列，所以控件默认在中间<br>
+可以动态分配行或者列。</p>
+<p>划分行，这里划成两行</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;20&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RowDefinition</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>也支持按照比例划分</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;1*&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;2*&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>或者按照内容其中的内容自动调整大小</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RowDefinition</span> <span class="attr">Height</span>=<span class="string">&quot;AUTO&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RowDefinition</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Grid.RowDefinitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果第一行没有内容，那么高度就为 0。</p>
+<p>塞两个 Button 到表格的 (0, 0) 位置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Left&quot;</span> <span class="attr">Width</span>=<span class="string">&quot;40&quot;</span> <span class="attr">Grid.Column</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">HorizontalAlignment</span>=<span class="string">&quot;Left&quot;</span> <span class="attr">Margin</span>=<span class="string">&quot;40, 0, 0, 0&quot;</span> <span class="attr">Width</span>=<span class="string">&quot;40&quot;</span> <span class="attr">Grid.Column</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;0&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>利用 StackPanel 可以自动化堆叠</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">StackPanel</span> <span class="attr">Grid.Row</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Grid.Column</span>=<span class="string">&quot;0&quot;</span> <span class="attr">Orientation</span>=<span class="string">&quot;Horizontal&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;20&quot;</span> <span class="attr">Width</span>=<span class="string">&quot;40&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span> <span class="attr">Height</span>=<span class="string">&quot;20&quot;</span> <span class="attr">Width</span>=<span class="string">&quot;40&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">StackPanel</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Grid 里面也可以继续嵌套 Grid</p>
+<h3 id="StackPanel-控件">StackPanel 控件</h3>
+<p><code>&lt;StackPanel&gt;&lt;/StackPanel&gt;</code><br>
+控件从上到下堆叠（修改 <code>Orientation</code> 属性可以改变堆叠方向）</p>
+<h2 id="样式控制">样式控制</h2>
+<p><code>&lt;Window.Resources&gt;</code> 作用类似 CSS</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Style</span> <span class="attr">TargetType</span>=<span class="string">&quot;Button&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Background&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;Red&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>样式也支持继承</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Window.Resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Style</span> <span class="attr">TargetType</span>=<span class="string">&quot;Button&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Background&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;White&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;FontSize&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;20&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Margin&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;20, 10&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Height&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;30&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Style</span> <span class="attr">x:Key</span>=<span class="string">&quot;LoginStyle&quot;</span> <span class="attr">TargetType</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">BasedOn</span>=<span class="string">&quot;&#123;StaticResource &#123;x:Type Button&#125;&#125;&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Background&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;LightBlue&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Style</span> <span class="attr">x:Key</span>=<span class="string">&quot;LogoutStyle&quot;</span> <span class="attr">TargetType</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">BasedOn</span>=<span class="string">&quot;&#123;StaticResource &#123;x:Type Button&#125;&#125;&quot;</span>&gt;</span><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Setter</span> <span class="attr">Property</span>=<span class="string">&quot;Background&quot;</span> <span class="attr">Value</span>=<span class="string">&quot;LightCoral&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">    </span><span class="tag">&lt;/<span class="name">Style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Window.Resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>也支持像 CSS 一样把样式放到单独的文件中<br>
+右键项目——“添加”——“资源字典”，此时就会在项目中出现一个 .xaml 文件，例如创建一个 <code>ButtonStyle.xaml</code>，然后将 Style 放入其中。<br>
+如果想要将 <code>ButtonStyle.xaml</code> 中的 Style 应用于整个项目，需要在 <code>App.xaml</code> 中加入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Application.Resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ResourceDictionary</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ResourceDictionary.MergedDictionaries</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ResourceDictionary</span> <span class="attr">Source</span>=<span class="string">&quot;/ButtonStyle.xaml&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ResourceDictionary.MergedDictionaries</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ResourceDictionary</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Application.Resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<!-- ## C# 程序属性与绑定
+
+首先设置一下数据上下文，这里先设置为 `this`，表示 `MainWindow` 类底下的属性都是可以绑定的
+```c#
+public MainWindow()
+&#123;
+    InitializeComponent();
+    this.DataContext = this; // Set the DataContext to enable data binding
+&#125;
+
+// ……
+public string Username &#123; get; set; &#125; = "111";
+```
+
+`public string UserName { get; set; }` 是一个 自动实现的属性（Auto-Implemented Property）
+* 定义了一个公开的字符串属性 UserName。
+  * `{ get; set; }` 表示该属性可读可写：
+  * get：允许外部代码读取属性值（如 obj.UserName）。
+  * set：允许外部代码设置属性值（如 obj.UserName = "John"）。
+* 底层实现
+    ```c#
+    private string _userName; // 隐藏的私有字段
+    public string UserName
+    &#123;
+        get &#123; return _userName; &#125;
+        set &#123; _userName = value; &#125;
+    &#125;
+    ```
+
+前端利用 `{Binding xxx}` 语法实现绑定
+```xml
+<TextBox Text="&#123;Binding Username&#125;" Grid.Row="0" Grid.Column="1"/>
+```
+ -->
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/22ab31c.html">http://zhuxz0299.github.io/posts/22ab31c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/c/">c#</a><a class="post-meta__tags" href="/tags/wpf/">wpf</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_156.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/2950997e.html" title="C# 基础学习以及 VS 使用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_153.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-25</div><div class="info-item-2">C# 基础学习以及 VS 使用</div></div><div class="info-2"><div class="info-item-1">初次使用 VS2022 构建 C# 项目了解到的知识</div></div></div></a><a class="pagination-related" href="/posts/67555dd6.html" title="Winform界面开发入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_155.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-26</div><div class="info-item-2">Winform界面开发入门</div></div><div class="info-2"><div class="info-item-1">上手 Winform 时的一点笔记</div></div></div></a><a class="pagination-related" href="/posts/c51fd072.html" title="常见编程语言编译&#x2F;执行流程"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_152.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-26</div><div class="info-item-2">常见编程语言编译&#x2F;执行流程</div></div><div class="info-2"><div class="info-item-1">介绍 C/C++、Python、Java、C# 这几种语言如何经过编译/解释之后在电脑上运行</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#App-xaml-%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">App.xaml 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E4%BD%93-xaml-%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">窗体 .xaml 文件解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%B8%83%E5%B1%80%E6%8E%A7%E4%BB%B6%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">常见布局控件：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Grid-%E6%8E%A7%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">Grid 控件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#StackPanel-%E6%8E%A7%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">StackPanel 控件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F%E6%8E%A7%E5%88%B6"><span class="toc-number">4.</span> <span class="toc-text">样式控制</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,31 @@
+/* 滚动条 */
+
+/* === 新增部分：针对 Firefox 的标准写法 === */
+html {
+  /* 设置滚动条宽度：auto (默认) | thin (细) | none (隐藏) */
+  scrollbar-width: auto; 
+  
+  /* 设置滚动条颜色：<滑块颜色> <轨道颜色> */
+  scrollbar-color: #3b70fc transparent; 
+}
+
+/* === 原有的代码 (保持不变，用于 Chrome/Edge) === */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3b70fc;
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+::-moz-selection {
+  color: #fff;
+  background-color: #3b70fc;
+}

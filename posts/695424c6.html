@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Arch Linux 安装 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="讲解 Arch Linux 安装步骤背后的工作原理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arch Linux 安装">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/695424c6.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="讲解 Arch Linux 安装步骤背后的工作原理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_165.webp">
+<meta property="article:published_time" content="2025-09-03T06:42:41.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.874Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="arch linux">
+<meta property="article:tag" content="file system">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_165.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Arch Linux 安装",
+  "url": "http://zhuxz0299.github.io/posts/695424c6.html",
+  "image": "https://source.fomal.cc/img/default_cover_165.webp",
+  "datePublished": "2025-09-03T06:42:41.000Z",
+  "dateModified": "2025-12-12T13:59:51.874Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/695424c6.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Arch Linux 安装',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_165.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Arch Linux 安装</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Arch Linux 安装</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-03T06:42:41.000Z" title="发表于 2025-09-03 14:42:41">2025-09-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.874Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note info flat"><p>安装流程参考的是 <a target="_blank" rel="noopener" href="https://arch.icekylin.online/guide/rookie/basic-install.html">archlinux 简明教程 - archlinux 基础安装</a> 中的步骤</p>
+</div>
+<div class="note warning flat"><p>对操作步骤的解释大多来自 Gemini 2.5 Pro</p>
+</div>
+<h2 id="U盘启动安装程序">U盘启动安装程序</h2>
+<h3 id="U盘中的-Arch-Linux-ISO">U盘中的 Arch Linux ISO</h3>
+<p>在安装 Arch Linux 之前需要制作一个启动盘，并且将 ISO 文件放入其中。当计算机从U盘启动时，就会加载这个 ISO 文件。同时与 Windows 系统不同的是，Arch Linux ISO 中本身并不包含后续需要安装到计算机上的系统。</p>
+<p>U盘中的 Arch Linux ISO 文件本身就是一个完整、可独立运行的、只是相对简易的 Linux 系统，通常称之为“Live 环境”或“Live 系统”。用户从U盘启动时，并不是直接开始安装，而是启动了这个存在于 U盘和内存中的迷你 Arch Linux 系统。</p>
+<h4 id="ISO-镜像里有什么？">ISO 镜像里有什么？</h4>
+<p>一个典型的 Arch Linux 安装U盘 (ISO) 包含了一个可启动的操作系统所需的所有基本组件：</p>
+<ol>
+<li>引导加载程序 (Bootloader): 比如 GRUB 或 systemd-boot。当电脑的 BIOS/UEFI 从U盘启动时，首先会运行它。它的任务是加载 Linux 内核。</li>
+<li>Linux 内核 (Kernel): 这是操作系统的核心，负责管理硬件（CPU、内存、硬盘等），并为其他程序提供运行环境。</li>
+<li>根文件系统 (Root Filesystem): 这是一个包含了所有基本命令行工具和程序的文件集合。</li>
+<li>Shell: 用户看到的可以交互的命令行界面，通常是 Zsh 或 Bash。</li>
+<li>安装必需的工具: 比如用于磁盘分区的 fdisk/parted，用于格式化的 mkfs，用于连接网络的 iw/dhcpcd，以及最重要的安装脚本 pacstrap 和进入新系统的 arch-chroot 等。</li>
+<li>系统驱动和模块: 确保用户的硬件（如网卡、键盘、显卡）能被识别并正常工作。</li>
+</ol>
+<h4 id="为什么需要一个-Live-系统？">为什么需要一个 Live 系统？</h4>
+<p>采用这种方式，而不是一个简单的、菜单式的安装程序，是 Arch Linux “The Arch Way” 哲学的一种体现：</p>
+<ol>
+<li>提供强大的操作环境: 在安装系统之前，用户需要对硬盘进行分区、格式化。一个完整的命令行环境让用户可以随心所欲地执行这些高级操作，而不是被限制在预设的几个选项里。</li>
+<li>网络连接: Arch Linux 的安装过程需要从互联网上下载最新的软件包。这个 Live 环境内置了网络工具，让用户可以先连接到网络，再开始安装。这就保证了用户安装的系统从一开始就是最新的。</li>
+<li>系统修复和救援: 这个 Live U盘也是一个功能强大的系统救援盘。如果将来用户安装好的 Arch Linux 系统出了问题无法启动，用户可以再次用这个U盘启动，进入 Live 环境，然后挂载用户硬盘上的系统分区，进行检查和修复。</li>
+</ol>
+<h4 id="启动流程总结">启动流程总结</h4>
+<ol>
+<li>BIOS/UEFI 从U盘加载 Bootloader。</li>
+<li>Bootloader 加载 Linux 内核和一个临时的初始文件系统 (initramfs) 到内存。</li>
+<li>内核启动，并利用初始文件系统中的工具，找到并挂载位于 ISO 中的主要根文件系统 (SquashFS)。</li>
+<li>系统完成初始化，最终启动一个 Shell，将控制权交给用户。</li>
+</ol>
+<p>此时，用户就得到了一个运行在内存中、功能齐全的 Arch Linux 命令行环境。用户在这个环境里所做的一切操作（比如下载文件），都是在内存中进行的，不会影响U盘本身。</p>
+<h3 id="安装步骤">安装步骤</h3>
+<p>以下的安装步骤都是在 Live 系统中进行，主要是为了后续下载完整的 Arch Linux 系统做准备。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 禁用reflector 服务，防止自动更新 mirrorlist 时误删某些有用的源信息</span></span><br><span class="line">systemctl stop reflector.service</span><br><span class="line"><span class="comment"># 确认一下是否为 UEFI 模式</span></span><br><span class="line"><span class="built_in">ls</span> /sys/firmware/efi/efivars</span><br><span class="line"><span class="comment"># 使用无线连接</span></span><br><span class="line">iwctl <span class="comment"># 进入交互式命令行</span></span><br><span class="line">device list <span class="comment"># 列出无线网卡设备名，比如无线网卡看到叫 wlan0</span></span><br><span class="line">station wlan0 scan <span class="comment"># 扫描网络</span></span><br><span class="line">station wlan0 get-networks <span class="comment"># 列出所有 wifi 网络</span></span><br><span class="line">station wlan0 connect wifi-name <span class="comment"># 进行连接，注意这里无法输入中文。回车后输入密码即可</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment"># 连接成功后退出</span></span><br><span class="line"><span class="comment"># 测试网络连通性</span></span><br><span class="line">ping www.bilibili.com</span><br><span class="line"><span class="comment"># 更新系统时钟</span></span><br><span class="line">timedatectl set-ntp <span class="literal">true</span> <span class="comment"># 将系统时间与网络时间进行同步</span></span><br><span class="line">timedatectl status <span class="comment"># 检查服务状态</span></span><br><span class="line"><span class="comment"># 更换国内软件仓库镜像源加快下载速度</span></span><br><span class="line">vim /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
+<p>加入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch # 中国科学技术大学开源镜像站</span><br><span class="line">Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch # 清华大学开源软件镜像站</span><br><span class="line">Server = https://repo.huaweicloud.com/archlinux/$repo/os/$arch # 华为开源镜像站</span><br><span class="line">Server = http://mirror.lzu.edu.cn/archlinux/$repo/os/$arch # 兰州大学开源镜像站</span><br></pre></td></tr></table></figure>
+<h2 id="分区与格式化">分区与格式化</h2>
+<h3 id="分区格式化">分区格式化</h3>
+<h4 id="安装步骤-2">安装步骤</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">lsblk <span class="comment"># 显示当前分区情况</span></span><br><span class="line"><span class="comment"># 这一步需要创建 efi 分区，swap 分区以及用于挂载根目录的分区</span></span><br><span class="line">cfdisk /dev/nvmexn1 <span class="comment"># 使用 cfdisk 工具对安装 archlinux 的磁盘分区</span></span><br><span class="line">fdisk -l <span class="comment"># 复查磁盘情况</span></span><br><span class="line"><span class="comment"># 格式化分区</span></span><br><span class="line">mkfs.fat -F32 /dev/nvmexn1pn <span class="comment"># 格式化 EFI 分区</span></span><br><span class="line">mkswap /dev/nvmexn1pn <span class="comment"># 格式化 Swap 分区</span></span><br><span class="line">mkfs.btrfs -L myArch /dev/nvmexn1pn <span class="comment"># 格式化 Btrfs 分区</span></span><br></pre></td></tr></table></figure>
+<h4 id="命令解析">命令解析</h4>
+<ul>
+<li><code>mkfs.fat -F32 /dev/nvmexn1p&lt;N&gt;</code>
+<ul>
+<li>创建一个 FAT32 文件系统。</li>
+<li>在现代使用 UEFI 引导的电脑上，主板固件（UEFI）需要一个特殊的分区来存放引导加载程序（Bootloader，比如 GRUB）。这个分区被称为 EFI 系统分区 (ESP)。UEFI 规范规定，这个分区必须是 FAT 格式（通常是 FAT32）。因为主板的固件很“笨”，它只认识这种简单、兼容性极高的文件系统格式。</li>
+<li>命令解读：
+<ul>
+<li><code>mkfs.fat</code> 是 mkfs (MaKe FileSystem) 工具集中专门用来创建 FAT 文件系统的工具。</li>
+<li><code>-F32</code> 是一个专属于 <code>mkfs.fat</code> 的选项，明确告诉它要创建 32 位版本的 FAT，即 FAT32。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>mkswap /dev/nvmexn1p&lt;N&gt;</code>
+<ul>
+<li>初始化一个分区作为 Swap（交换）空间。</li>
+<li>这是一个独立的命令。因为 Swap 空间不是一个文件系统
+<ul>
+<li>用户不能在 Swap 分区里创建文件或文件夹，也不能 cd 进去。</li>
+<li>它的作用是作为物理内存 (RAM) 的“溢出区”。当 RAM 不够用时，Linux 内核会把一些暂时不用的内存数据（称为“页”）写入到 Swap 分区，以释放 RAM 空间。</li>
+<li>因此，它的内部数据结构完全是为了高效地进行这种内存页面交换而设计的，和文件系统那种树状目录结构完全不同。</li>
+</ul>
+</li>
+<li>命令解读：
+<ul>
+<li><code>mkswap</code> (MaKe Swap) 不做文件系统，只在分区上写入 Swap 签名和元数据，让内核知道“嘿，这块地方是我的虚拟内存”。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>mkfs.btrfs -L myArch /dev/nvmexn1p&lt;N&gt;</code>
+<ul>
+<li>创建一个 Btrfs 文件系统。</li>
+<li>这是用来存放 Arch Linux 操作系统本身（根目录 <code>/</code>）和用户数据（<code>/home</code>）的通用文件系统。与 FAT32 相比，Btrfs 是一种非常现代和高级的文件系统，支持快照、数据压缩、校验和、内置 RAID 等复杂功能。</li>
+<li>命令解读：
+<ul>
+<li><code>mkfs.btrfs</code> 是专门用来构建 Btrfs 复杂内部结构（如 B-树、子卷等）的工具。</li>
+<li><code>-L myArch</code> 是一个适用于很多现代文件系统的通用选项，意思是给这个分区设置一个“标签”(Label) 叫 myArch，方便识别。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建子卷">创建子卷</h3>
+<h4 id="安装步骤-3">安装步骤</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 Btrfs 分区下创建子卷</span></span><br><span class="line">mount -t btrfs -o compress=zstd /dev/nvmexn1pn /mnt <span class="comment"># 先将 Btrfs 分区挂载到 /mnt 下</span></span><br><span class="line"><span class="built_in">df</span> -h <span class="comment"># 使用 df 命令复查挂载情况</span></span><br><span class="line">btrfs subvolume create /mnt/@ <span class="comment"># 创建 / 目录子卷</span></span><br><span class="line">btrfs subvolume create /mnt/@home <span class="comment"># 创建 /home 目录子卷</span></span><br><span class="line">btrfs subvolume list -p /mnt <span class="comment"># 复查子卷情况</span></span><br><span class="line">umount /mnt <span class="comment"># 卸载掉 /mnt 以挂载子卷</span></span><br></pre></td></tr></table></figure>
+<h4 id="格式化-vs-挂载">格式化 vs. 挂载</h4>
+<ul>
+<li>格式化是在一个原始的分区（一块裸露的硬盘空间）上建立文件系统的结构。</li>
+<li>挂载 (mount) 是将一个已经格式化好的文件系统，接入 Linux 系统的主目录树 (<code>/</code>) 中的某一个点上。这个连接点就叫做挂载点 (mount point)。</li>
+</ul>
+<h4 id="为什么必须先挂载">为什么必须先挂载</h4>
+<p>挂在之后分区才变得可见和可访问了：</p>
+<ul>
+<li>对于操作系统来说，这个分区不再是一个抽象的设备文件 (<code>/dev/xxx</code>)，而是变成了一个可以 <code>cd</code> 进去、可以 <code>ls</code> 查看内容的目录 (<code>/mnt</code>)。</li>
+<li>文件系统驱动开始工作。挂载操作会告诉 Linux 内核：<code>/mnt</code> 这个目录背后是一个 Btrfs 文件系统，请使用 Btrfs 的驱动程序来管理。</li>
+<li>命令有了操作对象：此时，运行 <code>btrfs subvolume create /mnt/@</code> 这样的命令：
+<ul>
+<li><code>btrfs</code> 命令通过 <code>/mnt</code> 这个入口，找到了它需要操作的那个 Btrfs 文件系统。</li>
+<li>它调用 Btrfs 的驱动，在这个文件系统内部执行“创建子卷”的操作。子卷 <code>@</code> 就像是在仓库里用隔离网划分出了一个新的、独立的区域。</li>
+</ul>
+</li>
+</ul>
+<h4 id="mnt-目录作用"><code>/mnt</code> 目录作用</h4>
+<p>在 Arch Linux 的 Live 环境中，/mnt 目录是一个特意为用户预留的、空的挂载点。它的存在就是为了让用户在安装过程中，将硬盘（或 SSD）上的目标分区挂载到这里，以便进行操作。这是一种在 Linux/Unix 世界里长期形成的惯例：</p>
+<ul>
+<li><code>/mnt</code>：用于临时、手动挂载文件系统。</li>
+<li><code>/media</code>：通常用于系统自动挂载可移动设备（比如插入另一个U盘或光盘）。</li>
+</ul>
+<h3 id="Live-系统的目录结构和挂载分区">Live 系统的目录结构和挂载分区</h3>
+<p>那么，Live 系统本身的文件和目录（比如根目录 <code>/</code>、<code>/usr</code>、<code>/bin</code> 等）并不像常规的 Linux 系统一样挂载物理分区，它主要运行在内存（RAM）里，利用了一种叫做 OverlayFS 的技术：根目录 <code>/</code> 是一个虚拟文件系统。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">root@archiso ~ # df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">dev             1.9G     0  1.9G   0% /dev</span><br><span class="line">run             2.0G  156M  1.8G   8% /run</span><br><span class="line">/dev/sr0        756M  756M     0 100% /run/archiso/bootmnt</span><br><span class="line">cowspace        256M  768K  256M   1% /run/archiso/cowspace</span><br><span class="line">/dev/loop0      621M  621M     0 100% /run/archiso/airootfs</span><br><span class="line">airootfs        256M  768K  256M   1% /</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /dev/shm</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /tmp</span><br><span class="line">tmpfs           2.0G  2.1M  2.0G   1% /etc/pacman.d/gnupg</span><br><span class="line">tmpfs           392M     0  392M   0% /run/user/0</span><br><span class="line">/dev/sda5        58G  3.0M   56G   1% /mnt</span><br></pre></td></tr></table></figure>
+<p>overlay 文件系统像“三明治”一样，由两层组成：</p>
+<ul>
+<li>下层 (Lower Layer)：这是一个只读的层，它来自U盘中的一个叫做 <code>squashfs</code> 的高度压缩文件。这个文件包含了 Live 环境所需的全部系统文件和工具。
+<ul>
+<li>即上述 <code>/dev/loop0      621M  621M     0 100% /run/archiso/airootfs</code>。</li>
+</ul>
+</li>
+<li>上层 (Upper Layer)：这是一个可写的层，它是一个 <code>tmpfs</code>，也就是一个完全存在于内存中的文件系统。
+<ul>
+<li>即上述 <code>cowspace        256M  768K  256M   1% /run/archiso/cowspace</code></li>
+</ul>
+</li>
+<li>最终效果：overlayfs 将这两层合并在一起，呈现给您的就是一个完整的、看起来可读可写的根目录 <code>/</code>。
+<ul>
+<li>即上述 <code>airootfs        256M  768K  256M   1% /</code></li>
+</ul>
+</li>
+</ul>
+<p>当用户修改文件或创建新文件时，所有变动都发生在内存中的“上层”。因此可以注意到 <code>airootfs</code> 和 <code>cowspace</code> 的资源占用情况是完全一样的。U盘上存放启动文件和 <code>squashfs</code> 镜像的那个物理分区，通常会被只读地挂载到某个特定的运行目录，即 <code>/dev/sr0 756M 756M 0 100% /run/archiso/bootmnt</code>。系统从这里启动，并加载了核心组件后，就切换到上面说的内存文件系统了。</p>
+<p><code>dev, run, tmpfs</code> 等都是 tmpfs (内存文件系统)，它们也都在内存中，执行自己的工作。而最后面的 <code>/dev/sda5</code> 是被挂载到 <code>/mnt</code> 上的 Btrfs 文件系统，这个文件系统存在于硬盘上。</p>
+<h2 id="文件系统挂载与系统安装">文件系统挂载与系统安装</h2>
+<h3 id="文件系统挂载">文件系统挂载</h3>
+<h4 id="安装步骤-4">安装步骤</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mount -t btrfs -o subvol=/@,compress=zstd /dev/nvmexn1pn /mnt <span class="comment"># 挂载 / 目录</span></span><br><span class="line"><span class="built_in">mkdir</span> /mnt/home <span class="comment"># 创建 /home 目录</span></span><br><span class="line">mount -t btrfs -o subvol=/@home,compress=zstd /dev/nvmexn1pn /mnt/home <span class="comment"># 挂载 /home 目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /mnt/boot <span class="comment"># 创建 /boot 目录</span></span><br><span class="line">mount /dev/nvmexn1pn /mnt/boot <span class="comment"># 挂载 /boot 目录</span></span><br><span class="line">swapon /dev/nvmexn1pn <span class="comment"># 挂载交换分区</span></span><br></pre></td></tr></table></figure>
+<h4 id="挂载顺序说明">挂载顺序说明</h4>
+<p>挂载顺序是遵循了一个最基本的原则：必须先挂载父目录，才能在其之上挂载子目录。可以把 Linux 的目录树想象成一棵真实的大树：必须先有主树干 (<code>/</code>)，才能在树干上长出大的分支 (<code>/home, /boot</code>)。</p>
+<ol>
+<li>将 Btrfs 分区 (<code>/dev/nvmexn1p&lt;N&gt;</code>) 中的 <code>@</code> 子卷挂载到 <code>/mnt</code></li>
+<li>将同一个 Btrfs 分区中的 <code>@home</code> 子卷挂载到 <code>/mnt/home</code> 目录上</li>
+<li>将您的 EFI 分区（<code>/dev/nvmexn1p&lt;M&gt;</code>）挂载到 <code>/mnt/boot</code></li>
+<li><code>swapon</code> 命令的执行顺序相对独立，它不涉及目录树挂载，所以可以在挂载文件系统之后（或之前）的任何时间点执行。但通常习惯上在文件系统挂载完毕后统一处理。</li>
+</ol>
+<h3 id="安装系统">安装系统</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap /mnt base base-devel linux linux-firmware btrfs-progs</span><br></pre></td></tr></table></figure>
+<p>作用是在准备好的分区上构建一个全新的、基础的 Arch Linux 系统。</p>
+<ul>
+<li><code>pacstrap</code>：这是一个 Arch Linux 特有的安装脚本。这个名字是 <code>pacman</code> 和 <code>bootstrap</code>（引导）的结合，意思是用 <code>pacman</code> 包管理器来引导、建立一个新系统。</li>
+<li><code>/mnt</code>：这是目标目录。<code>pacstrap</code> 会将新系统的所有文件和目录都安装到这里。</li>
+<li><code>base base-devel ...</code>：跟在目标目录后面的所有参数都是软件包或者软件包组的名字。<code>pacstrap</code> 会将这些包以及它们的所有依赖包全部下载并安装到 <code>/mnt</code> 中。</li>
+</ul>
+<h3 id="生成-fstab-文件">生成 fstab 文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U /mnt &gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<p><code>fstab</code> 用来定义磁盘分区。它是 Linux 系统中重要的文件之一。上述命令使用 <code>genfstab</code> 自动根据当前挂载情况生成并写入 <code>fstab</code> 文件。因为我们挂载文件系统是在 Live 系统上进行的，而安装在计算机硬盘中的 Arch Linux 系统后续想要知道文件系统如何挂载在自己的目录树上，就需要 <code>fstab</code> 文件用于参考。</p>
+<h2 id="系统后续设置">系统后续设置</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把系统环境切换到新系统下</span></span><br><span class="line"><span class="comment"># 此时，原来安装盘下的 /mnt 目录就变成了新系统的 / 目录</span></span><br><span class="line">arch-chroot /mnt</span><br><span class="line"><span class="comment"># 设置主机名</span></span><br><span class="line">vim /etc/hostname</span><br><span class="line"><span class="comment"># 设置时区</span></span><br><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line"><span class="comment"># 将系统时间同步到硬件时间</span></span><br><span class="line">hwclock --systohc</span><br><span class="line"><span class="comment"># 设置 Locale。Locale 决定了软件使用的语言、书写习惯和字符集</span></span><br><span class="line">vim /etc/locale.gen</span><br><span class="line"><span class="comment"># 生成 locale</span></span><br><span class="line">locale-gen</span><br><span class="line"><span class="comment"># 向 /etc/locale.conf 输入内容</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;LANG=en_US.UTF-8&#x27;</span>  &gt; /etc/locale.conf</span><br><span class="line"><span class="comment"># 为 root 用户设置密码</span></span><br><span class="line">passwd root</span><br><span class="line"><span class="comment"># 安装微码</span></span><br><span class="line">pacman -S intel-ucode <span class="comment"># Intel</span></span><br><span class="line">pacman -S amd-ucode <span class="comment"># AMD</span></span><br><span class="line"><span class="comment"># 安装引导程序</span></span><br><span class="line">pacman -S grub efibootmgr <span class="comment"># 安装相应的包</span></span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=ARCH <span class="comment"># 安装 GRUB 到 EFI 分区</span></span><br><span class="line">vim /etc/default/grub <span class="comment"># 编辑 /etc/default/grub 文件</span></span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg <span class="comment"># 最后生成 GRUB 所需的配置文件</span></span><br><span class="line"><span class="comment"># 完成安装</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment"># 退回安装环境</span></span><br><span class="line">umount -R /mnt <span class="comment"># 卸载新分区</span></span><br><span class="line">reboot <span class="comment"># 重启</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/695424c6.html">http://zhuxz0299.github.io/posts/695424c6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/arch-linux/">arch linux</a><a class="post-meta__tags" href="/tags/file-system/">file system</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_165.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4f30936b.html" title="docker 使用 GPU"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_2.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-29</div><div class="info-item-2">docker 使用 GPU</div></div><div class="info-2"><div class="info-item-1">解决使用 docker 时无法调用 GPU 问题</div></div></div></a><a class="pagination-related" href="/posts/49f1e1db.html" title="docker 入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_3.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-30</div><div class="info-item-2">docker 入门</div></div><div class="info-2"><div class="info-item-1">关于 docker 的一些基本概念的介绍，以及简单的操作</div></div></div></a><a class="pagination-related" href="/posts/45029051.html" title="Linux apt 换源与 docker 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_4.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-27</div><div class="info-item-2">Linux apt 换源与 docker 安装</div></div><div class="info-2"><div class="info-item-1">解决因为 docker 被墙无法使用官网方法安装的问题</div></div></div></a><a class="pagination-related" href="/posts/5bfe7acf.html" title="Linux 中的 systemd 模块"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_167.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-08</div><div class="info-item-2">Linux 中的 systemd 模块</div></div><div class="info-2"><div class="info-item-1">Linux 中 systemd 模块的基本用法</div></div></div></a><a class="pagination-related" href="/posts/12e1f9cc.html" title="Linux 包管理与库管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_133.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-12</div><div class="info-item-2">Linux 包管理与库管理</div></div><div class="info-2"><div class="info-item-1">先介绍 Linux 中的包(package)和库(library)，接着介绍一下 dnf 之类的包管理器，以及用来管理库的 pkg-config。</div></div></div></a><a class="pagination-related" href="/posts/b69ef682.html" title="Linux 工作与进程管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_149.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-10</div><div class="info-item-2">Linux 工作与进程管理</div></div><div class="info-2"><div class="info-item-1">查询在后台运行的进程，并且使用命令处理这些进程</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#U%E7%9B%98%E5%90%AF%E5%8A%A8%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">U盘启动安装程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#U%E7%9B%98%E4%B8%AD%E7%9A%84-Arch-Linux-ISO"><span class="toc-number">1.1.</span> <span class="toc-text">U盘中的 Arch Linux ISO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ISO-%E9%95%9C%E5%83%8F%E9%87%8C%E6%9C%89%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">ISO 镜像里有什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA-Live-%E7%B3%BB%E7%BB%9F%EF%BC%9F"><span class="toc-number">1.1.2.</span> <span class="toc-text">为什么需要一个 Live 系统？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.3.</span> <span class="toc-text">启动流程总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.2.</span> <span class="toc-text">安装步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E4%B8%8E%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">2.</span> <span class="toc-text">分区与格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="toc-number">2.1.</span> <span class="toc-text">分区格式化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4-2"><span class="toc-number">2.1.1.</span> <span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A7%A3%E6%9E%90"><span class="toc-number">2.1.2.</span> <span class="toc-text">命令解析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E5%8D%B7"><span class="toc-number">2.2.</span> <span class="toc-text">创建子卷</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4-3"><span class="toc-number">2.2.1.</span> <span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96-vs-%E6%8C%82%E8%BD%BD"><span class="toc-number">2.2.2.</span> <span class="toc-text">格式化 vs. 挂载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%85%88%E6%8C%82%E8%BD%BD"><span class="toc-number">2.2.3.</span> <span class="toc-text">为什么必须先挂载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mnt-%E7%9B%AE%E5%BD%95%E4%BD%9C%E7%94%A8"><span class="toc-number">2.2.4.</span> <span class="toc-text">&#x2F;mnt 目录作用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Live-%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%92%8C%E6%8C%82%E8%BD%BD%E5%88%86%E5%8C%BA"><span class="toc-number">2.3.</span> <span class="toc-text">Live 系统的目录结构和挂载分区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8C%82%E8%BD%BD%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">文件系统挂载与系统安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%8C%82%E8%BD%BD"><span class="toc-number">3.1.</span> <span class="toc-text">文件系统挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4-4"><span class="toc-number">3.1.1.</span> <span class="toc-text">安装步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E9%A1%BA%E5%BA%8F%E8%AF%B4%E6%98%8E"><span class="toc-number">3.1.2.</span> <span class="toc-text">挂载顺序说明</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.2.</span> <span class="toc-text">安装系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90-fstab-%E6%96%87%E4%BB%B6"><span class="toc-number">3.3.</span> <span class="toc-text">生成 fstab 文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%8E%E7%BB%AD%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">系统后续设置</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

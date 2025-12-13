@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>网络通信加密与证书 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="SSL&#x2F;TSL 协议如何实现安全的网络通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络通信加密与证书">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/df2a656b.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="SSL&#x2F;TSL 协议如何实现安全的网络通信">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_164.webp">
+<meta property="article:published_time" content="2025-08-30T12:34:45.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.916Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="https">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_164.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络通信加密与证书",
+  "url": "http://zhuxz0299.github.io/posts/df2a656b.html",
+  "image": "https://source.fomal.cc/img/default_cover_164.webp",
+  "datePublished": "2025-08-30T12:34:45.000Z",
+  "dateModified": "2025-12-12T13:59:51.916Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/df2a656b.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '网络通信加密与证书',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_164.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">网络通信加密与证书</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">网络通信加密与证书</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-30T12:34:45.000Z" title="发表于 2025-08-30 20:34:45">2025-08-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.916Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note info flat"><p>内容来自：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1mj421d7VE">数字签名和CA数字证书的核心原理和作用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/sewain/p/14250884.html#ssltls">关于加密、证书的那些事</a></li>
+</ul>
+</div>
+<h2 id="数据加密">数据加密</h2>
+<p>如果访问以 http 开头的网站，浏览器通常会提示网站不安全。这是因为仅仅使用 http，相当于和浏览器客户端和网站服务器之间使用明文传输数据，如果中间有人刻意记录收发的网络信息，用户的的账号密码等信息就会暴露给中间人。这就是没有 https 的第一个缺点：保证不了数据的机密性。此时一个比较直接的解决方法就是对数据进行加密。</p>
+<h3 id="对称加密">对称加密</h3>
+<p>具体而言，就是用户和网站之间需要有一模一样的私钥。这把私钥可以理解为某种数学运算，利用私钥对字符串进行加密得到密文，中间人即使截获了信息也无法理解，而接受方接收到密文之后重新用私钥解密得到明文，就能实现信息的加密沟通。除此之外，私钥也是有使用期限的，用户和网站之间的每一次会话都会生成一把新的私钥（这里把这样有期限的私钥统称为会话密钥）。现在中间人要破解所有会话就更困难了。</p>
+<p>但是对称加密的问题在于，既然用户和网站之间需要不能公开的会话密钥，那么两者之间通过非网络的方式约定密钥（否则密钥也可能被窃取），这显然是不现实的。</p>
+<h3 id="非对称加密">非对称加密</h3>
+<p>在非对称加密中有两把不同的钥匙，一把对信息进行加密，另一把能对信息进行解密。这两把钥匙利用算法同时生成。那么网站就可以生成一把公钥和一把私钥，并且把公钥发给用户。用户利用公钥加密信息，发送给网站，网站再利用私钥进行解密。中间人虽然可以截获公钥内容以及加密后的数据，但是由于没有私钥，也无法破解出明文。这就解决了用户与网站之间发送与协商会话密钥的问题。（协商完成之后使用对称加密，是因为对称加密效率更高。）</p>
+<p>但是假如当网站把公钥用户时，中间人截获了公钥，并且生成了自己的一对公钥和私钥，然后把自己的公钥再发送给用户。用户利用中间人的公钥加密信息，发送给网站，中间人再次截获，并且用自己的私钥解密，成功获取用户信息。之后中间人篡改用户信息，再将其利用网站私钥加密，并且发送给网站，网站利用自己的私钥解密得到的就是被篡改的信息。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/中间人伪造公钥.png" width=450 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>在这种情况下会生成两把不同的会话密钥，一边是用户和中间人的，另一边是中间人和网站的。用户和网站之间的通信完全被中间人截获，并且可以篡改。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/两把会话密钥.png" width=450 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h2 id="数字证书">数字证书</h2>
+<p>可以看出问题出在公钥上，用户无法知道公钥是否来自网站。此时就需要一个第三方来解决公钥的信任问题，这个第三方即为证书颁发机构 (Certificate Authority)，简称 CA。</p>
+<p>此时网站会先把公钥放到大家都信任的第三方 CA，CA 再根据这把公钥以及其他信息生成了数字证书，数字证书用于向用户证明公钥属于用户访问的目标网站。于是网站在与用户进行加密协商之前将数字证书发送给用户，用户看到数字证书属于信任的 CA，于是从数字证书中取出公钥，后续生成会话密钥。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/数字证书.png" width=450 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>接下来需要确认的问题是：数字证书是否真的是由信任的 CA 颁发而非中间人伪造。</p>
+<h3 id="数字签名">数字签名</h3>
+<p>数字签名用于验证数字证书确实来自 CA。CA 在接收到来自网站的信息以及公钥之后，会首先对其进行哈希运算。之后 CA 生成一对专门用于数字证书的公钥和私钥，然后用私钥加密哈希字符，得到数字签名。CA 把含有数字签名的证书发送给网站，如果证书的内容或者公钥后续被修改，那么就会无法与数字签名匹配。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/数字签名生成.png" width=550 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>用户访问网站时从网站得到含有 CA 签名的数字证书，为了证明没有中间人更改过公钥，那么可以利用 CA 签名时生成的公钥对签名进行解密，得到哈希值；然后再对证书内容进行哈希运算，再得到一个哈希值。如果两个哈希值相等，那么说明数字证书没有被篡改。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/数字签名验证.png" width=550 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="证书链">证书链</h3>
+<p>按照前面的流程，网站生成的公钥和私钥保证了能够可靠地生成会话密钥；CA 利用私钥给证书签名保证了网站证书以及其中公钥的真实性。但是 CA 还需要将公钥交给用户，CA 公钥的真实性同样需要保证。这个时候同样也需要另一个 CA 颁发数字证书并且签名，这就是证书链。证书链的最后一个 CA 称为根 CA。</p>
+<p>而根 CA 的公钥也需要证书和签名，这个工作由根 CA 自己完成。用户的操作系统和浏览器中会预先安装根 CA 的证书，这样也保证了根 CA 证书的真实性。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/证书链.png" width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>这种根 CA - 中间 CA - 网站的结构是为了更好的可靠性。这样即使其中有一家中间 CA 的私钥被破解了，也不至于影响到全局。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/中间CA的作用.png" width=400 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h2 id="SSL-TSL">SSL/TSL</h2>
+<p>SSL 全称是 Secure Socket Layer (安全套阶层协议)，它是一个安全协议，目的是用来为互联网提供安全的数据传输。SSL 协议有 1，2，3 这个三个版本，TLS (Transport Layer Security) 是 SSL V3 标准化之后的产物。TLS 由互联网工程任务组 (Internet Engineering Task Force, IETF) 提出，协议的第一个版本于 1999 年发布。最新版本是 TLS 1.3，发布于 2018 年。</p>
+<p>SSL/TSL 在工作过程中，就利用了前面描述的概念：对称加密、非对称加密、证书等。并且 SSL/TSL 协议最大的优点就是与应用层无关，在上层可以运行一些高层应用协议，例如：HTTP, FTP, TELNET…，也就是说这些高层协议可以透明的建立在SSL协议层之上。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/协议分层.png" width=300 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h3 id="SSL-TSL-握手流程">SSL/TSL 握手流程</h3>
+<p>握手就是指客户端与服务端在通信的开始阶段进行鉴权和协商，最终目的是：</p>
+<ul>
+<li>确认对方是合法的通信对象;</li>
+<li>与对方协商得到对称加密秘钥。</li>
+</ul>
+<p>前面关于加密与证书的内容其实已经包含了一部分握手流程，这里将其形式化表达。</p>
+<ol>
+<li>Client 向 Server 发送：
+<ul>
+<li>随机数 1；</li>
+<li>Client 端支持的 SSL/TSL 版本号；</li>
+<li>Client 端支持的加密算法列表。</li>
+</ul>
+</li>
+<li>Server 分析接收到的信息，返回如下信息给 Client:
+<ul>
+<li>随机数 2；</li>
+<li>选择的加密算法；</li>
+<li>Server 证书</li>
+</ul>
+</li>
+<li>Client 端验证 Server 发来的证书是否有效。
+<ul>
+<li>如果验证失败，通信结束；</li>
+<li>如果验证通过，就产生随机数 3，并使用刚才的随机数 1、随机数 2，然后用选择的算法生成一个对称加密秘钥，这个秘钥就用于后面正常的数据通信中。</li>
+<li>然后发送如下信息给 Server:
+<ul>
+<li>随机数 3，并且用 Server 证书中的公钥进行加密；</li>
+<li>此时，Client 端的握手流程结束，因为已经达到了握手的最终目的：确认 Server 合法，得到对称加密秘钥。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Server 端在接收到加密后的随机数 3 时，用自己的私钥进行解密，然后和之前的随机数 1、随机数 2 一起，使用相同的算法生成对称加密秘钥。</li>
+</ol>
+<p>至此，Server端的握手过程也就结束，下面就可以用对称加密秘钥来对数据进行加密了。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/SSL-TSL握手.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<div class="note warning flat"><p>上面描述的握手过程中是单向认证，也就是 Client 端验证 Server 是否合法的。如果需要双向认证，那么客户端也应该把自己的证书发送给 Server，然后 Server 来验证这个证书是否合法，确认证书合法之后才继续执行后面面的握手流程。</p>
+</div>
+<h3 id="HTTPS-与-SSL-的关系">HTTPS 与 SSL 的关系</h3>
+<p>HTTPS 拆开来就是：HTTP+SSL，就是在 HTTP 的下面增加了 SSL/TSL 安全传输协议层。在浏览器连接到服务器之后，就执行上面描述的 SSL 握手过程。握手结束之后，双方得到对称加密秘钥，在 HTTP 协议看来是明文传输数据，下面的 SSL/TSL 层对数据进行加密和解密。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/加密证书与签名/https与ssl.png" width=300 style="display: block; margin-left: auto; margin-right: auto;"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/df2a656b.html">http://zhuxz0299.github.io/posts/df2a656b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/https/">https</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_164.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86"><span class="toc-number">1.</span> <span class="toc-text">数据加密</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">1.1.</span> <span class="toc-text">对称加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="toc-number">1.2.</span> <span class="toc-text">非对称加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="toc-number">2.</span> <span class="toc-text">数字证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="toc-number">2.1.</span> <span class="toc-text">数字签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E9%93%BE"><span class="toc-number">2.2.</span> <span class="toc-text">证书链</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-TSL"><span class="toc-number">3.</span> <span class="toc-text">SSL&#x2F;TSL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SSL-TSL-%E6%8F%A1%E6%89%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text">SSL&#x2F;TSL 握手流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS-%E4%B8%8E-SSL-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">3.2.</span> <span class="toc-text">HTTPS 与 SSL 的关系</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

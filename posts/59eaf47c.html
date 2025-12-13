@@ -1,0 +1,569 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Arch Linux 软件安装与管理 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arch Linux 软件安装与管理">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/59eaf47c.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_166.webp">
+<meta property="article:published_time" content="2025-09-07T07:11:59.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.874Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="appimage">
+<meta property="article:tag" content="arch linux">
+<meta property="article:tag" content="aur">
+<meta property="article:tag" content="flatpak">
+<meta property="article:tag" content="pacman">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_166.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Arch Linux 软件安装与管理",
+  "url": "http://zhuxz0299.github.io/posts/59eaf47c.html",
+  "image": "https://source.fomal.cc/img/default_cover_166.webp",
+  "datePublished": "2025-09-07T07:11:59.000Z",
+  "dateModified": "2025-12-12T13:59:51.874Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/59eaf47c.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Arch Linux 软件安装与管理',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_166.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Arch Linux 软件安装与管理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Arch Linux 软件安装与管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-07T07:11:59.000Z" title="发表于 2025-09-07 15:11:59">2025-09-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.874Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Arch-Linux-包管理器">Arch Linux 包管理器</h2>
+<p>Arch Linux 遵循 K.I.S.S. (Keep It Simple, Stupid) 原则，其包管理系统也是如此。</p>
+<ul>
+<li>官方软件源 (Official Repositories)： 由 Arch Linux 官方团队和维护者打理的软件库，包含了核心的系统软件和大量流行软件。所有包都经过严格的依赖和安全性检查。</li>
+<li>Arch 用户软件源 (AUR - Arch User Repository)： 这是一个由社区驱动的软件库，包含了用户提交的成千上万的软件包构建脚本（称为 PKGBUILD）。AUR 中的软件没有经过官方审查，使用需要自行承担风险，但它是 Arch Linux 软件生态极其重要的一部分，几乎所有你能想到的软件都能在这里找到。</li>
+</ul>
+<h3 id="pacman">pacman</h3>
+<p>pacman (package manager) 是 Arch Linux 官方、核心的包管理工具。它用于管理来自官方软件源 (core, extra, community) 的软件包。</p>
+<h4 id="工作流程">工作流程</h4>
+<ol>
+<li>同步本地数据库：pacman 首先会从远程镜像服务器下载最新的软件包数据库（<code>/var/lib/pacman/sync/</code>），以便知道远程有哪些软件包及其版本。
+<ul>
+<li>里面会包含例如 <code>archlinuxcn.db</code>, <code>core.db</code>, <code>extra.db</code>, <code>multilib.db</code> 这样的数据库文件。</li>
+</ul>
+</li>
+<li>解决依赖关系：自动计算并列出所有需要安装的依赖项。</li>
+<li>下载软件包：从配置的镜像服务器（在 <code>/etc/pacman.d/mirrorlist</code> 中设置）下载所需的 <code>.pkg.tar.zst</code> 文件到缓存目录（<code>/var/cache/pacman/pkg/</code>）。
+<ul>
+<li>这个缓存目录的作用为
+<ul>
+<li>允许降级软件包 (Downgrade)：如果一个新版本的软件包出现了 Bug，或者与系统不兼容，用户可以轻松地从缓存中重新安装旧版本，而无需去其他地方寻找。</li>
+<li>加快重复安装速度、节省带宽</li>
+</ul>
+</li>
+<li>清理缓存：
+<ul>
+<li><code>sudo pacman -Sc</code>：只删除那些当前已安装软件包的旧版本，所有软件包的最新缓存版本仍然会被保留。</li>
+<li><code>sudo pacman -Scc</code>：清空整个缓存目录，删除所有软件包文件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装软件包：解压下载的包文件，将文件放置到系统的正确位置，并运行必要的安装后脚本。</li>
+<li>更新数据库：将已安装的软件包信息记录到本地数据库（<code>/var/lib/pacman/local/</code>），以便进行依赖查询、更新和卸载。</li>
+</ol>
+<h4 id="命令参数大致含义">命令参数大致含义</h4>
+<p>pacman 的命令结构可以看作是一个&quot;主操作&quot;后面跟着&quot;子选项&quot;的模式。</p>
+<p>主操作 (Primary Operations)：命令的核心，通常是一个大写字母，且互斥（一次只能用一个）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">来源</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>-S</code></strong></td>
+<td style="text-align:left"><strong>S</strong>ync</td>
+<td style="text-align:left"><strong>同步</strong>。让本地系统与软件仓库同步，用于安装、更新软件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-Q</code></strong></td>
+<td style="text-align:left"><strong>Q</strong>uery</td>
+<td style="text-align:left"><strong>查询</strong>。用于查询本地已安装的软件包数据库。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-R</code></strong></td>
+<td style="text-align:left"><strong>R</strong>emove</td>
+<td style="text-align:left"><strong>删除</strong>。从本地系统中移除软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-F</code></strong></td>
+<td style="text-align:left"><strong>F</strong>iles</td>
+<td style="text-align:left"><strong>文件</strong>。查询远程软件包数据库中的文件（例如某个命令由哪个包提供）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-U</code></strong></td>
+<td style="text-align:left"><strong>U</strong>pgrade</td>
+<td style="text-align:left"><strong>升级</strong>。安装一个本地的包文件（而非从仓库下载）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-V</code></strong></td>
+<td style="text-align:left"><strong>V</strong>ersion</td>
+<td style="text-align:left">显示 <code>pacman</code> 的版本信息。</td>
+</tr>
+</tbody>
+</table>
+<p>子选项/修饰符 (Options/Modifiers)：这些是小写字母，用来修饰主操作，它们可以组合使用。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">来源</th>
+<th style="text-align:left">含义</th>
+<th style="text-align:left">常用组合示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>-s</code></strong></td>
+<td style="text-align:left"><strong>S</strong>earch</td>
+<td style="text-align:left"><strong>搜索</strong>。在包名和描述中进行搜索。</td>
+<td style="text-align:left"><code>-Ss</code> (在仓库中搜索), <code>-Qs</code> (在已安装包中搜索)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-y</code></strong></td>
+<td style="text-align:left"><strong>Y</strong>es</td>
+<td style="text-align:left"><strong>是/刷新</strong>。在操作前刷新远程软件包数据库。</td>
+<td style="text-align:left"><code>-Sy</code> (刷新数据库), <code>-Syu</code> (刷新并更新系统)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-u</code></strong></td>
+<td style="text-align:left"><strong>U</strong>pgrade</td>
+<td style="text-align:left"><strong>升级</strong>。列出或执行更新（列出可用的升级）。</td>
+<td style="text-align:left"><code>-Syu</code> (执行全面系统更新), <code>-Qu</code> (列出可更新的包)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-c</code></strong></td>
+<td style="text-align:left"><strong>C</strong>ache</td>
+<td style="text-align:left"><strong>缓存</strong>。对缓存进行操作。</td>
+<td style="text-align:left"><code>-Sc</code> (清理缓存), <code>-Scc</code> (彻底清理缓存)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-s</code></strong></td>
+<td style="text-align:left">Recur<strong>s</strong>ive</td>
+<td style="text-align:left"><strong>递归</strong>。通常指递归地处理依赖关系。</td>
+<td style="text-align:left"><code>-Rs</code> (删除时同时删除不再需要的依赖)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-d</code></strong></td>
+<td style="text-align:left"><strong>D</strong>ependencies</td>
+<td style="text-align:left"><strong>依赖</strong>。绕过依赖检查或操作依赖。</td>
+<td style="text-align:left"><code>-Rdd</code> (强制删除一个包，即使它是其他包的依赖)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>-n</code></strong></td>
+<td style="text-align:left"><strong>N</strong>o</td>
+<td style="text-align:left"><strong>不/否定</strong>。通常指不操作或同时操作配置文件。</td>
+<td style="text-align:left"><code>-Rns</code> (删除包、依赖以及配置文件)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="常用命令">常用命令</h4>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装单个或者一系列软件包</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -S package_name_1 package_name_2 ... </span><br><span class="line"><span class="comment"># 安装软件包组，例如 sudo pacman -S gnome</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -S package_group </span><br></pre></td></tr></table></figure>
+<p>删除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除单个软件包，保留其全部已经安装的依赖关系</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -R package_name </span><br><span class="line"><span class="comment"># 删除指定软件包，及其所有没有被其他已安装软件包使用的依赖关系</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Rs package_name </span><br><span class="line"><span class="comment"># 要删除软件包和所有依赖这个软件包的程序 (此操作是递归的，请小心检查，可能会一次删除大量的软件包)</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Rsc package_name</span><br><span class="line"><span class="comment"># pacman 删除某些程序时会备份重要配置文件，在其后面加上*.pacsave扩展名。-n 选项可以避免备份这些文件</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Rn package_name</span><br></pre></td></tr></table></figure>
+<p>升级：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -Syu</span><br></pre></td></tr></table></figure>
+<p>查询：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在包数据库中查询软件包，查询内容包含了软件包的名字和描述</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Ss string1 string2 ...</span><br><span class="line"><span class="comment"># 有时，-s的内置正则会匹配很多不需要的结果，所以可以自己设定正则</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Ss <span class="string">&#x27;^vim-&#x27;</span></span><br><span class="line"><span class="comment"># 要查询已安装的软件包</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Qs string1 string2 ...</span><br><span class="line"><span class="comment"># 显示软件包的详尽的信息</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Si package_name</span><br><span class="line"><span class="comment"># 查询本地安装包的详细信息</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -Qi package_name</span><br><span class="line"><span class="comment"># 按文件名查找软件库 （例如有一个命令叫wg，该方法可以查到哪个软件包包含了该命令）</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -F string1 string2 ...</span><br></pre></td></tr></table></figure>
+<h3 id="yay">yay</h3>
+<p>yay (Yet another Yogurt) 是一个流行的 AUR 助手。它本身就是一个来自 AUR 的软件包。它不是 pacman 的替代品，而是一个封装了 pacman 功能的智能 wrapper。同时 yay 与 pacman 的参数基本类似，只是作用域除了官方仓库之外还包含了 AUR。</p>
+<h4 id="工作流程：">工作流程：</h4>
+<ol>
+<li>与 AUR 交互：yay 通过 AUR 的 RPC 接口查询和搜索软件包。</li>
+<li>下载 PKGBUILD：当选择安装一个 AUR 包时，yay 会从 AUR 下载该软件的 PKGBUILD（一个构建脚本）和一些必要的文件（如补丁）。</li>
+<li>验证与构建：它会在一个临时目录中检查文件的完整性，然后使用 <code>makepkg</code> 工具按照 PKGBUILD 的指示自动编译源代码。</li>
+<li>调用 Pacman：构建成功后，会生成一个标准的 <code>.pkg.tar.zst</code> 包。yay 随后会调用 pacman 来安装这个新生成的包，就像安装官方软件源中的包一样。</li>
+<li>依赖处理：yay 会自动处理 AUR 包可能依赖的其他 AUR 包。</li>
+</ol>
+<p>可以注意到，由于 yay 最后依然是使用 pacman 安装的包，因此通过 yay 安装到本地的软件也是可以通过 <code>sudo pacman -Q</code> 来查询的。</p>
+<h2 id="Flatpak-与-AppImage">Flatpak 与 AppImage</h2>
+<p>Flatpak 和 AppImage 都是被设计为跨发行版的软件打包和分发格式。</p>
+<h3 id="Flatpak">Flatpak</h3>
+<p>Flatpak 通过两个关键概念实现跨平台：</p>
+<ul>
+<li>运行时 (Runtime)：这是一个包含基础依赖（如 glibc、GTK、Qt 等）的独立环境 （如 <code>Freedesktop</code>, <code>GNOME</code>, <code>KDE</code>）。应用开发者指定其应用需要哪个运行时（例如 <code>org.freedesktop.Platform</code>）。</li>
+<li>沙盒 (Sandbox)：应用在运行时内部的一个受控环境中运行，与主机系统隔离。</li>
+</ul>
+<p>这意味着：只要目标 Linux 发行版安装了 Flatpak 和所需的运行时，任何为该运行时构建的 Flatpak 应用就都能运行。用户不需要担心系统上是 Ubuntu 22.04 还是 Arch Linux，或是 Fedora 39，只要运行时版本一致，应用的行为就是一致的。不过 Flatpak 应用及其运行时可能占用较多空间，建议定期执行 <code>flatpak uninstall --unused</code> 清理。</p>
+<h4 id="Flatpak-常用命令">Flatpak 常用命令</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">功能类别</th>
+<th style="text-align:left">常用命令</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>配置</strong></td>
+<td style="text-align:left"><code>flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code></td>
+<td style="text-align:left">添加主要的 Flathub 远程仓库。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>应用管理</strong></td>
+<td style="text-align:left"><code>flatpak search &lt;应用名&gt;</code></td>
+<td style="text-align:left">搜索应用（例如 <code>flatpak search gimp</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak install &lt;仓库名&gt; &lt;应用ID&gt;</code> 或 <code>flatpak install &lt;应用ID&gt;</code></td>
+<td style="text-align:left">从指定仓库（如 flathub）或默认仓库安装应用。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak run &lt;应用ID&gt;</code></td>
+<td style="text-align:left">运行已安装的应用。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak update</code></td>
+<td style="text-align:left">更新所有已安装的应用和运行时。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak update &lt;应用ID&gt;</code></td>
+<td style="text-align:left">更新特定应用。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak list</code></td>
+<td style="text-align:left">列出所有已安装的应用和运行时。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak uninstall &lt;应用ID&gt;</code></td>
+<td style="text-align:left">卸载特定应用。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak uninstall --unused</code></td>
+<td style="text-align:left"><strong>清理空间</strong>：卸载所有未使用的运行时和扩展。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>信息查询</strong></td>
+<td style="text-align:left"><code>flatpak info &lt;应用ID&gt;</code></td>
+<td style="text-align:left">显示已安装应用的详细信息（版本、分支、权限等）。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak history</code></td>
+<td style="text-align:left">查看 Flatpak 的操作历史（安装、更新、卸载等）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>权限与管理</strong></td>
+<td style="text-align:left"><code>flatpak override &lt;应用ID&gt; --nofilesystem=home</code></td>
+<td style="text-align:left">示例：撤销应用对 home 目录的访问权限。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>flatpak permissions</code></td>
+<td style="text-align:left">列出应用的权限设置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Flatpak-运行时">Flatpak 运行时</h4>
+<p>由于不同的 Flatpak 应用可能会依赖于同一个运行时的不同版本，因此出现安装了多个相同运行时是正常的。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># flatpak list</span><br><span class="line">名称                                         应用程序 ID                                         版本                           分支             安装</span><br><span class="line">Gradia                                       be.alexandervanhee.gradia                           1.10.1                         stable           system</span><br><span class="line">Google Chrome                                com.google.Chrome                                   140.0.7339.80-1                stable           system</span><br><span class="line">扩展管理器                                    com.mattjakeman.ExtensionManager                    0.6.3                          stable           system</span><br><span class="line">Moonlight                                    com.moonlight_stream.Moonlight                      6.1.0                          stable           system</span><br><span class="line">OBS Studio                                   com.obsproject.Studio                               31.1.2                         stable           system</span><br><span class="line">Pins                                         io.github.fabrialberio.pinapp                       2.4.2                          stable           system</span><br><span class="line">Freedesktop Platform                         org.freedesktop.Platform                            freedesktop-sdk-24.08.24       24.08            system</span><br><span class="line">Mesa                                         org.freedesktop.Platform.GL.default                 25.2.1                         24.08            system</span><br><span class="line">Mesa (Extra)                                 org.freedesktop.Platform.GL.default                 25.2.1                         24.08extra       system</span><br><span class="line">nvidia-580-82-07                             org.freedesktop.Platform.GL.nvidia-580-82-07                                       1.4              system</span><br><span class="line">Intel VAAPI driver                           org.freedesktop.Platform.VAAPI.Intel                                               24.08            system</span><br><span class="line">openh264                                     org.freedesktop.Platform.openh264                   2.5.1                          2.5.1            system</span><br><span class="line">Freedesktop SDK                              org.freedesktop.Sdk                                 freedesktop-sdk-24.08.24       24.08            system</span><br><span class="line">GNOME Application Platform version 48        org.gnome.Platform                                                                 48               system</span><br><span class="line">Adwaita theme                                org.kde.KStyle.Adwaita                                                             6.8              system</span><br><span class="line">Adwaita theme                                org.kde.KStyle.Adwaita                                                             6.9              system</span><br><span class="line">KDE Application Platform                     org.kde.Platform                                                                   6.8              system</span><br><span class="line">KDE Application Platform                     org.kde.Platform                                                                   6.9              system</span><br><span class="line">Okular                                       org.kde.okular                                      25.08.0                        stable           system</span><br><span class="line">Firefox                                      org.mozilla.firefox                                 142.0.1                        stable           system</span><br><span class="line">Refine                                       page.tesk.Refine                                    0.5.10                         stable           system</span><br></pre></td></tr></table></figure>
+<p>可以发现其中有两个相同的 <code>KDE Application Platform</code>。</p>
+<h3 id="AppImage">AppImage</h3>
+<p>一个文件 = 一个应用：</p>
+<ul>
+<li>开发者将应用本身及其所有依赖库全部打包进一个单独的可执行文件。</li>
+<li>这个文件不依赖于系统安装的任何库（除了最最基础的，如 fuse2，或者它也可以自带）。</li>
+<li>用户下载后，不需要“安装”，只需赋予它执行权限 (chmod +x)，然后双击或通过终端即可运行。</li>
+</ul>
+<h2 id="GNOME-Software">GNOME Software</h2>
+<p>GNOME Software 是一个聚合中心，它的&quot;已安装&quot;标签页会显示来自多个不同来源的软件，主要包括：</p>
+<ul>
+<li>系统原生包：通过 <code>apt</code> (Debian/Ubuntu)、<code>dnf</code> (Fedora/RHEL)、<code>pacman</code> (Arch) 等系统自带的包管理器安装的软件。这些是传统、最常见的软件安装方式。</li>
+<li>Flatpak 包：通过 Flathub 或其他 Flatpak 仓库安装的软件。
+<ul>
+<li>例如：在 GNOME Software 里安装了 Firefox 的 Flatpak 版，它会出现在这里。</li>
+</ul>
+</li>
+<li>Snap 包：如果发行版支持 Snap（如 Ubuntu），那么通过 Snap 安装的软件也会显示在这里。</li>
+</ul>
+<h3 id="如何找到应用程序">如何找到应用程序</h3>
+<p>GNOME Software 依赖于 <code>.desktop</code> 文件来识别应用程序。当你用 pacman 卸载软件时，如果某个 <code>.desktop</code> 文件没有被正确清理，它就会继续显示在软件中心里，尽管软件本身已经被移除。</p>
+<p>除此之外，如果使用命令行删除了某个软件，却发现 GNOME Software 中依然存在，还有可能是缓存的问题：GNOME Software 可能没有及时更新它的应用程序列表缓存，导致仍然显示已卸载的软件。可以运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> update-desktop-database</span><br></pre></td></tr></table></figure>
+<p>来解决问题。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/59eaf47c.html">http://zhuxz0299.github.io/posts/59eaf47c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/arch-linux/">arch linux</a><a class="post-meta__tags" href="/tags/pacman/">pacman</a><a class="post-meta__tags" href="/tags/aur/">aur</a><a class="post-meta__tags" href="/tags/flatpak/">flatpak</a><a class="post-meta__tags" href="/tags/appimage/">appimage</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_166.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/91c6fd1a.html" title="Arch Linux 启动问题修复"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_172.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-27</div><div class="info-item-2">Arch Linux 启动问题修复</div></div><div class="info-2"><div class="info-item-1">记录 Arch Linux 无法开机问题的修复过程</div></div></div></a><a class="pagination-related" href="/posts/488724ec.html" title="Arch Linux 网络相关命令"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_177.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-05</div><div class="info-item-2">Arch Linux 网络相关命令</div></div><div class="info-2"><div class="info-item-1">常用工具 NetworkManager、iproute2、ethtool，以及如何查询 ip 地址、网关、DNS 以及协商速率</div></div></div></a><a class="pagination-related" href="/posts/695424c6.html" title="Arch Linux 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_165.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-03</div><div class="info-item-2">Arch Linux 安装</div></div><div class="info-2"><div class="info-item-1">讲解 Arch Linux 安装步骤背后的工作原理</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arch-Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">Arch Linux 包管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pacman"><span class="toc-number">1.1.</span> <span class="toc-text">pacman</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E5%A4%A7%E8%87%B4%E5%90%AB%E4%B9%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">命令参数大致含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.3.</span> <span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yay"><span class="toc-number">1.2.</span> <span class="toc-text">yay</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">工作流程：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flatpak-%E4%B8%8E-AppImage"><span class="toc-number">2.</span> <span class="toc-text">Flatpak 与 AppImage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flatpak"><span class="toc-number">2.1.</span> <span class="toc-text">Flatpak</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.1.</span> <span class="toc-text">Flatpak 常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">Flatpak 运行时</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AppImage"><span class="toc-number">2.2.</span> <span class="toc-text">AppImage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GNOME-Software"><span class="toc-number">3.</span> <span class="toc-text">GNOME Software</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.1.</span> <span class="toc-text">如何找到应用程序</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

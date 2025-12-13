@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux 中的 systemd 模块 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Linux 中 systemd 模块的基本用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 中的 systemd 模块">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/5bfe7acf.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="Linux 中 systemd 模块的基本用法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_167.webp">
+<meta property="article:published_time" content="2025-09-08T05:51:28.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.878Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="systemd">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_167.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux 中的 systemd 模块",
+  "url": "http://zhuxz0299.github.io/posts/5bfe7acf.html",
+  "image": "https://source.fomal.cc/img/default_cover_167.webp",
+  "datePublished": "2025-09-08T05:51:28.000Z",
+  "dateModified": "2025-12-12T13:59:51.878Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/5bfe7acf.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux 中的 systemd 模块',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_167.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Linux 中的 systemd 模块</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Linux 中的 systemd 模块</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-08T05:51:28.000Z" title="发表于 2025-09-08 13:51:28">2025-09-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.878Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div class="note info flat"><p>部分参考：<a target="_blank" rel="noopener" href="https://wiki.archlinux.org/title/Systemd">ArchWiki-systemd</a></p>
+</div>
+<p>简单来说，systemd 是一个现代化的系统和服务管理器，它已经成为了绝大多数主流 Linux 发行版的默认初始化系统。在 systemd 出现之前，大多数 Linux 系统使用一个叫做 SysVinit（通常简称为 “init”）的系统。SysVinit 的核心思想是顺序、串行地启动一系列脚本（位于 <code>/etc/init.d/</code>），这导致系统启动速度较慢，且难以管理复杂的服务依赖关系。</p>
+<p>systemd 所称的 service 就是守护进程（daemon）：作为后台进程运行的程序（没有终端或用户界面），通常等待事件发生并提供服务。典型的例子包括等待请求以传递页面的 Web 服务器，或是等待有人尝试登录的 SSH 服务器。还有的守护进程负责诸如将消息写入日志文件（例如 <code>syslog</code> 、 <code>metalog</code> ）或保持系统时间准确（例如 ntpd）等任务。</p>
+<h2 id="主要特点与使用方法">主要特点与使用方法</h2>
+<h3 id="主要特点">主要特点</h3>
+<ul>
+<li>并行启动，提高速度：它可以并行启动尽可能多的服务，而不是像 SysVinit 那样一个接一个地等待。这极大地加快了系统的启动过程。</li>
+<li>基于依赖关系的服务管理：例如，服务 A 需要网络先启动，systemd 就会先满足网络的需求，然后再启动服务 A。这使得服务管理更加智能和可靠。</li>
+<li>更精细的管理单元（Units）：systemd 管理的对象不仅仅是服务（<code>.service</code>），还包括了许多其他类型的单元（Unit），每种都有对应的配置文件
+<ul>
+<li>服务（<code>.service</code>）：后台服务程序。</li>
+<li>挂载点（<code>.mount</code>）：管理文件系统挂载。</li>
+<li>定时器（<code>.timer</code>）：替代 cron 的计划任务。</li>
+<li>套接字（<code>.socket</code>）：按需激活服务（当有连接到来时才启动服务）。</li>
+<li>路径（<code>.path</code>）：监控文件或目录的变化来触发服务。</li>
+</ul>
+</li>
+</ul>
+<h3 id="使用方法">使用方法</h3>
+<p>服务管理命令：<code>systemctl</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start nginx.service    <span class="comment"># 启动</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl stop nginx.service     <span class="comment"># 停止</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nginx.service  <span class="comment"># 重启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> nginx.service   <span class="comment"># 启用开机自启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">disable</span> nginx.service  <span class="comment"># 禁用开机自启</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl status nginx.service   <span class="comment"># 查看服务状态</span></span><br></pre></td></tr></table></figure>
+<p>系统日志中心：<code>journalctl</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u nginx.service   <span class="comment"># 查看某个服务的日志</span></span><br><span class="line">journalctl -f                 <span class="comment"># 实时追踪最新日志</span></span><br></pre></td></tr></table></figure>
+<h2 id="service-单元文件"><code>.service</code> 单元文件</h2>
+<h3 id="文件存放位置">文件存放位置</h3>
+<p>systemd 会在多个目录中查找单元文件（比如 <code>.service</code> 文件）</p>
+<ul>
+<li>系统核心目录
+<ul>
+<li><code>/usr/lib/systemd/system/</code></li>
+<li>这里是软件包管理器（如 pacman）在安装软件时存放其默认服务文件的地方。用户不应该直接修改这里的文件，因为软件包更新时可能会覆盖更改。</li>
+<li>关于 <code>/lib/systemd/system/</code>
+<ul>
+<li>由于系统启动的引导流程问题，传统的 <code>/</code> 和 <code>/usr</code> 被认为是不同的分区，具有不同的用途。但是由于启动引导流程的改进，<code>/bin</code>, <code>/sbin</code>, <code>/lib</code> 全部合并到 <code>/usr</code> 目录下对应的位置。因此目前包管理器处理的所有的 systemd 单元文件实际上都存放在 <code>/usr/lib/systemd/system/</code></li>
+<li>但是为了防止某些古早程序由于硬编码路径导致出错，系统会在根目录的 <code>/bin</code>, <code>/sbin</code>, <code>/lib</code> 位置创建指向 <code>/usr</code> 下对应文件的符号链接（symlink）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>系统管理员目录（推荐修改的位置）
+<ul>
+<li><code>/etc/systemd/system/</code></li>
+<li>这是系统管理员用于自定义和覆盖服务配置的主要目录。当用户想修改某个服务的默认行为或者想要创建一个新的服务时，应该在这里创建文件或子目录。</li>
+<li>修改服务服务的默认行为的配置覆盖问题：
+<ul>
+<li>直接创建同名文件：在 <code>/etc/systemd/system/</code> 下创建一个与核心目录中同名的 <code>.service</code> 文件（例如 <code>nginx.service</code>），这将完全覆盖核心目录中的文件。</li>
+<li>创建附加配置目录：在 <code>/etc/systemd/system/&lt;service_name&gt;.service.d/</code> 目录下创建以 <code>.conf</code> 结尾的文件（例如 <code>override.conf</code>）。这是更推荐的做法，因为它只覆盖用户指定的参数，而其他参数依然继承自核心目录的原始文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>运行时动态目录（内存中，重启失效）
+<ul>
+<li><code>/run/systemd/system/</code></li>
+<li>这个目录用于在系统运行时由其他程序动态生成的单元文件。这些文件在重启后就会消失。</li>
+</ul>
+</li>
+</ul>
+<h3 id="文件结构与常用参数">文件结构与常用参数</h3>
+<p><code>.service</code> 文件是一个基于文本的配置文件，遵循 INI 文件格式。它由几个部分组成，每个部分以 <code>[Section_Name]</code> 开头，包含一系列的 <code>Key=Value</code> 参数。</p>
+<ol>
+<li><code>[Unit]</code>：这一节定义了服务的元数据以及与其他单元之间的依赖关系。
+<ul>
+<li><code>Description=</code>：服务的描述信息，用于 <code>systemctl status</code> 等命令的显示。
+<ul>
+<li>e.g. <code>Description=My Awesome Web Service</code></li>
+</ul>
+</li>
+<li><code>Documentation=</code>：提供服务的文档链接（如 man 手册或网址）。
+<ul>
+<li>e.g. <code>Documentation=man:nginx(8)</code></li>
+</ul>
+</li>
+<li><code>After=</code>：定义在哪些目标（target）或服务之后启动当前服务。这并不构成强依赖，只是调整启动顺序。
+<ul>
+<li>e.g. <code>After=network.target nss-lookup.target</code> （确保在网络就绪后启动）</li>
+</ul>
+</li>
+<li><code>Before=</code>：定义在哪些目标或服务之前启动当前服务。</li>
+<li><code>Requires=</code>：定义强依赖关系。如果指定的单元启动失败或停止，当前服务也会失败或停止。</li>
+<li><code>Wants=</code>：定义弱依赖关系。希望指定的单元启动，但即使那些单元启动失败，当前服务也不会失败。这是最常用的依赖类型。</li>
+<li><code>Conflicts=</code>：定义冲突关系。如果指定的单元启动，当前服务就不能运行，反之亦然。</li>
+</ul>
+</li>
+<li><code>[Service]</code>：这是服务定义的核心部分，定义了如何启动、停止和管理服务进程。
+<ul>
+<li><code>Type=</code>：定义进程的启动类型，非常重要！
+<ul>
+<li><code>Type=simple</code>：（默认值）systemd 认为你启动的进程就是主服务进程。</li>
+<li><code>Type=forking</code>：程序将自己 fork 到后台（daemonize）。systemd 需要追踪派生出来的子进程。传统守护进程常用此类型。</li>
+<li><code>Type=oneshot</code>：进程退出后服务才被认为启动成功。适用于只执行一次就退出的脚本。</li>
+<li><code>Type=notify</code>：服务在就绪后会通过 libsystemd 发送一个通知信号。推荐给支持此功能的新式守护进程使用。</li>
+</ul>
+</li>
+<li><code>ExecStart=</code>：启动 (<code>systemctl start</code>) 服务时执行的命令和参数。必须使用绝对路径。
+<ul>
+<li>e.g. <code>ExecStart=/usr/sbin/nginx -g 'daemon off;'</code></li>
+</ul>
+</li>
+<li><code>ExecStop=</code>：停止 (<code>systemctl stop</code>) 服务时执行的命令。
+<ul>
+<li>e.g. <code>ExecStop=/usr/sbin/nginx -s stop</code></li>
+</ul>
+</li>
+<li><code>ExecReload=</code>：重载 (<code>systemctl restart</code>) 服务配置时执行的命令。
+<ul>
+<li>e.g. <code>ExecReload=/usr/sbin/nginx -s reload</code></li>
+</ul>
+</li>
+<li><code>Restart=</code>：定义在什么情况下服务失败后自动重启。
+<ul>
+<li><code>Restart=always</code>：总是重启。</li>
+<li><code>Restart=on-failure</code>：仅在非正常退出时重启（退出码非0或被信号终止）。</li>
+<li><code>Restart=no</code>：（默认值）不自动重启。</li>
+</ul>
+</li>
+<li><code>RestartSec=</code>：在重启服务前，等待的秒数。
+<ul>
+<li>e.g. <code>RestartSec=5</code></li>
+</ul>
+</li>
+<li><code>User=</code> 和 <code>Group=</code>：指定运行进程的用户和用户组，用于降权，增强安全。
+<ul>
+<li>e.g. <code>User=nginx</code> <code>Group=nginx</code></li>
+</ul>
+</li>
+<li><code>Environment=</code>：设置环境变量。
+<ul>
+<li>e.g. <code>Environment=&quot;VAR1=value1&quot; &quot;VAR2=value2&quot;</code></li>
+</ul>
+</li>
+<li><code>WorkingDirectory=</code>：设置进程的工作目录。</li>
+</ul>
+</li>
+<li><code>[Install]</code>：这一节定义了如何使用 <code>systemctl enable</code> 和 <code>systemctl disable</code> 命令来启用或禁用服务（即安装到某个启动目标）。
+<ul>
+<li><code>WantedBy=</code>：最常用的参数。当使用 <code>systemctl enable</code> 时，会创建一个符号链接，将服务添加到指定的目标（target）的 <code>.wants</code> 目录中。最常见的就是 <code>multi-user.target</code>，表示多用户命令行界面。
+<ul>
+<li>e.g. <code>WantedBy=multi-user.target</code></li>
+</ul>
+</li>
+<li><code>RequiredBy=</code>：类似于 <code>WantedBy</code>，但建立的是强依赖关系。</li>
+<li><code>Alias=</code>：为服务启用一个别名。</li>
+</ul>
+</li>
+</ol>
+<h3 id="示例">示例</h3>
+<p><code>tbox-webdav.service</code>：用于将 Tbox 提供的 API 转为 WebDAV 协议</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Tbox WebDAV Server</span><br><span class="line"><span class="attr">After</span>=network.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">ExecStart</span>=/home/zxz/Applications/TboxWebdav/TboxWebdav.Server.AspNetCore</span><br><span class="line"></span><br><span class="line"><span class="attr">User</span>=zxz</span><br><span class="line"><span class="attr">Group</span>=wheel</span><br><span class="line"></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"></span><br><span class="line"><span class="attr">Restart</span>=<span class="literal">on</span>-failure</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">5</span>s</span><br><span class="line"></span><br><span class="line"><span class="attr">StandardOutput</span>=journal</span><br><span class="line"><span class="attr">StandardError</span>=journal</span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+<p><code>rclone-tbox-webdav.service</code>：使用 rclone 将 WebDAV 服务挂载到本地</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Mount WebDAV directory using rclone</span><br><span class="line"><span class="attr">After</span>=network-<span class="literal">on</span>line.target tbox-webdav.service</span><br><span class="line"><span class="attr">Requires</span>=network-<span class="literal">on</span>line.target tbox-webdav.service</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">User</span>=zxz</span><br><span class="line"><span class="attr">Group</span>=wheel</span><br><span class="line"><span class="attr">Type</span>=notify</span><br><span class="line"><span class="attr">ExecStart</span>=/usr/bin/rclone mount Tbox:/ /mnt/Tbox/ --cache-dir /mnt/Tbox_cache --allow-non-empty --vfs-cache-mode full --vfs-cache-max-age <span class="number">2</span>h --vfs-cache-max-size <span class="number">5</span>G --vfs-read-chunk-size <span class="number">64</span>M --buffer-size <span class="number">64</span>M</span><br><span class="line"><span class="attr">ExecStop</span>=/usr/bin/fusermount -u /mnt/Tbox</span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/5bfe7acf.html">http://zhuxz0299.github.io/posts/5bfe7acf.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/systemd/">systemd</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_167.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/4f30936b.html" title="docker 使用 GPU"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_2.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-29</div><div class="info-item-2">docker 使用 GPU</div></div><div class="info-2"><div class="info-item-1">解决使用 docker 时无法调用 GPU 问题</div></div></div></a><a class="pagination-related" href="/posts/49f1e1db.html" title="docker 入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_3.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-30</div><div class="info-item-2">docker 入门</div></div><div class="info-2"><div class="info-item-1">关于 docker 的一些基本概念的介绍，以及简单的操作</div></div></div></a><a class="pagination-related" href="/posts/45029051.html" title="Linux apt 换源与 docker 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_4.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-27</div><div class="info-item-2">Linux apt 换源与 docker 安装</div></div><div class="info-2"><div class="info-item-1">解决因为 docker 被墙无法使用官网方法安装的问题</div></div></div></a><a class="pagination-related" href="/posts/12e1f9cc.html" title="Linux 包管理与库管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_133.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-12</div><div class="info-item-2">Linux 包管理与库管理</div></div><div class="info-2"><div class="info-item-1">先介绍 Linux 中的包(package)和库(library)，接着介绍一下 dnf 之类的包管理器，以及用来管理库的 pkg-config。</div></div></div></a><a class="pagination-related" href="/posts/695424c6.html" title="Arch Linux 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_165.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-03</div><div class="info-item-2">Arch Linux 安装</div></div><div class="info-2"><div class="info-item-1">讲解 Arch Linux 安装步骤背后的工作原理</div></div></div></a><a class="pagination-related" href="/posts/b69ef682.html" title="Linux 工作与进程管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_149.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-10</div><div class="info-item-2">Linux 工作与进程管理</div></div><div class="info-2"><div class="info-item-1">查询在后台运行的进程，并且使用命令处理这些进程</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">主要特点与使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">主要特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">使用方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#service-%E5%8D%95%E5%85%83%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">.service 单元文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">文件存放位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E4%B8%8E%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">文件结构与常用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.3.</span> <span class="toc-text">示例</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

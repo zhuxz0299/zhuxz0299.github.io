@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Arch Linux 启动问题修复 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="记录 Arch Linux 无法开机问题的修复过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arch Linux 启动问题修复">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/91c6fd1a.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="记录 Arch Linux 无法开机问题的修复过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_172.webp">
+<meta property="article:published_time" content="2025-10-27T13:17:07.000Z">
+<meta property="article:modified_time" content="2025-12-12T13:59:51.874Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="arch linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_172.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Arch Linux 启动问题修复",
+  "url": "http://zhuxz0299.github.io/posts/91c6fd1a.html",
+  "image": "https://source.fomal.cc/img/default_cover_172.webp",
+  "datePublished": "2025-10-27T13:17:07.000Z",
+  "dateModified": "2025-12-12T13:59:51.874Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/91c6fd1a.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Arch Linux 启动问题修复',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">184</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">82</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_172.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Arch Linux 启动问题修复</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Arch Linux 启动问题修复</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-27T13:17:07.000Z" title="发表于 2025-10-27 21:17:07">2025-10-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-12T13:59:51.874Z" title="更新于 2025-12-12 21:59:51">2025-12-12</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="内存盘镜像故障">内存盘镜像故障</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>Arch Linux 开机卡在“加载初始化内存盘” (Loading initial ramdisk)</p>
+<h3 id="问题分析">问题分析</h3>
+<p>这个问题最常见的原因是：在系统更新（尤其是内核更新）后，initramfs（初始化内存盘镜像）没有被正确生成，或者引导加载程序（GRUB 等）的配置没有被正确更新。这导致引导程序加载了旧的或损坏的镜像文件，从而卡住。</p>
+<p>考虑一个简化的 Linux 启动顺序：</p>
+<ol>
+<li>BIOS/UEFI (电脑固件) -&gt;</li>
+<li>GRUB (引导加载程序) -&gt;</li>
+<li>Kernel (Linux 内核) + initramfs (临时根文件系统) -&gt;</li>
+<li>真正的根文件系统 (和 <code>systemd</code> 等 <code>init</code> 进程)</li>
+</ol>
+<h4 id="GRUB-GRand-Unified-Bootloader-的作用">GRUB (GRand Unified Bootloader) 的作用</h4>
+<ol>
+<li>启动的起点：当你按下电源按钮，电脑的 BIOS 或 UEFI 固件会进行开机自检 (POST)。自检完成后，固件会去读取硬盘的特定区域（如 MBR 或 EFI 分区）来查找并执行引导加载程序，这个程序就是 GRUB。</li>
+<li>提供选择菜单：如果你安装了多个操作系统（比如 Windows 和 Linux 双系统）或者有多个不同版本的 Linux 内核，GRUB 会让你选择这次要启动哪一个。</li>
+<li>加载内核和 initramfs：一旦你做出选择，GRUB 会根据其配置文件（通常是 <code>grub.cfg</code>）中的指令，去文件系统中找到两个关键文件：
+<ul>
+<li>Linux 内核文件 (例如 <code>vmlinuz-linux</code>)</li>
+<li>initramfs 镜像文件 (例如 <code>initramfs-linux.img</code>) 然后，GRUB 会把这两个文件加载到内存 (RAM) 中。</li>
+</ul>
+</li>
+<li>交出控制权：当内核和 <code>initramfs</code> 都加载到内存后，GRUB 的工作就完成了。它会将执行控制权交给 Linux 内核，让内核开始运行。</li>
+</ol>
+<h4 id="initramfs-Initial-RAM-Filesystem-的作用">initramfs (Initial RAM Filesystem) 的作用</h4>
+<p><code>initramfs</code> 是一个临时的、基于内存的根文件系统。它的存在是为了解决一个“先有鸡还是先有蛋”的难题：</p>
+<blockquote>
+<p>启动难题：内核需要挂载（mount）你真正的根文件系统（比如 <code>/dev/nvme0n1p3</code>）才能继续启动，因为所有的程序、服务和驱动都在那里。 但是，如果你的根文件系统是 LVM、RAID、被加密的（LUKS），甚至是放在某个需要特殊驱动的 NVMe SSD 上，那么内核在启动初期并没有这些驱动程序（因为驱动程序本身就存在于它尚未挂载的根文件系统里）。</p>
+</blockquote>
+<p>initramfs 就是来解决这个问题的：</p>
+<ol>
+<li>提供临时环境：内核被 GRUB 加载后，它会立即把一同加载进内存的 <code>initramfs</code> 镜像解压，并将其挂载为临时的根目录 (<code>/</code>)。</li>
+<li>加载关键驱动：这个临时的根目录非常小，但五脏俱全。它包含了一个小型的 <code>init</code> 脚本和所有必要的内核模块（<code>.ko</code> 文件），比如用于 LVM、RAID、磁盘加密 (cryptsetup) 或特定硬件（如 nvme）的驱动。</li>
+<li>挂载真正的根系统：<code>initramfs</code> 里的 <code>init</code> 脚本会自动运行，它会加载这些必要的驱动，然后去查找并挂载你真正的根文件系统（比如解密你的加密分区，或激活 LVM 卷组）。</li>
+<li>交出控制权：一旦真正的根文件系统被成功挂载，<code>initramfs</code> 里的脚本就会执行一个叫 <code>switch_root</code> 的操作，将系统的根目录从临时的 <code>initramfs</code> 切换到你真正的硬盘分区上。</li>
+<li>切换完成后，<code>initramfs</code> 会被从内存中清除，它占用的内存也会被释放。系统会接着运行你真正根目录里的 <code>init</code> 程序（现在通常是 <code>systemd</code>），然后开始加载所有常规的系统服务，最终带你进入登录界面。</li>
+</ol>
+<h4 id="initramfs-为什么容易出问题">initramfs 为什么容易出问题</h4>
+<p><code>initramfs</code> 的生成是一个自动化的脚本过程，它在系统更新（尤其是内核更新）的最后一步被触发。这个脚本（如 Arch 上的 <code>mkinitcpio</code>）会读取配置文件，分析当前系统，然后打包生成一个新的 <code>.img</code> 文件。既然是自动化脚本，那么任何导致脚本意外中断、配置错误、或环境不满足的情况，都会导致生成失败。</p>
+<p>以下是最常见的几种失败原因：</p>
+<ol>
+<li>🥇 最常见原因：<code>/boot</code> 分区空间不足
+<ul>
+<li>发生过程：系统更新时，包管理器（如 <code>pacman</code>）会先把新内核（<code>vmlinuz-linux</code>）下载并安装到 <code>/boot</code> 目录。</li>
+<li>空间耗尽：<code>initramfs</code> 是在新内核安装之后才开始生成的。此时 <code>/boot</code> 分区可能已经塞满了新旧内核文件（或者是其他备份文件）。当 <code>mkinitcpio</code> 尝试写入一个新的、几十 MB 大小的 <code>initramfs-....img</code> 文件时，系统会报告 “No space left on device”。</li>
+<li>灾难性后果：包管理器可能没有正确处理这个错误，它会认为“内核包安装完了”。但此时，你多半有了一个新的内核和旧的（或一个 0 字节的、损坏的）<code>initramfs</code>。下次重启时，GRUB 加载新内核，新内核尝试加载不匹配的 <code>initramfs</code>，启动过程随即崩溃（通常会卡在 “Waiting for root device…” 或直接 <code>kernel panic</code>）。</li>
+</ul>
+</li>
+<li>更新过程中断
+<ul>
+<li>发生过程：<code>initramfs</code> 的生成通常是系统更新的最后几个步骤之一。这个过程可能需要几十秒。</li>
+<li>用户操作：如果用户在包管理器显示 “running post-transaction hooks…” 或 “generating initramfs…” 时强行按 <code>Ctrl+C</code> 中断，或者此时发生意外断电。</li>
+<li>灾难性后果：这会留下一个不完整的、损坏的 <code>initramfs</code> 文件。结果同上。</li>
+</ul>
+</li>
+<li>配置文件错误 (例如 mkinitcpio.conf)<br>
+initramfs 不是凭空生成的，它依赖于配置文件（如 Arch 的 <code>/etc/mkinitcpio.conf</code>）。
+<ul>
+<li>你可能为了某个教程（比如“给 initramfs 添加LVM支持”或“加密启动”）修改了这个文件。</li>
+<li>也许你不小心在 <code>MODULES</code> 数组里写错了一个模块名（比如把 <code>btrfs</code> 写成了 <code>btrs</code>），或者在 <code>HOOKS</code> 数组里加了一个不存在的钩子。</li>
+<li>这个错误平时无伤大雅，因为你一直在用旧的、生成好的 <code>initramfs</code>。但当内核更新时，<code>mkinitcpio</code> 脚本被强制重新运行，它读取到这个错误的配置，立刻报错并中止生成。</li>
+<li>灾难性后果：mkinitcpio 失败了，所以新的 initramfs 没有被创建。</li>
+</ul>
+</li>
+<li>内核模块/钩子 (Hooks) 发生变化
+<ul>
+<li>这通常发生在发行版的“大版本”更新中，或者你切换了某个关键组件（比如从 <code>udev</code> 切换到 <code>systemd</code>）。</li>
+<li>你 <code>initramfs</code> 配置文件中的 <code>HOOKS</code> 可能包含了一个在新版本中已被重命名或移除的钩子（例如，某个旧的 <code>encrypt</code> 钩子被新的 <code>sd-encrypt</code> 钩子取代了）。</li>
+<li>更新时引爆：内核更新时，mkinitcpio 尝试寻找那个旧的钩子脚本，但它已经不存在了，于是生成失败。</li>
+</ul>
+</li>
+</ol>
+<h3 id="修复方法">修复方法</h3>
+<p>从 U 盘启动 Arch Linux 的 live 环境。运行 <code>lsblk</code> 查看硬盘分区情况，方便后续挂载。其情况可能如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root@archiso ~ # lsblk</span><br><span class="line">NAME          MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">loop0           7:0    0 959.8M  1 loop /run/archiso/airootfs</span><br><span class="line">sda             8:0    1  57.7G  0 disk</span><br><span class="line">└─sda1          8:1    1  57.7G  0 part</span><br><span class="line">  ├─ventoy    253:0    0   1.3G  1 dm</span><br><span class="line">  └─sda1      253:1    0  57.7G  0 dm</span><br><span class="line">sda2            8:2    1   32M  0 part</span><br><span class="line">nvme0n1       259:0    0 476.9G  0 disk</span><br><span class="line">├─nvme0n1p1   259:1    0  512M  0 part</span><br><span class="line">├─nvme0n1p2   259:2    0   16G  0 part</span><br><span class="line">└─nvme0n1p3   259:3    0 460.4G  0 part</span><br></pre></td></tr></table></figure>
+<p>然后对于某些分了子卷的分区，可以先挂载，然后查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/nvme0n1p3 /mnt</span><br><span class="line">btrfs subvolume list /mnt</span><br></pre></td></tr></table></figure>
+<p>其结果可能如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@archiso ~ # btrfs subvolume list /mnt</span><br><span class="line">ID 256 gen 8250 top level 5 path @</span><br><span class="line">ID 257 gen 8280 top level 5 path @home</span><br><span class="line">ID 258 gen 3064 top level 256 path @/var/lib/portables</span><br><span class="line">ID 259 gen 3064 top level 256 path @/var/lib/machines</span><br><span class="line">ID 260 gen 7526 top level 5 path timeshift-btrfs/snapshots/2025-09-02_14-08-41/@</span><br><span class="line">ID 261 gen 247 top level 5 path timeshift-btrfs/snapshots/2025-09-02_14-08-41/@home</span><br><span class="line">...（后面是一堆 timeshift 备份）</span><br></pre></td></tr></table></figure>
+<p>然后开始执行挂载操作，并且进入系统（相当于通过 live 环境解决了无法直接通过开机进入系统的问题）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">umount /mnt</span><br><span class="line">mount -o subvol=@ /dev/nvme0n1p3 /mnt <span class="comment"># 挂载 Btrfs 根子卷</span></span><br><span class="line">mount /dev/nvme0n1p1 /mnt/boot <span class="comment"># 挂载 /boot 分区</span></span><br><span class="line">mount -o subvol=@home /dev/nvme0n1p3 /mnt/home <span class="comment"># 挂载 /home 子卷</span></span><br><span class="line">arch-chroot /mnt <span class="comment"># 进入系统环境</span></span><br></pre></td></tr></table></figure>
+<p>然后可以检查 Initramfs 所在分区硬盘空间占用情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h /boot <span class="comment"># 查看 efi 分区占用百分比</span></span><br><span class="line"><span class="built_in">ls</span> -lh /boot <span class="comment"># 查看 efi 分区文件大小</span></span><br></pre></td></tr></table></figure>
+<p>以下就是该分区被某些垃圾文件占满的情况：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@archiso /]# ls -lh /boot</span><br><span class="line">total 497M</span><br><span class="line">drwxr-xr-x 3 root root 4.0K Sep  2 11:13 EFI</span><br><span class="line">drwxr-xr-x 6 root root 4.0K Oct 20 19:00 grub</span><br><span class="line">-rwxr-xr-x 1 root root 121M Oct 27 15:18 initramfs-linux-fallback.img</span><br><span class="line">-rwxr-xr-x 1 root root 121M Oct 27 15:17 initramfs-linux.img</span><br><span class="line">-rwxr-xr-x 1 root root 227M Oct 21 08:41 initramfs-linux.img.tmp</span><br><span class="line">-rwxr-xr-x 1 root root  13M Aug 13 01:02 intel-ucode.img</span><br><span class="line">-rwxr-xr-x 1 root root  16M Oct 21 08:38 vmlinuz-linux</span><br></pre></td></tr></table></figure>
+<p>此时删除掉 <code>initramfs-linux.img.tmp</code> 即可。如果还是不放心，还可以删掉 <code>initramfs-linux-fallback.img</code> 以及 <code>initramfs-linux.img</code>，这两个会在后续生成。</p>
+<p>最后重新生成 Initramfs，更新 GRUB 配置确保它能找到新的 <code>initramfs</code> 文件，重启。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkinitcpio -P <span class="comment"># 重新生成所有内核的初始化内存盘</span></span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg <span class="comment"># 重新生成 GRUB 配置文件</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment"># 退出 chroot</span></span><br><span class="line">umount -R /mnt <span class="comment"># 卸载所有分区</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h2 id="未找到恢复设备">未找到恢复设备</h2>
+<h3 id="问题描述-2">问题描述</h3>
+<p>开机时卡在 <code>No resume device found, exiting.</code></p>
+<h3 id="问题分析-2">问题分析</h3>
+<p>系统被配置为在启动时尝试从“休眠”（suspend-to-disk）中恢复。此时系统需要一个 <code>swap</code>（交换）分区来执行此操作，但它要么找不到这个分区，要么被告知了错误的位置 (UUID)。</p>
+<h4 id="开机时检查-resume-device">开机时检查 resume device</h4>
+<p>检查 &quot;resume device&quot;发生在启动过程中非常早的 initramfs 阶段，这个过程由 GRUB 和 initramfs 共同控制。</p>
+<ul>
+<li>GRUB 并不检查设备，它仅仅通过内核参数传递信息。
+<ul>
+<li>配置系统支持休眠 (Hibernation) 时，GRUB 配置文件（<code>/boot/grub/grub.cfg</code>）中 <code>linux</code> 开头的那一行里，会被添加上一个 <code>resume=...</code> 参数。这个参数会指向你的 swap 分区（或 swap 文件）的 UUID 或设备路径</li>
+<li>GRUB 的工作就是在启动内核时，把这个 <code>resume=UUID=...</code> 参数（连同 <code>root=...</code> 等其他参数）一起传递给内核。</li>
+</ul>
+</li>
+<li>initramfs 控制方式：通过 <code>mkinitcpio.conf</code> 中的 <code>HOOKS</code> 执行工作。
+<ul>
+<li>内核启动后，挂载 <code>initramfs</code> 作为临时根目录。<code>initramfs</code> 中的 <code>init</code> 脚本开始运行。</li>
+<li>一个特定的钩子（hook），在 Arch 中通常就是 <code>resume</code> 钩子，会被触发。这个 <code>resume</code> 脚本会读取内核收到的 <code>resume=...</code> 参数，从而知道它应该去检查哪个设备。</li>
+<li>initramfs 加载访问该设备所需的驱动（比如 Btrfs、LVM、NVMe 驱动，这些都是 initramfs 的核心功能）。</li>
+<li>它会探测该设备，检查是否存在一个有效的、匹配当前内核的休眠镜像（system snapshot）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="修复方法-2">修复方法</h3>
+<p>已知 swap 分区是 <code>nvme0n1p2</code>，因此重新进入 live 环境配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount -o subvol=@ /dev/nvme0n1p3 /mnt</span><br><span class="line">mount /dev/nvme0n1p1 /mnt/boot</span><br><span class="line">mount -o subvol=@home /dev/nvme0n1p3 /mnt/home</span><br><span class="line">arch-chroot /mnt</span><br></pre></td></tr></table></figure>
+<p>然后查看 swap 分区的 UUID：<code>blkid /dev/nvme0n1p2</code>，得到结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@archiso /]# blkid /dev/nvme0n1p2</span><br><span class="line">/dev/nvme0n1p2: UUID=&quot;455e3566-b69f-4cb7-9083-d31f3f7adf1f&quot; TYPE=&quot;swap&quot; PARTUUID=&quot;a4887028-e665-4c5a-a639-70d8082f8b66&quot;</span><br></pre></td></tr></table></figure>
+<p>然后编辑 GRUB 配置文件：<code>vim /etc/default/grub</code>，找到 <code>GRUB_CMDLINE_LINUX_DEFAULT=</code> 开头的一行，在引号内加上 <code>resume=UUID=455e3566-b69f-4cb7-9083-d31f3f7adf1f</code>，</p>
+<p>最后重新生成 grub 配置，退出并重启：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">umount -R /mnt</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h2 id="无法进入图形界面">无法进入图形界面</h2>
+<h3 id="问题描述-3">问题描述</h3>
+<p>开机时卡在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unable to resume from device &#x27;/dev/disk/by-uuid/455e3566-b69f-4cb7-9083-d31f3f7adf1f&#x27; (259:2) offset 0, continuing boot process.</span><br></pre></td></tr></table></figure>
+<p>并且下方光标一直在闪烁。按下 <code>Ctrl+Alt+F2</code> 可以进入 tty，可以在 tty 中正常登录账户。</p>
+<h3 id="问题分析-3">问题分析</h3>
+<p><code>Unable to resume from device ... continuing boot process.</code> 说明系统找到了我们指定的 swap 分区 (UUID是对的)，尝试从它恢复休眠（失败了，这是正常的，因为这是电脑关机后开机），然后它放弃了恢复，并继续正常启动。同时可以从 tty 登录，说明系统启动本身没有问题，只是图形桌面坏了。</p>
+<p>这时候问题可以被定位到显卡驱动或者是显示服务协议上（Wayland 和 X11 的选择）。</p>
+<h3 id="修复方法-3">修复方法</h3>
+<p>最后首先通过运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl status gdm.service</span><br><span class="line">journalctl -u gdm.service -b</span><br></pre></td></tr></table></figure>
+<p>发现无异常，然后在 <code>/etc/gdm/custom.conf</code> 文件中注释掉了 <code>WaylandEnable=false</code>，重启后就成功进入图形界面了。原理尚不清楚。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/91c6fd1a.html">http://zhuxz0299.github.io/posts/91c6fd1a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/arch-linux/">arch linux</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_172.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/59eaf47c.html" title="Arch Linux 软件安装与管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_166.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-07</div><div class="info-item-2">Arch Linux 软件安装与管理</div></div><div class="info-2"><div class="info-item-1">Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新</div></div></div></a><a class="pagination-related" href="/posts/488724ec.html" title="Arch Linux 网络相关命令"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_177.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-05</div><div class="info-item-2">Arch Linux 网络相关命令</div></div><div class="info-2"><div class="info-item-1">常用工具 NetworkManager、iproute2、ethtool，以及如何查询 ip 地址、网关、DNS 以及协商速率</div></div></div></a><a class="pagination-related" href="/posts/695424c6.html" title="Arch Linux 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_165.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-03</div><div class="info-item-2">Arch Linux 安装</div></div><div class="info-2"><div class="info-item-1">讲解 Arch Linux 安装步骤背后的工作原理</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%9B%98%E9%95%9C%E5%83%8F%E6%95%85%E9%9A%9C"><span class="toc-number">1.</span> <span class="toc-text">内存盘镜像故障</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GRUB-GRand-Unified-Bootloader-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">GRUB (GRand Unified Bootloader) 的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#initramfs-Initial-RAM-Filesystem-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text">initramfs (Initial RAM Filesystem) 的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#initramfs-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AE%B9%E6%98%93%E5%87%BA%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.3.</span> <span class="toc-text">initramfs 为什么容易出问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">修复方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E6%89%BE%E5%88%B0%E6%81%A2%E5%A4%8D%E8%AE%BE%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">未找到恢复设备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">2.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-2"><span class="toc-number">2.2.</span> <span class="toc-text">问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E6%97%B6%E6%A3%80%E6%9F%A5-resume-device"><span class="toc-number">2.2.1.</span> <span class="toc-text">开机时检查 resume device</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%B3%95-2"><span class="toc-number">2.3.</span> <span class="toc-text">修复方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2"><span class="toc-number">3.</span> <span class="toc-text">无法进入图形界面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">3.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-3"><span class="toc-number">3.2.</span> <span class="toc-text">问题分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E6%96%B9%E6%B3%95-3"><span class="toc-number">3.3.</span> <span class="toc-text">修复方法</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2025 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
