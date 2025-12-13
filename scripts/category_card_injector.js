@@ -1,10 +1,9 @@
 /**
  * scripts/category_card_injector.js
- * Version 4.0: 
- * 1. 极简白卡片 + 悬浮微动 + 智能文字变色
- * 2. 自动隐藏丑圆点 + 修复蓝边
- * 3. 全卡片可点击 (点击空白处触发链接)
- * 4. [新增] 文字完美居中 + 数字胶囊化设计 + "(x 篇)" 格式
+ * Version 6.0 (Final Clean): 
+ * 1. 移除全局 CSS 冗余，直接复用你 _config.yml 里定义的变量
+ * 2. 包含 Category 卡片的所有美化 (居中、胶囊数字、点击代理)
+ * 3. 包含 Category 卡片的深色模式适配
  */
 
 hexo.extend.filter.register('after_render:html', function (str, data) {
@@ -20,6 +19,10 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
   // 2. CSS 样式定义
   const css = `
     <style>
+      /* ==============================
+         Part 1: Category 卡片核心样式
+         ============================== */
+      
       /* 网格布局 */
       .category-lists .category-list {
         display: grid;
@@ -29,24 +32,25 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
         padding: 0;
       }
 
-      /* 卡片基础样式 */
+      /* --- 卡片基础 (浅色模式默认) --- */
       .category-lists .category-list > .category-list-item {
         position: relative;
-        background-color: #fff;
+        /* 直接使用你全局定义的变量，如果没定义则回退到 #fff */
+        background-color: var(--trans-light, #fff); 
         border: 1px solid #e3e8f7;
         border-radius: 12px;
         overflow: hidden;
-        height: 100px; /* 固定高度 */
+        height: 100px; 
         transition: all 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* 垂直居中 */
-        align-items: center;     /* 水平居中 (Flex容器层级) */
-        text-align: center;      /* 文字层级居中 (防止多行文字靠左) */
+        justify-content: center; 
+        align-items: center;     
+        text-align: center;
         box-shadow: 0 8px 16px -4px rgba(44, 45, 48, 0.05);
         background-clip: padding-box;
         cursor: pointer;
-        padding: 0 10px; /* 防止文字紧贴边缘 */
+        padding: 0 10px;
       }
 
       /* 修复: 强制隐藏默认圆点 */
@@ -63,54 +67,93 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
         border-color: #49b1f5;
       }
 
-      /* 链接文字 */
+      /* 链接文字 (浅色模式) */
       .category-lists .category-list > .category-list-item a {
         position: relative;
         z-index: 2;
         color: #4c4948 !important;
         font-weight: bold;
-        font-size: 1.2em; /* 稍微加大一点标题 */
+        font-size: 1.2em;
         text-decoration: none;
         transition: color 0.3s;
         line-height: 1.2;
-        margin-bottom: 5px; /* 给下面的数字留点距离 */
+        margin-bottom: 5px;
       }
 
-      /* === 核心修改：数字美化 (胶囊风格) === */
+      /* 数字胶囊 (浅色模式) */
       .category-lists .category-list-count {
         position: relative;
         z-index: 2;
         color: #858585;
-        font-size: 0.85em; /* 字体改小一点，更精致 */
-        background: #f2f3f5; /* 浅灰色背景胶囊 */
-        padding: 2px 10px;   /* 撑开胶囊 */
-        border-radius: 20px; /* 圆角 */
+        font-size: 0.85em; 
+        background: #f2f3f5; 
+        padding: 2px 10px;   
+        border-radius: 20px; 
         transition: all 0.3s;
         pointer-events: none;
-        
-        /* 修复: 隐藏可能存在的默认括号 */
         &::before, &::after { display: inline; } 
       }
+      /* 自动添加括号和文本 */
+      .category-lists .category-list-count::before { content: '('; margin-right: 2px; }
+      .category-lists .category-list-count::after { content: ' 篇)'; margin-left: 2px; }
 
-      /* 使用 CSS 伪元素自动添加括号和“篇” */
-      .category-lists .category-list-count::before {
-        content: '(';
-        margin-right: 2px;
-      }
-      .category-lists .category-list-count::after {
-        content: ' 篇)';
-        margin-left: 2px;
+      /* --- 展开后的修正 --- */
+      .category-lists .category-list > .category-list-item.expanded {
+        height: auto !important;
+        padding-bottom: 15px;
+        background-color: #f9f9f9;
+        cursor: default;
       }
 
-      /* === 特殊状态：有背景图 === */
+      /* ==============================
+         Part 2: 深色模式适配 (Category 专用)
+         ============================== */
+      
+      [data-theme="dark"] .category-lists .category-list > .category-list-item {
+        /* 直接引用你 inject 中定义的 --trans-dark */
+        background-color: var(--trans-dark, rgba(25, 25, 25, 0.88)); 
+        border-color: rgba(255, 255, 255, 0.1); 
+        box-shadow: none;
+      }
+
+      /* 深色模式：文字变白 */
+      [data-theme="dark"] .category-lists .category-list > .category-list-item a {
+        color: #ddd !important;
+      }
+
+      /* 深色模式：数字胶囊背景变深 */
+      [data-theme="dark"] .category-lists .category-list-count {
+        background: rgba(255, 255, 255, 0.1);
+        color: #bbb;
+      }
+
+      /* 深色模式：悬停效果 */
+      [data-theme="dark"] .category-lists .category-list > .category-list-item:hover {
+         border-color: #49b1f5;
+         background-color: rgba(0, 0, 0, 0.8);
+         box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* 深色模式：展开状态背景 */
+      [data-theme="dark"] .category-lists .category-list > .category-list-item.expanded {
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+
+      /* ==============================
+         Part 3: 特殊状态 - 背景图模式
+         ============================== */
+         
+      /* 无论深浅模式，有图时背景透明，边框移除 */
       .category-lists .category-list > .category-list-item.item-has-image {
         border: none !important; 
         background-color: transparent !important;
         background-size: cover;
         background-position: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
       }
 
-      /* 图片遮罩 */
+      /* 遮罩 */
       .category-lists .category-list > .category-list-item.item-has-image::after {
         content: ''; 
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -124,30 +167,22 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
         background: rgba(0, 0, 0, 0.1);
       }
 
-      /* 有图时文字变白 */
+      /* 有图时强制白字 */
       .category-lists .category-list > .category-list-item.item-has-image a {
         color: #fff !important;
         text-shadow: 0 2px 4px rgba(0,0,0,0.6);
       }
       
-      /* 有图时，数字胶囊变成半透明白色 */
+      /* 有图时数字胶囊：磨砂白 */
       .category-lists .category-list > .category-list-item.item-has-image .category-list-count {
         color: #fff;
-        background: rgba(255, 255, 255, 0.2); /* 磨砂玻璃效果 */
-        backdrop-filter: blur(4px); /* 可选：增加一点模糊感 */
-      }
-
-      /* 展开后的修正 */
-      .category-lists .category-list > .category-list-item.expanded {
-        height: auto !important;
-        padding-bottom: 15px;
-        background-color: #f9f9f9;
-        cursor: default;
+        background: rgba(255, 255, 255, 0.2); 
+        backdrop-filter: blur(4px); 
       }
     </style>
   `;
 
-  // 3. JS 逻辑定义
+  // 3. JS 逻辑定义 (保持不变)
   const js = `
     <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -182,7 +217,6 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
           childList.style.marginTop = '15px';
           childList.style.position = 'relative';
           childList.style.zIndex = '3';
-          // 修正展开后的文字对齐，子菜单还是左对齐比较好看
           childList.style.textAlign = 'left'; 
           
           link.addEventListener('click', function(e) {
