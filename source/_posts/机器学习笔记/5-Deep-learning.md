@@ -1,7 +1,7 @@
 ---
 title: Deep learning
 cover: https://source.fomal.cc/img/default_cover_90.webp
-categories: machine learning
+categories: [Lecture Notes, Machine Learning]
 katex: true
 description: 'CNN, RNN/LSTM, Transformer, GCN/GNN, VAE, GAN, Diffusion'
 abbrlink: 3dade04d

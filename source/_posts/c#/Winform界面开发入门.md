@@ -7,6 +7,8 @@ cover: 'https://source.fomal.cc/img/default_cover_155.webp'
 abbrlink: 67555dd6
 date: 2025-07-26 16:07:49
 description: 上手 Winform 时的一点笔记
+categories: [Programming Languages, C#]
+
 ---
 
 ## 代码执行入口

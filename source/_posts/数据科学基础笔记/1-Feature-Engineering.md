@@ -1,7 +1,7 @@
 ---
 title: Feature Engineering
 cover: https://source.fomal.cc/img/default_cover_73.webp
-categories: data science
+categories: [Lecture Notes, Data Science]
 katex: true
 abbrlink: 20a3e8df
 date: 2024-03-10 16:58:44

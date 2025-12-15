@@ -7,6 +7,8 @@ tags:
 description: 关于 scp 的基本用法以及一些特殊场景的使用
 abbrlink: fdcecd69
 date: 2024-03-15 15:15:17
+categories: [System & Hardware, Linux]
+
 ---
 
 scp 是 secure copy 的缩写, scp 是 linux 系统下基于 ssh 登陆进行安全的远程文件拷贝命令。

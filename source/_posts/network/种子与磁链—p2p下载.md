@@ -7,6 +7,8 @@ tags:
   - magnet
 abbrlink: ed09bf83
 date: 2025-08-27 15:34:35
+categories: [System & Hardware, Network Practice]
+
 ---
 
 {% note info %}

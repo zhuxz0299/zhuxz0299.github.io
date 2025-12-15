@@ -5,6 +5,8 @@ tags: verilog
 abbrlink: e03b3fd8
 date: 2023-03-15 19:42:58
 description: 关于遇到的一些Verilog基础语法
+categories: [System & Hardware, FPGA & Verilog]
+
 ---
 
 ## 代码示例

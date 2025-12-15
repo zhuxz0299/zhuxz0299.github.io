@@ -90,7 +90,7 @@ cover:
 # Post meta settings (文章信息设置)
 post_meta:
   page: # Home Page
-    date_type: both # created or updated or both 主页文章是创建日或者更新日或者都显示
+    date_type: created # created or updated or both 主页文章是创建日或者更新日或者都显示
     date_format: date # date/relative 显示日期还是相对日期
     categories: true # true or false 主页是否显示分类
     tags: true # true or false 主页是否显示标签

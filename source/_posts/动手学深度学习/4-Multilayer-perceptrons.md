@@ -2,7 +2,7 @@
 title: Multilayer perceptrons
 cover: https://source.fomal.cc/img/default_cover_55.webp
 tags: pytorch
-categories: 动手学深度学习
+categories: [AI & Machine Learning, Deep Learning]
 description: 多层感知机，过拟合和欠拟合，权重衰退，丢弃法，数值稳定性
 order: 4
 katex: true

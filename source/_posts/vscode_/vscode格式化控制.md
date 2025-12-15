@@ -7,6 +7,8 @@ tags:
 abbrlink: 327b67b2
 date: 2023-07-19 22:27:05
 description: 发现vscode的格式化操作会受到注释的影响
+categories: [Dev Tools, VS Code]
+
 ---
 
 在vscode中一般使用 `alt+shift+F` 对代码进行格式化。但是如果在代码开头加上形如

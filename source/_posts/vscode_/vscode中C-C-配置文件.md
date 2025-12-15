@@ -5,6 +5,8 @@ tags: vscode
 description: 对于vscode中C/C++配置文件的详细讲解
 abbrlink: 8117db7e
 date: 2023-09-24 14:04:34
+categories: [Dev Tools, VS Code]
+
 ---
 
 参考[官方文档](https://code.visualstudio.com/docs/cpp/config-mingw)

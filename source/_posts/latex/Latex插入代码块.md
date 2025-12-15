@@ -1,7 +1,7 @@
 ---
 title: Latex插入代码块
 cover: https://source.fomal.cc/img/default_cover_10.webp
-categories: latex
+categories: [Dev Tools, LaTeX]
 tags: latex
 abbrlink: 1bc4beea
 date: 2023-04-09 09:14:14

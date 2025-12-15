@@ -1,7 +1,7 @@
 ---
 title: Linux创建新用户，以及免密码远程登录
 cover: https://source.fomal.cc/img/default_cover_16.webp
-categories: linux
+categories: [System & Hardware, Linux]
 description: 在云计算project中的一些基本操作
 abbrlink: 7ddfa635
 date: 2023-12-05 21:00:08

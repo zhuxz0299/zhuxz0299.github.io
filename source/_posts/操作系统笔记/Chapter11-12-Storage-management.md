@@ -1,7 +1,7 @@
 ---
 title: Chapter11-12 Storage management
 cover: https://source.fomal.cc/img/default_cover_64.webp
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 order: 11
 abbrlink: '28253751'
 date: 2023-04-09 20:55:29

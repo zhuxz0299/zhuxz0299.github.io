@@ -1,7 +1,7 @@
 ---
 title: Transformation
 cover: https://source.fomal.cc/img/default_cover_97.webp
-categories: computer graphics notes
+categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true
 description: 计算机图形学笔记——变换（二维与三维，模型、视图、投影）

@@ -8,6 +8,8 @@ description: >-
 katex: true
 abbrlink: ccea3865
 date: 2024-05-28 10:06:16
+categories: [Algorithms, Online Judge]
+
 ---
 
 ## queue

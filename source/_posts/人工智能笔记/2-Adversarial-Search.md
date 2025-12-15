@@ -1,7 +1,7 @@
 ---
 title: Adversarial Search
 cover: https://source.fomal.cc/img/default_cover_48.webp
-categories: artificial intelligence
+categories: [Lecture Notes, Artificial Intelligence]
 description: 人工智能笔记——对抗搜索
 katex: true
 abbrlink: fa6cbd68

@@ -4,7 +4,7 @@ cover: https://source.fomal.cc/img/default_cover_25.webp
 abbrlink: b76167e5
 date: 2023-09-17 01:20:55
 tags:
-categories: ccf-csp
+categories: [Algorithms, Online Judge]
 katex: true
 description: 记录一下在写模拟题时遇到的一些问题
 ---

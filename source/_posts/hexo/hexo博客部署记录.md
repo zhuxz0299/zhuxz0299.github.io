@@ -7,6 +7,8 @@ tags:
   - butterfly
 abbrlink: f51eef37
 date: 2025-12-08 22:48:31
+categories: [Dev Tools, Hexo]
+
 ---
 
 ## Hexo + Butterfly 基础安装

@@ -7,6 +7,8 @@ tags:
   - windows
 abbrlink: 179fe542
 date: 2025-04-02 16:33:19
+categories: [System & Hardware, Windows]
+
 ---
 
 ### 问题

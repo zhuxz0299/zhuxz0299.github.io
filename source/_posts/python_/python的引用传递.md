@@ -5,6 +5,8 @@ tags: python
 description: 在项目debug时发现的自己原先没注意到的问题
 abbrlink: e6761492
 date: 2024-05-22 20:40:17
+categories: [Programming Languages, Python]
+
 ---
 
 python没有像C++的指针操作，不能自己指定值传递或者引用传递。

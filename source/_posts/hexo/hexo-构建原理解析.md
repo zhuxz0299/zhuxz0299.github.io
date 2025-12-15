@@ -7,6 +7,8 @@ tags:
 abbrlink: 6834d799
 date: 2025-07-16 14:51:13
 description: 介绍了 npm 包的管理机制以及 Hexo 博客的构建原理，还有关于 Twikoo 评论区如何工作
+categories: [Dev Tools, Hexo]
+
 ---
 
 ## 从 Node.js 开始

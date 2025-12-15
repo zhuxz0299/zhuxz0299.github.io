@@ -7,6 +7,8 @@ tags:
 description: Linux 中 systemd 模块的基本用法
 abbrlink: 5bfe7acf
 date: 2025-09-08 13:51:28
+categories: [System & Hardware, Linux]
+
 ---
 
 {% note info %}

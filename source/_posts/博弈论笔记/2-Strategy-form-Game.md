@@ -1,7 +1,7 @@
 ---
 title: Strategy-form Game
 cover: https://source.fomal.cc/img/default_cover_59.webp
-categories: game theory
+categories: [Lecture Notes, Game Theory]
 katex: true
 abbrlink: a4a6120d
 date: 2024-03-12 14:34:41

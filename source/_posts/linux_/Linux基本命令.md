@@ -2,7 +2,7 @@
 title: Linux基本命令
 cover: https://source.fomal.cc/img/default_cover_14.webp
 tags: linux
-categories: linux
+categories: [System & Hardware, Linux]
 abbrlink: 4b6ea061
 date: 2023-03-08 16:45:40
 description: 熟悉一下一些基本命令

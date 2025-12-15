@@ -1,7 +1,7 @@
 ---
 title: Chapter8-Deadlocks
 cover: https://source.fomal.cc/img/default_cover_71.webp
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 order: 8
 abbrlink: ac36b867
 date: 2023-03-21 00:49:59

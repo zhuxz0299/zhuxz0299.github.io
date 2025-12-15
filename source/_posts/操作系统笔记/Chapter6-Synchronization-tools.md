@@ -2,7 +2,7 @@
 title: Chapter6-Synchronization tools
 cover: https://source.fomal.cc/img/default_cover_69.webp
 abbrlink: 7b7788cf
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 order: 6
 katex: true
 date: 2023-03-10 21:10:06

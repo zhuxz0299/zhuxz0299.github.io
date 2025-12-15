@@ -7,6 +7,8 @@ tags:
 description: 介绍 tmux 的一些基本用法
 abbrlink: 88c12565
 date: 2024-08-12 17:32:26
+categories: [System & Hardware, Linux]
+
 ---
 
 > 参考文章：[Tmux使用手册](https://louiszhai.github.io/2017/09/30/tmux/)以及[A Quick and Easy Guide to tmux](https://hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)

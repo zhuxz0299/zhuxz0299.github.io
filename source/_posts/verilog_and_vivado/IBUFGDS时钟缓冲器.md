@@ -5,6 +5,8 @@ tags: verilog
 abbrlink: b2b64be7
 date: 2023-03-18 10:47:06
 description: 对IBUFGDS时钟缓冲器的介绍
+categories: [System & Hardware, FPGA & Verilog]
+
 ---
 ## 实例代码
 ```verilog

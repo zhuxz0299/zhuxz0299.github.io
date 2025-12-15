@@ -5,6 +5,8 @@ tags: pytorch
 abbrlink: 67d74f7
 date: 2023-05-04 23:54:23
 description: 使用pytorch及其相关库的时候经常遇到版本不匹配的问题，所以记录一下对应版本
+categories: [AI & Machine Learning, PyTorch]
+
 ---
 
 在安装与 PyTorch 相关的 python 库的时候，经常要考虑版本对应的问题。

@@ -1,7 +1,7 @@
 ---
 title: Rasterization
 cover: https://source.fomal.cc/img/default_cover_98.webp
-categories: computer graphics notes
+categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true
 description: 计算机图形学笔记——光栅化（三角形的离散化，深度测试与抗锯齿）

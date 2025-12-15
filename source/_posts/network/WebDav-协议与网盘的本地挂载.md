@@ -5,6 +5,8 @@ description: 介绍 WebDAV 协议，以及为何 OpenList + RaiDrive 能够将�
 tags: webdav
 abbrlink: 85c3534f
 date: 2025-08-19 17:58:17
+categories: [System & Hardware, Network Practice]
+
 ---
 
 ## WebDAV 协议

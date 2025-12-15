@@ -6,6 +6,8 @@ tags:
 description: 记录 Arch Linux 无法开机问题的修复过程
 abbrlink: 91c6fd1a
 date: 2025-10-27 21:17:07
+categories: [System & Hardware, Linux]
+
 ---
 ## 内存盘镜像故障
 ### 问题描述

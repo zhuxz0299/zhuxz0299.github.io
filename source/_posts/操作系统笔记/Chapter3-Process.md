@@ -1,7 +1,7 @@
 ---
 title: Chapter3-Process
 cover: https://source.fomal.cc/img/default_cover_66.webp
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 abbrlink: 98ec3252
 order: 3
 date: 2023-03-05 20:36:25

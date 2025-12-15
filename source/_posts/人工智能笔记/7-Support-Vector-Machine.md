@@ -2,7 +2,7 @@
 title: Support Vector Machine
 cover: https://source.fomal.cc/img/default_cover_53.webp
 description: 人工智能笔记——支持向量机
-categories: artificial intelligence
+categories: [Lecture Notes, Artificial Intelligence]
 katex: true
 abbrlink: 5f9d1835
 date: 2024-01-08 23:08:41

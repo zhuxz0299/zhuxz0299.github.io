@@ -1,7 +1,7 @@
 ---
 title: Linear models
 cover: https://source.fomal.cc/img/default_cover_88.webp
-categories: machine learning
+categories: [Lecture Notes, Machine Learning]
 katex: true
 description: PCA, FA, ICA
 abbrlink: 9710e17d

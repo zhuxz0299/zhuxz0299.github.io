@@ -1,7 +1,7 @@
 ---
 title: Solving Problems by Searching
 cover: https://source.fomal.cc/img/default_cover_47.webp
-categories: artificial intelligence
+categories: [Lecture Notes, Artificial Intelligence]
 description: 人工智能笔记——关于搜索的算法
 katex: true
 abbrlink: 19533d98

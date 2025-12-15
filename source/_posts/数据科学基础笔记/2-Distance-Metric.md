@@ -1,7 +1,7 @@
 ---
 title: Distance Metric
 cover: https://source.fomal.cc/img/default_cover_78.webp
-categories: data science
+categories: [Lecture Notes, Data Science]
 katex: true
 description: 距离度量
 abbrlink: c8391a3e

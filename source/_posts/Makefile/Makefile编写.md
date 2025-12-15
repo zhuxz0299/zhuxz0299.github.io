@@ -7,6 +7,8 @@ tags:
 abbrlink: f353ec85
 date: 2023-05-13 15:58:06
 description: 通过现有例子总结的Makefile的简单写法
+categories: [Dev Tools, Makefile]
+
 ---
 
 ## 示例1

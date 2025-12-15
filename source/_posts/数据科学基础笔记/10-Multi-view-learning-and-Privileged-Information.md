@@ -1,7 +1,7 @@
 ---
 title: Multi-view learning and Privileged Information
 cover: https://source.fomal.cc/img/default_cover_74.webp
-categories: data science
+categories: [Lecture Notes, Data Science]
 katex: true
 description: 关于机器学习如何使用多种输入
 abbrlink: 6eec50c8

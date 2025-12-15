@@ -8,6 +8,8 @@ tags:
 description: 通过解决 Linux 打开文件时使用默认程序的问题，了解了一些 Linux 的工作机制。
 abbrlink: b8ade17a
 date: 2025-11-06 22:27:08
+categories: [System & Hardware, Linux]
+
 ---
 
 ## 系统默认使用音乐播放器打开文件夹

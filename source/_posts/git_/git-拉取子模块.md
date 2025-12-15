@@ -7,6 +7,8 @@ tags:
 description: 在拉取repo时拉取子模块
 abbrlink: 78dbfa7
 date: 2024-09-19 18:52:52
+categories: [Dev Tools, Git]
+
 ---
 
 在 Git 中，有些文件夹可能使用了子模块(Submodule)来链接到其他仓库。子模块是 Git 仓库中的独立项目，可以和主仓库一起管理。如果克隆一个包含子模块的仓库，默认情况下，子模块不会自动被拉取下来。

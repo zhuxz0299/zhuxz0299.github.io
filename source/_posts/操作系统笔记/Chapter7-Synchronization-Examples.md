@@ -2,7 +2,7 @@
 title: Chapter7-Synchronization Examples
 cover: https://source.fomal.cc/img/default_cover_70.webp
 abbrlink: fe04cff6
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 order: 7
 date: 2023-03-12 17:37:54
 tags:

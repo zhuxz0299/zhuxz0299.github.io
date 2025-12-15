@@ -6,6 +6,8 @@ description: 'vector, deque, array in STL'
 katex: true
 abbrlink: ecd8965f
 date: 2024-05-28 01:14:42
+categories: [Algorithms, Online Judge]
+
 ---
 
 ## vector

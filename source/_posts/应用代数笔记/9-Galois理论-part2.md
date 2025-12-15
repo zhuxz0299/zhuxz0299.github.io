@@ -1,7 +1,7 @@
 ---
 title: Galois理论-part2
 cover: 'https://source.fomal.cc/img/default_cover_181.webp'
-categories: applied algebra
+categories: [Lecture Notes, Applied Algebra]
 katex: true
 description: 证明中间域集合与伽罗瓦群子群之间满足带标度的伽罗瓦连接定义，然后证明了集合完全闭的充要条件为伽罗瓦扩张
 abbrlink: c43d02cd

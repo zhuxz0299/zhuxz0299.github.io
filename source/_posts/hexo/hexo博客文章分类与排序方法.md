@@ -5,6 +5,8 @@ tags: hexo
 abbrlink: 3d9bb40a
 date: 2023-03-20 19:17:45
 description: 让文章以想要的顺序排序的方法
+categories: [Dev Tools, Hexo]
+
 ---
 
 ## 本地文章分类

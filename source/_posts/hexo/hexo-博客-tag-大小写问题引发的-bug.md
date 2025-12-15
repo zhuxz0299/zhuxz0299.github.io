@@ -5,6 +5,8 @@ description: 为 hexo 博客加 tag 时应当保持同一个单词大小写一�
 cover: 'https://source.fomal.cc/img/default_cover_160.webp'
 abbrlink: c2f8d7d1
 date: 2025-08-20 21:11:43
+categories: [Dev Tools, Hexo]
+
 ---
 
 ## 问题

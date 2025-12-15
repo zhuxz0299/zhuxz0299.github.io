@@ -7,6 +7,8 @@ description: 初次使用 VS2022 构建 C# 项目了解到的知识
 cover: 'https://source.fomal.cc/img/default_cover_153.webp'
 abbrlink: 2950997e
 date: 2025-07-25 22:20:39
+categories: [Programming Languages, C#]
+
 ---
 
 ## VS2022

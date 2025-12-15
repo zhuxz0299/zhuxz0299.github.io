@@ -5,6 +5,8 @@ tags: linux
 description: 介绍一些在Linux中压缩与解压文件夹的方法
 abbrlink: b0f85331
 date: 2024-08-24 15:05:59
+categories: [System & Hardware, Linux]
+
 ---
 
 ## tar

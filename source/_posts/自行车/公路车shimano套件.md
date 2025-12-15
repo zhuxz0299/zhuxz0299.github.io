@@ -3,7 +3,7 @@ title: 公路车shimano套件
 cover: https://source.fomal.cc/img/default_cover_92.webp
 abbrlink: 3b34704b
 date: 2023-06-24 20:15:43
-categories: 自行车
+categories: [Life, Cycling]
 tags: 
     - 套件
     - 公路车

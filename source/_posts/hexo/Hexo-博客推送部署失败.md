@@ -5,6 +5,8 @@ description: 将 Hexo 博客生成的静态文件推送部署到 Github Page 时
 cover: 'https://source.fomal.cc/img/default_cover_158.webp'
 abbrlink: 5901a609
 date: 2025-08-17 22:21:10
+categories: [Dev Tools, Hexo]
+
 ---
 
 ## 问题

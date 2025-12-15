@@ -1,7 +1,7 @@
 ---
 title: 第29次ccf-csp认证试题解答
 cover: https://source.fomal.cc/img/default_cover_31.webp
-categories: ccf-csp
+categories: [Algorithms, Online Judge]
 katex: true
 abbrlink: '75792915'
 date: 2023-09-15 14:45:16

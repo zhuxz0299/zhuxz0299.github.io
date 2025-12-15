@@ -8,6 +8,8 @@ tags:
 abbrlink: 757571af
 date: 2023-03-08 10:11:16
 description: 使用anaconda来进行虚拟环境的安装、卸载，以及相关包的下载和卸载。
+categories: [Dev Tools, Conda]
+
 ---
 
 ### 常用指令

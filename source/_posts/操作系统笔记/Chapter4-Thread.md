@@ -1,7 +1,7 @@
 ---
 title: Chapter4-Thread
 cover: https://source.fomal.cc/img/default_cover_67.webp
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 abbrlink: cb3de908
 order: 4
 date: 2023-03-07 16:04:28

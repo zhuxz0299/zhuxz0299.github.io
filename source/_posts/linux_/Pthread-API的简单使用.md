@@ -7,6 +7,8 @@ tags:
 abbrlink: 2be5aa7c
 date: 2023-05-03 23:50:53
 description: 关于pthread的创建、删除，以及互斥锁的API调用
+categories: [System & Hardware, Linux]
+
 ---
 
 此处使用到 Pthread API 的代码以《操作系统概念》第4章和第7章的 Programming Project 为例。

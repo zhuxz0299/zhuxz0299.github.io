@@ -1,7 +1,7 @@
 ---
 title: Shading
 cover: https://source.fomal.cc/img/default_cover_99.webp
-categories: computer graphics notes
+categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true
 description: 计算机图形学笔记——着色（光照与基本着色模型，着色频率、图形管线、纹理映射，插值、高级纹理映射）

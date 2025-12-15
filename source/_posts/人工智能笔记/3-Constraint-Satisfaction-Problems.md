@@ -1,7 +1,7 @@
 ---
 title: Constraint Satisfaction Problems
 cover: https://source.fomal.cc/img/default_cover_49.webp
-categories: artificial intelligence
+categories: [Lecture Notes, Artificial Intelligence]
 description: 人工智能笔记——约束满足问题
 katex: true
 abbrlink: fd6da8cd

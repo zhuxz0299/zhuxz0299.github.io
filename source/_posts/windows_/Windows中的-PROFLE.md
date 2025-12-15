@@ -7,6 +7,8 @@ tags:
   - powershell
 abbrlink: 583cc842
 date: 2025-05-19 19:09:53
+categories: [System & Hardware, Windows]
+
 ---
 
 ### `$PROFLE`

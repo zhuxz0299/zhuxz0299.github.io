@@ -8,6 +8,8 @@ tags:
 abbrlink: 2dbb0a4f
 date: 2023-04-29 14:36:28
 description: vscode的检查与自动补全依赖于对相关头文件的查找，如果头文件在特殊的地方，则需要专门设置路径
+categories: [Dev Tools, VS Code]
+
 ---
 
 该解决方案参考了[这篇文章](https://www.joyk.com/dig/detail/1620497242851117)

@@ -7,6 +7,8 @@ tags:
 description: 关于 docker 的一些基本概念的介绍，以及简单的操作
 abbrlink: 49f1e1db
 date: 2024-06-30 19:16:44
+categories: [Dev Tools, Docker]
+
 ---
 
 > 主要参考文章：[Docker 简易入门教程](https://iphysresearch.github.io/blog/post/programing/docker-tutorial)

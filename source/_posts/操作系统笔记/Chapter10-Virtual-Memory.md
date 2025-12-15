@@ -1,7 +1,7 @@
 ---
 title: Chapter10-Virtual Memory
 cover: https://source.fomal.cc/img/default_cover_63.webp
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 order: 10
 abbrlink: 1b14f8df
 date: 2023-03-29 21:35:43

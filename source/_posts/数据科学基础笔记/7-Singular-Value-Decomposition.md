@@ -1,7 +1,7 @@
 ---
 title: Singular Value Decomposition and Eigen Decomposition
 cover: https://source.fomal.cc/img/default_cover_83.webp
-categories: data science
+categories: [Lecture Notes, Data Science]
 katex: true
 description: SVD 和特征值分解的相关知识
 abbrlink: f7c83336

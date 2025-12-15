@@ -6,6 +6,8 @@ tags:
   - matplotlib
 abbrlink: 8eb72eaa
 date: 2024-04-02 23:41:15
+categories: [Programming Languages, Python]
+
 ---
 使用 `matplotlib` 绘图时，有时候由于某个变量呈指数式增加，因此需要对数坐标轴。
 

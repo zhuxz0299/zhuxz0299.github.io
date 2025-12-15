@@ -4,6 +4,8 @@ cover: https://source.fomal.cc/img/default_cover_37.webp
 tags: pytorch
 abbrlink: f5508786
 date: 2023-03-25 17:19:10
+categories: [AI & Machine Learning, PyTorch]
+
 ---
 
 代码内容来自[PyTorch官网](https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html)

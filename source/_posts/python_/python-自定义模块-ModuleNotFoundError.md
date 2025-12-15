@@ -5,6 +5,8 @@ tags: python
 description: 解决在调用自定义模块时出现的 ModuleNotFoundError 问题
 abbrlink: 541d1b4c
 date: 2024-05-22 20:52:53
+categories: [Programming Languages, Python]
+
 ---
 
 ### 问题描述

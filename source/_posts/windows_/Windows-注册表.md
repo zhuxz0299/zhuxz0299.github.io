@@ -7,6 +7,8 @@ tags:
     - regedit
 description: 对 Windows 中注册表的简要介绍
 cover: 'https://source.fomal.cc/img/default_cover_154.webp'
+categories: [System & Hardware, Windows]
+
 ---
 
 

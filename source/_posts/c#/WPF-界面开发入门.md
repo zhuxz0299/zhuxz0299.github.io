@@ -7,6 +7,8 @@ description: 学习 WPF 框架时了解的一些内容
 cover: 'https://source.fomal.cc/img/default_cover_156.webp'
 abbrlink: 22ab31c
 date: 2025-07-27 14:05:00
+categories: [Programming Languages, C#]
+
 ---
 
 * WPF 学习用 xaml 描述页面，以及 xaml 如何与 c# 交互。与 winform 中直接用 c# 相比，使用 xaml 描述界面更加简单。

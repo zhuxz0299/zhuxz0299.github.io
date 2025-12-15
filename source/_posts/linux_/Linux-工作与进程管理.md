@@ -8,6 +8,8 @@ tags:
 abbrlink: b69ef682
 date: 2025-07-10 14:52:30
 description: 查询在后台运行的进程，并且使用命令处理这些进程
+categories: [System & Hardware, Linux]
+
 ---
 
 {% note info %}

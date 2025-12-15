@@ -8,6 +8,8 @@ tags:
 description: 解决因为 docker 被墙无法使用官网方法安装的问题
 abbrlink: '45029051'
 date: 2024-06-27 22:16:56
+categories: [Dev Tools, Docker]
+
 ---
 
 ## Linux apt/apt-get 换源

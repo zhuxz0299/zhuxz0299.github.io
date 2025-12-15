@@ -4,6 +4,8 @@ cover: https://source.fomal.cc/img/default_cover_36.webp
 tags: pytorch
 abbrlink: 2432c26f
 date: 2023-03-26 20:22:58
+categories: [AI & Machine Learning, PyTorch]
+
 ---
 
 代码内容来自[PyTorch官网](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html)

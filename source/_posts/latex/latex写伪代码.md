@@ -2,7 +2,7 @@
 title: latex写伪代码
 cover: https://source.fomal.cc/img/default_cover_9.webp
 tags: latex
-categories: latex
+categories: [Dev Tools, LaTeX]
 abbrlink: 861f8bbe
 date: 2023-04-09 09:59:10
 description: 关于如何在latex中写伪代码

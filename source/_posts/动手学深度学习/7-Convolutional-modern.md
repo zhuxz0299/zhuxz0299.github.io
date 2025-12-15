@@ -2,7 +2,7 @@
 title: Convolutional-modern
 cover: https://source.fomal.cc/img/default_cover_57.webp
 tags: pytorch
-categories: 动手学深度学习
+categories: [AI & Machine Learning, Deep Learning]
 description: AlexNet，VGG，NiN，GoogleNet
 order: 7
 katex: true

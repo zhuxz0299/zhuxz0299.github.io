@@ -10,6 +10,8 @@ tags:
   - dns
 abbrlink: a55a0eeb
 date: 2025-07-13 22:29:53
+categories: [System & Hardware, Network Practice]
+
 ---
 
 ## 问题修复

@@ -7,6 +7,8 @@ tags:
 description: 在 Jetson Xavier NX 上安装 Pytorch 遇到了问题，发现只能使用 NVIDIA 编译好的 .whl 文件安装
 abbrlink: e5733f44
 date: 2024-12-02 21:08:06
+categories: [AI & Machine Learning, PyTorch]
+
 ---
 
 Jetson 设备由于其架构，需要使用 NVIDIA 提供的 Pytorch。

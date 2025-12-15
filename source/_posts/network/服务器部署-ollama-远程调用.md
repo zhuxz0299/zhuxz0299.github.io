@@ -8,6 +8,8 @@ tags:
   - 端口转发
 abbrlink: 98de85d5
 date: 2025-07-10 11:09:33
+categories: [System & Hardware, Network Practice]
+
 ---
 
 ## 工作原理

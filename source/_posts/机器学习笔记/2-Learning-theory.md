@@ -1,7 +1,7 @@
 ---
 title: 'Learning theory'
 cover: https://source.fomal.cc/img/default_cover_87.webp
-categories: machine learning
+categories: [Lecture Notes, Machine Learning]
 katex: true
 abbrlink: d6c74530
 date: 2024-03-29 23:43:12

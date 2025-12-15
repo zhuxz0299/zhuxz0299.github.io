@@ -1,7 +1,7 @@
 ---
 title: Logical Agents
 cover: https://source.fomal.cc/img/default_cover_50.webp
-categories: artificial intelligence
+categories: [Lecture Notes, Artificial Intelligence]
 description: 人工智能笔记——逻辑智能体
 katex: true
 abbrlink: feee944d

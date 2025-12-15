@@ -8,6 +8,8 @@ tags:
 description: 解决使用 docker 时无法调用 GPU 问题
 abbrlink: 4f30936b
 date: 2024-06-29 23:04:14
+categories: [Dev Tools, Docker]
+
 ---
 
 参考 [stackoverflow](https://stackoverflow.com/questions/25185405/using-gpu-from-a-docker-container)

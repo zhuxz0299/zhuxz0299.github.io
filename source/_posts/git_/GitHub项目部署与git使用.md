@@ -7,6 +7,8 @@ tags:
     - github
     - git
 description: 介绍一下如何将项目部署到GitHub上，以及git的一些基本使用方法
+categories: [Dev Tools, Git]
+
 ---
 
 {% note info %}

@@ -2,7 +2,7 @@
 title: latex插入图片
 cover: https://source.fomal.cc/img/default_cover_11.webp
 tags: latex
-categories: latex
+categories: [Dev Tools, LaTeX]
 abbrlink: c56f9fd
 date: 2023-04-09 09:37:10
 description: 关于如何在latex中插入图片

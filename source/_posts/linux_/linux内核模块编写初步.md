@@ -5,7 +5,7 @@ tags:
   - linux
   - operating system
   - kernel
-categories: linux
+categories: [System & Hardware, Linux]
 abbrlink: afd0741b
 date: 2023-04-29 22:03:53
 description: 介绍一下一个简单的内核模块是如何写出来的

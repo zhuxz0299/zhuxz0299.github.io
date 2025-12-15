@@ -1,7 +1,7 @@
 ---
 title: 正规扩张与Galois群
 cover: 'https://source.fomal.cc/img/default_cover_179.webp'
-categories: applied algebra
+categories: [Lecture Notes, Applied Algebra]
 katex: true
 abbrlink: f636573c
 date: 2025-11-08 16:38:53

@@ -1,7 +1,7 @@
 ---
 title: Galois理论与Galois连接
 cover: 'https://source.fomal.cc/img/default_cover_180.webp'
-categories: applied algebra
+categories: [Lecture Notes, Applied Algebra]
 katex: true
 abbrlink: 3d2c8e8d
 date: 2025-11-13 22:13:07

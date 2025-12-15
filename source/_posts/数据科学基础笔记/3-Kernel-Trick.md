@@ -1,7 +1,7 @@
 ---
 title: Kernel Trick
 cover: https://source.fomal.cc/img/default_cover_79.webp
-categories: data science
+categories: [Lecture Notes, Data Science]
 katex: true
 description: 核方法
 abbrlink: 71181c07

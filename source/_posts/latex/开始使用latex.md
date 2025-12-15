@@ -2,7 +2,7 @@
 title: 开始使用latex
 cover: https://source.fomal.cc/img/default_cover_12.webp
 tags: latex
-categories: latex
+categories: [Dev Tools, LaTeX]
 abbrlink: 9247393f
 date: 2023-03-03 23:04:32
 description: 介绍一下使用latex写文章的大体框架

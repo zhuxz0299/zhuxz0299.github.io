@@ -8,6 +8,8 @@ tags:
 description: 解决在运行 nvidia-smi 之后报错 Failed to initialize NVML, Driver/library version mismatch 的问题
 abbrlink: 4fdabebb
 date: 2024-06-28 15:37:25
+categories: [System & Hardware, System Knowledge]
+
 ---
 
 ## 问题描述

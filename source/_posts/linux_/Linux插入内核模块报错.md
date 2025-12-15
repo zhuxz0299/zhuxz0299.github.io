@@ -7,6 +7,8 @@ tags:
 abbrlink: 5aac262c
 date: 2023-04-12 23:44:34
 description: 完成操作系统课程设计的过程中遇到了内核模块插入失败的问题，费了好大劲解决，遂作此文
+categories: [System & Hardware, Linux]
+
 ---
 
 ## 问题

@@ -1,7 +1,7 @@
 ---
 title: Zero-sum Game
 cover: https://source.fomal.cc/img/default_cover_60.webp
-categories: game theory
+categories: [Lecture Notes, Game Theory]
 katex: true
 description: 零和博弈与对偶解法
 abbrlink: 3235c627

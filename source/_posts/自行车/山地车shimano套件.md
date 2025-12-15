@@ -1,7 +1,7 @@
 ---
 title: 山地车shimano套件
 cover: https://source.fomal.cc/img/default_cover_93.webp
-categories: 自行车
+categories: [Life, Cycling]
 tags:
   - 套件
   - 山地车

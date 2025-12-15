@@ -8,6 +8,8 @@ tags:
 description: 关于使用ssh来对GitHub上的repo进行git clone，这样下载更快
 abbrlink: 4d4a0720
 date: 2023-12-07 14:12:29
+categories: [Dev Tools, Git]
+
 ---
 1. 首先在电脑上生成SSH key，可以运行
 ```bash

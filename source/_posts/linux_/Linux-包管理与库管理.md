@@ -6,6 +6,8 @@ tags:
 description: 先介绍 Linux 中的包(package)和库(library)，接着介绍一下 dnf 之类的包管理器，以及用来管理库的 pkg-config。
 abbrlink: 12e1f9cc
 date: 2024-12-12 02:24:25
+categories: [System & Hardware, Linux]
+
 ---
 
 ## 包(package)和库(library)

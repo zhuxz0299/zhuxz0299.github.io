@@ -1,7 +1,7 @@
 ---
 title: operating-system/Chapter1-Introduction
 cover: https://source.fomal.cc/img/default_cover_62.webp
-categories: Operating system
+categories: [Lecture Notes, Operating System]
 abbrlink: a733b7f0
 order: 1
 date: 2023-03-14 14:21:12

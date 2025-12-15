@@ -5,6 +5,8 @@ tags: vivado
 abbrlink: c8f9a135
 date: 2023-03-15 15:12:05
 description: 关于vivado基本使用方法，主要是应付课程需要
+categories: [System & Hardware, FPGA & Verilog]
+
 ---
 ## 创建project
 确定项目地址与名称：路径中不能出现中文，空格也应当避免

@@ -10,6 +10,8 @@ tags:
 description: Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新
 abbrlink: 59eaf47c
 date: 2025-09-07 15:11:59
+categories: [System & Hardware, Linux]
+
 ---
 
 ## Arch Linux 包管理器

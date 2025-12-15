@@ -1,7 +1,7 @@
 ---
 title: 第30次ccf csp认证试题解答
 cover: https://source.fomal.cc/img/default_cover_32.webp
-categories: ccf-csp
+categories: [Algorithms, Online Judge]
 katex: true
 abbrlink: 7608075b
 date: 2023-09-15 12:45:51

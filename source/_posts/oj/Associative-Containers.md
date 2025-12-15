@@ -6,6 +6,8 @@ description: 'set, map in STL, implement sorted data structures that can be quic
 katex: true
 abbrlink: 597ff9ab
 date: 2024-05-28 10:39:56
+categories: [Algorithms, Online Judge]
+
 ---
 
 ## set

@@ -2,7 +2,7 @@
 title: 第27次ccf-csp认证试题解答
 cover: https://source.fomal.cc/img/default_cover_29.webp
 description: 第27次ccf csp前3题的解答
-categories: ccf-csp
+categories: [Algorithms, Online Judge]
 katex: true
 abbrlink: 4ac43c2e
 date: 2023-09-15 16:23:00
