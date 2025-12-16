@@ -1,9 +1,10 @@
 /**
  * scripts/category_card_injector.js
- * Version 6.0 (Final Clean): 
- * 1. 移除全局 CSS 冗余，直接复用你 _config.yml 里定义的变量
- * 2. 包含 Category 卡片的所有美化 (居中、胶囊数字、点击代理)
- * 3. 包含 Category 卡片的深色模式适配
+ * Version 7.0 (Section Layout): 
+ * 1. 读取 source/_data/categories_info.yml 配置
+ * 2. 将嵌套的列表重构为 "板块化" 布局
+ * 3. 一级分类：宽卡片 (左图右文)
+ * 4. 二级分类：网格卡片
  */
 
 hexo.extend.filter.register('after_render:html', function (str, data) {
@@ -13,231 +14,304 @@ hexo.extend.filter.register('after_render:html', function (str, data) {
   }
 
   // 1. 读取配置
-  const categoryImages = hexo.locals.get('data').category_images || {};
-  const imagesJson = JSON.stringify(categoryImages);
+  const categoriesInfo = hexo.locals.get('data').categories_info || {};
+  const configJson = JSON.stringify(categoriesInfo);
 
   // 2. CSS 样式定义
   const css = `
     <style>
-      /* ==============================
-         Part 1: Category 卡片核心样式
-         ============================== */
-      
-      /* 网格布局 */
-      .category-lists .category-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 20px;
-        list-style: none;
-        padding: 0;
+      /* 隐藏原始列表，防止闪烁 (JS执行完后会移除这个类或替换内容) */
+      .category-lists ul.category-list {
+        visibility: hidden; 
+        height: 0;
+        overflow: hidden;
       }
 
-      /* --- 卡片基础 (浅色模式默认) --- */
-      .category-lists .category-list > .category-list-item {
-        position: relative;
-        /* 直接使用你全局定义的变量，如果没定义则回退到 #fff */
-        background-color: var(--trans-light, #fff); 
-        border: 1px solid #e3e8f7;
+      /* === 容器 === */
+      .category-section {
+        margin-bottom: 40px;
+        animation: slide-in 0.5s ease-out;
+      }
+
+      @keyframes slide-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* === 一级分类 Header (宽卡片) === */
+      .category-header {
+        display: flex;
+        background: var(--card-bg);
         border-radius: 12px;
         overflow: hidden;
-        height: 100px; 
-        transition: all 0.3s ease-in-out;
+        box-shadow: var(--card-box-shadow);
+        transition: all 0.3s;
+        height: 180px; /* 固定高度 */
+        margin-bottom: 20px;
+        border: 1px solid var(--card-border, #e3e8f7);
+        text-decoration: none !important; /* 去除链接下划线 */
+        color: var(--font-color) !important;
+        position: relative;
+      }
+
+      .category-header:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-hover-box-shadow);
+        border-color: var(--theme-color, #49b1f5);
+      }
+
+      /* 左侧图片 */
+      .category-header-img {
+        width: 35%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+      
+      .category-header:hover .category-header-img {
+        transform: scale(1.05);
+      }
+
+      /* 右侧内容 */
+      .category-header-content {
+        flex: 1;
+        padding: 20px 25px;
         display: flex;
         flex-direction: column;
-        justify-content: center; 
-        align-items: center;     
-        text-align: center;
-        box-shadow: 0 8px 16px -4px rgba(44, 45, 48, 0.05);
-        background-clip: padding-box;
-        cursor: pointer;
-        padding: 0 10px;
-      }
-
-      /* 修复: 强制隐藏默认圆点 */
-      .category-lists .category-list > .category-list-item::before {
-        display: none !important;
-        content: none !important;
-        border: none !important;
-      }
-
-      /* 鼠标悬停 */
-      .category-lists .category-list > .category-list-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px -4px rgba(44, 45, 48, 0.1);
-        border-color: #49b1f5;
-      }
-
-      /* 链接文字 (浅色模式) */
-      .category-lists .category-list > .category-list-item a {
+        justify-content: center;
         position: relative;
-        z-index: 2;
-        color: #4c4948 !important;
+      }
+
+      .category-header-title {
+        font-size: 1.8em;
         font-weight: bold;
-        font-size: 1.2em;
-        text-decoration: none;
-        transition: color 0.3s;
-        line-height: 1.2;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        color: var(--text-highlight-color, #1f2d3d);
       }
 
-      /* 数字胶囊 (浅色模式) */
-      .category-lists .category-list-count {
+      [data-theme="dark"] .category-header-title {
+        color: #e0e0e0;
+      }
+
+      .category-header-count {
+        font-size: 0.5em;
+        background: rgba(150, 150, 150, 0.1);
+        color: #999;
+        padding: 2px 8px;
+        border-radius: 10px;
+        margin-left: 10px;
+        vertical-align: middle;
+        font-weight: normal;
+      }
+
+      .category-header-desc {
+        font-size: 0.95em;
+        color: #666;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* 最多显示3行 */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      [data-theme="dark"] .category-header-desc {
+        color: #a0a0a0;
+      }
+
+      /* === 二级分类 Grid === */
+      .category-sub-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+        padding-left: 20px; /* 稍微缩进一点，体现层级 */
+        border-left: 2px solid var(--btn-bg, #f0f0f0);
+      }
+
+      .category-sub-item {
         position: relative;
-        z-index: 2;
-        color: #858585;
-        font-size: 0.85em; 
-        background: #f2f3f5; 
-        padding: 2px 10px;   
-        border-radius: 20px; 
+        background: var(--card-bg);
+        border-radius: 8px;
+        overflow: hidden;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none !important;
+        border: 1px solid var(--card-border, #e3e8f7);
         transition: all 0.3s;
-        pointer-events: none;
-        &::before, &::after { display: inline; } 
-      }
-      /* 自动添加括号和文本 */
-      .category-lists .category-list-count::before { content: '('; margin-right: 2px; }
-      .category-lists .category-list-count::after { content: ' 篇)'; margin-left: 2px; }
-
-      /* --- 展开后的修正 --- */
-      .category-lists .category-list > .category-list-item.expanded {
-        height: auto !important;
-        padding-bottom: 15px;
-        background-color: #f9f9f9;
-        cursor: default;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        cursor: pointer;
       }
 
-      /* ==============================
-         Part 2: 深色模式适配 (Category 专用)
-         ============================== */
+      .category-sub-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        border-color: var(--theme-color, #49b1f5);
+      }
+
+      /* 二级分类背景图模式 */
+      .category-sub-item.has-bg {
+        border: none;
+      }
       
-      [data-theme="dark"] .category-lists .category-list > .category-list-item {
-        /* 直接引用你 inject 中定义的 --trans-dark */
-        background-color: var(--trans-dark, rgba(25, 25, 25, 0.88)); 
-        border-color: rgba(255, 255, 255, 0.1); 
-        box-shadow: none;
-      }
-
-      /* 深色模式：文字变白 */
-      [data-theme="dark"] .category-lists .category-list > .category-list-item a {
-        color: #ddd !important;
-      }
-
-      /* 深色模式：数字胶囊背景变深 */
-      [data-theme="dark"] .category-lists .category-list-count {
-        background: rgba(255, 255, 255, 0.1);
-        color: #bbb;
-      }
-
-      /* 深色模式：悬停效果 */
-      [data-theme="dark"] .category-lists .category-list > .category-list-item:hover {
-         border-color: #49b1f5;
-         background-color: rgba(0, 0, 0, 0.8);
-         box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.5);
-      }
-
-      /* 深色模式：展开状态背景 */
-      [data-theme="dark"] .category-lists .category-list > .category-list-item.expanded {
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-
-
-      /* ==============================
-         Part 3: 特殊状态 - 背景图模式
-         ============================== */
-         
-      /* 无论深浅模式，有图时背景透明，边框移除 */
-      .category-lists .category-list > .category-list-item.item-has-image {
-        border: none !important; 
-        background-color: transparent !important;
-        background-size: cover;
-        background-position: center;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-      }
-
-      /* 遮罩 */
-      .category-lists .category-list > .category-list-item.item-has-image::after {
-        content: ''; 
+      /* 遮罩层 */
+      .category-sub-item.has-bg::after {
+        content: '';
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.35); 
-        z-index: 1; 
+        background: rgba(0,0,0,0.4);
         transition: background 0.3s;
-        pointer-events: none; 
+        z-index: 1;
       }
       
-      .category-lists .category-list > .category-list-item.item-has-image:hover::after {
-        background: rgba(0, 0, 0, 0.1);
+      .category-sub-item.has-bg:hover::after {
+        background: rgba(0,0,0,0.2);
       }
 
-      /* 有图时强制白字 */
-      .category-lists .category-list > .category-list-item.item-has-image a {
-        color: #fff !important;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+      .category-sub-item-content {
+        position: relative;
+        z-index: 2; /* 确保在遮罩之上 */
+        padding: 0 10px;
+        width: 100%;
+      }
+
+      .category-sub-title {
+        font-weight: bold;
+        font-size: 1em;
+        color: var(--font-color);
+        display: block;
       }
       
-      /* 有图时数字胶囊：磨砂白 */
-      .category-lists .category-list > .category-list-item.item-has-image .category-list-count {
+      .category-sub-item.has-bg .category-sub-title {
         color: #fff;
-        background: rgba(255, 255, 255, 0.2); 
-        backdrop-filter: blur(4px); 
+        text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      }
+
+      .category-sub-count {
+        font-size: 0.8em;
+        color: #858585;
+        margin-top: 4px;
+        display: block;
+      }
+
+      .category-sub-item.has-bg .category-sub-count {
+        color: rgba(255,255,255,0.8);
+      }
+
+      /* === 移动端适配 === */
+      @media (max-width: 768px) {
+        .category-header {
+          height: auto;
+          flex-direction: column;
+        }
+        .category-header-img {
+          width: 100%;
+          height: 120px;
+        }
+        .category-sub-grid {
+          padding-left: 0;
+          border-left: none;
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
       }
     </style>
   `;
 
-  // 3. JS 逻辑定义 (保持不变)
+  // 3. JS 逻辑
   const js = `
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const config = ${imagesJson};
-      const listItems = document.querySelectorAll('.category-lists .category-list > .category-list-item');
+      const config = ${configJson};
+      const container = document.querySelector('.category-lists');
+      const originalList = container.querySelector('ul.category-list');
       
-      listItems.forEach(item => {
-        const link = item.querySelector('a.category-list-link');
-        if(!link) return;
+      if (!originalList) return;
+
+      // 解析 DOM 结构为数据对象
+      function parseList(ul) {
+        const items = [];
+        // 获取直接子元素 li
+        const lis = Array.from(ul.children).filter(child => child.tagName === 'LI');
         
-        const name = link.innerText.trim();
-        const childList = item.querySelector('.category-list-child');
+        lis.forEach(li => {
+          const link = li.querySelector('a.category-list-link');
+          const countSpan = li.querySelector('span.category-list-count');
+          if (!link) return;
 
-        // === 1. 背景图逻辑 ===
-        if (config[name]) {
-          item.style.backgroundImage = 'url(' + config[name] + ')';
-          item.classList.add('item-has-image');
-        }
+          const name = link.textContent.trim();
+          const url = link.getAttribute('href');
+          const count = countSpan ? countSpan.textContent.trim() : '0';
+          
+          // 查找子列表
+          const childUl = li.querySelector('ul.category-list-child');
+          const children = childUl ? parseList(childUl) : [];
 
-        // === 2. 全卡片点击代理逻辑 ===
-        item.addEventListener('click', function(e) {
-          if (e.target.tagName === 'A' || e.target.closest('.category-list-child')) {
-            return;
-          }
-          link.click();
+          items.push({ name, url, count, children });
         });
+        return items;
+      }
 
-        // === 3. 折叠/展开逻辑 ===
-        if (childList) {
-          childList.style.display = 'none';
-          childList.style.width = '100%';
-          childList.style.marginTop = '15px';
-          childList.style.position = 'relative';
-          childList.style.zIndex = '3';
-          childList.style.textAlign = 'left'; 
+      const categories = parseList(originalList);
+      
+      // 生成新的 HTML
+      let newHtml = '';
+
+      categories.forEach(cat => {
+        const info = config[cat.name] || {};
+        const imgSrc = info.image || '/img/404.jpg'; // 默认图
+        const desc = info.description || '暂无描述';
+
+        // 生成一级分类 Header
+        let sectionHtml = \`
+          <div class="category-section">
+            <a href="\${cat.url}" class="category-header">
+              <img class="category-header-img" src="\${imgSrc}" alt="\${cat.name}" onerror="this.src='/img/404.jpg'">
+              <div class="category-header-content">
+                <div class="category-header-title">
+                  \${cat.name}
+                  <span class="category-header-count">\${cat.count}</span>
+                </div>
+                <div class="category-header-desc">\${desc}</div>
+              </div>
+            </a>
+        \`;
+
+        // 生成二级分类 Grid
+        if (cat.children && cat.children.length > 0) {
+          sectionHtml += '<div class="category-sub-grid">';
           
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const isVisible = childList.style.display === 'block';
-            if (isVisible) {
-              childList.style.display = 'none';
-              item.style.height = '100px'; 
-              item.classList.remove('expanded');
-            } else {
-              childList.style.display = 'block';
-              item.style.height = 'auto';
-              item.classList.add('expanded');
-            }
+          cat.children.forEach(sub => {
+            const subInfo = config[sub.name] || {};
+            const subImg = subInfo.image; // 二级分类可能有图，也可能没图
+            const hasBgClass = subImg ? 'has-bg' : '';
+            
+            // 如果有图，直接内联 background-image
+            const styleAttr = subImg ? \`style="background-image: url('\${subImg}'); background-size: cover; background-position: center;"\` : '';
+            
+            sectionHtml += \`
+              <a href="\${sub.url}" class="category-sub-item \${hasBgClass}" \${styleAttr}>
+                <div class="category-sub-item-content">
+                  <span class="category-sub-title">\${sub.name}</span>
+                  <span class="category-sub-count">\${sub.count} 篇</span>
+                </div>
+              </a>
+            \`;
           });
-          
-          if (!link.querySelector('.fa-caret-down')) {
-            link.innerHTML += ' <i class="fas fa-caret-down" style="font-size:0.8em; margin-left:5px;"></i>';
-          }
+
+          sectionHtml += '</div>';
         }
+
+        sectionHtml += '</div>'; // end category-section
+        newHtml += sectionHtml;
       });
+
+      // 替换 DOM
+      container.innerHTML = newHtml;
+      // 移除原来的隐藏样式
+      container.style.visibility = 'visible';
     });
     </script>
   `;

@@ -1,0 +1,41 @@
+# === 一级分类配置 ===
+AI-Machine-Learning:
+  description: "探索人工智能的奥秘，涵盖机器学习、深度学习理论与实践笔记。"
+  image: /img/skirk.jpg # 替换为你实际的图片路径
+
+Algorithms:
+  description: "算法与数据结构的学习记录，LeetCode 刷题心得与算法分析。"
+  image: /img/404.jpg
+
+Dev-Tools:
+  description: "工欲善其事，必先利其器。记录各种开发工具、环境配置与效率神器。"
+  image: /img/404.jpg
+
+Lecture-Notes:
+  description: "大学课程笔记整理，包含计算机科学核心课程及其他选修课。"
+  image: /img/404.jpg
+
+Life:
+  description: "生活随笔，记录日常点滴、思考与感悟。"
+  image: /img/404.jpg
+
+Multimedia:
+  description: "多媒体技术探索，音视频处理、图形学与渲染技术。"
+  image: /img/404.jpg
+
+Programming-Languages:
+  description: "编程语言特性研究，C/C++、Python、Java 等语言的深入解析。"
+  image: /img/404.jpg
+
+System-Hardware:
+  description: "底层系统的奥秘，操作系统、计算机组成原理与硬件知识。"
+  image: /img/404.jpg
+
+# === 二级分类配置 (可选) ===
+# 只要名字匹配，就会自动应用图片
+Docker:
+  image: /img/skirk.jpg
+Git:
+  image: /img/404.jpg
+Linux:
+  image: /img/404.jpg
