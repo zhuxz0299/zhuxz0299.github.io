@@ -1,41 +1,108 @@
 # === 一级分类配置 ===
-AI-Machine-Learning:
-  description: "探索人工智能的奥秘，涵盖机器学习、深度学习理论与实践笔记。"
-  image: /img/skirk.jpg # 替换为你实际的图片路径
+'AI & Machine Learning':
+  description: "人工智能与机器学习 - 理论与工具"
+  image: /img/category/ai.jpg
 
 Algorithms:
-  description: "算法与数据结构的学习记录，LeetCode 刷题心得与算法分析。"
-  image: /img/404.jpg
+  description: "算法"
+  image: /img/category/algorithm.png
 
-Dev-Tools:
-  description: "工欲善其事，必先利其器。记录各种开发工具、环境配置与效率神器。"
-  image: /img/404.jpg
+'Dev Tools':
+  description: "开发工具 - 环境/版本控制/编辑器"
+  image: /img/category/dev_tools.jpg
 
-Lecture-Notes:
-  description: "大学课程笔记整理，包含计算机科学核心课程及其他选修课。"
-  image: /img/404.jpg
+Lecture Notes:
+  description: "大学课程笔记 - 理论/学术"
+  image: /img/category/lecture_notes.jpeg
 
 Life:
-  description: "生活随笔，记录日常点滴、思考与感悟。"
-  image: /img/404.jpg
+  description: "生活"
+  image: /img/category/life.jpg
 
 Multimedia:
-  description: "多媒体技术探索，音视频处理、图形学与渲染技术。"
-  image: /img/404.jpg
+  description: "音视频处理原理"
+  image: /img/category/multimedia.jpg
 
-Programming-Languages:
-  description: "编程语言特性研究，C/C++、Python、Java 等语言的深入解析。"
-  image: /img/404.jpg
+Programming Languages:
+  description: "编程语言"
+  image: /img/category/programming_lang.avif
 
-System-Hardware:
-  description: "底层系统的奥秘，操作系统、计算机组成原理与硬件知识。"
-  image: /img/404.jpg
+System & Hardware:
+  description: "系统与硬件 - OS/硬件/网络实践"
+  image: /img/category/system_hardware.png
 
 # === 二级分类配置 (可选) ===
 # 只要名字匹配，就会自动应用图片
+Game Theory:
+  image: /img/category/game_theory.jpg
+Applied Algebra:
+  image: /img/category/abstract_algebra.webp
+Operating System:
+  image: /img/category/operating_system.png
+Data Science:
+  image: /img/category/data_science.jpg
+Discrete Math:
+  image: /img/category/discrete_math.jpg
+Computer Graphics:
+  image: /img/category/computer_graphics.png
+Computer Organization:
+  image: /img/category/computer_organization.jpg
+Computer Network:
+  image: /img/category/computer_network.webp
+Quantum Mechanics:
+  image: /img/category/quantum_mechanics.jpg
+Exam Solutions:
+  image: /img/category/exam_solutions.png
+Artificial Intelligence:
+  image: /img/category/neural_network.webp
+Machine Learning:
+  image: /img/category/machine_learning.png
+
+Deep Learning:
+  image: /img/category/deep_learning.png
+PyTorch:
+  image: /img/category/pytorch.png
+
+Conda:
+  image: /img/category/conda.png
 Docker:
-  image: /img/skirk.jpg
+  image: /img/category/docker.png
 Git:
-  image: /img/404.jpg
+  image: /img/category/git.png
+VS Code:
+  image: /img/category/vs_code.jpg
+Makefile:
+  image: /img/category/makefile.png
+Hexo:
+  image: /img/category/hexo.png
+LaTeX:
+  image: /img/category/latex.png
+Software:
+  image: /img/category/software.jpg
+
 Linux:
-  image: /img/404.jpg
+  image: /img/category/linux.webp
+Windows:
+  image: /img/category/windows.png
+Hardware:
+  image: /img/category/hardware.jpg
+System Knowledge:
+  image: /img/category/system_knowledge.jpg
+Network Practice:
+  image: /img/category/network_practice.webp
+FPGA & Verilog:
+  image: /img/category/fpga_verilog.jpg
+
+Python:
+  image: /img/category/python.jpg
+C#:
+  image: /img/category/csharp.jpg
+
+Online Judge:
+  image: /img/category/online_judge.png
+
+Video & Audio:
+  image: /img/category/video_audio.png
+
+Cycling:
+  image: /img/category/bicycle.jpg

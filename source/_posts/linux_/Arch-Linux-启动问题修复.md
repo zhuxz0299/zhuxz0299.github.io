@@ -203,4 +203,4 @@ systemctl status gdm.service
 journalctl -u gdm.service -b
 ```
 
-发现无异常，然后在 `/etc/gdm/custom.conf` 文件中注释掉了 `WaylandEnable=false`，重启后就成功进入图形界面了。原理尚不清楚。
+发现无异常，说明 GDM 本身可以正常工作。然后在 `/etc/gdm/custom.conf` 文件中注释掉了 `WaylandEnable=false`，重启后成功进入图形界面。原因大概是最新的 `gnome-session` 已经不提供 X11 会话文件，只支持 Wayland，所以禁掉了 Wayland 之后就进不去了。
