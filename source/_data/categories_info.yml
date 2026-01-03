@@ -79,6 +79,8 @@ LaTeX:
   image: /img/category/latex.png
 Software:
   image: /img/category/software.jpg
+al-folio:
+  image: /img/category/al-folio.png
 
 Linux:
   image: /img/category/linux.webp
