@@ -143,3 +143,38 @@ docker container rm 684b646ebe5f
 
 即可。
 
+## docker 使用代理
+假如使用 docker 拉取 image 的时候遇到形如以下的问题：
+```
+docker: Error response from daemon: failed to resolve reference "docker.io/library/hello-world:latest": failed to do request: Head "https://registry-1.docker.io/v2/library/hello-world/manifests/latest": read tcp [2001:da8:8000:6085:15db:75db:6e6b:5c21]:37210->[2600:1f18:2148:bc02:d471:330e:de3:f545]:443: read: connection reset by peer 
+```
+
+这说明 Docker Hub 被墙了。之前推荐换源（国内镜像），2024年后[据说](https://zhuanlan.zhihu.com/p/709896100)国内大部分 Docker 镜像源都失效或需要认证了。所以还是直接用代理。
+
+### 创建配置文件夹与代理配置文件
+关于 systemd 系统的配置文件夹以及配置文件的工作原理，可以看[这篇文章](https://zhuxz0299.github.io/posts/5bfe7acf.html)
+
+```bash
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo vim /etc/systemd/system/docker.service.d/http-proxy.conf
+```
+
+代理配置文件写入：
+```toml
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:10808"
+Environment="HTTPS_PROXY=http://127.0.0.1:10808"
+Environment="NO_PROXY=localhost,127.0.0.1,docker-registry.somecorporation.com"
+```
+
+### 重新加载配置并重启 Docker
+```bash
+sudo systemctl daemon-reload # 重载 systemd 配置
+sudo systemctl restart docker # 重启 docker 服务
+```
+
+### 验证配置
+```bash
+sudo systemctl show --property=Environment docker
+docker run hello-world
+```
