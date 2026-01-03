@@ -1,0 +1,432 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>利用al-folio主题部署个人学术主页 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="网站部署与调试 网站部署 部署流程非常简单，只要按照官方文档 Installing and Deploying 中的 Recommended Approach 一步步做就行。以及官方文档中还给了一个视频教程，看起来更直观。 唯一一点需要注意的是，这里默认把个人主页部署在 https:&#x2F;&#x2F;&lt;your-github-username&gt;.github.io，但是如果希望把博客部署在网站的子目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用al-folio主题部署个人学术主页">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/136bdd49.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="网站部署与调试 网站部署 部署流程非常简单，只要按照官方文档 Installing and Deploying 中的 Recommended Approach 一步步做就行。以及官方文档中还给了一个视频教程，看起来更直观。 唯一一点需要注意的是，这里默认把个人主页部署在 https:&#x2F;&#x2F;&lt;your-github-username&gt;.github.io，但是如果希望把博客部署在网站的子目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_186.webp">
+<meta property="article:published_time" content="2026-01-03T08:01:55.000Z">
+<meta property="article:modified_time" content="2026-01-03T12:49:10.800Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="al-folio">
+<meta property="article:tag" content="github action">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_186.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "利用al-folio主题部署个人学术主页",
+  "url": "http://zhuxz0299.github.io/posts/136bdd49.html",
+  "image": "https://source.fomal.cc/img/default_cover_186.webp",
+  "datePublished": "2026-01-03T08:01:55.000Z",
+  "dateModified": "2026-01-03T12:49:10.800Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/136bdd49.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '利用al-folio主题部署个人学术主页',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">186</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">84</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_186.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">利用al-folio主题部署个人学术主页</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">利用al-folio主题部署个人学术主页</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-03T08:01:55.000Z" title="发表于 2026-01-03 16:01:55">2026-01-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-03T12:49:10.800Z" title="更新于 2026-01-03 20:49:10">2026-01-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/">Dev Tools</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/al-folio/">al-folio</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="网站部署与调试">网站部署与调试</h2>
+<h3 id="网站部署">网站部署</h3>
+<p>部署流程非常简单，只要按照官方文档 <a target="_blank" rel="noopener" href="https://github.com/alshedivat/al-folio/blob/main/INSTALL.md">Installing and Deploying</a> 中的 <a target="_blank" rel="noopener" href="https://github.com/alshedivat/al-folio/blob/main/INSTALL.md#recommended-approach">Recommended Approach</a> 一步步做就行。以及官方文档中还给了一个视频教程，看起来更直观。</p>
+<p>唯一一点需要注意的是，这里默认把个人主页部署在 <code>https://&lt;your-github-username&gt;.github.io</code>，但是如果希望把博客部署在网站的子目录下，那在 <code>_config.yml</code> 中需要把 <code>baseurl</code> 设置为 <code>/&lt;your-repository-name&gt;/</code>。</p>
+<p>接下来 Github Action 就会自动开始工作，最后在 <code>https://&lt;your-github-username&gt;.github.io/&lt;your-repository-name&gt;/</code> 中就能看到部署好的个人主页。</p>
+<h3 id="本地调试">本地调试</h3>
+<p>由于 Github Action 工作一次需要很长时间（大约 4 分钟），因此每次改完推送到 GitHub 上再去网站上看结果非常费时，以及有时候还可能构建失败。因此需要本地预览（类似 <code>hexo server</code>）。</p>
+<p>首先把仓库拉到本地：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:&lt;your-username&gt;/&lt;your-repo-name&gt;.git</span><br></pre></td></tr></table></figure>
+<p>为了免去配置环境等各种麻烦的操作（就像 Hexo 需要配置 Node.js 环境一样），al-folio 的作者非常贴心的提供了 docker 镜像。安装好 <code>docker</code> 和 <code>docker-compose</code> 之后，在项目主目录下运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker compose pull</span><br><span class="line">docker compose up</span><br></pre></td></tr></table></figure>
+<p>docker 启动并且运行成功之后就可以在 <code>http://localhost:8080/&lt;your-repository-name&gt;/</code> 下看到本地预览的个人主页。构建网站的时间不会太长，如果太久卡着不动，那可能是某些地方配置出问题了。</p>
+<h2 id="网站设置">网站设置</h2>
+<p>就是把个人主页填上自己的信息，以及把网站设置成自己需要的样子，同样有官方文档 <a target="_blank" rel="noopener" href="https://github.com/alshedivat/al-folio/blob/main/CUSTOMIZE.md">Customize</a>。</p>
+<h3 id="网站精简">网站精简</h3>
+<p>参考官方文档中 <a target="_blank" rel="noopener" href="https://github.com/alshedivat/al-folio/blob/main/CUSTOMIZE.md#removing-content">Removing content</a> 的建议，把不需要的内容写到 <code>_config.yml</code> 文件的 <code>exclude:</code> 字段下。具体的不需要的内容参考官方文档下面的 “Removing xxx page”。理论上直接删除也可以，但是试过之后发现容易删掉一些在别的文件里被调用的东西，导致本地预览的时候就莫名其妙报错。</p>
+<p>由于这个主题是直接从主题作者的 GitHub 里面直接 fork 过来的，所以里面也包含了很多诸如 <code>README.md</code> 之类实际上没什么用的文件，文件太多了看着很烦，所以都可以直接删了。同时注意需要在 <code>_config.yml</code> 文件的 <code>exclude:</code> 字段下把这些文件名也都一起删掉。</p>
+<p>除此之外 <code>lighthouse_results/</code> 也作用不大，连同 <code>.github/workflows/lighthouse-badger.yml</code> 一起删了。<code>.github/workflows/prettier.yml</code> 以及 <code>prettier-html.yml</code>, <code>prettier-comment-on-pr.yml</code> 对应的 GitHub Action 在网站部署的时候老是报错，但是对网站也没啥影响，也删了。</p>
+<h3 id="文件结构分析">文件结构分析</h3>
+<p>这一点在 <a target="_blank" rel="noopener" href="https://github.com/alshedivat/al-folio/blob/main/CUSTOMIZE.md#project-structure">Project structure</a> 里面有，下面再结合自己修改博客的过程补充一点内容：</p>
+<details class="toggle" ><summary class="toggle-button" style="">项目文件具体结构及其作用</summary><div class="toggle-content"><ul>
+<li>
+<p><code>_bibliography/</code>: 存放学术引用相关文件。</p>
+<ul>
+<li><code>papers.bib</code>: BibTeX 格式的论文列表，网站会自动解析此文件生成 publications 页面。</li>
+</ul>
+</li>
+<li>
+<p><code>_data/</code>: 存放网站的数据文件（YAML 格式），用于动态生成页面内容。</p>
+<ul>
+<li><code>citations.yml</code>: 论文引用数据，不过博客无法实时去爬取 Google Scholar 的数据。通常需要运行一个脚本来生成该文件。平时可以不用。</li>
+<li><code>coauthors.yml</code>: 合作者信息，可以填写其主页链接。效果为在网站生成的论文数据中，如果出现了这些 co-author 的名字，会为这些名字自动生成超链接，跳转到其主页。</li>
+<li><code>cv.yml</code>: 简历数据（如果使用 YAML 生成 CV）。是 <code>assets/json/resume.json</code> 的 fallback。</li>
+<li><code>repositories.yml</code>: GitHub 仓库展示配置。</li>
+<li><code>socials.yml</code>: 社交媒体链接配置。</li>
+<li><code>venues.yml</code>: 会议/期刊全称映射表。效果为在网站生成的论文数据旁边加上一个带颜色的会议/期刊名称标签。如果在 <code>venues.yml</code> 中还写了 <code>url</code> 项，点击标签可以跳转到相应网页。</li>
+</ul>
+</li>
+<li>
+<p><code>_includes/</code>: 存放可复用的 Liquid 模板片段，可以在其他布局或页面中引用。</p>
+</li>
+<li>
+<p><code>_layouts/</code>: 也是 Liquid 模板片段，存放各种页面的 HTML 布局模板。</p>
+</li>
+<li>
+<p><code>_news/</code>: 存放新闻动态的 Markdown 文件。</p>
+<ul>
+<li>这些内容会显示在主页的 “News” 板块。</li>
+</ul>
+</li>
+<li>
+<p><code>_pages/</code>: 存放网站的主要页面（Markdown 格式）。</p>
+<ul>
+<li><code>about.md</code>: 网站首页（About Me）。</li>
+<li><code>cv.md</code>: 简历页面。实际的数据在 <code>assets/json/resume.json</code> 中。</li>
+<li><code>publications.md</code>: 发表论文列表页面。实际的数据在 <code>_bibliography/papers.bib</code> 中。</li>
+<li><code>projects.md</code>: 项目展示页面。</li>
+<li><code>blog.md</code>: 博客索引页。</li>
+<li><code>404.md</code>: 404 错误页。</li>
+</ul>
+</li>
+<li>
+<p><code>_projects/</code>: 存放具体项目的介绍页面（Markdown 格式）。</p>
+<ul>
+<li>每个文件代表一个项目，会显示在 Projects 页面中。</li>
+</ul>
+</li>
+<li>
+<p><code>_sass/</code>: 存放 SCSS 样式文件。</p>
+<ul>
+<li><code>_variables.scss</code>: 定义颜色、字体等变量。</li>
+<li><code>_layout.scss</code>: 布局样式。</li>
+<li><code>_themes.scss</code>: 主题（深色/浅色模式）样式。</li>
+</ul>
+</li>
+<li>
+<p><code>_scripts/</code>: 存放用于页面功能的 JavaScript 脚本（通常是 Liquid 模板生成的 JS）。</p>
+<ul>
+<li><code>google-analytics-setup.js</code>: Google Analytics 设置。</li>
+<li><code>giscus-setup.js</code>: 评论系统设置。</li>
+</ul>
+</li>
+<li>
+<p><code>assets/</code>: 存放静态资源文件。</p>
+<ul>
+<li><code>css</code>, <code>fonts</code>, <code>html</code>, <code>js</code>, <code>webfonts</code>: 目前看起来是比较重要的配置文件，不用动</li>
+<li><code>json</code>：里面有 <code>resume.json</code>，用于生成简历。</li>
+<li>其他：就是一些存放资源的文件夹，需要的话加上就行。</li>
+</ul>
+</li>
+<li>
+<p><code>bin/</code>: 存放维护和部署脚本。</p>
+<ul>
+<li><code>deploy</code>: 部署脚本。</li>
+<li><code>entry_point.sh</code>: Docker 容器启动脚本。</li>
+<li><code>update_scholar_citations.py</code>: 更新 Google Scholar 引用的 Python 脚本。</li>
+</ul>
+</li>
+<li>
+<p><code>_site/</code> (自动生成): Jekyll 构建生成的静态网站目录。此目录下的文件不应直接编辑，因为每次构建都会被覆盖。</p>
+</li>
+<li>
+<p><code>_config.yml</code>: Jekyll 的主配置文件。包含了网站的标题、作者信息、主题设置、插件配置等全局选项。</p>
+</li>
+<li>
+<p><code>docker-compose.yml / docker-compose-slim.yml</code>: Docker 编排文件，用于在本地容器化环境中运行和预览网站。</p>
+</li>
+<li>
+<p><code>Dockerfile</code>: 定义了构建网站所需的 Docker 镜像环境。</p>
+</li>
+<li>
+<p><code>Gemfile</code>: Ruby 依赖定义文件，列出了 Jekyll 及其插件所需的 Ruby gems。</p>
+</li>
+<li>
+<p><code>package.json</code>: Node.js 依赖定义文件，主要用于前端工具或构建脚本。</p>
+</li>
+<li>
+<p><code>requirements.txt</code>: Python 依赖文件，可能用于某些辅助脚本（如更新学术引用）。</p>
+</li>
+<li>
+<p><code>robots.txt</code>: 搜索引擎爬虫协议文件，告诉搜索引擎哪些页面可以抓取。</p>
+</li>
+</ul>
+</div></details>
+<h2 id="导航栏设置外部链接">导航栏设置外部链接</h2>
+<p>由于我自己的博客网址为 <a href="https://zhuxz0299.github.io">https://zhuxz0299.github.io</a>, 利用 Hexo+Butterfly 构建；但是个人主页网址为 <a href="https://zhuxz0299.github.io/my-profile">https://zhuxz0299.github.io/my-profile</a>, 因此博客与 al-folio 主题默认的构建方式不同。如果希望依然能在导航栏设置一个跳转到博客页面的链接，需要对网站配置文件进行一些修改。</p>
+<p>首先将 <code>header.liquid</code> 中 102-103 行原本的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;li class=&quot;nav-item &#123;% if page.url contains parent_link %&#125;active&#123;% endif %&#125;&quot;&gt;</span><br><span class="line">    &#123;%- if p.permalink contains &#x27;://&#x27; -%&#125;</span><br></pre></td></tr></table></figure>
+<p>改为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;li class=&quot;nav-item &#123;% if page.url contains parent_link and p.external_url == nil %&#125;active&#123;% endif %&#125;&quot;&gt;</span><br><span class="line">    &#123;%- if p.external_url -%&#125;</span><br><span class="line">    &#123;%- assign url = p.external_url -%&#125;</span><br><span class="line">    &#123;%- elsif p.permalink contains &#x27;://&#x27; -%&#125;</span><br></pre></td></tr></table></figure>
+<p>以增加对 front matter 中 <code>external_url</code> 词条的支持。同时在 <code>_pages/</code> 文件夹下添加 <code>external_blog.md</code> 文件，内容为</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">layout:</span> <span class="string">page</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">blog</span></span><br><span class="line"><span class="attr">nav:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">nav_order:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">external_url:</span> <span class="string">https://zhuxz0299.github.io/</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p>即可支持点击 blog 按钮跳转到博客网站。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/136bdd49.html">http://zhuxz0299.github.io/posts/136bdd49.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/al-folio/">al-folio</a><a class="post-meta__tags" href="/tags/github-action/">github action</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_186.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text">网站部署与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2"><span class="toc-number">1.1.</span> <span class="toc-text">网站部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95"><span class="toc-number">1.2.</span> <span class="toc-text">本地调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">网站设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%AB%99%E7%B2%BE%E7%AE%80"><span class="toc-number">2.1.</span> <span class="toc-text">网站精简</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="toc-number">2.2.</span> <span class="toc-text">文件结构分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E8%88%AA%E6%A0%8F%E8%AE%BE%E7%BD%AE%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5"><span class="toc-number">3.</span> <span class="toc-text">导航栏设置外部链接</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
