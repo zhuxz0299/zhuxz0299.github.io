@@ -177,7 +177,7 @@ $\forall \alpha, \beta \in fix(H)$，$\forall \sigma \in H$：
 1. **首先证明是满射**：
     对于 $\forall q\in cl(Q)$，有 $q = cl(q) = q'^{*}$，即总能找到 $q'\in P$ 使得 $(q')^{*} = q$，是满射。
 2. **然后证明是单射**
-    $\forall p_1, p_2 \in cl(P)$，考虑 $p_1^{*} = p_2^{*}$，可以推得 $p^{*\prime} = q^{*\prime} \Rightarrow p = q$，是单射。
+    $\forall p_1, p_2 \in cl(P)$，考虑 $p_1^{*} = p_2^{*}$，可以推得 $p_1^{*\prime} = p_2^{*\prime} \Rightarrow p_1 = p_2$，是单射。
 3.  **最后验证互为逆映射**
     显然有 $\Pi \circ \Omega = \Omega \circ \Pi = \iota$
 (证毕。)
