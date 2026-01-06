@@ -1,3 +1,7 @@
+http://zhuxz0299.github.io/posts/66767fa.html
+http://zhuxz0299.github.io/posts/253f8bf0.html
+http://zhuxz0299.github.io/posts/9928515a.html
+http://zhuxz0299.github.io/posts/3d2c8e8d.html
 http://zhuxz0299.github.io/posts/136bdd49.html
 http://zhuxz0299.github.io/posts/49f1e1db.html
 http://zhuxz0299.github.io/posts/5901a609.html
@@ -6,7 +10,6 @@ http://zhuxz0299.github.io/posts/6834d799.html
 http://zhuxz0299.github.io/posts/3d9bb40a.html
 http://zhuxz0299.github.io/posts/f51eef37.html
 http://zhuxz0299.github.io/posts/7ddfa635.html
-http://zhuxz0299.github.io/posts/66767fa.html
 http://zhuxz0299.github.io/posts/b12c7e4b.html
 http://zhuxz0299.github.io/posts/91c6fd1a.html
 http://zhuxz0299.github.io/posts/541d1b4c.html
@@ -114,8 +117,6 @@ http://zhuxz0299.github.io/posts/9ab684ad.html
 http://zhuxz0299.github.io/posts/3dade04d.html
 http://zhuxz0299.github.io/posts/9710e17d.html
 http://zhuxz0299.github.io/posts/757571af.html
-http://zhuxz0299.github.io/posts/253f8bf0.html
-http://zhuxz0299.github.io/posts/9928515a.html
 http://zhuxz0299.github.io/posts/b085148b.html
 http://zhuxz0299.github.io/posts/d6c74530.html
 http://zhuxz0299.github.io/posts/19bfb1b0.html
@@ -127,7 +128,6 @@ http://zhuxz0299.github.io/posts/c43d02cd.html
 http://zhuxz0299.github.io/posts/f353ec85.html
 http://zhuxz0299.github.io/posts/c1a34926.html
 http://zhuxz0299.github.io/posts/e7de792c.html
-http://zhuxz0299.github.io/posts/3d2c8e8d.html
 http://zhuxz0299.github.io/posts/a319889c.html
 http://zhuxz0299.github.io/posts/3fd6625d.html
 http://zhuxz0299.github.io/posts/178d1853.html
@@ -274,6 +274,7 @@ http://zhuxz0299.github.io/tags/%E5%B1%B1%E5%9C%B0%E8%BD%A6/
 http://zhuxz0299.github.io/tags/%E8%BD%AE%E7%BB%84/
 http://zhuxz0299.github.io/tags/computer-graphics/
 http://zhuxz0299.github.io/tags/%E7%94%B5%E8%B7%AF%E7%90%86%E8%AE%BA/
+http://zhuxz0299.github.io/tags/blog/
 http://zhuxz0299.github.io/categories/Dev-Tools/
 http://zhuxz0299.github.io/categories/AI-Machine-Learning/
 http://zhuxz0299.github.io/categories/Dev-Tools/Makefile/
