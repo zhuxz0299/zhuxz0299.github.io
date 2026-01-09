@@ -69,7 +69,7 @@ $$
 但这是个NP难问题，同时这个方法无法区分错误的程度。比如有的点只差一点，有的点差很多，这应该要区别对待。
 
 ### Soft-margin SVM
-我们引入松弛变脸 $\xi_{j}$，其中 $\xi$ 的取值与某个数据点的错误程度相关。那么模型写为：
+我们引入松弛变量 $\xi_{j}$，其中 $\xi$ 的取值与某个数据点的错误程度相关。那么模型写为：
 $$\begin{aligned}
 &&\min_{\boldsymbol{w},\boldsymbol{b},\boldsymbol{\xi}_j}\boldsymbol{w}\cdot\boldsymbol{w}+C\sum_j\xi_j \\
 &&\begin{aligned}\operatorname{s.t.}(\boldsymbol{w}\cdot\boldsymbol{x}_j+b)y_j\geq1-\xi_j\quad\forall j\end{aligned}\\
