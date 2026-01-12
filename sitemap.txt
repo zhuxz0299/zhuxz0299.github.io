@@ -1,3 +1,4 @@
+http://zhuxz0299.github.io/posts/ae6ce9cc.html
 http://zhuxz0299.github.io/posts/1bfa0334.html
 http://zhuxz0299.github.io/posts/5c470531.html
 http://zhuxz0299.github.io/posts/e292886a.html
@@ -275,6 +276,9 @@ http://zhuxz0299.github.io/tags/%E8%BD%AE%E7%BB%84/
 http://zhuxz0299.github.io/tags/computer-graphics/
 http://zhuxz0299.github.io/tags/%E7%94%B5%E8%B7%AF%E7%90%86%E8%AE%BA/
 http://zhuxz0299.github.io/tags/blog/
+http://zhuxz0299.github.io/tags/tailscale/
+http://zhuxz0299.github.io/tags/nat/
+http://zhuxz0299.github.io/tags/vpn/
 http://zhuxz0299.github.io/categories/Dev-Tools/
 http://zhuxz0299.github.io/categories/AI-Machine-Learning/
 http://zhuxz0299.github.io/categories/Dev-Tools/Makefile/

@@ -1,0 +1,382 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Tailscale工作原理与NAT穿透 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Tailscale 的工作原理 内容来自 Tailscale 官网博客 How Tailscale works  数据平面：WireGuard Tailscale 的基础层是 WireGuard 包。WireGuard 能在用户的计算机、虚拟机或容器（WireGuard 称之为“端点(endpoint)”，Tailscale 称之为“节点(node)”）与网络中任何其他节点之间建立一套极其轻量级的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tailscale工作原理与NAT穿透">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/ae6ce9cc.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="Tailscale 的工作原理 内容来自 Tailscale 官网博客 How Tailscale works  数据平面：WireGuard Tailscale 的基础层是 WireGuard 包。WireGuard 能在用户的计算机、虚拟机或容器（WireGuard 称之为“端点(endpoint)”，Tailscale 称之为“节点(node)”）与网络中任何其他节点之间建立一套极其轻量级的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_187.webp">
+<meta property="article:published_time" content="2026-01-10T08:42:06.000Z">
+<meta property="article:modified_time" content="2026-01-12T15:14:35.162Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="nat">
+<meta property="article:tag" content="tailscale">
+<meta property="article:tag" content="vpn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_187.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Tailscale工作原理与NAT穿透",
+  "url": "http://zhuxz0299.github.io/posts/ae6ce9cc.html",
+  "image": "https://source.fomal.cc/img/default_cover_187.webp",
+  "datePublished": "2026-01-10T08:42:06.000Z",
+  "dateModified": "2026-01-12T15:14:35.162Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/ae6ce9cc.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Tailscale工作原理与NAT穿透',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">187</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">88</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_187.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Tailscale工作原理与NAT穿透</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Tailscale工作原理与NAT穿透</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-10T08:42:06.000Z" title="发表于 2026-01-10 16:42:06">2026-01-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-12T15:14:35.162Z" title="更新于 2026-01-12 23:14:35">2026-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/">System &amp; Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/Network-Practice/">Network Practice</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Tailscale-的工作原理">Tailscale 的工作原理</h2>
+<div class="note info flat"><p>内容来自 Tailscale 官网博客 <a target="_blank" rel="noopener" href="https://tailscale.com/blog/how-tailscale-works">How Tailscale works</a></p>
+</div>
+<h3 id="数据平面：WireGuard">数据平面：WireGuard</h3>
+<p>Tailscale 的基础层是 WireGuard 包。WireGuard 能在用户的计算机、虚拟机或容器（WireGuard 称之为“端点(endpoint)”，Tailscale 称之为“节点(node)”）与网络中任何其他节点之间建立一套极其轻量级的加密隧道。</p>
+<p>下面讨论一下数据平面组织的拓扑结构</p>
+<h4 id="星型网络-hub-and-spoke-networks">星型网络 (hub-and-spoke networks)</h4>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image.png" width=500 style="display: block; margin-left: auto; margin-right: auto;">
+<ul>
+<li>中心节点 (hub node) 通常拥有静态 IP 地址，并在防火墙上开放端口，便于所有节点访问。随后它可以接收来自其他 IP 地址节点的传入连接——即使这些节点本身位于防火墙之后——这种方式与客户端-服务器互联网协议的常规工作原理一致。</li>
+<li>优点：需要连接的节点对比较少，并且由于中心节点有静态 IP、开放防火墙特定端口，因此便于实现节点间通信。</li>
+<li>缺点：这种传统配置难以扩展。首先，远程用户与 VPN 集中器的距离可能较远；若距离过远，连接时将产生高延迟。其次，他们需要访问的数据中心可能也远离 VPN 集中器；若距离遥远，则再次产生高延迟。<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-1.png" width=500 style="display: block; margin-left: auto; margin-right: auto;"></li>
+</ul>
+<h4 id="网状网络-mesh-networks">网状网络 (mesh networks)</h4>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-2.png" width=500 style="display: block; margin-left: auto; margin-right: auto;">
+<ul>
+<li>WireGuard 隧道非常轻量级，可以支持构建这样的网络。</li>
+<li>优点：节点直接之间通信比较优雅。</li>
+<li>缺点：
+<ul>
+<li>需要配置非常多密钥对：这个问题由下一节的登录认证解决。</li>
+<li>用户设备通常没有静态 IP 地址，可能随时移动（IP 地址变化），并且防火墙不是随时都方便打开的：这个问题由 NAT 穿透与 DERP 解决。</li>
+</ul>
+</li>
+</ul>
+<h3 id="控制平面：密钥交换与协调">控制平面：密钥交换与协调</h3>
+<p>简而言之，有一个协调服务器（就是登录 Tailscale 的网站 <a target="_blank" rel="noopener" href="http://login.tailscale.com">login.tailscale.com</a>）充当用于公钥交换的共享投递箱：</p>
+<ol>
+<li>每个节点会为自己生成一对随机的公钥/私钥，并将公钥与其身份标识相关联（详见下文登录部分）。</li>
+<li>节点联系协调服务器，留下其公钥以及关于该节点当前可被找到的位置及其所属域的记录。</li>
+<li>节点下载其域内的公钥和地址列表，这些信息由其他节点留在协调服务器上。</li>
+<li>节点使用适当的公钥集配置其 WireGuard 实例。</li>
+</ol>
+<h4 id="登录与双重认证（2FA）">登录与双重认证（2FA）</h4>
+<p>公钥的管理与 ssh 类似：用户无需对自己的 ssh 公钥保密，但选择将哪些公钥放入 <code>authorized_keys</code> 文件中很重要。因此协调服务器将哪些公钥发送给哪些节点这件事情需要身份认证，Tailscale 将身份验证的工作外包给 OAuth2、OIDC（OpenID Connect）或 SAML 提供商。身份提供商维护着用户账户下的用户列表、密码、双因素认证（2FA）设置等信息。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-3.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h4 id="NAT-穿透">NAT 穿透</h4>
+<div class="note default flat"><p>这里仅进行简单解释，详细信息在后面的 NAT 穿透的工作原理部分。</p>
+</div>
+<p>由于通常用户没有静态 IP 地址（就是在 NAT）后面，并且不太可能为 WireGuard 流量开放防火墙端口。为此，Tailscale 采用了基于互联网 STUN 和 ICE 标准的多种先进技术，使得用户在 NAT 阻隔的情况下也能实现 p2p 连接，并且避免了防火墙额外配置开放端口的需求。</p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-4.png" width=450 style="display: block; margin-left: auto; margin-right: auto;">
+<h4 id="加密的-TCP-中继（DERP）">加密的 TCP 中继（DERP）</h4>
+<p>某些特别严苛的网络会完全封锁 UDP 协议，以至于单纯依靠 STUN 和 ICE 技术无法实现穿透。为此，Tailscale 部署了名为 DERP（数据包专用加密中继）的服务器网络，简而言之就是穿透失败的话就让流量走中转服务器。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-5.png" width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h2 id="NAT-穿透的工作原理">NAT 穿透的工作原理</h2>
+<div class="note info flat"><p>内容来自 Tailscale 官网博客 <a target="_blank" rel="noopener" href="https://tailscale.com/blog/how-nat-traversal-works">How NAT traversal works</a></p>
+</div>
+<p>实现 NAT 穿透有两个基本条件：</p>
+<ul>
+<li>协议应基于 UDP（利用了 UDP 不需要握手的性质，从而让 NAT 背后的两台设备有同时开放 UDP 端口的机会）</li>
+<li>用户需要直接控制用于发送和接收网络数据包的网络套接字</li>
+</ul>
+<p>然后需要解决两大障碍：有状态防火墙和 NAT 设备。</p>
+<h3 id="状态防火墙的工作原理">状态防火墙的工作原理</h3>
+<p>这里的“防火墙”包含两层：</p>
+<ul>
+<li>NAT 设备（通常是路由器）本身具备流量过滤功能</li>
+<li>电脑上安装的 Windows Defender 防火墙、Ubuntu 的 ufw（使用 iptables/nftables）、BSD 的 pf（macOS 也采用）以及 AWS 的安全组之类的软件。</li>
+</ul>
+<p>电脑上的防火墙都具有高度可配置性，但最常见的配置是允许所有&quot;出站&quot;连接并阻止所有&quot;入站&quot;连接。状态防火墙能够记住之前见过的数据包，并利用这些信息来决定如何处理新到达的数据包。</p>
+<p>对于 UDP，规则为：防火墙在遇到一个入站的 UDP 数据包时，会检查这个数据包是否能对应上之前的某个出站数据包，如果能对应上，则允许该入站数据包进入。例如，如果笔记本从 <code>2.2.2.2:1234</code> 端口发送了一个 UDP 数据包到 <code>5.5.5.5:5678</code> 端口，这个通信过程会被记录；后续如果遇到来自 <code>5.5.5.5:5678</code> 并且发向 <code>2.2.2.2:1234</code> 的数据包，则允许传入。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-6.png" width=500 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h4 id="防火墙启动">防火墙启动</h4>
+<div class="note default flat"><p>标题的原文叫做“Firewall face-off”，其中 face-off 在这里可以理解成冰球比赛的开球。这个标题想表达的意思是：两个设备分别在自己的防火墙后面时，如何开启 UDP 通信？</p>
+</div>
+<p>利用前面讲到的防火墙对 UDP 的规则，已经可以实现一个 hub-and-spoke 的网络：作为 hub 的服务器有公网 IP，并且在防火墙上开放了对应端口，因此其他的 Client 能否方便地和 hub 建立连接，从而通过这个中转实现通信。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-7.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<p>但是问题在于 Tailscale 希望构建任意两个 Client 都能 p2p 互联的网络，但是这个时候就遇到了问题：两个设备都不知道对方的 IP 以及在防火墙上对应的端口，因此不知道应该如何启动这个 UDP 通信过程。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-8.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></p>
+<h4 id="巧妙应对棘手的防火墙">巧妙应对棘手的防火墙</h4>
+<p>为了让对等节点提前知晓对方使用的 <code>ip:port</code>，Tailscale 利用了一个协调服务器：只要两个 NAT 背后的设备都向协调服务器发送数据，那就可以获知它们向外通信的 <code>ip:port</code>。</p>
+<p>接下来需要构架两个节点之间的 UDP 连接：对等节点开始互相发送 UDP 数据包，并且可以预料到部分数据包会丢失，不过这些数据包也不用携带重要信息。</p>
+<p>假设两个节点分别为笔记本电脑和工作站，具体的构建流程为：</p>
+<ol>
+<li>笔记本电脑发出的首个数据包，从 <code>2.2.2.2:1234</code> 发往 <code>7.7.7.7:5678</code>，经过 Windows Defender 防火墙并传输至互联网。另一端的公司防火墙因无 <code>7.7.7.7:5678</code> 与 <code>2.2.2.2:1234</code> 通信记录而拦截该数据包。但此刻 Windows Defender 已记住：需预期并允许来自 <code>7.7.7.7:5678</code> 发往 <code>2.2.2.2:1234</code> 的响应数据包。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-9.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></li>
+<li>接下来，工作站的第一个数据包从 <code>7.7.7.7:5678</code> 发送至 <code>2.2.2.2:1234</code> 通过企业防火墙并穿越互联网。当它到达笔记本电脑时，Windows Defender 认为“啊，这是对我之前看到的那个出站请求的响应”，于是放行该数据包。此外，企业防火墙现在会记住，它应该期待从 <code>2.2.2.2:1234</code> 到 <code>7.7.7.7:5678</code> 的响应，并且这些数据包也是允许通过的。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-10.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></li>
+<li>收到来自工作站的包后，笔记本电脑受到激励，发送另一个包返回。它穿过 Windows Defender 防火墙，经过企业防火墙（因为这是对先前发送包的“响应”），最终抵达工作站。双向连接成功建立。<br>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/Tailscale工作原理与NAT穿透/image-11.png" width=600 style="display: block; margin-left: auto; margin-right: auto;"></li>
+</ol>
+<div class="note default flat"><p>在上面的流程中，电脑防火墙 + NAT 防火墙似乎是被直接整合到了一起，当成一个防火墙来看。不过这个也不会影响分析结果。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/ae6ce9cc.html">http://zhuxz0299.github.io/posts/ae6ce9cc.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/tailscale/">tailscale</a><a class="post-meta__tags" href="/tags/nat/">nat</a><a class="post-meta__tags" href="/tags/vpn/">vpn</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_187.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tailscale-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">Tailscale 的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2%EF%BC%9AWireGuard"><span class="toc-number">1.1.</span> <span class="toc-text">数据平面：WireGuard</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%9F%E5%9E%8B%E7%BD%91%E7%BB%9C-hub-and-spoke-networks"><span class="toc-number">1.1.1.</span> <span class="toc-text">星型网络 (hub-and-spoke networks)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%91%E7%8A%B6%E7%BD%91%E7%BB%9C-mesh-networks"><span class="toc-number">1.1.2.</span> <span class="toc-text">网状网络 (mesh networks)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2%EF%BC%9A%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2%E4%B8%8E%E5%8D%8F%E8%B0%83"><span class="toc-number">1.2.</span> <span class="toc-text">控制平面：密钥交换与协调</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E4%B8%8E%E5%8F%8C%E9%87%8D%E8%AE%A4%E8%AF%81%EF%BC%882FA%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">登录与双重认证（2FA）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NAT-%E7%A9%BF%E9%80%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">NAT 穿透</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E7%9A%84-TCP-%E4%B8%AD%E7%BB%A7%EF%BC%88DERP%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">加密的 TCP 中继（DERP）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT-%E7%A9%BF%E9%80%8F%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">NAT 穿透的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">状态防火墙的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E5%90%AF%E5%8A%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">防火墙启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A7%E5%A6%99%E5%BA%94%E5%AF%B9%E6%A3%98%E6%89%8B%E7%9A%84%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">2.1.2.</span> <span class="toc-text">巧妙应对棘手的防火墙</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
