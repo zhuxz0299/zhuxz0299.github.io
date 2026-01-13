@@ -70,14 +70,19 @@ Tailscale 的基础层是 WireGuard 包。WireGuard 能在用户的计算机、�
 
 实现 NAT 穿透有两个基本条件：
 * 协议应基于 UDP（利用了 UDP 不需要握手的性质，从而让 NAT 背后的两台设备有同时开放 UDP 端口的机会）
-* 用户需要直接控制用于发送和接收网络数据包的网络套接字
+* 用户需要直接控制用于发送和接收网络数据包的网络套接字（和后面 STUN 协议相关）
+  * 套接字就是“IP地址 + 端口号 + 协议（TCP/UDP）”的组合，如果向 STUN 服务器发送请求用的套接字和后续向另一个节点通信用的套接字不同，那么在公网上就不能得到一个稳定的 `ip:port`。
 
 然后需要解决两大障碍：有状态防火墙和 NAT 设备。
 
-### 状态防火墙的工作原理
-这里的“防火墙”包含两层：
+用户设备的“有状态防火墙”其实通常包含两层：
 * NAT 设备（通常是路由器）本身具备流量过滤功能
 * 电脑上安装的 Windows Defender 防火墙、Ubuntu 的 ufw（使用 iptables/nftables）、BSD 的 pf（macOS 也采用）以及 AWS 的安全组之类的软件。
+
+### 状态防火墙的工作原理
+{% note default %}
+这一部分暂时先不考虑 NAT，先直接认为两个节点在公网上都有一个 `ip:port` 对。
+{% endnote %}
 
 电脑上的防火墙都具有高度可配置性，但最常见的配置是允许所有"出站"连接并阻止所有"入站"连接。状态防火墙能够记住之前见过的数据包，并利用这些信息来决定如何处理新到达的数据包。
 
@@ -96,7 +101,7 @@ Tailscale 的基础层是 WireGuard 包。WireGuard 能在用户的计算机、�
 <img src='../../figure/Tailscale工作原理与NAT穿透/image-8.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
 
 #### 巧妙应对棘手的防火墙
-为了让对等节点提前知晓对方使用的 `ip:port`，Tailscale 利用了一个协调服务器：只要两个 NAT 背后的设备都向协调服务器发送数据，那就可以获知它们向外通信的 `ip:port`。
+为了让对等节点提前知晓对方使用的 `ip:port`，Tailscale 可以继续利用协调服务器：协调服务器可以用来给各个设备之间交换密钥，那么也可以用来交换 `ip:port` 信息。
 
 接下来需要构架两个节点之间的 UDP 连接：对等节点开始互相发送 UDP 数据包，并且可以预料到部分数据包会丢失，不过这些数据包也不用携带重要信息。
 
@@ -108,6 +113,40 @@ Tailscale 的基础层是 WireGuard 包。WireGuard 能在用户的计算机、�
 3. 收到来自工作站的包后，笔记本电脑受到激励，发送另一个包返回。它穿过 Windows Defender 防火墙，经过企业防火墙（因为这是对先前发送包的“响应”），最终抵达工作站。双向连接成功建立。
   <img src='../../figure/Tailscale工作原理与NAT穿透/image-11.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
 
-{% note default %}
-在上面的流程中，电脑防火墙 + NAT 防火墙似乎是被直接整合到了一起，当成一个防火墙来看。不过这个也不会影响分析结果。
-{% endnote %}
+#### 创建连接注意事项
+上述连接想要建立，需要两个端点必须大致在同一时间尝试通信，以便在双方仍在线时所有中间防火墙都能开放。一种方法是让对等方持续重试，但这很浪费资源，因此希望双方都知道在同一时间开始建立连接。
+
+在 Tailscale 中，协调服务器与 DERP（Detour Encrypted Routing Protocol，迂回加密路由协议）服务器共同构成旁路信道系统，用于帮助两个节点同时尝试通信。
+
+除此之外，状态防火墙的内存有限，如果一段时间内未检测到数据包（UDP 的常见超时值为 30 秒），防火墙会忘记该会话。这意味着节点之间需要定期通信以保持连接活跃，比如使用计时器定期发送数据包，或者通过某种带外方式按需重新启动连接。
+
+### NAT 的本质
+可以将 NAT（Network Address Translator，网络地址转换）设备视为带有额外烦人功能的状态防火墙：除了所有状态防火墙的功能外，它们还会在数据包通过时修改其内容。
+
+#### 穿越 NAT 网络
+NAT 被用来解决私有 IP 无法在互联网访问数据的问题：比如用户的笔记本希望从 `192.168.0.20:1234` 发送数据到 `7.7.7.7:5678`，由于前者是私有 IP，因此提供 NAT 的机器会从其公网 IP 地址中选取一个未使用的 UDP 端口（以 `2.2.2.2:4242` 为例），并创建 NAT 映射来建立对应关系：局域网侧的 `192.168.0.20:1234` 等同于互联网侧的 `2.2.2.2:4242`。
+<img src='../../figure/Tailscale工作原理与NAT穿透/image-12.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+
+#### STUN 协议研究
+如果两个对等节点都在 NAT 背后，那么面临的问题比仅仅有状态防火墙更麻烦：在对方发送数据包之前，根本不存在 `ip:port` 映射，因为 NAT 映射仅在向互联网发送出站流量时才会创建。这就导致双方都需要先发送数据，但彼此都不知道该向谁发送，且必须等到对方先发送数据才能确定目标。
+
+这个时候可以利用 STUN 协议来帮助解决这个问题。STUN 协议的工作是：用户设备向 STUN 服务器发送一个“从你的视角看，我的终端地址是什么？”的请求，服务器则回复“这是我看到你的 UDP 数据包来源的 `ip:port`”。这样就获得了双方设备在公网上的 `ip:port` 对。
+<img src='../../figure/Tailscale工作原理与NAT穿透/image-13.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+
+#### 不同的 NAT 设备
+前面在借助 STUN 协议的时候其实用到了一个假设：当 STUN 服务器告诉节点其 `ip:port` 为 `2.2.2.2:4242` 时，整个互联网都会将节点视为 `2.2.2.2:4242`。从这一角度来看，任何人都可以通过 `2.2.2.2:4242` 访问 NAT 后的节点。
+
+但是某些 NAT 比较复杂，当通信目标不同时，它们会创建不同的 NAT 映射，导致前面的假设失效。如下图所示
+<img src='../../figure/Tailscale工作原理与NAT穿透/image-14.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
+
+不同的 NAT 可以依据防火墙和 NAT 映射策略分成如下几类：
+
+| | Endpoint-Independent NAT mapping | Endpoint-Dependent NAT mapping (all types) |
+| :--- | :--- | :--- |
+| **Endpoint-Independent firewall** | 全锥型 NAT <br>(Full Cone NAT) | N/A* |
+| **Endpoint-Dependent firewall**<br>(dest. IP only) | 受限锥型 NAT <br>(Restricted Cone NAT) | N/A* |
+| **Endpoint-Dependent firewall**<br>(dest. IP+port) | 端口受限圆锥型 NAT <br>(Port-Restricted Cone NAT) |  对称型 NAT <br>(Symmetric NAT) |
+
+\* *理论上可能存在，但在实际中不会出现*
+
+不过对于 NAT 穿透的难度来说，实际上只用关心 NAT 的映射策略。因此只有对称性 NAT 会对 NAT 穿透产生巨大的难度。
