@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Clash Verge rev 使用与配置 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="介绍 Clash 配置文件的部分写法以及 Clash Verge rev 软件使用时需要注意的一点问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clash Verge rev 使用与配置">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/9b558b7c.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="介绍 Clash 配置文件的部分写法以及 Clash Verge rev 软件使用时需要注意的一点问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_188.webp">
+<meta property="article:published_time" content="2026-01-17T11:11:10.000Z">
+<meta property="article:modified_time" content="2026-01-17T14:07:03.440Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="clash">
+<meta property="article:tag" content="proxy">
+<meta property="article:tag" content="software">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_188.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Clash Verge rev 使用与配置",
+  "url": "http://zhuxz0299.github.io/posts/9b558b7c.html",
+  "image": "https://source.fomal.cc/img/default_cover_188.webp",
+  "datePublished": "2026-01-17T11:11:10.000Z",
+  "dateModified": "2026-01-17T14:07:03.440Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/9b558b7c.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Clash Verge rev 使用与配置',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">188</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_188.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Clash Verge rev 使用与配置</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Clash Verge rev 使用与配置</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-17T11:11:10.000Z" title="发表于 2026-01-17 19:11:10">2026-01-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-17T14:07:03.440Z" title="更新于 2026-01-17 22:07:03">2026-01-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/">Dev Tools</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/Software/">Software</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="名词解释">名词解释</h2>
+<div class="note info flat"><p>来自 <a target="_blank" rel="noopener" href="https://www.clashverge.dev/guide/term.html">Clash Verge Rev Docs</a></p>
+</div>
+<h3 id="系统代理-Tun-模式">系统代理 / Tun 模式</h3>
+<p>系统代理：</p>
+<ul>
+<li>说明
+<ol>
+<li>代理程序会在系统“约定”的特定位置（如注册表、系统变量等）<strong>设置好代理程序监听请求的端口信息</strong>，进行网络请求的应用会自发性地尝试读取这部分信息，并将请求发送至代理程序。不同操作系统的“约定”方式各异。</li>
+<li>系统代理更像是一种行业内的“约定”，并非所有程序都遵守这种非强制性的“约定”，最终采取哪种方式发生请求往往取决于开发人员的意愿。（就比如说 Chrome, Firefox 等浏览器可能默认会走系统代理，但是命令行的一些工具则需要单独配置代理。）</li>
+</ol>
+</li>
+<li>特点
+<ol>
+<li>具有自发性，网络请求程序尝试使用“约定”配置或使用网络请求程序里额外指定的配置。</li>
+<li>不能代理UDP流量（如游戏数据包）。</li>
+</ol>
+</li>
+</ul>
+<p>Tun 模式（实现透明代理的一种重要方式）</p>
+<ul>
+<li>说明
+<ul>
+<li>代理程序会创建一张虚拟网卡，通过<strong>配置操作系统的路由</strong>将网络请求重定向到这张虚拟网卡，代理程序从虚拟网卡中读取并处理这些网络请求。</li>
+</ul>
+</li>
+<li>特点
+<ol>
+<li>拦截和处理所有流量(TCP/UDP)重定向到本地的代理程序。</li>
+<li>网络请求程序无需额外配置。</li>
+</ol>
+</li>
+</ul>
+<h3 id="Meta-内核">Meta 内核</h3>
+<p>一般指 Clash Meta，也称 <code>Meta</code>、 <code>Mihomo</code> 内核。区别于 <code>Clash Premium</code> <code>为闭源内核，Mihomo</code> 为开源内核。</p>
+<h3 id="CFW">CFW</h3>
+<p>一般指 Clash For Windows，是一款的基于 <code>Clash Premium</code> 内核的全平台代理软件（虽然叫做 For Windows）。2023 年 11 月 2 日宣布停止更新，并删除发布仓库。</p>
+<h2 id="使用注意事项">使用注意事项</h2>
+<div class="note primary flat"><p>以下讨论基于的 Clash Verge rev 版本为 v2.4.0。</p>
+</div>
+<h3 id="配置文件">配置文件</h3>
+<h4 id="修改配置文件">修改配置文件</h4>
+<p>虽然通过“设置”-“Verge 高级设置”-“配置目录”可以打开一个有很多配置文件的目录，但是这里面的文件是会在订阅更新的时候自动更新的，所以不要在这里面修改配置。</p>
+<p>如果需要修改配置，比较直接的方式是在“订阅”中找到目前在用的订阅，然后右键并点击“编辑文件”，在这个配置文件里进行修改。需要修改的内容比较多的话，也可以重新写一个 <code>.yaml</code> 文件上传。</p>
+<h4 id="上传配置文件">上传配置文件</h4>
+<p>不知道是不是软件 bug，有时候配置文件无论是通过拖动还是点击“新建”都无法上传到软件中，这个时候关闭软件重新打开自己好了。</p>
+<h3 id="Gemini-代理">Gemini 代理</h3>
+<p>尝试过 blackmatrix7 的 <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml">Gemini 代理规则</a>，会遇到 <code>ip A≠B</code> 这种问题。已经有用户提出了 <a target="_blank" rel="noopener" href="https://github.com/blackmatrix7/ios_rule_script/issues/1600">issue</a>，但是依照 issue 里的方法依然会遇到这个问题。</p>
+<p>最后没招了，只能把 <code>www.google.com</code> 加到 Gemini 代理组里面。</p>
+<h2 id="配置文件-2">配置文件</h2>
+<p>目前参考的是 <a target="_blank" rel="noopener" href="https://github.com/Rabbit-Spec/Clash">Rabbit-Spec</a> 的配置文件，除此之外还有一个 <a target="_blank" rel="noopener" href="https://gist.github.com/dahaha-365/0b8beb613f8d1ee656fe1f21e1a07959">lazy_script.js</a> 挺全面的，以后可以试试。</p>
+<h3 id="语法基础">语法基础</h3>
+<p>首先 yaml 是 json 的超集，所以配置文件中会出现一些 json 语法</p>
+<p>其次 yaml 中有一个语法会在配置文件中经常使用：“锚点”（Anchor <code>&amp;</code>）和“引用”（Alias <code>*</code>），加上经常配合使用的“合并”（Merge <code>&lt;&lt;</code>）。</p>
+<p>举例：</p>
+<ul>
+<li><code>&amp;</code> 锚点 (Anchor) —— 定义变量<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 就像编程里的：var my_setting = &#123; interval: 300, url: &#x27;...&#x27; &#125;</span></span><br><span class="line"><span class="string">基本设置:</span> <span class="meta">&amp;my_setting</span></span><br><span class="line">  <span class="attr">interval:</span> <span class="number">300</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">&quot;http://google.com&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><code>*</code> 引用 (Alias) —— 使用变量<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 就像编程里的：use(my_setting)</span></span><br><span class="line"><span class="string">下载任务:</span></span><br><span class="line">  <span class="string">*my_setting</span>  <span class="comment"># &lt;--- 这里等同于把上面那两行直接写在这里</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><code>&lt;&lt;</code> 合并 (Merge Key) —— 继承并修改<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">下载任务2:</span></span><br><span class="line">  <span class="string">&lt;&lt;:</span> <span class="string">*my_setting</span>  <span class="comment"># 先继承上面的 interval: 300 和 url</span></span><br><span class="line">  <span class="attr">interval:</span> <span class="number">600</span>    <span class="comment"># 然后把 interval 改成 600 (覆盖)</span></span><br><span class="line">  <span class="attr">new_item:</span> <span class="literal">true</span>   <span class="comment"># 再加个新属性</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="多订阅链接">多订阅链接</h3>
+<p>在 <code>proxy-providers</code> 底下加上多个 provider，就能把多个机场的节点放到一起来用。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">proxies:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 锚点 - 节点订阅的参数</span></span><br><span class="line"><span class="attr">NodeParam:</span> <span class="string">&amp;NodeParam</span> &#123;<span class="attr">type:</span> <span class="string">http</span>, <span class="attr">interval:</span> <span class="number">86400</span>, <span class="attr">health-check:</span> &#123;<span class="attr">enable:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://connectivitycheck.gstatic.com/generate_204&#x27;</span>, <span class="attr">interval:</span> <span class="number">60</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 锚点 - 节点订阅 (在这里填你的机场链接)</span></span><br><span class="line"><span class="attr">proxy-providers:</span> </span><br><span class="line">  <span class="attr">provider1:</span></span><br><span class="line">    <span class="attr">url:</span>  <span class="comment"># 订阅链接</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*NodeParam</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&#x27;./proxy_provider/Provider1.yaml&#x27;</span></span><br><span class="line">  <span class="attr">provider2:</span></span><br><span class="line">    <span class="attr">url:</span>  <span class="comment"># 订阅链接2</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*NodeParam</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&#x27;./proxy_provider/Provider2.yaml&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="节点筛选">节点筛选</h3>
+<p>如果机场管理员给各个节点提供了比较规范的名字，那么可以使用一些筛选逻辑进行筛选。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 锚点 - 节点筛选组</span></span><br><span class="line"><span class="attr">FilterHK:</span> <span class="string">&amp;FilterHK</span> <span class="string">&#x27;^(?=.*((?i)🇭🇰|香港|(\b(HK|Hong)\b))).*$&#x27;</span></span><br><span class="line"><span class="attr">FilterJP:</span> <span class="string">&amp;FilterJP</span> <span class="string">&#x27;^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|Japan)\b))).*$&#x27;</span></span><br><span class="line"><span class="comment"># ... 太长了，中间省略一部分</span></span><br><span class="line"><span class="attr">FilterAll:</span> <span class="string">&amp;FilterAll</span> <span class="string">&#x27;^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author)\b|(\d&#123;4&#125;-\d&#123;2&#125;-\d&#123;2&#125;|\d+G)))).*$&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="策略组">策略组</h3>
+<p>下面的部分决定了软件的“代理”栏最后呈现出来的是怎样的。</p>
+<p>首先最底下的部分就利用了节点筛选规则，把名字为不同国家的节点筛选到不同的策略组里面，例如 <code>&#123;name: 🇭🇰 香港节点, &lt;&lt;: *FallBack, filter: *FilterHK&#125;</code>，这个策略组由于使用了预定义 <code>*FallBack</code>，其中包含 <code>type: fallback</code>，因此会自动选择延时最短的节点，无法手动选择。</p>
+<p>如果希望在软件的“代理”栏中可以手动选择，那应当设置 <code>type: select</code>。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 锚点 - 故障转移参数</span></span><br><span class="line"><span class="attr">FallBack:</span> <span class="string">&amp;FallBack</span> &#123;<span class="attr">type:</span> <span class="string">fallback</span>, <span class="attr">interval:</span> <span class="number">10</span>, <span class="attr">lazy:</span> <span class="literal">true</span>, <span class="attr">url:</span> <span class="string">&#x27;http://connectivitycheck.gstatic.com/generate_204&#x27;</span>, <span class="attr">disable-udp:</span> <span class="literal">false</span>, <span class="attr">timeout:</span> <span class="number">3000</span>, <span class="attr">max-failed-times:</span> <span class="number">3</span>, <span class="attr">hidden:</span> <span class="literal">true</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br><span class="line"><span class="attr">Manual:</span> <span class="string">&amp;Manual</span> &#123;<span class="attr">type:</span> <span class="string">select</span>, <span class="attr">include-all-providers:</span> <span class="literal">true</span>&#125;</span><br><span class="line"><span class="comment"># 锚点 - 规则参数</span></span><br><span class="line"><span class="attr">RuleSet:</span> <span class="string">&amp;RuleSet</span> &#123;<span class="attr">type:</span> <span class="string">http</span>, <span class="attr">behavior:</span> <span class="string">classical</span>, <span class="attr">interval:</span> <span class="number">86400</span>, <span class="attr">format:</span> <span class="string">yaml</span>, <span class="attr">proxy:</span> <span class="string">Proxy</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 策略组</span></span><br><span class="line"><span class="attr">proxy-groups:</span> </span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🦈</span> <span class="string">JMS</span> <span class="string">专用</span>, <span class="attr">type:</span> <span class="string">select</span>, <span class="attr">include-all:</span> <span class="literal">true</span>, <span class="attr">filter:</span> <span class="string">&#x27;(?i)JMS&#x27;</span>, <span class="attr">icon:</span> <span class="string">&#x27;https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Rocket.png&#x27;</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">Proxy</span>, <span class="attr">type:</span> <span class="string">select</span>, <span class="attr">proxies:</span> [<span class="string">🦈</span> <span class="string">JMS</span> <span class="string">专用</span>, <span class="string">🇭🇰</span> <span class="string">香港节点</span>, <span class="string">🇯🇵</span> <span class="string">日本节点</span>, <span class="string">🇰🇷</span> <span class="string">韩国节点</span>, <span class="string">🇸🇬</span> <span class="string">新加坡节点</span>, <span class="string">🇺🇸</span> <span class="string">美国节点</span>, <span class="string">🇬🇧</span> <span class="string">英国节点</span>, <span class="string">🇫🇷</span> <span class="string">法国节点</span>, <span class="string">🇩🇪</span> <span class="string">德国节点</span>], <span class="attr">icon:</span> <span class="string">&#x27;https://raw.githubusercontent.com/pompurin404/mihomo-party/master/resources/icon.png&#x27;</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">Apple</span>, <span class="attr">type:</span> <span class="string">select</span>, <span class="attr">proxies:</span> [<span class="string">DIRECT</span>, <span class="string">Proxy</span>, <span class="string">🦈</span> <span class="string">JMS</span> <span class="string">专用</span>, <span class="string">🇭🇰</span> <span class="string">香港节点</span>, <span class="string">🇯🇵</span> <span class="string">日本节点</span>, <span class="string">🇰🇷</span> <span class="string">韩国节点</span>, <span class="string">🇸🇬</span> <span class="string">新加坡节点</span>, <span class="string">🇺🇸</span> <span class="string">美国节点</span>, <span class="string">🇬🇧</span> <span class="string">英国节点</span>, <span class="string">🇫🇷</span> <span class="string">法国节点</span>, <span class="string">🇩🇪</span> <span class="string">德国节点</span>], <span class="attr">icon:</span> <span class="string">&#x27;https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple_1.png&#x27;</span>&#125;</span><br><span class="line">  <span class="comment"># ... 太长了，中间省略一部分</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">GlobalMedia</span>, <span class="attr">type:</span> <span class="string">select</span>, <span class="attr">proxies:</span> [<span class="string">Proxy</span>, <span class="string">🦈</span> <span class="string">JMS</span> <span class="string">专用</span>, <span class="string">🇭🇰</span> <span class="string">香港节点</span>, <span class="string">🇯🇵</span> <span class="string">日本节点</span>, <span class="string">🇰🇷</span> <span class="string">韩国节点</span>, <span class="string">🇸🇬</span> <span class="string">新加坡节点</span>, <span class="string">🇺🇸</span> <span class="string">美国节点</span>, <span class="string">🇬🇧</span> <span class="string">英国节点</span>, <span class="string">🇫🇷</span> <span class="string">法国节点</span>, <span class="string">🇩🇪</span> <span class="string">德国节点</span>], <span class="attr">icon:</span> <span class="string">&#x27;https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/ForeignMedia.png&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇭🇰</span> <span class="string">香港节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterHK</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇯🇵</span> <span class="string">日本节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterJP</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇰🇷</span> <span class="string">韩国节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterKR</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇸🇬</span> <span class="string">新加坡节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterSG</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇺🇸</span> <span class="string">美国节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*Manual</span>, <span class="attr">filter:</span> <span class="string">*FilterUS</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇬🇧</span> <span class="string">英国节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterUK</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇫🇷</span> <span class="string">法国节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterFR</span>&#125;</span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">🇩🇪</span> <span class="string">德国节点</span>, <span class="string">&lt;&lt;:</span> <span class="string">*FallBack</span>, <span class="attr">filter:</span> <span class="string">*FilterDE</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分流规则">分流规则</h3>
+<ul>
+<li><code>rule-providers</code> 底下包含的是订阅得到的分流规则，这样可以避免在 <code>rules</code> 底下自己写一大堆东西。</li>
+<li><code>rules</code> 底下是生效的规则。需要注意：
+<ul>
+<li><code>rule-providers</code> 必须在 <code>rules</code> 里面使用，否则不会生效。
+<ul>
+<li>例如 <code>RULE-SET,Apple,Apple</code>：<code>RULE-SET</code> 表示使用订阅得到的规则，第一个 <code>Apple</code> 为 <code>rule-providers</code> 底下的名称，第二个 <code>Apple</code> 为 <code>proxy-groups</code> 底下的名称。</li>
+<li>这就完成了一个“节点”→“策略组”→“分流规则”的绑定。</li>
+</ul>
+</li>
+<li>规则生效优先级：最前面的优先生效。
+<ul>
+<li>例如最前面是 <code>&quot;DOMAIN, www.google.com, Gemini&quot;</code>，后面有一个 <code>RULE-SET,GlobalMedia,GlobalMedia</code>。而 <code>www.google.com</code> 同样被包含到 <code>GlobalMedia</code> 的订阅规则中。</li>
+<li><code>www.google.com</code> 会被绑到 <code>Gemini</code> 策略组里，而非 <code>GlobalMedia</code> 策略组。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">rule-providers:</span></span><br><span class="line">  <span class="attr">Gemini:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/5ad04fab096f94224879c77c4bf50ace8a393fb0/rule/Clash/Gemini/Gemini.list</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">./ruleset/Gemini.list</span></span><br><span class="line">    <span class="attr">behavior:</span> <span class="string">classical</span></span><br><span class="line">    <span class="attr">interval:</span> <span class="number">86400</span></span><br><span class="line">    <span class="attr">format:</span> <span class="string">text</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">http</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">GlobalMedia:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*RuleSet</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">&#x27;https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml&#x27;</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&#x27;./RuleSet/GlobalMedia.yaml&#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># ... 太长了，中间省略一部分</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">LAN:</span></span><br><span class="line">    <span class="string">&lt;&lt;:</span> <span class="meta">*RuleSet</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">&#x27;https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml&#x27;</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">&#x27;./RuleSet/LAN.yaml&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分流规则指向</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">&quot;DOMAIN, www.google.com, Gemini&quot;</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">RULE-SET,Gemini,Gemini</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">RULE-SET,Apple,Apple</span></span><br><span class="line"> <span class="comment"># ... 太长了，中间省略一部分</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">GEOIP,CN,DIRECT</span></span><br><span class="line"> <span class="bullet">-</span> <span class="string">MATCH,Proxy</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/9b558b7c.html">http://zhuxz0299.github.io/posts/9b558b7c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/proxy/">proxy</a><a class="post-meta__tags" href="/tags/software/">software</a><a class="post-meta__tags" href="/tags/clash/">clash</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_188.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/802f9107.html" title="改变代理端口"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_127.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-15</div><div class="info-item-2">改变代理端口</div></div><div class="info-2"><div class="info-item-1">因为某一次代理的端口被其他程序占用，因此对代理端口做了修改</div></div></div></a><a class="pagination-related" href="/posts/aae19956.html" title="快捷使用方向键"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_175.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-01</div><div class="info-item-2">快捷使用方向键</div></div><div class="info-2"><div class="info-item-1">通过 Capslock 组合键的方式实现方向键</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A"><span class="toc-number">1.</span> <span class="toc-text">名词解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86-Tun-%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">系统代理 &#x2F; Tun 模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Meta-%E5%86%85%E6%A0%B8"><span class="toc-number">1.2.</span> <span class="toc-text">Meta 内核</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CFW"><span class="toc-number">1.3.</span> <span class="toc-text">CFW</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.</span> <span class="toc-text">使用注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.1.</span> <span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">上传配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gemini-%E4%BB%A3%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">Gemini 代理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-2"><span class="toc-number">3.</span> <span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80"><span class="toc-number">3.1.</span> <span class="toc-text">语法基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%AE%A2%E9%98%85%E9%93%BE%E6%8E%A5"><span class="toc-number">3.2.</span> <span class="toc-text">多订阅链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%AD%9B%E9%80%89"><span class="toc-number">3.3.</span> <span class="toc-text">节点筛选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E7%BB%84"><span class="toc-number">3.4.</span> <span class="toc-text">策略组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%B5%81%E8%A7%84%E5%88%99"><span class="toc-number">3.5.</span> <span class="toc-text">分流规则</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
