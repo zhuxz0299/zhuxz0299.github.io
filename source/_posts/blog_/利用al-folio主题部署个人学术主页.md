@@ -10,7 +10,7 @@ tags:
   - blog
 abbrlink: 136bdd49
 date: 2026-01-03 16:01:55
-description:
+description: 利用 al-folio 主题构建学术主页指南：详解 GitHub Action 部署流程、Docker 本地调试环境搭建，以及网站配置自定义与精简优化的方法。
 ---
 
 ## 网站部署与调试

@@ -12,7 +12,7 @@ menu:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
   # Link: /link/ || fas fa-link
-  # 关于: /about/ || fa-solid fa-user
+  关于: /about/ || fa-solid fa-server
   日志: /shuoshuo/ || fas fa-comment-dots
   学术主页: /my-profile/ || fas fa-graduation-cap
 nav:

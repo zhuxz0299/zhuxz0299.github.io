@@ -10,7 +10,7 @@ categories:
   - Network Practice
 abbrlink: ae6ce9cc
 date: 2026-01-10 16:42:06
-description:
+description: 详解 Tailscale 原理：基于 WireGuard 的网状网络架构、密钥交换控制平面，以及利用 STUN 和 DERP 实现 NAT 穿透的核心机制。
 ---
 
 ## Tailscale 的工作原理
