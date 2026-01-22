@@ -22,7 +22,7 @@ tags:
   * 数据集标签的差异，比如人工标注时同一张图片可能有两个结果
   * <img src='../../figure/数据科学基础笔记/9-Data-Domain/data_mismatch_2.png' width=550 style="display: block; margin-left: auto; margin-right: auto;">
 
-### Domain adaptationb
+### Domain adaptation
 例如在 classification 问题中，假如训练集和测试集之间有较小的差异，可以通过正则化等方式来解决 overfitting 的问题。但是如果训练集和测试集的数据完全不同，那么就需要使用 domain adaptation，使得在训练集上得到的 classifier 在测试集上能够使用。
 
 ### Different domains
@@ -71,7 +71,7 @@ d(\mathbf{W}^{T}\mathbf{X}_{s},\mathbf{W}^{T}\mathbf{X}_{t})^{2}& =\|\frac{1}{n_
 \end{aligned}
 $$
 
-式中：
+这里的 $\mathbf{K}_\mathbf{W}$ 中的元素为 $(\mathbf{K_W})_{ij} = K(\mathbf{W}^T\mathbf{x}_i, \mathbf{W}^T\mathbf{x}_j)$，就是用矩阵投影完之后两两算核函数。形式化的，可以写为：
 $$
 \mathbf{K}_{\mathbf{W}}=\begin{bmatrix}\mathbf{K}_{ss}&\mathbf{K}_{st}\\\mathbf{K}_{ts}&\mathbf{K}_{tt}\end{bmatrix}L_{i,j}=\left\{\begin{array}{ll}\frac{1}{n_s^2},&\text{if }i,j\in\mathcal{S}\\\frac{1}{n_t^2},&\text{if }i,j\in\mathcal{T}\\-\frac{1}{n_sn_t},&\text{otherwise}\end{array}\right.
 $$
@@ -96,17 +96,17 @@ $$
 \mathbf{K}=\begin{bmatrix}\mathbf{K}_{ss}&\mathbf{K}_{st}\\\mathbf{K}_{ts}&\mathbf{K}_{tt}\end{bmatrix}L_{i,j}=\left\{\begin{array}{ll}\frac{1}{n_s^2},&\text{if }i,j\in\mathcal{S}\\\frac{1}{n_t^2},&\text{if }i,j\in\mathcal{T}\\-\frac{1}{n_sn_t},&\text{otherwise}\end{array}\right.
 $$
 
-记 $\tilde{\phi}(\mathbf{X}_{st}) \equiv \mathbf{K}^{-\frac{1}{2}}\mathbf{K}$，则 $\mathbf{K}$ 可以写成：
+虽然 $K = \phi(\mathbf{X}_{st})^{\mathrm{T}} \phi(\mathbf{X}_{st})$，但是由于 $\phi(\mathbf{X}_{st})$ 的维度可能很高，无法找到一个矩阵进行投影，因此构造一个假的投影数据 $\tilde{\phi}(\mathbf{X}_{st})$ 来替代，这个 $\tilde{\phi}(\mathbf{X}_{st})$ 即称为 fake representation。记 $\tilde{\phi}(\mathbf{X}_{st}) \equiv \mathbf{K}^{-\frac{1}{2}}\mathbf{K}$，则 $\mathbf{K}$ 可以写成：
 $$
 \mathbf{K}=\tilde{\phi}(\mathbf{X}_{st})^T\tilde{\phi}(\mathbf{X}_{st})
 $$
 
-$\tilde{\phi}(\mathbf{X}_{st})$ 称为 fake representation。引入矩阵 $\tilde{\mathbf{W}}$ 对其进行操作
+引入矩阵 $\tilde{\mathbf{W}}$ 对其进行操作
 $$
 \tilde{\mathbf{K}}=(\tilde{\phi}(\mathbf{X}_{st})^T\tilde{\mathbf{W}})(\tilde{\mathbf{W}}^T\tilde{\phi}(\mathbf{X}_{st}))=\mathbf{K}\mathbf{W}\mathbf{W}^T\mathbf{K}
 $$
 
-其中 $\mathbf{W}=\mathbf{K}^{-\frac{1}{2}}\tilde{\mathbf{W}}$。然后利用 $tr(\tilde{\mathbf{KL}})=tr(\mathbf{KWW}^T\mathbf{KL})=tr(\mathbf{W}^T\mathbf{KLKW})$，得到最后优化目标为：
+其中 $\mathbf{W}=\mathbf{K}^{-\frac{1}{2}}\tilde{\mathbf{W}}$。然后利用 $tr(\tilde{\mathbf{K}}\mathbf{L})=tr(\mathbf{KWW}^T\mathbf{KL})=tr(\mathbf{W}^T\mathbf{KLKW})$，得到最后优化目标为：
 $$
 \begin{aligned}\min_{\mathbf{W}}\quad&tr(\mathbf{W}^{T}\mathbf{KLKW})\\\mathrm{s.t.}\quad&\mathbf{W}^{T}\mathbf{W}=\mathbf{I}.\end{aligned}
 $$
@@ -114,7 +114,11 @@ $$
 #### Subspace Alignment (SA)
 可以理解为先将向量投影到子空间，然后再做对齐操作。比如有数据集：$\mathbf{X}_s=[\mathbf{x}_1^s,\mathbf{x}_2^s,\ldots,\mathbf{x}_{n_s}^s]\quad\mathbf{X}_t=[\mathbf{x}_1^t,\mathbf{x}_2^t,\ldots,\mathbf{x}_{n_t}^t]$ 分别通过 PCA 之后得到投影矩阵 $\mathbf{P}_s$ 和 $\mathbf{P}_t$。然后再引入矩阵 $\mathbf{M}$ 缩小 $\mathbf{P}_s$ 和 $\mathbf{P}_t$ 之间的差距：
 $$
-\begin{aligned}&&&\min_{\mathbf{M}}\|\mathbf{MP}_s-\mathbf{P}_t\|_F^2\\&=&&\min_{\mathbf{M}}\|\mathbf{MP}_s\mathbf{P}_s^T-\mathbf{P}_t\mathbf{P}_s^T\|_F^2\\&=&&\min_{\mathbf{M}}\|\mathbf{M}-\mathbf{P}_t\mathbf{P}_s^T\|_F^2\end{aligned}
+\begin{aligned}
+&&&\min_{\mathbf{M}}\|\mathbf{MP}_s-\mathbf{P}_t\|_F^2\\
+&=&&\min_{\mathbf{M}}\|\mathbf{MP}_s\mathbf{P}_s^T-\mathbf{P}_t\mathbf{P}_s^T\|_F^2\\
+&=&&\min_{\mathbf{M}}\|\mathbf{M}-\mathbf{P}_t\mathbf{P}_s^T\|_F^2
+\end{aligned}
 $$
 
 $$
@@ -206,4 +210,6 @@ $$
 
 
 
-<!-- TODO 尚未完成 -->
+{% note warning %}
+后续的 Early deep era 和 GAN era 图片太多，笔记里就不记了。
+{% endnote %}

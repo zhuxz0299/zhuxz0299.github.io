@@ -10,11 +10,15 @@ categories: [Dev Tools, Hexo]
 ---
 
 ## 本地文章分类
-如果文章太多全都放在 _posts 文件夹中会显得很乱，所以可以在 _posts 文件夹中建立子文件夹，将文章放入。这样操作不会影响文章在网站上的正常显示。
+如果文章太多全都放在 `_posts` 文件夹中会显得很乱，所以可以在 `_posts` 文件夹中建立子文件夹，将文章放入。这样操作不会影响文章在网站上的正常显示。
 
 ## 网站文章排序
+{% note warning %}
+像下面这样直接修改 Node.js 的包内容不是一个好习惯，包更新之后修改内容就会没掉。
+{% endnote %}
+
 ### 源文件修改
-在博客目录中的 node_modules=>hexo-generate-category=>lib=>generate.js 文件中，修改 `const orderBy` 为
+在博客目录中的 `node_modules`=>`hexo-generate-category`=>`lib`=>`generate.js` 文件中，修改 `const orderBy` 为
 ```javascript
 const orderBy = config.category_generator.order_by || '-order';
 ```

@@ -123,7 +123,7 @@ seen categories 和 unseen categories 之间利用 category-level 的语义信�
 解决思路：使用无标签的数据将 visual space 到 semantic space 的映射迁移到 unseen categories 上。
 
 #### Hubness problem
-比如学习到一个映射，并且将这个映射作用与测试样本，发现可能大多数的样本都被映射到同一个或少量几个 unseen categories 上。原因可能是距离度量学习的不是很合理。
+比如学习到一个映射，并且将这个映射作用于测试样本，发现可能大多数的样本都被映射到同一个或少量几个 unseen categories 上。原因可能是距离度量学习的不是很合理。
 <img src='../../figure/数据科学基础笔记/12-Zero-shot-and-Few-shot-Learning/hubness_problem.png' width=500 style="display: block; margin-left: auto; margin-right: auto;">
 
 解决思路：
@@ -202,7 +202,7 @@ MAML 的目标是，优化模型初始化参数，使得在新的 task 中，只
   \theta\leftarrow\theta-\beta\Delta_\theta\sum_{\mathcal{T}_i\sim p(\mathcal{T})}\mathcal{L}_{\mathcal{T}_i}(f_{\theta_i^{\prime}})
   $$
 
-下图展示了 MAML 在模型初始化参数优化方面的作用
+下图展示了 MAML 在模型初始化参数优化方面的作用，图中蓝色的 $\phi$ 表示的就是通过 MAML 选取的初始化参数，该参数在不同的任务中（两条不同的绿色曲线）更容易达到最小值点，而不是像 Multi-task Learning 那样只能达到极小值点。
 <img src='../../figure/数据科学基础笔记/12-Zero-shot-and-Few-shot-Learning/MAML_illustration.png' width=600 style="display: block; margin-left: auto; margin-right: auto;">
 
 

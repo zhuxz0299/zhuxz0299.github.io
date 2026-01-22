@@ -95,7 +95,7 @@ sudo make install
 在某些情况下，库可能会被安装到非标准位置。如果是这种情况，你可能需要在编译时设置库路径，或者将库路径添加到系统的库搜索路径（例如通过 `LD_LIBRARY_PATH` 环境变量或编辑 `/etc/ld.so.conf` 文件）。
 
 ### 使用 pip 或 conda 安装 Python 库
-对于 Python 库，你可以通过 Python 包管理工具 `pip` 或 `conda` 安装。`pip` 是 Python 官方的包管理工具，而 `conda` 是 Anaconda 提供的工具，支持更全面的依赖管理。
+对于 Python 库，可以通过 `pip` 或 `conda` 安装。`pip` 是 Python 官方的包管理工具，而 `conda` 是 Anaconda 提供的工具，支持更全面的依赖管理。
 
 ## 库管理工具
 `pkg-config` 是一个用于管理和查询已安装的库的工具，常用于开发时的编译和链接过程。它的主要功能为：

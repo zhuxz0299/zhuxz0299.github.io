@@ -28,7 +28,7 @@ $$
 
 可以证明当 $\bm{\mu}$ 是所有数据点的均值时，误差最小。
 
-* 证明 1 (配方):
+* 证明 1 (配方)，这里把 $\bm{\mu}$ 和 $\bm{x_t}$ 都看作几何学上的向量，之间可以做点乘:
     $$
     \begin{aligned}
     J(\bm{\mu})&=\sum_{t=1}^{N}\left\| \bm{x_t}-\bm{\mu} \right\|_{}^{2} \\
@@ -321,7 +321,7 @@ $$
 从距离表示一个东西和从概率表示一个东西，在概念上可以是一致的。
 
 $$
-D_M(x)=\sqrt{(x-\mu)^T\Sigma^{-1}(x-\mu)} \rightarrow \frac{1}{\sqrt{(2\pi)^k|\boldsymbol{\Sigma}|}}\exp\left(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\mathrm{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right)
+D_M(x)=\sqrt{(x-\mu)^T\Sigma^{-1}(x-\mu)} \rightarrow \frac{1}{\sqrt{(2\pi)^D|\boldsymbol{\Sigma}|}}\exp\left(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\mathrm{T}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right)
 $$
 
 概率相当于是对距离的 normalize。
@@ -341,8 +341,9 @@ $$
 
 在 GMM 中，每个 cluster 都有一个概率分布
 $$
-\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\boldsymbol{\Sigma})=\frac{1}{\sqrt{(2\pi)^{k}|\boldsymbol{\Sigma}|}}\exp\left(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right)
+\mathcal{N}(\mathbf{x}|\boldsymbol{\mu},\boldsymbol{\Sigma})=\frac{1}{\sqrt{(2\pi)^{D}|\boldsymbol{\Sigma}|}}\exp\left(-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^{\mathrm{T}}\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right)
 $$
+
 <img src='../../figure/机器学习笔记/1-Clustering/k_mean_and_gmm.png' width=500 style="display: block; margin-left: auto; margin-right: auto;">
 
 同时我们使用 $z_k=1$ 表示样本 $\mathbf{x}$ 属于第 $k$ 个 cluster。
