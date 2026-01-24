@@ -105,5 +105,48 @@ set clipboard=unnamedplus
 这样设置之后，直接使用 `y`、`d`、`p` 就会自动同步到系统剪切板了，非常方便。
 
 {% note warning %}
-要使用此功能，Vim 版本必须支持 `clipboard` 特性。可以通过命令行输入 `vim --version` 查看，如果显示 `+clipboard` 则表示支持；如果是 `-clipboard`，则可能需要安装 `vim-gtk` 或 `vim-gui-common` 等包含图形界面支持的版本（即使只在终端使用）。
+* 要使用此功能，Vim 版本必须支持 `clipboard` 特性。可以通过命令行输入 `vim --version` 查看，如果显示 `+clipboard` 则表示支持；如果是 `-clipboard`，则可能需要安装 `vim-gtk` 或 `vim-gui-common` 等包含图形界面支持的版本（即使只在终端使用）。
+* 即使 Vim 版本支持 `clipboard` 特性，有时候做了上述设置依然不会成功。这个时候可以考虑一下下载 xclip (X11) 或者 wl-clipboard (Wayland) 来看看能否成功。 
+* 如果还是不行，那就只能设置
+  ```vim
+  " 支持在Visual模式下，通过C-y复制到系统剪切板
+  vnoremap <C-y> "+y
+  " 支持在normal模式下，通过C-p粘贴系统剪切板
+  nnoremap <C-p> "*p 
+  ```
+  凑合着用吧。
 {% endnote %}
+
+### 如何只删除不剪切 (黑洞寄存器)
+
+在 Vim 中，`d` (Delete) 之类的操作实际上是**剪切**，这经常导致覆盖掉粘贴板中原本想粘贴的内容。Vim 提供了一个**黑洞寄存器** `"_`，放入其中的内容会被直接丢弃。
+
+如果希望 `d` 操作永远**只删除不剪切**，可以将 `d` 直接绑定到黑洞寄存器上。
+
+#### Vim / Neovim 配置
+在配置文件 (`.vimrc` 或 `init.vim` / `init.lua`) 中加入：
+
+```vim
+nnoremap d "_d
+vnoremap d "_d
+```
+
+#### VS Code (Vim 插件) 配置
+在 `settings.json` 中加入以下配置：
+
+```json
+"vim.normalModeKeyBindingsNonRecursive": [
+    {
+        "before": ["d"],
+        "after": ["\"", "_", "d"]
+    }
+],
+"vim.visualModeKeyBindingsNonRecursive": [
+    {
+        "before": ["d"],
+        "after": ["\"", "_", "d"]
+    }
+]
+```
+
+这样修改后，`d` 相关的操作就不再污染剪切板了。如果偶尔需要剪切，可以使用 `x` (剪切字符) 或 `c` (修改)。
