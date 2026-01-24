@@ -1,12 +1,15 @@
 ---
 title: Windows 软件记录
-date: 2026-01-22 19:07:34
 tags:
-    - windows
-    - software
+  - windows
+  - software
 description: 记录一下 Windows 中用到的一些软件
 cover: 'https://source.fomal.cc/img/default_cover_189.webp'
-categories: [System & Hardware, Windows]
+categories:
+  - System & Hardware
+  - Windows
+abbrlink: 48e5d01
+date: 2026-01-22 19:07:34
 ---
 
 * [Capslock+](https://capslox.com/capslock-plus/)
