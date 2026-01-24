@@ -1,0 +1,569 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Vim 使用入门 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim 使用入门">
+<meta property="og:url" content="http://zhuxz0299.github.io/posts/efca9c95.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_189.webp">
+<meta property="article:published_time" content="2026-01-22T13:08:49.000Z">
+<meta property="article:modified_time" content="2026-01-24T12:47:56.450Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_189.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Vim 使用入门",
+  "url": "http://zhuxz0299.github.io/posts/efca9c95.html",
+  "image": "https://source.fomal.cc/img/default_cover_189.webp",
+  "datePublished": "2026-01-22T13:08:49.000Z",
+  "dateModified": "2026-01-24T12:47:56.450Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "http://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="http://zhuxz0299.github.io/posts/efca9c95.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vim 使用入门',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">190</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">89</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">42</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_189.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Vim 使用入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Vim 使用入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-22T13:08:49.000Z" title="发表于 2026-01-22 21:08:49">2026-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-24T12:47:56.450Z" title="更新于 2026-01-24 20:47:56">2026-01-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/">Dev Tools</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/Software/">Software</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="如何优雅地设置-Esc">如何优雅地设置 Esc</h2>
+<p>使用 Vim 的一个非常直接的阻碍是：频繁使用的 Esc 键实在有些远离手指可以方便够到的区域，因此目前的一个主流方法是：通过系统设置把 Esc 键以及 Caps 键进行互换。通常来说这个策略确实可行，但是我本身又是 Capslock+ 的用户。虽然这个软件并没有提供 Linux 支持，但是由于我已经习惯了使用 Capslock + 其他按键实现光标的移动，所以我又通过 keyd 在 Linux 中也实现了类似的功能。这就导致了一个问题：假如直接把 Esc 和 Caps 互换，那我在除了 vim 之外的其他地方就没法方便地移动光标了。</p>
+<p>上述问题的最终解决方案是：在 keyd 中设置点按 Caps 键执行 Esc；Caps + 空格键实现大小写转换。配置代码就在文章<a href="https://zhuxz0299.github.io/posts/aae19956.html">快捷使用方向键</a>的 keyd 配置文件中。</p>
+<h2 id="Vim-常用操作">Vim 常用操作</h2>
+<h3 id="简单操作">简单操作</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">分类</th>
+<th style="text-align:left">按键 / 命令</th>
+<th style="text-align:left">功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>移动</strong></td>
+<td style="text-align:left"><strong><code>h</code> <code>j</code> <code>k</code> <code>l</code></strong></td>
+<td style="text-align:left"><strong>左 / 下 / 上 / 右</strong> (建议强迫自己只用这四个键)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>w</code> / <code>b</code></td>
+<td style="text-align:left">下一个单词开头 / 上一个单词开头</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>0</code> / <code>$</code></td>
+<td style="text-align:left">跳转到 <strong>行首</strong> / <strong>行尾</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>gg</code> / <code>G</code></td>
+<td style="text-align:left">跳转到 <strong>文件第一行</strong> / <strong>文件最后一行</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>Ctrl</code> + <code>u</code> / <code>d</code></td>
+<td style="text-align:left">向上 / 向下翻半页 (Up/Down)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>插入</strong></td>
+<td style="text-align:left"><strong><code>i</code> / <code>a</code></strong></td>
+<td style="text-align:left">光标 <strong>前</strong> 插入 / 光标 <strong>后</strong> 插入</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>I</code> / <code>A</code></td>
+<td style="text-align:left">跳转到 <strong>行首</strong> 插入 / 跳转到 <strong>行尾</strong> 插入</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>o</code> / <code>O</code></td>
+<td style="text-align:left">在 <strong>下方</strong> 新建一行 / 在 <strong>上方</strong> 新建一行</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>编辑</strong></td>
+<td style="text-align:left"><strong><code>yy</code> / <code>p</code></strong></td>
+<td style="text-align:left"><strong>复制</strong> 当前行 / <strong>粘贴</strong> (在光标后)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dd</code></td>
+<td style="text-align:left"><strong>剪切 (删除)</strong> 当前行 (配合 <code>p</code> 粘贴即为移动行)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>x</code> / <code>r</code></td>
+<td style="text-align:left">删除当前字符 / 替换当前字符 (无需进入插入模式)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>u</code> / <code>Ctrl</code>+<code>r</code></td>
+<td style="text-align:left"><strong>撤销</strong> (Undo) / <strong>重做</strong> (Redo)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>组合</strong></td>
+<td style="text-align:left"><code>Num</code> + <code>Cmd</code></td>
+<td style="text-align:left"><strong>重复命令</strong> (例: <code>3yy</code> 复制3行, <code>5dd</code> 删5行, <code>10j</code> 下移10行)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>ciw</code></td>
+<td style="text-align:left"><strong>修改单词</strong> (Change Inner Word, 删除单词并立刻进入插入模式)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>文件</strong></td>
+<td style="text-align:left"><code>:w</code> / <code>:q</code></td>
+<td style="text-align:left">保存 / 退出</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>:wq</code> / <code>:q!</code></td>
+<td style="text-align:left">保存并退出 / 强制退出 (不保存)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>搜索</strong></td>
+<td style="text-align:left"><code>/text</code></td>
+<td style="text-align:left">向下搜索 “text” (按 <code>n</code> 下一个, <code>N</code> 上一个)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>:%s/old/new/g</code></td>
+<td style="text-align:left">全局替换 (将 old 替换为 new)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="组合操作详解">组合操作详解</h3>
+<blockquote>
+<p><strong>命令 (Verb) + 范围 (Scope) + 对象 (Object)</strong></p>
+</blockquote>
+<p>例如：<code>ci&quot;</code> = <strong>C</strong>hange <strong>I</strong>nner <strong>&quot;</strong> (修改双引号内部的内容)</p>
+<h4 id="A-动词-Verb-：你想做什么？">A. 动词 (Verb)：你想做什么？</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按键</th>
+<th style="text-align:left">英文</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>c</code></td>
+<td style="text-align:left">Change</td>
+<td style="text-align:left">修改 (删除并进入插入模式)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>d</code></td>
+<td style="text-align:left">Delete</td>
+<td style="text-align:left">删除 (剪切)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>y</code></td>
+<td style="text-align:left">Yank</td>
+<td style="text-align:left">复制</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>v</code></td>
+<td style="text-align:left">Visual</td>
+<td style="text-align:left">选中 (进入可视模式)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="B-范围-Scope-：包含边界吗？">B. 范围 (Scope)：包含边界吗？</h4>
+<p>这是最关键的区别：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按键</th>
+<th style="text-align:left">英文</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>i</code></td>
+<td style="text-align:left">Inner</td>
+<td style="text-align:left">内部 (不包含括号/引号本身)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a</code></td>
+<td style="text-align:left">Around</td>
+<td style="text-align:left">周围 (包含括号/引号本身)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="C-对象-Object-：操作什么东西？">C. 对象 (Object)：操作什么东西？</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">按键</th>
+<th style="text-align:left">对象</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>w</code></td>
+<td style="text-align:left">Word</td>
+<td style="text-align:left">单词</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;</code> / <code>'</code></td>
+<td style="text-align:left">Quote</td>
+<td style="text-align:left">引号内的字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(</code> / <code>)</code></td>
+<td style="text-align:left">Parentheses</td>
+<td style="text-align:left">圆括号 <code>(...)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>[</code> / <code>]</code></td>
+<td style="text-align:left">Brackets</td>
+<td style="text-align:left">方括号 <code>[...]</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&#123;</code> / <code>&#125;</code></td>
+<td style="text-align:left">Braces</td>
+<td style="text-align:left">大括号 <code>&#123;...&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>t</code></td>
+<td style="text-align:left">Tag</td>
+<td style="text-align:left">HTML/XML 标签 <code>&lt;div&gt;...&lt;/div&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>p</code></td>
+<td style="text-align:left">Paragraph</td>
+<td style="text-align:left">段落</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Vim-的剪切板机制">Vim 的剪切板机制</h2>
+<p>在 Vim 中使用 <code>y</code> 复制的内容，默认无法直接在其他软件（如浏览器）中通过 <code>Ctrl+v</code> 粘贴。这是因为 Vim 有自己独立的<strong>寄存器 (Register)</strong> 系统，默认的复制操作只是把内容放进了 Vim 内部的“无名寄存器”，并没有进入系统的剪切板。</p>
+<h3 id="系统剪切板寄存器">系统剪切板寄存器</h3>
+<p>Vim 专门预留了两个寄存器用于与系统剪切板交互：</p>
+<ul>
+<li><strong><code>+</code> 寄存器</strong>：对应系统的剪切板 (Clipboard)，也就是常用的 <code>Ctrl+c</code> / <code>Ctrl+v</code> 所在的区域。</li>
+<li><strong><code>*</code> 寄存器</strong>：对应 Linux 下的“主选择区” (Primary Selection)，即选中即复制，中键粘贴的区域。</li>
+</ul>
+<p>通常我们关注的是 <code>+</code> 寄存器。</p>
+<h3 id="常用操作">常用操作</h3>
+<p>想要与系统剪切板交互，只需要在常用的 <code>y</code> (复制)、<code>d</code> (剪切)、<code>p</code> (粘贴) 命令前加上 <code>&quot;+</code> 即可。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">命令</th>
+<th style="text-align:left">功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&quot;+y</code></td>
+<td style="text-align:left">复制选中内容到系统剪切板</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;+yy</code></td>
+<td style="text-align:left">复制当前行到系统剪切板</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;+p</code></td>
+<td style="text-align:left">将系统剪切板的内容粘贴到光标后</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&quot;+P</code></td>
+<td style="text-align:left">将系统剪切板的内容粘贴到光标前</td>
+</tr>
+</tbody>
+</table>
+<h3 id="一劳永逸的配置">一劳永逸的配置</h3>
+<p>若是觉得每次都要按 <code>&quot;+</code> 三个键过于繁琐，可以通过修改配置文件（<code>.vimrc</code> 或 <code>init.lua</code>），让 Vim 的默认操作直接使用系统剪切板。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&quot; 将 unnamedplus (也就是 + 寄存器) 添加到 clipboard 选项</span></span><br><span class="line"><span class="keyword">set</span> clipboard=unnamedplus</span><br></pre></td></tr></table></figure>
+<p>这样设置之后，直接使用 <code>y</code>、<code>d</code>、<code>p</code> 就会自动同步到系统剪切板了，非常方便。</p>
+<div class="note warning flat"><ul>
+<li>要使用此功能，Vim 版本必须支持 <code>clipboard</code> 特性。可以通过命令行输入 <code>vim --version</code> 查看，如果显示 <code>+clipboard</code> 则表示支持；如果是 <code>-clipboard</code>，则可能需要安装 <code>vim-gtk</code> 或 <code>vim-gui-common</code> 等包含图形界面支持的版本（即使只在终端使用）。</li>
+<li>即使 Vim 版本支持 <code>clipboard</code> 特性，有时候做了上述设置依然不会成功。这个时候可以考虑一下下载 xclip (X11) 或者 wl-clipboard (Wayland) 来看看能否成功。</li>
+<li>如果还是不行，那就只能设置<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&quot; 支持在Visual模式下，通过C-y复制到系统剪切板</span></span><br><span class="line"><span class="keyword">vnoremap</span> <span class="symbol">&lt;C-y&gt;</span> <span class="comment">&quot;+y</span></span><br><span class="line"><span class="comment">&quot; 支持在normal模式下，通过C-p粘贴系统剪切板</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;C-p&gt;</span> <span class="comment">&quot;*p </span></span><br></pre></td></tr></table></figure>
+凑合着用吧。</li>
+</ul>
+</div>
+<h3 id="如何只删除不剪切-黑洞寄存器">如何只删除不剪切 (黑洞寄存器)</h3>
+<p>在 Vim 中，<code>d</code> (Delete) 之类的操作实际上是<strong>剪切</strong>，这经常导致覆盖掉粘贴板中原本想粘贴的内容。Vim 提供了一个<strong>黑洞寄存器</strong> <code>&quot;_</code>，放入其中的内容会被直接丢弃。</p>
+<p>如果希望 <code>d</code> 操作永远<strong>只删除不剪切</strong>，可以将 <code>d</code> 直接绑定到黑洞寄存器上。</p>
+<h4 id="Vim-Neovim-配置">Vim / Neovim 配置</h4>
+<p>在配置文件 (<code>.vimrc</code> 或 <code>init.vim</code> / <code>init.lua</code>) 中加入：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nnoremap</span> d <span class="comment">&quot;_d</span></span><br><span class="line"><span class="keyword">vnoremap</span> d <span class="comment">&quot;_d</span></span><br></pre></td></tr></table></figure>
+<h4 id="VS-Code-Vim-插件-配置">VS Code (Vim 插件) 配置</h4>
+<p>在 <code>settings.json</code> 中加入以下配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;vim.normalModeKeyBindingsNonRecursive&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;d&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;\&quot;&quot;</span><span class="punctuation">,</span> <span class="string">&quot;_&quot;</span><span class="punctuation">,</span> <span class="string">&quot;d&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;vim.visualModeKeyBindingsNonRecursive&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;d&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;\&quot;&quot;</span><span class="punctuation">,</span> <span class="string">&quot;_&quot;</span><span class="punctuation">,</span> <span class="string">&quot;d&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+<p>这样修改后，<code>d</code> 相关的操作就不再污染剪切板了。如果偶尔需要剪切，可以使用 <code>x</code> (剪切字符) 或 <code>c</code> (修改)。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://zhuxz0299.github.io/posts/efca9c95.html">http://zhuxz0299.github.io/posts/efca9c95.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/vim/">vim</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_189.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/22a9932d.html" title="Ubuntu 命令行与 vim 取消 beep 提示音"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_20.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-30</div><div class="info-item-2">Ubuntu 命令行与 vim 取消 beep 提示音</div></div><div class="info-2"><div class="info-item-1">关闭 Linux bash 中使用 tab 以及 vim 中操作错误的提示音。 bash 修改文件 /etc/inputrc，加入 1set bell-style none vim 修改文件 /...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%9C%B0%E8%AE%BE%E7%BD%AE-Esc"><span class="toc-number">1.</span> <span class="toc-text">如何优雅地设置 Esc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">Vim 常用操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E6%93%8D%E4%BD%9C"><span class="toc-number">2.1.</span> <span class="toc-text">简单操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%93%8D%E4%BD%9C%E8%AF%A6%E8%A7%A3"><span class="toc-number">2.2.</span> <span class="toc-text">组合操作详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#A-%E5%8A%A8%E8%AF%8D-Verb-%EF%BC%9A%E4%BD%A0%E6%83%B3%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">2.2.1.</span> <span class="toc-text">A. 动词 (Verb)：你想做什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E8%8C%83%E5%9B%B4-Scope-%EF%BC%9A%E5%8C%85%E5%90%AB%E8%BE%B9%E7%95%8C%E5%90%97%EF%BC%9F"><span class="toc-number">2.2.2.</span> <span class="toc-text">B. 范围 (Scope)：包含边界吗？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-%E5%AF%B9%E8%B1%A1-Object-%EF%BC%9A%E6%93%8D%E4%BD%9C%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF%EF%BC%9F"><span class="toc-number">2.2.3.</span> <span class="toc-text">C. 对象 (Object)：操作什么东西？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim-%E7%9A%84%E5%89%AA%E5%88%87%E6%9D%BF%E6%9C%BA%E5%88%B6"><span class="toc-number">3.</span> <span class="toc-text">Vim 的剪切板机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%89%AA%E5%88%87%E6%9D%BF%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">系统剪切板寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="toc-number">3.2.</span> <span class="toc-text">常用操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">3.3.</span> <span class="toc-text">一劳永逸的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8F%AA%E5%88%A0%E9%99%A4%E4%B8%8D%E5%89%AA%E5%88%87-%E9%BB%91%E6%B4%9E%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">3.4.</span> <span class="toc-text">如何只删除不剪切 (黑洞寄存器)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vim-Neovim-%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.1.</span> <span class="toc-text">Vim &#x2F; Neovim 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VS-Code-Vim-%E6%8F%92%E4%BB%B6-%E9%85%8D%E7%BD%AE"><span class="toc-number">3.4.2.</span> <span class="toc-text">VS Code (Vim 插件) 配置</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
