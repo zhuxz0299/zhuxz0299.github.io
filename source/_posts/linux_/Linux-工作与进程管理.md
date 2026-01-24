@@ -79,13 +79,13 @@ zxz@gdp:~/course-project$ jobs -l
 ### 将 background 的工作拿到 foreground 来处理：`fg`
 ```bash
 fg %jobnumber
-# $jobnumber: jobnumber 是工作号码（数字），% 是可有可无的
+# $jobnumber: jobnumber 是工作号码（数字）
 ```
 
 例如运行
 ```bash
 fg # 取出 + 号的 job
-fg 1 # 取出 [1] 的 job 放到 foreground 中
+fg %1 # 取出 [1] 的 job 放到 foreground 中
 ```
 
 ## 进程管理
