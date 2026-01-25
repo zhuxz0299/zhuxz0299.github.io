@@ -3,7 +3,7 @@ title: Vim 使用入门
 tags:
   - vim
 description: 介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。
-cover: 'https://source.fomal.cc/img/default_cover_189.webp'
+cover: 'https://source.fomal.cc/img/default_cover_190.webp'
 categories:
   - Dev Tools
   - Software
