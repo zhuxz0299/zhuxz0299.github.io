@@ -124,11 +124,20 @@ set clipboard=unnamedplus
 如果希望 `d` 操作永远**只删除不剪切**，可以将 `d` 直接绑定到黑洞寄存器上。
 
 #### Vim / Neovim 配置
-在配置文件 (`.vimrc` 或 `init.vim` / `init.lua`) 中加入：
+在配置文件 `~/.vimrc` 中加入：
 
 ```vim
 nnoremap d "_d
 vnoremap d "_d
+```
+
+#### Neovim 配置
+在配置文件 `~/.config/nvim/lua/config/keymaps.lua` 中加入：
+```lua
+-- 对应 nnoremap d "_d 和 vnoremap d "_d
+vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without yanking" })
+-- 为了保险起见，通常建议把 dd (删除整行) 也专门加上
+vim.keymap.set("n", "dd", '"_dd', { desc = "Delete line without yanking" })
 ```
 
 #### VS Code (Vim 插件) 配置
