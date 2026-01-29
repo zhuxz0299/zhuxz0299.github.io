@@ -45,9 +45,13 @@ npm install hexo-deployer-git --save
 ```yaml
 deploy:
   - type: git
-    repository: https://github.com/zhuxz0299/zhuxz0299.github.io.git
+    repository: git@github.com:zhuxz0299/zhuxz0299.github.io.git
     branch: main
 ```
+
+{% note warning %}
+如果在上述 `repository` 中填写 `https://github.com/zhuxz0299/zhuxz0299.github.io.git`，可能会在某天 `hexo deploy` 的时候突然要求输入用户名密码登录。但是 Github 目前已经在命令行禁止了这种登录途径，导致无法正常推送代码到 GitHub。
+{% endnote %}
 
 ## 创建主题页面
 {% note info %}
@@ -91,6 +95,10 @@ markdown:
 * 页面整体配置：通过 `/source/css/page_border.css` 配置，实现了页面组件的圆角
 * 滚动条配置：通过 `/source/css/scroll_bar.css` 配置，配置文件利用了一些 Chromium 内核提供的私有属性，因此在 Chrome 与 Firefox 中的呈现会略有不同
 * category 页面修改：通过 `scripts/category_card_injector.js` 对页面元素进行调整，配置的数据路径为 `source/_data/category_images.yml`
+* 搜索引擎收录：
+  * `npm install hexo-generator-sitemap --save` 用于生成 `sitemap` 文件
+  * 到 [Google Search Console](https://search.google.com/search-console) 中获取验证码，按照 butterfly 官方文档填写到 `site_verification` 字段下
+  * 完成验证之后再到 Google Search Console 页面，在左侧导航栏点击“站点地图”，输入 `sitemap.xml` 并提交。
 
 ## 多端同步
 为了方便在不同的电脑上编写博客并且保持同步，可以将源码也放到 Github 中。

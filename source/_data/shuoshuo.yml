@@ -31,3 +31,9 @@
   key: log
   content: |
     为了方便更新 butterfly 主题，将原本的 git 下载的方式改为了 npm 安装。同时由于配置文件规则变动，重新配置了一遍博客的主题设置。
+
+- author: zhuxz0299
+  date: 2026-01-29 18:21:00
+  key: log
+  content: |
+    把 sitemap 添加到 Google Search Console 中。添加了 RSS 订阅。

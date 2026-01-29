@@ -37,11 +37,14 @@ code_word_wrap: false
 
 
 # social settings (社交图标设置)
+# --------------------------------------
 # 书写格式 图标名：url || 描述性文字 || color
 social:
   fab fa-github: https://github.com/zhuxz0299 || Github
   fas fa-envelope: mailto:zhuxz0299@gmail.com || Email
   fa-brands fa-bilibili: https://space.bilibili.com/1040684632 || Bilibili
+
+# --------------------------------------
 
 
 # Image (图片设置)
@@ -71,6 +74,7 @@ background: /img/violet_light.jpg
 
 
 # Cover (文章封面)
+# --------------------------------------
 cover:
   # display the cover or not (是否显示封面)
   index_enable: true
@@ -102,6 +106,7 @@ post_meta:
     categories: true # true or false 主页是否显示分类
     tags: true # true or false 文章页是否显示标签
     label: true # true or false 显示描述性文字
+# --------------------------------------
 
 
 # 首页设置
@@ -228,6 +233,7 @@ footer_beautify:
 
 
 # Aside (侧边栏设置)
+# --------------------------------------
 aside:
   enable: true
   hide: false
@@ -298,6 +304,7 @@ aside:
     # Formal: Month/Day/Year Time or Year/Month/Day Time
     # Leave it empty if you don't enable this feature
     runtime_date:
+# --------------------------------------
 
 
 # 右下角按钮
@@ -365,6 +372,8 @@ busuanzi:
   site_pv: false
   page_pv: false
 
+# --------------------------------------
+
 
 # Math (数学公式渲染)
 # -----------------------------------------------
@@ -431,7 +440,26 @@ sharejs:
 # -----------------------------------------------
 
 
-# 评论-在线聊天-分析统计-广告-网站验证跳过
+# 评论-在线聊天-分析统计-广告跳过
+
+# Sitemap 与网站验证
+# --------------------------------------
+# Sitemap (网站地图设置, 供搜索引擎使用)
+sitemap:
+  path: 
+  template:
+  template_txt:
+  rel: false
+  tags: true
+  categories: true
+
+# 站点验证配置
+site_verification:
+  - name: google-site-verification
+    content: OenG9gy5rfqmwly_6HPOyfKL7X8py3Qpov78G4QjyHQ
+  # - name: baidu-site-verification
+  #   content: xxxxxxx
+# --------------------------------------
 
 
 # Comments (评论系统设置)
@@ -626,17 +654,19 @@ wowjs:
   wow_js: https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow.min.js
   wow_init_js: https://npm.elemecdn.com/hexo-butterfly-wowjs/lib/wow_init.js
 
-
-# Sitemap (网站地图设置, 供搜索引擎使用)
-# TODO后续似乎还有需要配置的？
-sitemap:
-  path: 
-  template:
-  template_txt:
-  rel: false
-  tags: true
-  categories: true
-
+# RSS Feed (RSS订阅设置)
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: 
+  autodiscovery: true
 
 # Archive Generator (归档页面设置)
 archive_generator:

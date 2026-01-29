@@ -16,6 +16,7 @@ timezone: Asia/Shanghai
 # 网站网址以及生成文章永久链接的命名规则
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: http://zhuxz0299.github.io
+root: /
 permalink: posts/:abbrlink.html
 permalink_defaults:
 pretty_urls:
@@ -115,7 +116,7 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   - type: git
-    repository: https://github.com/zhuxz0299/zhuxz0299.github.io.git
+    repository: git@github.com:zhuxz0299/zhuxz0299.github.io.git
     branch: main
 
 markdown:
