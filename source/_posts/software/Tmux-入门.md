@@ -7,7 +7,7 @@ tags:
 description: 介绍 tmux 的一些基本用法
 abbrlink: 88c12565
 date: 2024-08-12 17:32:26
-categories: [System & Hardware, Linux]
+categories: [Dev Tools, Software]
 
 ---
 

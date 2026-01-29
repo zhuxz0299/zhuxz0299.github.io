@@ -91,13 +91,13 @@ Tun 模式（实现透明代理的一种重要方式）
   ```
 
 ### 多订阅链接
-在 `proxy-providers` 底下加上多个 provider，就能把多个机场的节点放到一起来用。
+在 `proxy-providers` 底下加上多个 provider，就能把多个机场的节点放到一起来用。参数 `proxy: DIRECT` 能够让代理软件在更新订阅的时候直连访问订阅链接，这个参数有时候不能落掉，否则会无法正常更新订阅。
 
 ```yaml
 proxies:
 
 # 锚点 - 节点订阅的参数
-NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: 'http://connectivitycheck.gstatic.com/generate_204', interval: 60}}
+NodeParam: &NodeParam {type: http, interval: 86400, health-check: {enable: true, url: 'http://connectivitycheck.gstatic.com/generate_204', interval: 60}, proxy: DIRECT}
 
 # 锚点 - 节点订阅 (在这里填你的机场链接)
 proxy-providers: 
