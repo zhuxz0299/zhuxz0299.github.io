@@ -37,9 +37,9 @@
     
     <category term="tailscale" scheme="http://zhuxz0299.github.io/tags/tailscale/"/>
     
-    <category term="wireguard" scheme="http://zhuxz0299.github.io/tags/wireguard/"/>
-    
     <category term="vpn" scheme="http://zhuxz0299.github.io/tags/vpn/"/>
+    
+    <category term="wireguard" scheme="http://zhuxz0299.github.io/tags/wireguard/"/>
     
     <category term="strongswan" scheme="http://zhuxz0299.github.io/tags/strongswan/"/>
     
@@ -143,9 +143,9 @@
     
     <category term="tailscale" scheme="http://zhuxz0299.github.io/tags/tailscale/"/>
     
-    <category term="vpn" scheme="http://zhuxz0299.github.io/tags/vpn/"/>
-    
     <category term="nat" scheme="http://zhuxz0299.github.io/tags/nat/"/>
+    
+    <category term="vpn" scheme="http://zhuxz0299.github.io/tags/vpn/"/>
     
   </entry>
   
@@ -446,9 +446,9 @@
     <category term="Software" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
     
     
-    <category term="software" scheme="http://zhuxz0299.github.io/tags/software/"/>
-    
     <category term="capslock" scheme="http://zhuxz0299.github.io/tags/capslock/"/>
+    
+    <category term="software" scheme="http://zhuxz0299.github.io/tags/software/"/>
     
   </entry>
   
