@@ -3,11 +3,11 @@
   <title>Zhuxz&#39;s Blog</title>
   
   
-  <link href="http://zhuxz0299.github.io/atom.xml" rel="self"/>
+  <link href="https://zhuxz0299.github.io/atom.xml" rel="self"/>
   
-  <link href="http://zhuxz0299.github.io/"/>
+  <link href="https://zhuxz0299.github.io/"/>
   <updated>2026-02-04T15:10:46.907Z</updated>
-  <id>http://zhuxz0299.github.io/</id>
+  <id>https://zhuxz0299.github.io/</id>
   
   <author>
     <name>Zhuxz</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>uv-python包与项目管理器</title>
-    <link href="http://zhuxz0299.github.io/posts/20b007b1.html"/>
-    <id>http://zhuxz0299.github.io/posts/20b007b1.html</id>
+    <link href="https://zhuxz0299.github.io/posts/20b007b1.html"/>
+    <id>https://zhuxz0299.github.io/posts/20b007b1.html</id>
     <published>2026-02-04T06:22:54.000Z</published>
     <updated>2026-02-04T15:10:46.907Z</updated>
     
@@ -30,21 +30,21 @@
     
     
     
-    <category term="Dev Tools" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/"/>
+    <category term="Dev Tools" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/"/>
     
-    <category term="Software" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
+    <category term="Software" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
     
     
-    <category term="python" scheme="http://zhuxz0299.github.io/tags/python/"/>
+    <category term="python" scheme="https://zhuxz0299.github.io/tags/python/"/>
     
-    <category term="uv" scheme="http://zhuxz0299.github.io/tags/uv/"/>
+    <category term="uv" scheme="https://zhuxz0299.github.io/tags/uv/"/>
     
   </entry>
   
   <entry>
     <title>VPN 应用与工作方式</title>
-    <link href="http://zhuxz0299.github.io/posts/2415e5a2.html"/>
-    <id>http://zhuxz0299.github.io/posts/2415e5a2.html</id>
+    <link href="https://zhuxz0299.github.io/posts/2415e5a2.html"/>
+    <id>https://zhuxz0299.github.io/posts/2415e5a2.html</id>
     <published>2026-01-24T17:22:10.000Z</published>
     <updated>2026-01-29T05:22:58.678Z</updated>
     
@@ -55,27 +55,27 @@
     
     
     
-    <category term="System &amp; Hardware" scheme="http://zhuxz0299.github.io/categories/System-Hardware/"/>
+    <category term="System &amp; Hardware" scheme="https://zhuxz0299.github.io/categories/System-Hardware/"/>
     
-    <category term="Network Practice" scheme="http://zhuxz0299.github.io/categories/System-Hardware/Network-Practice/"/>
+    <category term="Network Practice" scheme="https://zhuxz0299.github.io/categories/System-Hardware/Network-Practice/"/>
     
     
-    <category term="tailscale" scheme="http://zhuxz0299.github.io/tags/tailscale/"/>
+    <category term="tailscale" scheme="https://zhuxz0299.github.io/tags/tailscale/"/>
     
-    <category term="vpn" scheme="http://zhuxz0299.github.io/tags/vpn/"/>
+    <category term="vpn" scheme="https://zhuxz0299.github.io/tags/vpn/"/>
     
-    <category term="wireguard" scheme="http://zhuxz0299.github.io/tags/wireguard/"/>
+    <category term="wireguard" scheme="https://zhuxz0299.github.io/tags/wireguard/"/>
     
-    <category term="strongswan" scheme="http://zhuxz0299.github.io/tags/strongswan/"/>
+    <category term="strongswan" scheme="https://zhuxz0299.github.io/tags/strongswan/"/>
     
-    <category term="ikev2" scheme="http://zhuxz0299.github.io/tags/ikev2/"/>
+    <category term="ikev2" scheme="https://zhuxz0299.github.io/tags/ikev2/"/>
     
   </entry>
   
   <entry>
     <title>Vim 使用入门</title>
-    <link href="http://zhuxz0299.github.io/posts/efca9c95.html"/>
-    <id>http://zhuxz0299.github.io/posts/efca9c95.html</id>
+    <link href="https://zhuxz0299.github.io/posts/efca9c95.html"/>
+    <id>https://zhuxz0299.github.io/posts/efca9c95.html</id>
     <published>2026-01-22T13:08:49.000Z</published>
     <updated>2026-01-29T05:22:58.678Z</updated>
     
@@ -86,19 +86,19 @@
     
     
     
-    <category term="Dev Tools" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/"/>
+    <category term="Dev Tools" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/"/>
     
-    <category term="Software" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
+    <category term="Software" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
     
     
-    <category term="vim" scheme="http://zhuxz0299.github.io/tags/vim/"/>
+    <category term="vim" scheme="https://zhuxz0299.github.io/tags/vim/"/>
     
   </entry>
   
   <entry>
     <title>Windows 软件记录</title>
-    <link href="http://zhuxz0299.github.io/posts/48e5d01.html"/>
-    <id>http://zhuxz0299.github.io/posts/48e5d01.html</id>
+    <link href="https://zhuxz0299.github.io/posts/48e5d01.html"/>
+    <id>https://zhuxz0299.github.io/posts/48e5d01.html</id>
     <published>2026-01-22T11:07:34.000Z</published>
     <updated>2026-01-24T16:34:09.699Z</updated>
     
@@ -109,21 +109,21 @@
     
     
     
-    <category term="System &amp; Hardware" scheme="http://zhuxz0299.github.io/categories/System-Hardware/"/>
+    <category term="System &amp; Hardware" scheme="https://zhuxz0299.github.io/categories/System-Hardware/"/>
     
-    <category term="Windows" scheme="http://zhuxz0299.github.io/categories/System-Hardware/Windows/"/>
+    <category term="Windows" scheme="https://zhuxz0299.github.io/categories/System-Hardware/Windows/"/>
     
     
-    <category term="software" scheme="http://zhuxz0299.github.io/tags/software/"/>
+    <category term="software" scheme="https://zhuxz0299.github.io/tags/software/"/>
     
-    <category term="windows" scheme="http://zhuxz0299.github.io/tags/windows/"/>
+    <category term="windows" scheme="https://zhuxz0299.github.io/tags/windows/"/>
     
   </entry>
   
   <entry>
     <title>Clash Verge rev 使用与配置</title>
-    <link href="http://zhuxz0299.github.io/posts/9b558b7c.html"/>
-    <id>http://zhuxz0299.github.io/posts/9b558b7c.html</id>
+    <link href="https://zhuxz0299.github.io/posts/9b558b7c.html"/>
+    <id>https://zhuxz0299.github.io/posts/9b558b7c.html</id>
     <published>2026-01-17T11:11:10.000Z</published>
     <updated>2026-01-30T15:05:26.596Z</updated>
     
@@ -134,23 +134,23 @@
     
     
     
-    <category term="Dev Tools" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/"/>
+    <category term="Dev Tools" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/"/>
     
-    <category term="Software" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
+    <category term="Software" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
     
     
-    <category term="proxy" scheme="http://zhuxz0299.github.io/tags/proxy/"/>
+    <category term="proxy" scheme="https://zhuxz0299.github.io/tags/proxy/"/>
     
-    <category term="software" scheme="http://zhuxz0299.github.io/tags/software/"/>
+    <category term="software" scheme="https://zhuxz0299.github.io/tags/software/"/>
     
-    <category term="clash" scheme="http://zhuxz0299.github.io/tags/clash/"/>
+    <category term="clash" scheme="https://zhuxz0299.github.io/tags/clash/"/>
     
   </entry>
   
   <entry>
     <title>Tailscale工作原理与NAT穿透</title>
-    <link href="http://zhuxz0299.github.io/posts/ae6ce9cc.html"/>
-    <id>http://zhuxz0299.github.io/posts/ae6ce9cc.html</id>
+    <link href="https://zhuxz0299.github.io/posts/ae6ce9cc.html"/>
+    <id>https://zhuxz0299.github.io/posts/ae6ce9cc.html</id>
     <published>2026-01-10T08:42:06.000Z</published>
     <updated>2026-01-22T14:36:05.729Z</updated>
     
@@ -161,23 +161,23 @@
     
     
     
-    <category term="System &amp; Hardware" scheme="http://zhuxz0299.github.io/categories/System-Hardware/"/>
+    <category term="System &amp; Hardware" scheme="https://zhuxz0299.github.io/categories/System-Hardware/"/>
     
-    <category term="Network Practice" scheme="http://zhuxz0299.github.io/categories/System-Hardware/Network-Practice/"/>
+    <category term="Network Practice" scheme="https://zhuxz0299.github.io/categories/System-Hardware/Network-Practice/"/>
     
     
-    <category term="tailscale" scheme="http://zhuxz0299.github.io/tags/tailscale/"/>
+    <category term="tailscale" scheme="https://zhuxz0299.github.io/tags/tailscale/"/>
     
-    <category term="nat" scheme="http://zhuxz0299.github.io/tags/nat/"/>
+    <category term="nat" scheme="https://zhuxz0299.github.io/tags/nat/"/>
     
-    <category term="vpn" scheme="http://zhuxz0299.github.io/tags/vpn/"/>
+    <category term="vpn" scheme="https://zhuxz0299.github.io/tags/vpn/"/>
     
   </entry>
   
   <entry>
     <title>利用al-folio主题部署个人学术主页</title>
-    <link href="http://zhuxz0299.github.io/posts/136bdd49.html"/>
-    <id>http://zhuxz0299.github.io/posts/136bdd49.html</id>
+    <link href="https://zhuxz0299.github.io/posts/136bdd49.html"/>
+    <id>https://zhuxz0299.github.io/posts/136bdd49.html</id>
     <published>2026-01-03T08:01:55.000Z</published>
     <updated>2026-01-22T14:36:05.729Z</updated>
     
@@ -188,23 +188,23 @@
     
     
     
-    <category term="Dev Tools" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/"/>
+    <category term="Dev Tools" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/"/>
     
-    <category term="al-folio" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/al-folio/"/>
+    <category term="al-folio" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/al-folio/"/>
     
     
-    <category term="al-folio" scheme="http://zhuxz0299.github.io/tags/al-folio/"/>
+    <category term="al-folio" scheme="https://zhuxz0299.github.io/tags/al-folio/"/>
     
-    <category term="github action" scheme="http://zhuxz0299.github.io/tags/github-action/"/>
+    <category term="github action" scheme="https://zhuxz0299.github.io/tags/github-action/"/>
     
-    <category term="blog" scheme="http://zhuxz0299.github.io/tags/blog/"/>
+    <category term="blog" scheme="https://zhuxz0299.github.io/tags/blog/"/>
     
   </entry>
   
   <entry>
     <title>代数编码理论：Berlekamp-Welch 译码算法</title>
-    <link href="http://zhuxz0299.github.io/posts/b12c7e4b.html"/>
-    <id>http://zhuxz0299.github.io/posts/b12c7e4b.html</id>
+    <link href="https://zhuxz0299.github.io/posts/b12c7e4b.html"/>
+    <id>https://zhuxz0299.github.io/posts/b12c7e4b.html</id>
     <published>2025-12-18T14:24:47.000Z</published>
     <updated>2025-12-26T16:01:58.879Z</updated>
     
@@ -215,17 +215,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>分圆扩张与分圆多项式</title>
-    <link href="http://zhuxz0299.github.io/posts/66767fa.html"/>
-    <id>http://zhuxz0299.github.io/posts/66767fa.html</id>
+    <link href="https://zhuxz0299.github.io/posts/66767fa.html"/>
+    <id>https://zhuxz0299.github.io/posts/66767fa.html</id>
     <published>2025-12-11T13:41:53.000Z</published>
     <updated>2026-01-22T14:36:05.729Z</updated>
     
@@ -240,17 +240,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>hexo 博客部署记录</title>
-    <link href="http://zhuxz0299.github.io/posts/f51eef37.html"/>
-    <id>http://zhuxz0299.github.io/posts/f51eef37.html</id>
+    <link href="https://zhuxz0299.github.io/posts/f51eef37.html"/>
+    <id>https://zhuxz0299.github.io/posts/f51eef37.html</id>
     <published>2025-12-08T14:48:31.000Z</published>
     <updated>2026-01-30T15:05:26.596Z</updated>
     
@@ -261,21 +261,21 @@
     
     
     
-    <category term="Dev Tools" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/"/>
+    <category term="Dev Tools" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/"/>
     
-    <category term="Hexo" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/Hexo/"/>
+    <category term="Hexo" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/Hexo/"/>
     
     
-    <category term="hexo" scheme="http://zhuxz0299.github.io/tags/hexo/"/>
+    <category term="hexo" scheme="https://zhuxz0299.github.io/tags/hexo/"/>
     
-    <category term="butterfly" scheme="http://zhuxz0299.github.io/tags/butterfly/"/>
+    <category term="butterfly" scheme="https://zhuxz0299.github.io/tags/butterfly/"/>
     
   </entry>
   
   <entry>
     <title>有限域上的算术与表示</title>
-    <link href="http://zhuxz0299.github.io/posts/253f8bf0.html"/>
-    <id>http://zhuxz0299.github.io/posts/253f8bf0.html</id>
+    <link href="https://zhuxz0299.github.io/posts/253f8bf0.html"/>
+    <id>https://zhuxz0299.github.io/posts/253f8bf0.html</id>
     <published>2025-12-04T13:28:43.000Z</published>
     <updated>2026-01-22T14:36:05.729Z</updated>
     
@@ -286,17 +286,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>有限域基础知识</title>
-    <link href="http://zhuxz0299.github.io/posts/9928515a.html"/>
-    <id>http://zhuxz0299.github.io/posts/9928515a.html</id>
+    <link href="https://zhuxz0299.github.io/posts/9928515a.html"/>
+    <id>https://zhuxz0299.github.io/posts/9928515a.html</id>
     <published>2025-11-27T14:05:38.000Z</published>
     <updated>2026-01-22T14:36:05.729Z</updated>
     
@@ -307,17 +307,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>Galois理论-part2</title>
-    <link href="http://zhuxz0299.github.io/posts/c43d02cd.html"/>
-    <id>http://zhuxz0299.github.io/posts/c43d02cd.html</id>
+    <link href="https://zhuxz0299.github.io/posts/c43d02cd.html"/>
+    <id>https://zhuxz0299.github.io/posts/c43d02cd.html</id>
     <published>2025-11-23T12:58:48.000Z</published>
     <updated>2025-12-16T04:52:20.945Z</updated>
     
@@ -328,17 +328,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>Galois理论与Galois连接</title>
-    <link href="http://zhuxz0299.github.io/posts/3d2c8e8d.html"/>
-    <id>http://zhuxz0299.github.io/posts/3d2c8e8d.html</id>
+    <link href="https://zhuxz0299.github.io/posts/3d2c8e8d.html"/>
+    <id>https://zhuxz0299.github.io/posts/3d2c8e8d.html</id>
     <published>2025-11-13T14:13:07.000Z</published>
     <updated>2026-01-22T14:36:05.729Z</updated>
     
@@ -349,17 +349,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>正规扩张与Galois群</title>
-    <link href="http://zhuxz0299.github.io/posts/f636573c.html"/>
-    <id>http://zhuxz0299.github.io/posts/f636573c.html</id>
+    <link href="https://zhuxz0299.github.io/posts/f636573c.html"/>
+    <id>https://zhuxz0299.github.io/posts/f636573c.html</id>
     <published>2025-11-08T08:38:53.000Z</published>
     <updated>2025-12-16T04:52:20.945Z</updated>
     
@@ -370,17 +370,17 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
   
   <entry>
     <title>Linux 默认应用程序</title>
-    <link href="http://zhuxz0299.github.io/posts/b8ade17a.html"/>
-    <id>http://zhuxz0299.github.io/posts/b8ade17a.html</id>
+    <link href="https://zhuxz0299.github.io/posts/b8ade17a.html"/>
+    <id>https://zhuxz0299.github.io/posts/b8ade17a.html</id>
     <published>2025-11-06T14:27:08.000Z</published>
     <updated>2025-12-16T04:52:20.940Z</updated>
     
@@ -391,23 +391,23 @@
     
     
     
-    <category term="System &amp; Hardware" scheme="http://zhuxz0299.github.io/categories/System-Hardware/"/>
+    <category term="System &amp; Hardware" scheme="https://zhuxz0299.github.io/categories/System-Hardware/"/>
     
-    <category term="Linux" scheme="http://zhuxz0299.github.io/categories/System-Hardware/Linux/"/>
+    <category term="Linux" scheme="https://zhuxz0299.github.io/categories/System-Hardware/Linux/"/>
     
     
-    <category term="linux" scheme="http://zhuxz0299.github.io/tags/linux/"/>
+    <category term="linux" scheme="https://zhuxz0299.github.io/tags/linux/"/>
     
-    <category term="xdg" scheme="http://zhuxz0299.github.io/tags/xdg/"/>
+    <category term="xdg" scheme="https://zhuxz0299.github.io/tags/xdg/"/>
     
-    <category term="d-bus" scheme="http://zhuxz0299.github.io/tags/d-bus/"/>
+    <category term="d-bus" scheme="https://zhuxz0299.github.io/tags/d-bus/"/>
     
   </entry>
   
   <entry>
     <title>Arch Linux 网络相关命令</title>
-    <link href="http://zhuxz0299.github.io/posts/488724ec.html"/>
-    <id>http://zhuxz0299.github.io/posts/488724ec.html</id>
+    <link href="https://zhuxz0299.github.io/posts/488724ec.html"/>
+    <id>https://zhuxz0299.github.io/posts/488724ec.html</id>
     <published>2025-11-05T10:51:52.000Z</published>
     <updated>2025-12-16T04:52:20.940Z</updated>
     
@@ -418,21 +418,21 @@
     
     
     
-    <category term="System &amp; Hardware" scheme="http://zhuxz0299.github.io/categories/System-Hardware/"/>
+    <category term="System &amp; Hardware" scheme="https://zhuxz0299.github.io/categories/System-Hardware/"/>
     
-    <category term="Linux" scheme="http://zhuxz0299.github.io/categories/System-Hardware/Linux/"/>
+    <category term="Linux" scheme="https://zhuxz0299.github.io/categories/System-Hardware/Linux/"/>
     
     
-    <category term="arch linux" scheme="http://zhuxz0299.github.io/tags/arch-linux/"/>
+    <category term="arch linux" scheme="https://zhuxz0299.github.io/tags/arch-linux/"/>
     
-    <category term="network manager" scheme="http://zhuxz0299.github.io/tags/network-manager/"/>
+    <category term="network manager" scheme="https://zhuxz0299.github.io/tags/network-manager/"/>
     
   </entry>
   
   <entry>
     <title>电脑字体显示规则</title>
-    <link href="http://zhuxz0299.github.io/posts/d4515193.html"/>
-    <id>http://zhuxz0299.github.io/posts/d4515193.html</id>
+    <link href="https://zhuxz0299.github.io/posts/d4515193.html"/>
+    <id>https://zhuxz0299.github.io/posts/d4515193.html</id>
     <published>2025-11-01T08:06:54.000Z</published>
     <updated>2025-12-16T04:52:20.942Z</updated>
     
@@ -443,19 +443,19 @@
     
     
     
-    <category term="System &amp; Hardware" scheme="http://zhuxz0299.github.io/categories/System-Hardware/"/>
+    <category term="System &amp; Hardware" scheme="https://zhuxz0299.github.io/categories/System-Hardware/"/>
     
-    <category term="System Knowledge" scheme="http://zhuxz0299.github.io/categories/System-Hardware/System-Knowledge/"/>
+    <category term="System Knowledge" scheme="https://zhuxz0299.github.io/categories/System-Hardware/System-Knowledge/"/>
     
     
-    <category term="font" scheme="http://zhuxz0299.github.io/tags/font/"/>
+    <category term="font" scheme="https://zhuxz0299.github.io/tags/font/"/>
     
   </entry>
   
   <entry>
     <title>快捷使用方向键</title>
-    <link href="http://zhuxz0299.github.io/posts/aae19956.html"/>
-    <id>http://zhuxz0299.github.io/posts/aae19956.html</id>
+    <link href="https://zhuxz0299.github.io/posts/aae19956.html"/>
+    <id>https://zhuxz0299.github.io/posts/aae19956.html</id>
     <published>2025-11-01T05:51:27.000Z</published>
     <updated>2026-01-22T13:00:59.593Z</updated>
     
@@ -466,21 +466,21 @@
     
     
     
-    <category term="Dev Tools" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/"/>
+    <category term="Dev Tools" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/"/>
     
-    <category term="Software" scheme="http://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
+    <category term="Software" scheme="https://zhuxz0299.github.io/categories/Dev-Tools/Software/"/>
     
     
-    <category term="software" scheme="http://zhuxz0299.github.io/tags/software/"/>
+    <category term="software" scheme="https://zhuxz0299.github.io/tags/software/"/>
     
-    <category term="capslock" scheme="http://zhuxz0299.github.io/tags/capslock/"/>
+    <category term="capslock" scheme="https://zhuxz0299.github.io/tags/capslock/"/>
     
   </entry>
   
   <entry>
     <title>域扩张与代数闭包</title>
-    <link href="http://zhuxz0299.github.io/posts/ca8ef000.html"/>
-    <id>http://zhuxz0299.github.io/posts/ca8ef000.html</id>
+    <link href="https://zhuxz0299.github.io/posts/ca8ef000.html"/>
+    <id>https://zhuxz0299.github.io/posts/ca8ef000.html</id>
     <published>2025-10-30T13:29:03.000Z</published>
     <updated>2025-12-16T04:52:20.945Z</updated>
     
@@ -491,9 +491,9 @@
     
     
     
-    <category term="Lecture Notes" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/"/>
+    <category term="Lecture Notes" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/"/>
     
-    <category term="Applied Algebra" scheme="http://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
+    <category term="Applied Algebra" scheme="https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/"/>
     
     
   </entry>
