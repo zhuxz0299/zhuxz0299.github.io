@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 # URL
 # 网站网址以及生成文章永久链接的命名规则
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://zhuxz0299.github.io
+url: https://zhuxz0299.github.io
 root: /
 permalink: posts/:abbrlink.html
 permalink_defaults:

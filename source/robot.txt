@@ -9,4 +9,4 @@ Disallow: /js/
 Disallow: /css/
 Disallow: /fonts/
 
-Sitemap: https://yourname.github.io/sitemap.xml
+Sitemap: https://zhuxz0299.github.io/sitemap.xml
