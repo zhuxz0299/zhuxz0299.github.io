@@ -91,6 +91,8 @@ npm 包的安装位置取决于安装方式 (本地 or 全局)：
 ### Node.js 版本管理
 如果电脑中需要多个版本的 Node.js，可以使用 nvm 来管理版本。在 [Node.js 的下载官网](https://nodejs.org/en/download) 可以就可以找到通过 nvm 安装不同版本 Node.js 的方法。
 
+不过如果使用 Arch Linux，那么可以选择使用 `fnm` 作为 Node.js 的版本管理器。使用方法也与 `nvm` 类似，可以通过 `fnm install xxx` 安装特定版本的 Node.js，使用 `fnm default xxx` 设置默认版本。
+
 ## Hexo 项目构建
 ### Hexo 文件夹创建
 
