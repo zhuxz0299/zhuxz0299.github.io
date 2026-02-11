@@ -36,7 +36,7 @@
     "hexo-theme-butterfly": "^5.5.2",
     "hexo-theme-landscape": "^1.0.0",
     "hexo-wordcount": "^6.0.1",
-    "katex": "^0.16.27",
+    "katex": "^0.16.28",
     "social-share.js": "^1.0.16"
   }
 }
