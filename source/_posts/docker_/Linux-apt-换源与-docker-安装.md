@@ -13,9 +13,15 @@ categories: [Dev Tools, Docker]
 ---
 
 ## Linux apt/apt-get 换源
+{% note info %}
 参考[CSDN](https://blog.csdn.net/qq_33806001/article/details/124814995)
+{% endnote %}
 
-这里考虑 Ubuntu 发行版。在 Ubuntu 中，安装软件的源储存在文件 `/etc/apt/sources.list` 中，因此改变该文件内的内容即可实现换源。
+{% note primary %}
+本文使用 Ubuntu 20.04.6 LTS 发行版。
+{% endnote %}
+
+在 Ubuntu 中，安装软件的源储存在文件 `/etc/apt/sources.list` 中，因此改变该文件内的内容即可实现换源。
 
 1. 备份官方源
    ```bash
@@ -51,9 +57,13 @@ categories: [Dev Tools, Docker]
    sudo apt-get install build-essential
    ```
 
-同时需要注意，除了文件 `/etc/apt/sources.list` 之外，文件夹 `/etc/apt/sources.list.d` 里面的文件同样能够添加软件源，且其中文件的格式需要与 `sources.list` 相同。这样的设计是为了在添加一些新的软件源时不需要修改 `sources.list` 文件。(参考[stackoverflow: what is the function of /etc/apt/sources.list.d?](https://stackoverflow.com/questions/26020917/what-is-the-function-of-etc-apt-sources-list-d))
+同时需要注意，除了文件 `/etc/apt/sources.list` 之外，文件夹 `/etc/apt/sources.list.d` 里面的文件同样能够添加软件源，且其中文件的格式需要与 `sources.list` 相同。这样的设计是为了在添加一些新的软件源时不需要修改 `sources.list` 文件。
 
-各个软件源之间不能重复，否则在运行 `sudo apt-get update` 的时候会警告多次配置问题。例如：
+{% note info %}
+以上信息来自[stackoverflow: what is the function of /etc/apt/sources.list.d?](https://stackoverflow.com/questions/26020917/what-is-the-function-of-etc-apt-sources-list-d)
+{% endnote %}
+
+同时各个软件源之间不能重复，否则在运行 `sudo apt-get update` 的时候会警告多次配置问题。例如：
 ```
 W:日标 DEP-11 (stable/dep11/components-amd64.yml) 
 在/etc/apt/sources.list:10 和 /etc/apt/sources.list.d/docker-tsinghua.list:1 中被配置了多次
@@ -62,6 +72,7 @@ W:日标 DEP-11 (stable/dep11/components-amd64.yml)
 ## docker 安装
 按照[官方文档](https://docs.docker.com/engine/install/ubuntu/)，第一步为设置 apt 的源(存储库，repository)。
 
+{% hideToggle 官方文档设置方法 %}
 ```bash
 # Add Docker's official GPG key:
 # 更新系统的包管理器缓存，确保后续安装的软件包信息是最新的。
@@ -87,6 +98,7 @@ sudo apt-get update
 * `dpkg --print-architecture` 获取系统的架构（如 amd64），`./etc/os-release`  
 * `echo "$VERSION_CODENAME"` 获取当前系统的代号（如 focal）。
 * `signed-by=/etc/apt/keyrings/docker.asc` 指定使用之前下载的 GPG 密钥来验证软件包。
+{% endhideToggle %}
 
 但是由于 docker 被墙，因此上述步骤会在访问 download.docker.com 时出问题，此时需要将这个网址换成国内镜像源。这里同样以清华源为例，修改后面几步
 ```bash
