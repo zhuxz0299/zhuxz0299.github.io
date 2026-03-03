@@ -1,10 +1,14 @@
+https://zhuxz0299.github.io/posts/cae0e3e1.html
+https://zhuxz0299.github.io/posts/25bc50da.html
+https://zhuxz0299.github.io/posts/22a9932d.html
+https://zhuxz0299.github.io/posts/fdcecd69.html
+https://zhuxz0299.github.io/posts/9b558b7c.html
 https://zhuxz0299.github.io/posts/c55202f6.html
 https://zhuxz0299.github.io/posts/6834d799.html
 https://zhuxz0299.github.io/posts/85c3534f.html
 https://zhuxz0299.github.io/posts/20b007b1.html
 https://zhuxz0299.github.io/posts/757571af.html
 https://zhuxz0299.github.io/posts/f51eef37.html
-https://zhuxz0299.github.io/posts/9b558b7c.html
 https://zhuxz0299.github.io/posts/88c12565.html
 https://zhuxz0299.github.io/posts/2415e5a2.html
 https://zhuxz0299.github.io/posts/efca9c95.html
@@ -164,9 +168,7 @@ https://zhuxz0299.github.io/posts/4b6ea061.html
 https://zhuxz0299.github.io/posts/5aac262c.html
 https://zhuxz0299.github.io/posts/b0f85331.html
 https://zhuxz0299.github.io/posts/2be5aa7c.html
-https://zhuxz0299.github.io/posts/22a9932d.html
 https://zhuxz0299.github.io/posts/afd0741b.html
-https://zhuxz0299.github.io/posts/fdcecd69.html
 https://zhuxz0299.github.io/posts/f353ec85.html
 https://zhuxz0299.github.io/posts/2432c26f.html
 https://zhuxz0299.github.io/posts/f5508786.html
@@ -292,6 +294,11 @@ https://zhuxz0299.github.io/tags/%E5%B1%B1%E5%9C%B0%E8%BD%A6/
 https://zhuxz0299.github.io/tags/%E8%BD%AE%E7%BB%84/
 https://zhuxz0299.github.io/tags/computer-graphics/
 https://zhuxz0299.github.io/tags/%E7%94%B5%E8%B7%AF%E7%90%86%E8%AE%BA/
+https://zhuxz0299.github.io/tags/ai/
+https://zhuxz0299.github.io/tags/comfyui/
+https://zhuxz0299.github.io/tags/stable-diffusion/
+https://zhuxz0299.github.io/tags/image-generation/
+https://zhuxz0299.github.io/tags/wps/
 https://zhuxz0299.github.io/categories/Dev-Tools/
 https://zhuxz0299.github.io/categories/AI-Machine-Learning/
 https://zhuxz0299.github.io/categories/Dev-Tools/Makefile/
