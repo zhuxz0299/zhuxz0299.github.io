@@ -1,5 +1,5 @@
 ---
-title: Ubuntu 命令行与 vim 取消 beep 提示音
+title: Linux 与 vim 取消 beep 提示音
 cover: https://source.fomal.cc/img/default_cover_20.webp
 tags:
   - linux
@@ -16,6 +16,12 @@ categories: [System & Hardware, Linux]
 修改文件 `/etc/inputrc`，加入
 ```bash
 set bell-style none
+```
+
+### zsh
+Zsh 不读取 `.inputrc` 文件，它有自己的配置，可以编辑 `~/.zshrc` 加上
+```bash
+unsetopt BEEP
 ```
 
 ### vim

@@ -195,3 +195,29 @@ rules:
  - GEOIP,CN,DIRECT
  - MATCH,Proxy
 ```
+
+## 版本更新故障
+某次更新之后，在 Arch Linux 系统下遇到界面无法显示节点问题，和 [这个 issue](https://github.com/clash-verge-rev/clash-verge-rev/issues/6257) 中情况相同。
+
+### 原因分析
+#### Clash Verge Rev 的前后端分离式设计
+报错 `Connection failed, I/O error: Permission denied (os error 13)` 本质上是 Clash Verge Rev 的前端界面（普通用户权限）与它的后台高权限服务（Root 权限）之间的 IPC 出了问题，
+
+Clash Verge Rev 为了能无感地修改系统的全局代理设置、操作底层网络或读写受保护的目录，它需要一定的特权。为了安全，Clash Verge Rev 不会让用户用 sudo 去运行整个图形界面，而是采用了一种前后端分离的安全设计：
+  * 前端（GUI）：以普通用户身份运行。
+  * 后端（Service）：向系统注册一个拥有 Root 权限的后台守护进程（即 `clash-verge-service`）。
+前端在需要高权限操作时，会通过 IPC（通常是 Socket）发送指令给后端服务代为执行。
+
+但是在 v2.4.5 版本，Clash Verge Rev 为了提升安全性，对 macOS 和 Linux 系统下的服务 IPC 权限进行了进一步的严格限制。官方在 [Release 页面](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v2.4.5)对此情况进行了说明。
+
+#### 包管理器不管动态配置
+用 `yay -Syu` 更新 Arch 的时候，包管理器把新版本的 `clash-verge-rev` 二进制文件替换了。但是负责提权和后台通信的配置文件（比如 Polkit 规则和 Systemd service 文件）是当初通过安装脚本动态生成的。包管理器在升级时，不会自动去覆写或重置这些安全规则文件。
+
+### 解决方案
+根据[官方说明](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v2.4.5) 运行
+```bash
+sudo clash-verge-service-uninstall
+sudo clash-verge-service-install
+```
+
+即可。

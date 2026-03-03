@@ -7,7 +7,7 @@ tags:
 description: 关于 scp 的基本用法以及一些特殊场景的使用
 abbrlink: fdcecd69
 date: 2024-03-15 15:15:17
-categories: [System & Hardware, Linux]
+categories: [Dev Tools, Software]
 
 ---
 
