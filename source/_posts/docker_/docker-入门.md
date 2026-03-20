@@ -13,7 +13,7 @@ categories: [Dev Tools, Docker]
 
 > 主要参考文章：[Docker 简易入门教程](https://iphysresearch.github.io/blog/post/programing/docker-tutorial)
 
-## docker 安装与启动
+## docker 安装与启用
 Linux 安装 docker 可以参考 [这篇博客](https://zhuxz0299.github.io/posts/45029051.html)。安装完成之后，由于 docker 需要用户具有 `sudo` 权限，为了避免每次命令都输入 `sudo`，可以把用户加入 docker 用户组(参考[stackoverflow](https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue)):
 ```bash
 sudo groupadd docker # 如果没有docker用户组，先创建一个
@@ -143,7 +143,7 @@ docker container rm 684b646ebe5f
 
 即可。
 
-## docker 使用代理
+## docker 拉取镜像时使用代理
 假如使用 docker 拉取 image 的时候遇到形如以下的问题：
 ```
 docker: Error response from daemon: failed to resolve reference "docker.io/library/hello-world:latest": failed to do request: Head "https://registry-1.docker.io/v2/library/hello-world/manifests/latest": read tcp [2001:da8:8000:6085:15db:75db:6e6b:5c21]:37210->[2600:1f18:2148:bc02:d471:330e:de3:f545]:443: read: connection reset by peer 

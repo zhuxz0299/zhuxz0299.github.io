@@ -35,7 +35,7 @@ Tun 模式（实现透明代理的一种重要方式）
   2. 网络请求程序无需额外配置。
 
 ### Meta 内核
-一般指 Clash Meta，也称 `Meta`、 `Mihomo` 内核。区别于 `Clash Premium` `为闭源内核，Mihomo` 为开源内核。
+一般指 Clash Meta，也称 `Meta`、 `Mihomo` 内核。区别于 `Clash Premium` 为闭源内核，`Mihomo` 为开源内核。
 
 ### CFW
 一般指 Clash For Windows，是一款的基于 `Clash Premium` 内核的全平台代理软件（虽然叫做 For Windows）。2023 年 11 月 2 日宣布停止更新，并删除发布仓库。
@@ -221,3 +221,180 @@ sudo clash-verge-service-install
 ```
 
 即可。
+
+## 服务器使用 mihomo 内核
+Clash Verge rev 只是一个 GUI 客户端，其代理功能以及 `proxy-providers`、`proxy-groups`、`rule-providers`、`rules` 等配置功能都是 mihomo 内核提供的，所以在服务器这种非 GUI 的环境下就可以直接使用 mihomo 内核，且基本可以继承 Clash Verge rev 的配置文件。
+
+### 下载与安装
+比较直接的方式是直接从 GitHub 的 release 页面下载编译好的二进制文件，我这次下载的是 `mihomo-linux-amd64-v1-v1.19.21.gz`，下载到本地保存为 `mihomo.gz`，然后执行以下操作：
+```bash
+gunzip -f mihomo.gz
+chmod +x mihomo
+mv mihomo ~/.local/bin/mihomo
+~/.local/bin/mihomo -v
+```
+
+接下来再到 `~/.config/mihomo/config.yaml` 中加上配置文件。由于配置文件提到了 `proxy_provider,ruleset,RuleSet` 等路径，所以也需要提前创建：
+```bash
+mkdir -p ~/.config/mihomo/{proxy_provider,ruleset,RuleSet}
+```
+
+此时就可以通过 `~/.local/bin/mihomo -d ~/.config/mihomo` 前台运行软件。
+
+### systemd 服务
+希望代理能够在后台稳定运行，所以创建一个用户身份运行的系统服务。实践时发现 `/etc/systemd/system/mihomo.service` 已经被其他用户创建并且使用了，所以换一个路径：`/etc/systemd/system/mihomo-zxz.service`，内容为：
+```toml
+[Unit]
+Description=mihomo for zxz
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=zxz
+Group=zxz
+ExecStart=/home/zxz/.local/bin/mihomo -d /home/zxz/.config/mihomo
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+```
+
+然后执行下列命令启动服务以及查看状态：
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now mihomo-zxz
+sudo systemctl status mihomo-zxz
+journalctl -u mihomo-zxz -f
+```
+
+### 配置文件调整
+由于和其他用户使用了同一个内核，所以端口就有可能冲突。运行
+```bash
+sudo ss -lntup | grep -E ':(10809|9090|1053)\b'
+```
+
+结果为：
+```
+udp UNCONN 0 0 *:1053 *:* users:(("mihomo",pid=2427,fd=10)) 
+tcp LISTEN 0 4096 *:1053 *:* users:(("mihomo",pid=2427,fd=9)) 
+tcp LISTEN 0 4096 *:9090 *:* users:(("mihomo",pid=2427,fd=3))
+```
+
+所以确实存在端口冲突。这里在配置文件里面修改一下即可。
+
+然后对上面没有解释的配置内容进行一些补充：
+```yaml
+# --- 端口设置  ---
+mixed-port: 10809        # 混合端口：HTTP + SOCKS5 
+
+# --- 基础设置 (保留原有的 allow-lan) ---
+allow-lan: false         # 允许局域网连接 (手机连电脑代理)
+mode: rule              # 规则模式
+log-level: info         # 日志等级
+ipv6: true              # 开启 IPv6 支持
+udp: true               # 开启 UDP (打游戏/QUIC 必须)
+```
+`allow-lan: false`:
+  * 意思是：不允许别的设备通过本机器的代理端口接入。只有把它改成 `true`，其他机器才能通过 Clash 的代理端口上网
+
+
+```yaml
+# --- 控制器设置 ---
+external-controller: 127.0.0.1:9091 # 允许所有 IP 控制 (比 :9091 更通用)
+secret: xxx
+external-controller-cors:
+  allow-origins:
+    - '*'
+  allow-private-network: true
+```
+
+`external-controller: 127.0.0.1:9091`
+* mihomo 的 REST API 控制端口。面板选节点、更新订阅、看连接、看日志，本质上都是在调这个 API。
+* 现在绑本机回环地址，意味着只能本机访问，配合 SSH 端口转发来从本地浏览器管理，正合适。
+
+`secret`:
+* API 的访问密钥。
+* 面板和 curl 调 API 时都要带这个 Bearer token。留空理论上也能工作，但安全性会差很多
+
+`external-controller-cors`
+* 给浏览器跨域访问 controller 用的。
+* `allow-origins: ['*']` 表示允许任意来源
+* `allow-private-network: true` 允许访问私网/本机地址时的相关私有网络请求。用在线 dashboard 连本地转发出来的 controller，这个配置通常有帮助。
+
+```yaml
+# 缓存设置
+profile:
+  store-selected: true
+  store-fake-ip: true
+```
+`profile.store-selected: true`
+* 保存 API 对策略组的选择结果，下次启动继续用。比如在面板里把 OpenAI 组切到某个节点，下次重启还能记住。
+
+`profile.store-fake-ip: true`
+* 保存 fake-ip 映射表。官方说明是：某个域名下次再次连接时，尽量继续使用原来的映射地址。
+
+```yaml
+# 流量嗅探 (必须保留，否则无法精准分流)
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+```
+`sniffer.enable: true`
+* 开启域名嗅探。作用：当连接本身没有明确给出“这个流量属于哪个域名”，或者 DNS / 目标地址不足以精确分流时，mihomo 会尝试从 HTTP/TLS/QUIC 流量里“闻”出域名，再按域名规则分流。
+
+`force-dns-mapping: true`
+* 官方说明：对 redir-host 类型识别的流量进行强制嗅探。
+
+`parse-pure-ip: true`
+* 官方说明：对所有没拿到域名的流量强制嗅探。意思是：哪怕连接目标看起来只是一个 IP，也尽量从握手内容里识别真实域名。
+
+`override-destination: true`
+* 使用嗅探结果作为实际访问目标。
+
+`sniff.HTTP / TLS / QUIC`
+* 这几段表示：只对这些协议、这些端口范围做嗅探。HTTP 默认是 80 和 8080-8880，TLS/QUIC 是 443 和 8443。
+
+### 使用 dashboard 选择节点
+节点选择通常还是有个 GUI 会方便一些。这个时候可以先用 ssh 做端口转发：
+```bash
+ssh -L 9190:127.0.0.1:9190 你的用户名@你的服务器IP
+```
+
+然后到任意一个 dashboard：
+* d.metacubex.one
+* yacd.metacubex.one
+* board.zash.run.place
+
+填写前面 `external-controller` 与 `secret` 指定的内容，即可看到一个类似 Clash Verge rev 的 GUI 页面。
+
+### 订阅内容与规则文件更新
+可以写一个脚本然后运行
+```bash
+#!/usr/bin/env bash
+SECRET='你的secret'
+API='http://127.0.0.1:9091'
+
+for p in provider1 provider2; do
+  curl -fsS -X PUT -H "Authorization: Bearer $SECRET" \
+    "$API/providers/proxies/$p"
+  echo "updated proxy provider: $p"
+done
+
+for r in OpenAI Proxy China LAN GlobalMedia Apple Microsoft Netflix Disney+ YouTube TikTok Spotify Gemini; do
+  curl -fsS -X PUT -H "Authorization: Bearer $SECRET" \
+    "$API/providers/rules/$r"
+  echo "updated rule provider: $r"
+done
+```
