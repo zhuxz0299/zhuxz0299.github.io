@@ -14,7 +14,26 @@ date: 2026-01-22 21:08:49
 ## 如何优雅地设置 Esc
 使用 Vim 的一个非常直接的阻碍是：频繁使用的 Esc 键实在有些远离手指可以方便够到的区域，因此目前的一个主流方法是：通过系统设置把 Esc 键以及 Caps 键进行互换。通常来说这个策略确实可行，但是我本身又是 Capslock+ 的用户。虽然这个软件并没有提供 Linux 支持，但是由于我已经习惯了使用 Capslock + 其他按键实现光标的移动，所以我又通过 keyd 在 Linux 中也实现了类似的功能。这就导致了一个问题：假如直接把 Esc 和 Caps 互换，那我在除了 vim 之外的其他地方就没法方便地移动光标了。
 
-上述问题的最终解决方案是：在 keyd 中设置点按 Caps 键执行 Esc；Caps + 空格键实现大小写转换。配置代码就在文章[快捷使用方向键](https://zhuxz0299.github.io/posts/aae19956.html)的 keyd 配置文件中。
+上述问题的最终解决方案是：在 keyd 中设置点按 Caps 键执行 Esc；Caps + 空格键实现大小写转换。配置按键使用的软件与文章[快捷使用方向键](https://zhuxz0299.github.io/posts/aae19956.html)中相同。
+
+### Windows CapsLock+ 配置方式
+在 `CapsLock+settings.ini` 的 `[key]` 底下加入
+```ini
+;短按 Caps Lock -> 发送 Esc
+press_caps=keyFunc_esc
+;Capslock+Space -> enter
+caps_space=keyFunc_toggleCapsLock
+```
+
+### Linux keyd 配置方式
+在 `/etc/keyd/default.conf` 中加入，这个的完整配置在[快捷使用方向键](https://zhuxz0299.github.io/posts/aae19956.html)里面已经有了。
+```ini
+# Capslock + Enter: 在行末换行 (End -> Enter)
+enter = macro(end enter)
+# Capslock + Backspace: 删除当前行 (Home -> Shift+End -> Backspace)
+backspace = macro(home S-end backspace)
+```
+
 
 ## Vim 常用操作
 ### 简单操作
