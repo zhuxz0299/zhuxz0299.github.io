@@ -1,0 +1,6 @@
+{
+  "markdown.copyFiles.destination": {
+    "/source/_posts/*/*.md": "../../figure/${documentDirName/(.*[\\\\/])?([^\\\\/]+)$/$2/}/${documentBaseName}/${fileName}",
+    "/source/_posts/*.md": "../figure/${documentBaseName}/${fileName}"
+  }
+}

@@ -1,0 +1,10 @@
+/* 标签页标签颜色 */
+.tag-cloud-list a {
+  background-color: var(--btn-bg) !important;
+  color: var(--font-color) !important;
+}
+
+.tag-cloud-list a:hover {
+  background-color: var(--btn-hover-color) !important;
+  color: var(--btn-color) !important;
+}

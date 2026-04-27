@@ -1,0 +1,180 @@
+---
+title: Vim 使用入门
+tags:
+  - vim
+description: 介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。
+cover: 'https://source.fomal.cc/img/default_cover_190.webp'
+categories:
+  - Dev Tools
+  - Software
+abbrlink: efca9c95
+date: 2026-01-22 21:08:49
+---
+
+## 如何优雅地设置 Esc
+使用 Vim 的一个非常直接的阻碍是：频繁使用的 Esc 键实在有些远离手指可以方便够到的区域，因此目前的一个主流方法是：通过系统设置把 Esc 键以及 Caps 键进行互换。通常来说这个策略确实可行，但是我本身又是 Capslock+ 的用户。虽然这个软件并没有提供 Linux 支持，但是由于我已经习惯了使用 Capslock + 其他按键实现光标的移动，所以我又通过 keyd 在 Linux 中也实现了类似的功能。这就导致了一个问题：假如直接把 Esc 和 Caps 互换，那我在除了 vim 之外的其他地方就没法方便地移动光标了。
+
+上述问题的最终解决方案是：在 keyd 中设置点按 Caps 键执行 Esc；Caps + 空格键实现大小写转换。配置按键使用的软件与文章[快捷使用方向键](https://zhuxz0299.github.io/posts/aae19956.html)中相同。
+
+### Windows CapsLock+ 配置方式
+在 `CapsLock+settings.ini` 的 `[key]` 底下加入
+```ini
+;短按 Caps Lock -> 发送 Esc
+press_caps=keyFunc_esc
+;Capslock+Space -> enter
+caps_space=keyFunc_toggleCapsLock
+```
+
+### Linux keyd 配置方式
+在 `/etc/keyd/default.conf` 中加入，这个的完整配置在[快捷使用方向键](https://zhuxz0299.github.io/posts/aae19956.html)里面已经有了。
+```ini
+# Capslock + Enter: 在行末换行 (End -> Enter)
+enter = macro(end enter)
+# Capslock + Backspace: 删除当前行 (Home -> Shift+End -> Backspace)
+backspace = macro(home S-end backspace)
+```
+
+
+## Vim 常用操作
+### 简单操作
+| 分类 | 按键 / 命令 | 功能说明 |
+| :--- | :--- | :--- |
+| **移动** | **`h` `j` `k` `l`** | **左 / 下 / 上 / 右** (建议强迫自己只用这四个键) |
+| | `w` / `b` | 下一个单词开头 / 上一个单词开头 |
+| | `0` / `$` | 跳转到 **行首** / **行尾** |
+| | `gg` / `G` | 跳转到 **文件第一行** / **文件最后一行** |
+| | `Ctrl` + `u` / `d` | 向上 / 向下翻半页 (Up/Down) |
+| **插入** | **`i` / `a`** | 光标 **前** 插入 / 光标 **后** 插入 |
+| | `I` / `A` | 跳转到 **行首** 插入 / 跳转到 **行尾** 插入 |
+| | `o` / `O` | 在 **下方** 新建一行 / 在 **上方** 新建一行 |
+| **编辑** | **`yy` / `p`** | **复制** 当前行 / **粘贴** (在光标后) |
+| | `dd` | **剪切 (删除)** 当前行 (配合 `p` 粘贴即为移动行) |
+| | `x` / `r` | 删除当前字符 / 替换当前字符 (无需进入插入模式) |
+| | `u` / `Ctrl`+`r` | **撤销** (Undo) / **重做** (Redo) |
+| **组合** | `Num` + `Cmd` | **重复命令** (例: `3yy` 复制3行, `5dd` 删5行, `10j` 下移10行) |
+| | `ciw` | **修改单词** (Change Inner Word, 删除单词并立刻进入插入模式) |
+| **文件** | `:w` / `:q` | 保存 / 退出 |
+| | `:wq` / `:q!` | 保存并退出 / 强制退出 (不保存) |
+| **搜索** | `/text` | 向下搜索 "text" (按 `n` 下一个, `N` 上一个) |
+| | `:%s/old/new/g` | 全局替换 (将 old 替换为 new) |
+
+### 组合操作详解
+> **命令 (Verb) + 范围 (Scope) + 对象 (Object)**
+
+例如：`ci"` = **C**hange **I**nner **"** (修改双引号内部的内容)
+
+#### A. 动词 (Verb)：你想做什么？
+| 按键 | 英文 | 含义 |
+| :--- | :--- | :--- |
+| `c` | Change | 修改 (删除并进入插入模式) |
+| `d` | Delete | 删除 (剪切) |
+| `y` | Yank | 复制 |
+| `v` | Visual | 选中 (进入可视模式) |
+
+#### B. 范围 (Scope)：包含边界吗？
+这是最关键的区别：
+
+| 按键 | 英文 | 含义 |
+| :--- | :--- | :--- |
+| `i` | Inner | 内部 (不包含括号/引号本身) | 
+| `a` | Around | 周围 (包含括号/引号本身) | 
+
+#### C. 对象 (Object)：操作什么东西？
+| 按键 | 对象 | 示例 |
+| :--- | :--- | :--- |
+| `w` | Word | 单词 |
+| `"` / `'` | Quote | 引号内的字符串 |
+| `(` / `)` | Parentheses | 圆括号 `(...)` |
+| `[` / `]` | Brackets | 方括号 `[...]` |
+| `{` / `}` | Braces | 大括号 `{...}` |
+| `t` | Tag | HTML/XML 标签 `<div>...</div>` |
+| `p` | Paragraph | 段落 |
+
+
+
+## Vim 的剪切板机制
+
+在 Vim 中使用 `y` 复制的内容，默认无法直接在其他软件（如浏览器）中通过 `Ctrl+v` 粘贴。这是因为 Vim 有自己独立的**寄存器 (Register)** 系统，默认的复制操作只是把内容放进了 Vim 内部的“无名寄存器”，并没有进入系统的剪切板。
+
+### 系统剪切板寄存器
+Vim 专门预留了两个寄存器用于与系统剪切板交互：
+- **`+` 寄存器**：对应系统的剪切板 (Clipboard)，也就是常用的 `Ctrl+c` / `Ctrl+v` 所在的区域。
+- **`*` 寄存器**：对应 Linux 下的“主选择区” (Primary Selection)，即选中即复制，中键粘贴的区域。
+
+通常我们关注的是 `+` 寄存器。
+
+### 常用操作
+想要与系统剪切板交互，只需要在常用的 `y` (复制)、`d` (剪切)、`p` (粘贴) 命令前加上 `"+` 即可。
+
+| 命令 | 功能说明 |
+| :--- | :--- |
+| `"+y` | 复制选中内容到系统剪切板 |
+| `"+yy` | 复制当前行到系统剪切板 |
+| `"+p` | 将系统剪切板的内容粘贴到光标后 |
+| `"+P` | 将系统剪切板的内容粘贴到光标前 |
+
+### 一劳永逸的配置
+若是觉得每次都要按 `"+` 三个键过于繁琐，可以通过修改配置文件（`.vimrc` 或 `init.lua`），让 Vim 的默认操作直接使用系统剪切板。
+
+```vim
+" 将 unnamedplus (也就是 + 寄存器) 添加到 clipboard 选项
+set clipboard=unnamedplus
+```
+
+这样设置之后，直接使用 `y`、`d`、`p` 就会自动同步到系统剪切板了，非常方便。
+
+{% note warning %}
+* 要使用此功能，Vim 版本必须支持 `clipboard` 特性。可以通过命令行输入 `vim --version` 查看，如果显示 `+clipboard` 则表示支持；如果是 `-clipboard`，则可能需要安装 `vim-gtk` 或 `vim-gui-common` 等包含图形界面支持的版本（即使只在终端使用）。
+* 即使 Vim 版本支持 `clipboard` 特性，有时候做了上述设置依然不会成功。这个时候可以考虑一下下载 xclip (X11) 或者 wl-clipboard (Wayland) 来看看能否成功。 
+* 如果还是不行，那就只能设置
+  ```vim
+  " 支持在Visual模式下，通过C-y复制到系统剪切板
+  vnoremap <C-y> "+y
+  " 支持在normal模式下，通过C-p粘贴系统剪切板
+  nnoremap <C-p> "*p 
+  ```
+  凑合着用吧。
+{% endnote %}
+
+### 如何只删除不剪切 (黑洞寄存器)
+
+在 Vim 中，`d` (Delete) 之类的操作实际上是**剪切**，这经常导致覆盖掉粘贴板中原本想粘贴的内容。Vim 提供了一个**黑洞寄存器** `"_`，放入其中的内容会被直接丢弃。
+
+如果希望 `d` 操作永远**只删除不剪切**，可以将 `d` 直接绑定到黑洞寄存器上。
+
+#### Vim / Neovim 配置
+在配置文件 `~/.vimrc` 中加入：
+
+```vim
+nnoremap d "_d
+vnoremap d "_d
+```
+
+#### Neovim 配置
+在配置文件 `~/.config/nvim/lua/config/keymaps.lua` 中加入：
+```lua
+-- 对应 nnoremap d "_d 和 vnoremap d "_d
+vim.keymap.set({ "n", "v" }, "d", '"_d', { desc = "Delete without yanking" })
+-- 为了保险起见，通常建议把 dd (删除整行) 也专门加上
+vim.keymap.set("n", "dd", '"_dd', { desc = "Delete line without yanking" })
+```
+
+#### VS Code (Vim 插件) 配置
+在 `settings.json` 中加入以下配置：
+
+```json
+"vim.normalModeKeyBindingsNonRecursive": [
+    {
+        "before": ["d"],
+        "after": ["\"", "_", "d"]
+    }
+],
+"vim.visualModeKeyBindingsNonRecursive": [
+    {
+        "before": ["d"],
+        "after": ["\"", "_", "d"]
+    }
+]
+```
+
+这样修改后，`d` 相关的操作就不再污染剪切板了。如果偶尔需要剪切，可以使用 `x` (剪切字符) 或 `c` (修改)。

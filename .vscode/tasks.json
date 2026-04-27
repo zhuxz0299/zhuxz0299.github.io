@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Blog: add image to current post",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/tools/blog_image.js",
+        "add",
+        "${file}",
+        "${input:imagePath}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Blog: optimize images for current post",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/tools/blog_image.js",
+        "optimize",
+        "--post",
+        "${file}",
+        "--delete-originals"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Blog: migrate images for current post",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/tools/blog_image.js",
+        "migrate",
+        "--post",
+        "${file}",
+        "--convert-webp"
+      ],
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "imagePath",
+      "type": "promptString",
+      "description": "Path of the image to add"
+    }
+  ]
+}
