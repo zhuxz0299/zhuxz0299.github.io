@@ -1,0 +1,549 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Rclone 使用基础 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="记录一下 Rclone 的配置方式与用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rclone 使用基础">
+<meta property="og:url" content="https://zhuxz0299.github.io/posts/811636f.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="记录一下 Rclone 的配置方式与用法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_196.webp">
+<meta property="article:published_time" content="2026-03-03T12:02:55.000Z">
+<meta property="article:modified_time" content="2026-04-27T05:20:52.236Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="rclone">
+<meta property="article:tag" content="webdav">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_196.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rclone 使用基础",
+  "url": "https://zhuxz0299.github.io/posts/811636f.html",
+  "image": "https://source.fomal.cc/img/default_cover_196.webp",
+  "datePublished": "2026-03-03T12:02:55.000Z",
+  "dateModified": "2026-04-27T05:20:52.236Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "https://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="https://zhuxz0299.github.io/posts/811636f.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="OenG9gy5rfqmwly_6HPOyfKL7X8py3Qpov78G4QjyHQ"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Rclone 使用基础',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Zhuxz's Blog" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">154</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">92</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">35</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_196.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Rclone 使用基础</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Rclone 使用基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-03T12:02:55.000Z" title="发表于 2026-03-03 20:02:55">2026-03-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T05:20:52.236Z" title="更新于 2026-04-27 13:20:52">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/">Dev Tools</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/Software/">Software</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="云存储配置">云存储配置</h2>
+<p>如果希望配置云存储，可以先运行 <code>rclone config</code>，得到输出为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Current remotes:</span><br><span class="line"></span><br><span class="line">Name                 Type</span><br><span class="line">====                 ====</span><br><span class="line">Tbox                 webdav</span><br><span class="line">cxftp                ftp</span><br><span class="line"></span><br><span class="line">e) Edit existing remote</span><br><span class="line">n) New remote</span><br><span class="line">d) Delete remote</span><br><span class="line">r) Rename remote</span><br><span class="line">c) Copy remote</span><br><span class="line">s) Set configuration password</span><br><span class="line">q) Quit config</span><br><span class="line">e/n/d/r/c/s/q&gt;</span><br></pre></td></tr></table></figure>
+<p><code>Current remotes</code> 即为当前已经创建过的云存储配置；在下方的 prompt 输入相应的字母即可进入下一步。</p>
+<h3 id="创建新配置">创建新配置</h3>
+<ul>
+<li>选择 <code>n</code> （新建 remote）。</li>
+<li>输入名称（如 <code>Tbox</code>）。</li>
+<li>然后会跳出来超级多存储类型选项，从中选择需要配置的云存储类型，（例如选择 WebDAV，则在 <code>Storage&gt;</code> prompt 后面输入 <code>62</code>）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> 1 / 1Fichier</span><br><span class="line">   \ (fichier)</span><br><span class="line"> 2 / Akamai NetStorage</span><br><span class="line">   \ (netstorage)</span><br><span class="line"> 3 / Alias for an existing remote</span><br><span class="line">   \ (alias)</span><br><span class="line"> 4 / Amazon S3 Compliant Storage Providers including AWS, Alibaba, ArvanCloud, BizflyCloud, Ceph, ChinaMobile, Cloudflare, Cubbit, DigitalOcean, Dreamhost, Exaba, FileLu, FlashBlade, GCS, Hetzner, HuaweiOBS, IBMCOS, IDrive, Intercolo, IONOS, Leviia, Liara, Linode, LyveCloud, Magalu, Mega, Minio, Netease, Outscale, OVHcloud, Petabox, Qiniu, Rabata, RackCorp, Rclone, Scaleway, SeaweedFS, Selectel, Servercore, SpectraLogic, StackPath, Storj, Synology, TencentCOS, Wasabi, Zata, Other</span><br><span class="line">   \ (s3)</span><br><span class="line"> 5 / Backblaze B2</span><br><span class="line">   \ (b2)</span><br><span class="line"> 6 / Better checksums for other remotes</span><br><span class="line">   \ (hasher)</span><br><span class="line"> 7 / Box</span><br><span class="line">   \ (box)</span><br><span class="line">... (中间省略一些)</span><br><span class="line">61 / Union merges the contents of several upstream fs</span><br><span class="line">   \ (union)</span><br><span class="line">62 / WebDAV</span><br><span class="line">   \ (webdav)</span><br><span class="line">63 / Yandex Disk</span><br><span class="line">   \ (yandex)</span><br><span class="line">64 / Zoho</span><br><span class="line">   \ (zoho)</span><br><span class="line">65 / iCloud Drive</span><br><span class="line">   \ (iclouddrive)</span><br><span class="line">66 / premiumize.me</span><br><span class="line">   \ (premiumizeme)</span><br><span class="line">67 / seafile</span><br><span class="line">   \ (seafile)</span><br><span class="line">Storage&gt; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据提示输入 WebDAV 服务器的地址 (<code>url</code>)、用户名 (<code>user</code>)、密码 (<code>pass</code>)。</li>
+<li>对于其他高级设置，如果不确定，通常可以直接按回车使用默认值。</li>
+<li>配置完成后，确认保存 (<code>y</code>)。</li>
+</ul>
+<p>此时就可以对云存储的内容进行操作了。例如运行 <code>rclone lsd Tbox:/</code> 查看云存储中的内容。</p>
+<h3 id="已有配置查看">已有配置查看</h3>
+<p>直接运行 <code>rclone config</code> 看到的信息比较简陋，因此可以运行 <code>rclone config show</code>，输出更加详细的信息：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Tbox]</span></span><br><span class="line"><span class="attr">type</span> = webdav</span><br><span class="line"><span class="attr">url</span> = http://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">65472</span>/</span><br><span class="line"><span class="attr">vendor</span> = other</span><br><span class="line"><span class="attr">user</span> = zxz</span><br><span class="line"><span class="attr">pass</span> = <span class="number">4</span>tJdukYexWERg8oexoZ4iiv4r_2aDZMepH1Bqbi4b2BqLo</span><br><span class="line"></span><br><span class="line"><span class="section">[cxftp]</span></span><br><span class="line"><span class="attr">type</span> = ftp</span><br><span class="line"><span class="attr">port</span> = <span class="number">1484</span></span><br><span class="line"><span class="attr">user</span> = pc</span><br><span class="line"><span class="attr">pass</span> = <span class="number">31</span>mvT_D6sImcYOnHThoDe_tJA</span><br><span class="line"><span class="attr">host</span> = <span class="number">10.85</span>.<span class="number">33.68</span></span><br></pre></td></tr></table></figure>
+<p>该信息和 <code>cat ~/.config/rclone/rclone.conf</code> 得到的结果完全一致。</p>
+<div class="note warning flat"><p><code>~/.config/rclone/rclone.conf</code> 里面记录的密码 <code>pass</code> 都是加密之后的结果，因此不要通过直接编辑该配置文件的方式添加或修改云存储配置，否则密码不可用。</p>
+</div>
+<h2 id="WebDAV-挂载">WebDAV 挂载</h2>
+<div class="note info flat"><p><a target="_blank" rel="noopener" href="https://rclone.org/commands/rclone_mount/">官方文档 rclone mount</a></p>
+</div>
+<p>在 Linux 中，如果希望将云存储挂载到本地，可以运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone mount remote:path/to/files /path/to/local/mount</span><br></pre></td></tr></table></figure>
+<p>其中 <code>/path/to/local/mount</code> 是一个空现有目录。例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone mount Tbox:/ /mnt/Tbox/</span><br></pre></td></tr></table></figure>
+<p>就是将整个 <code>Tbox</code> 云存储的内容挂载到挂载点 <code>/mnt/Tbox/</code>。</p>
+<p>如果需要从本地卸载该云存储，则需使用 <code>fusermount</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fusermount -u /path/to/local/mount</span><br></pre></td></tr></table></figure>
+<h3 id="挂载参数">挂载参数</h3>
+<p>为了实现比较好的挂载效果，需要进行一些设置，尤其是 VFS 文件缓存的设置：</p>
+<blockquote>
+<p>File systems expect things to be 100% reliable, whereas cloud storage systems are a long way from 100% reliable. The rclone sync/copy commands cope with this with lots of retries. However rclone mount can’t use retries in the same way without making local copies of the uploads. Look at the VFS File Caching for solutions to make mount more reliable.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数名称</th>
+<th style="text-align:left">说明与用途</th>
+<th style="text-align:left">常见值/示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>基本挂载参数</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;remote&gt;:&lt;path&gt;</code></td>
+<td style="text-align:left">远程存储名称和路径</td>
+<td style="text-align:left"><code>dav:/</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;local_path&gt;</code></td>
+<td style="text-align:left">本地挂载点路径</td>
+<td style="text-align:left"><code>/webdav</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--daemon</code></td>
+<td style="text-align:left"><strong>后台守护进程</strong>模式，允许命令在后台运行，关闭终端也不中断。</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>权限与访问控制</strong></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--allow-non-empty</code></td>
+<td style="text-align:left">允许挂载到<strong>非空目录</strong>上。</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--log-level &lt;LEVEL&gt;</code></td>
+<td style="text-align:left">设置日志详细程度，调试时有用。</td>
+<td style="text-align:left"><code>INFO</code>, <code>DEBUG</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--log-file &lt;FILE&gt;</code></td>
+<td style="text-align:left">将日志输出到指定文件。</td>
+<td style="text-align:left"><code>--log-file /var/log/rclone.log</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--read-only</code></td>
+<td style="text-align:left"><strong>以只读模式挂载</strong>，防止意外修改或删除远程文件。</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>VFS 文件缓存设置：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数 (Flags)</th>
+<th style="text-align:left">默认值</th>
+<th style="text-align:left">作用描述 (Description)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>--vfs-cache-mode</code></td>
+<td style="text-align:left"><code>off</code></td>
+<td style="text-align:left"><strong>VFS 缓存模式（WebDAV 必备参数）</strong>。可选值：<code>off</code>、<code>minimal</code>、<code>writes</code>、<code>full</code>。为了使 VFS 层表现得像普通文件系统（尤其是处理需要同时读写、随机写入的应用程序），<strong>强烈建议将 WebDAV 挂载设置为 <code>writes</code> 或 <code>full</code></strong>，否则许多常规文件操作会报错。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--vfs-cache-max-age</code></td>
+<td style="text-align:left"><code>1h0m0s</code></td>
+<td style="text-align:left"><strong>缓存最大存活时间</strong>。指定缓存中的文件对象在最后一次被访问后，能在本地磁盘保留的最长时间。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--vfs-cache-max-size</code></td>
+<td style="text-align:left"><code>off</code></td>
+<td style="text-align:left"><strong>缓存最大容量</strong>。限制本地 VFS 缓存所能占用的最大磁盘空间总大小（例如设置为 <code>10G</code>）。当达到上限时，rclone 会自动清理最旧的缓存文件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--dir-cache-time</code></td>
+<td style="text-align:left"><code>5m0s</code></td>
+<td style="text-align:left"><strong>目录缓存时间</strong>。将目录条目（文件列表）在本地缓存的时间。在这段时间内，rclone 不会向 WebDAV 服务器发起重复请求，这能显著提高 <code>ls</code> 等目录列出命令的响应速度。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--buffer-size</code></td>
+<td style="text-align:left">系统限制</td>
+<td style="text-align:left"><strong>VFS 文件缓冲大小</strong>。决定在内存中预先缓冲数据的大小。每个打开的文件会尝试在内存中保留这么多数据以加速读取。注意总内存使用量最高可达 <code>--buffer-size * 打开的文件数</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--vfs-read-chunk-size</code></td>
+<td style="text-align:left"><code>128M</code></td>
+<td style="text-align:left"><strong>分块读取大小</strong>。从远程存储读取文件时按指定的块大小进行请求，而不是直接请求整个文件。这能减少不必要的数据下载和带宽消耗。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--vfs-read-ahead</code></td>
+<td style="text-align:left">(未启用)</td>
+<td style="text-align:left"><strong>VFS 预读大小</strong>。在使用 <code>full</code> 缓存模式时，rclone 读取文件时除了在内存中缓冲外，还会在磁盘上提前预读指定大小的数据，以提高大文件顺序读取的性能。</td>
+</tr>
+</tbody>
+</table>
+<p>运行示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone mount Tbox:/ /mnt/Tbox/ --cache-dir /mnt/Tbox_cache --allow-non-empty --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 32M --dir-cache-time 30m</span><br></pre></td></tr></table></figure>
+<h2 id="双向同步">双向同步</h2>
+<div class="note info flat"><p><a target="_blank" rel="noopener" href="https://rclone.org/commands/rclone_bisync/">官方文档 rclone bisync</a></p>
+</div>
+<p>如果希望执行远程存储和本地的双向同步，可以运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone bisync remote1:path1 remote2:path2 [flags]</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory</span><br></pre></td></tr></table></figure>
+<h3 id="参数说明">参数说明</h3>
+<p>经常用到的重要参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数 / 指令</th>
+<th style="text-align:left">可选值 / 示例</th>
+<th style="text-align:left">默认值</th>
+<th style="text-align:left">官方文档说明与实际作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>--dry-run</code> 或 <code>-n</code></td>
+<td style="text-align:left">(作为开关参数，无值)</td>
+<td style="text-align:left">(不启用)</td>
+<td style="text-align:left"><strong>测试运行（演练）。</strong> 只在终端输出计划要执行的操作列表，绝对不会对本地或远端的文件进行任何实际的增删改。强烈建议在执行 <code>--resync</code> 前使用。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--verbose</code> 或 <code>-v</code></td>
+<td style="text-align:left">(作为开关参数，无值)</td>
+<td style="text-align:left">(不启用)</td>
+<td style="text-align:left"><strong>输出详细日志。</strong> rclone 默认非常安静。加上此参数会输出 INFO 级别的日志，让你清楚地看到文件的扫描进度、比对逻辑和传输统计。</td>
+</tr>
+</tbody>
+</table>
+<p>其他用到过的参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数 / 指令</th>
+<th style="text-align:left">可选值 / 示例</th>
+<th style="text-align:left">默认值</th>
+<th style="text-align:left">官方文档说明与实际作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>--resync</code></td>
+<td style="text-align:left">(作为开关参数，无值)</td>
+<td style="text-align:left">(不启用)</td>
+<td style="text-align:left"><strong>执行强制重对齐。</strong> 通常用于首次运行、更改了过滤规则或发生致命错误后修复数据库。如果不额外指定模式，它的行为等同于 <code>--resync-mode path1</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--resync-mode</code></td>
+<td style="text-align:left"><code>none</code>, <code>path1</code>, <code>path2</code>, <code>newer</code>, <code>older</code>, <code>larger</code>, <code>smaller</code></td>
+<td style="text-align:left"><code>none</code> (若带有 <code>--resync</code> 则默认为 <code>path1</code>)</td>
+<td style="text-align:left"><strong>指定重对齐 (Resync) 期间的覆盖策略。</strong> 当两端不一致时，决定以哪一边为基准。例如 <code>path2</code> 表示无条件让远端（Path2）覆盖本地（Path1）。<em>注：只要指定了非 none 的值，就会隐式触发 <code>--resync</code>。</em></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--conflict-resolve</code></td>
+<td style="text-align:left"><code>none</code>, <code>path1</code>, <code>path2</code>, <code>newer</code>, <code>older</code>, <code>larger</code>, <code>smaller</code></td>
+<td style="text-align:left"><code>none</code></td>
+<td style="text-align:left"><strong>自动处理日常同步中的冲突。</strong> 当一个文件在两端同时被修改产生冲突时，决定保留哪个版本。默认 <code>none</code> 会保留冲突文件（加后缀）并报错退出；设置为 <code>newer</code> 会自动保留最后修改时间更近的版本。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>--create-empty-src-dirs</code></td>
+<td style="text-align:left">(作为开关参数，无值)</td>
+<td style="text-align:left">(不启用)</td>
+<td style="text-align:left"><strong>同步空目录。</strong> rclone 默认为了效率会忽略空文件夹。加上此参数后，一方创建或删除空文件夹的行为也会同步到另一方。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="实际同步流程">实际同步流程</h3>
+<p>在第一次运行的时候，需要进行一次强制对齐：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试运行（不会真正修改文件）</span></span><br><span class="line"><span class="comment"># 第一个是本地同步到云端；第二个是云端同步到本地</span></span><br><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --resync --dry-run -v </span><br><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --resync --resync-mode path2 --dry-run -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实际运行（建立初始同步）</span></span><br><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --resync -v</span><br><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --resync --resync-mode path2 -v</span><br></pre></td></tr></table></figure>
+<p>后续同步正常运行即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory -v</span><br></pre></td></tr></table></figure>
+<p>如果某次同步遇到冲突，在不设置 <code>--conflict-resolve</code> 的情况下，rclone 会将产生冲突的文件重命名，通常会加上 <code>..path1</code> 和 <code>..path2</code> 的后缀保留在文件夹里。用户需要手动解决冲突，然后运行f</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --resync -v</span><br></pre></td></tr></table></figure>
+<p>重新对齐数据库，才能恢复正常的日常自动同步。</p>
+<div class="note warning flat"><p>如果不加 <code>--resync-mode</code> 参数，<code>--resync</code> 的默认行为是以 Path1（即本地）为准去覆盖 Path2（即远端）。<br>
+不过考虑到用户通常在本地电脑上处理冲突，所以直接运行上面的命令是合理的。</p>
+</div>
+<h3 id="创建-systemd-服务以实现自动同步">创建 systemd 服务以实现自动同步</h3>
+<p>在 Arch Linux 上，个人用户目录下的文件同步推荐使用 Systemd User Service (用户级服务)。这样不需要 root 权限，且在用户登录后才会运行，较为安全。</p>
+<h4 id="新建与使用-Service">新建与使用 Service</h4>
+<p>首先创建 Service 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.config/systemd/user/rclone-laboratory-sync.service</span><br></pre></td></tr></table></figure>
+<p>写入</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Rclone Bisync for Laboratory Folder</span><br><span class="line"><span class="comment"># 确保在网络连接建立后才运行</span></span><br><span class="line"><span class="attr">After</span>=network-<span class="literal">on</span>line.target</span><br><span class="line"><span class="attr">Wants</span>=network-<span class="literal">on</span>line.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=<span class="literal">on</span>eshot</span><br><span class="line"><span class="comment"># 这里是你日常双向同步的命令，加入了 --conflict-resolve newer 自动处理冲突</span></span><br><span class="line"><span class="attr">ExecStart</span>=/usr/bin/rclone bisync /home/zxz/Data/laboratory Tbox:laboratory -v</span><br><span class="line"><span class="comment"># 限制重试次数，避免网络不好时无限卡住</span></span><br><span class="line"><span class="attr">ExecStartPost</span>=/bin/sleep <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>再设置定时器文件以支持定时自动同步：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.config/systemd/user/rclone-laboratory-sync.timer</span><br></pre></td></tr></table></figure>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Timer for Rclone Laboratory Bisync</span><br><span class="line"></span><br><span class="line"><span class="section">[Timer]</span></span><br><span class="line"><span class="comment"># 开机/用户登录后等待 3 分钟执行第一次（留出时间给 WebDAV 服务启动和网络连接）</span></span><br><span class="line"><span class="attr">OnBootSec</span>=<span class="number">3</span>min</span><br><span class="line"><span class="comment"># 之后每隔 15 分钟执行一次（你可以根据需要把 15min 改成 5min 或 30min）</span></span><br><span class="line"><span class="attr">OnUnitActiveSec</span>=<span class="number">15</span>min</span><br><span class="line"><span class="comment"># 即使错过了任务（比如电脑休眠了），唤醒后也会补全执行</span></span><br><span class="line"><span class="attr">Persistent</span>=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=timers.target</span><br></pre></td></tr></table></figure>
+<p>最后加载配置并使用定时器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl --user daemon-reload <span class="comment"># 重新加载 systemd 用户配置</span></span><br><span class="line">systemctl --user <span class="built_in">enable</span> --now rclone-laboratory-sync.timer <span class="comment"># 启用并立即启动 Timer</span></span><br></pre></td></tr></table></figure>
+<h4 id="常用维护命令">常用维护命令</h4>
+<p>用于查看 systemd 模块的运行情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看定时器下次运行的时间</span></span><br><span class="line">systemctl --user list-timers --all | grep rclone</span><br><span class="line"><span class="comment"># 查看服务最近一次的运行日志，如果同步出错这里能看到 rclone 的报错</span></span><br><span class="line">journalctl --user -u rclone-laboratory-sync.service -e</span><br><span class="line"><span class="comment"># 立刻手动触发一次同步</span></span><br><span class="line">systemctl --user start rclone-laboratory-sync.service</span><br></pre></td></tr></table></figure>
+<h3 id="同步时忽略特定文件夹">同步时忽略特定文件夹</h3>
+<p>像 <code>.git</code>, <code>.venv</code> 这种文件夹里面包含大量小文件，不方便同步；同时里面的这些小文件在不同的设备中也不兼容。因此，使用 Rclone 做同步的时候推荐将这些文件夹忽略。同时为了方便后续维护，可以设置一个专门的规则文件用于过滤（类似 <code>.gitignore</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/.config/rclone</span><br><span class="line">nano ~/.config/rclone/filter-lab.txt</span><br></pre></td></tr></table></figure>
+<p>加入需要忽略的文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"># === 版本控制 ===</span><br><span class="line">- .git/**</span><br><span class="line">- .svn/**</span><br><span class="line"></span><br><span class="line"># === 依赖与虚拟环境 ===</span><br><span class="line">- .venv/**</span><br><span class="line">- node_modules/**</span><br><span class="line"></span><br><span class="line"># === 缓存与构建产物 ===</span><br><span class="line">- __pycache__/**</span><br><span class="line">- *.py[cod]</span><br><span class="line">- .pytest_cache/**</span><br><span class="line">- *.class</span><br><span class="line">- *.o</span><br><span class="line">- *.out</span><br><span class="line"></span><br><span class="line"># === 编辑器与系统垃圾 ===</span><br><span class="line">- .vscode/**</span><br><span class="line">- .idea/**</span><br><span class="line">- *.swp</span><br><span class="line">- *~</span><br><span class="line">- .DS_Store</span><br><span class="line">- Thumbs.db</span><br><span class="line"></span><br><span class="line"># === 日志 ===</span><br><span class="line">- *.log</span><br></pre></td></tr></table></figure>
+<p>用新规则重新建立连接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --filter-from /home/zxz/.config/rclone/filter-lab.txt --resync --resync-mode path1 -v</span><br></pre></td></tr></table></figure>
+<p>修改 <code>~/.config/systemd/user/rclone-laboratory-sync.service</code> 文件，将 <code>ExecStart</code> 行改为：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ExecStart</span>=/usr/bin/rclone bisync /home/zxz/Data/laboratory Tbox:laboratory --filter-from /home/zxz/.config/rclone/filter-lab.txt -v</span><br></pre></td></tr></table></figure>
+<p>重新加载 systemd 配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl --user daemon-reload</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io/posts/811636f.html">https://zhuxz0299.github.io/posts/811636f.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/webdav/">webdav</a><a class="post-meta__tags" href="/tags/rclone/">rclone</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_196.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/85c3534f.html" title="WebDAV 协议与网盘的本地挂载"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_159.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-19</div><div class="info-item-2">WebDAV 协议与网盘的本地挂载</div></div><div class="info-2"><div class="info-item-1">介绍 WebDAV 协议，以及为何 OpenList + RaiDrive 能够将网盘挂载到本地</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%91%E5%AD%98%E5%82%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">云存储配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">创建新配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%B2%E6%9C%89%E9%85%8D%E7%BD%AE%E6%9F%A5%E7%9C%8B"><span class="toc-number">1.2.</span> <span class="toc-text">已有配置查看</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebDAV-%E6%8C%82%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">WebDAV 挂载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%82%E8%BD%BD%E5%8F%82%E6%95%B0"><span class="toc-number">2.1.</span> <span class="toc-text">挂载参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5"><span class="toc-number">3.</span> <span class="toc-text">双向同步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">3.1.</span> <span class="toc-text">参数说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text">实际同步流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-systemd-%E6%9C%8D%E5%8A%A1%E4%BB%A5%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5"><span class="toc-number">3.3.</span> <span class="toc-text">创建 systemd 服务以实现自动同步</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8-Service"><span class="toc-number">3.3.1.</span> <span class="toc-text">新建与使用 Service</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BB%B4%E6%8A%A4%E5%91%BD%E4%BB%A4"><span class="toc-number">3.3.2.</span> <span class="toc-text">常用维护命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%97%B6%E5%BF%BD%E7%95%A5%E7%89%B9%E5%AE%9A%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">3.4.</span> <span class="toc-text">同步时忽略特定文件夹</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

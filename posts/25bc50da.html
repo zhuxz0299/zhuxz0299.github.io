@@ -1,0 +1,602 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>ComfyUI 入门与基础概念学习 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="从底层原理出发，结合最基础的工作流，逐步拆解 AI 绘图的各个组件，并介绍 ComfyUI 的模型文件管理方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ComfyUI 入门与基础概念学习">
+<meta property="og:url" content="https://zhuxz0299.github.io/posts/25bc50da.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="从底层原理出发，结合最基础的工作流，逐步拆解 AI 绘图的各个组件，并介绍 ComfyUI 的模型文件管理方式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_194.webp">
+<meta property="article:published_time" content="2026-02-28T15:28:38.000Z">
+<meta property="article:modified_time" content="2026-04-27T05:20:52.236Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="ai">
+<meta property="article:tag" content="comfyui">
+<meta property="article:tag" content="image generation">
+<meta property="article:tag" content="stable diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_194.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ComfyUI 入门与基础概念学习",
+  "url": "https://zhuxz0299.github.io/posts/25bc50da.html",
+  "image": "https://source.fomal.cc/img/default_cover_194.webp",
+  "datePublished": "2026-02-28T15:28:38.000Z",
+  "dateModified": "2026-04-27T05:20:52.236Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "https://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="https://zhuxz0299.github.io/posts/25bc50da.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="OenG9gy5rfqmwly_6HPOyfKL7X8py3Qpov78G4QjyHQ"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ComfyUI 入门与基础概念学习',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Zhuxz's Blog" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">154</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">92</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">35</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_194.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">ComfyUI 入门与基础概念学习</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">ComfyUI 入门与基础概念学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-02-28T15:28:38.000Z" title="发表于 2026-02-28 23:28:38">2026-02-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-27T05:20:52.236Z" title="更新于 2026-04-27 13:20:52">2026-04-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/">Dev Tools</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Dev-Tools/Software/">Software</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="AI-绘图的底层逻辑">AI 绘图的底层逻辑</h2>
+<p>要理解 ComfyUI 中的每一个节点，首先需要了解 Stable Diffusion 的工作原理。</p>
+<h3 id="扩散模型：从噪声到图像">扩散模型：从噪声到图像</h3>
+<p>Stable Diffusion 属于<strong>潜空间扩散模型（Latent Diffusion Model，LDM）</strong>。它的核心思想来自扩散过程：</p>
+<ol>
+<li><strong>正向扩散（加噪）</strong>：训练阶段，对一张真实图像反复添加高斯噪声，直到图像变成纯噪声。模型通过学习这个过程的逆操作来掌握&quot;如何去噪&quot;。</li>
+<li><strong>反向扩散（去噪/推理）</strong>：推理阶段，从一张随机噪声图出发，模型通过若干步骤逐步预测并去除噪声，最终还原出一张清晰图像。</li>
+</ol>
+<p>之所以称为&quot;潜空间&quot;扩散，是因为整个去噪过程并不在像素空间进行，而是在一个维度更低的<strong>潜变量空间（Latent Space）</strong> 中完成，这大幅降低了计算量。最终再通过 VAE 解码器将潜变量映射回像素图像。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">随机噪声 (Latent)</span><br><span class="line">     │</span><br><span class="line">  [U-Net 去噪，共 N 步]  ← 由 CLIP 文本编码的条件引导</span><br><span class="line">     │</span><br><span class="line"> 干净的潜变量 (Latent)</span><br><span class="line">     │</span><br><span class="line">  [VAE 解码]</span><br><span class="line">     │</span><br><span class="line">  最终图像 (像素空间)</span><br></pre></td></tr></table></figure>
+<h3 id="文本如何引导图像生成？">文本如何引导图像生成？</h3>
+<p>模型在去噪时并不是&quot;盲目&quot;操作的，它需要一个<strong>条件信号</strong>来决定生成什么内容。这个条件信号就来自 <strong>CLIP 文本编码器</strong>。</p>
+<p>CLIP（Contrastive Language-Image Pre-Training）是 OpenAI 提出的多模态模型，它能将文字和图像映射到同一个语义空间中。文本编码器将提示词（Prompt）转换为一个高维向量序列，U-Net 在每一步去噪时通过 <strong>Cross-Attention</strong> 机制参考这个向量，从而让去噪的方向朝着&quot;符合描述&quot;的图像收拢。</p>
+<h3 id="CFG：无分类器引导">CFG：无分类器引导</h3>
+<p>在推理时，模型实际上会同时进行两次预测：</p>
+<ul>
+<li>一次依据提示词（有条件）</li>
+<li>一次不依据提示词（无条件，即负面提示词方向）</li>
+</ul>
+<p>最终的去噪方向由以下公式加权合并：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mover accent="true"><mi>ϵ</mi><mo>~</mo></mover><mo>=</mo><msub><mi>ϵ</mi><mtext>uncond</mtext></msub><mo>+</mo><mi>w</mi><mo>⋅</mo><mo stretchy="false">(</mo><msub><mi>ϵ</mi><mtext>cond</mtext></msub><mo>−</mo><msub><mi>ϵ</mi><mtext>uncond</mtext></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\tilde{\epsilon} = \epsilon_{\text{uncond}} + w \cdot (\epsilon_{\text{cond}} - \epsilon_{\text{uncond}})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6679em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6679em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">ϵ</span></span><span style="top:-3.35em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">~</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">uncond</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.4445em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">cond</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">uncond</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> 就是 <strong>CFG Scale</strong>（即 K 采样器中的 <code>cfg</code> 参数）。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> 越大，生成结果越贴近提示词，但也可能出现过饱和或失真；<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi></mrow><annotation encoding="application/x-tex">w</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span></span></span></span> 越小，图像越自由、发散。</p>
+<h2 id="最简单的工作流解析">最简单的工作流解析</h2>
+<p>下图展示了 ComfyUI 中最基础的文生图（txt2img）工作流：</p>
+<pre><code class="highlight mermaid">graph LR
+    %% 节点定义
+    Ckpt[&quot;Checkpoint加载器 (简易)&lt;br/&gt;v1-5-pruned-emaonly...&quot;]
+    ClipPos[&quot;CLIP文本编码 (正面)&lt;br/&gt;beautiful scenery nature glass bottle...&quot;]
+    ClipNeg[&quot;CLIP文本编码 (负面)&lt;br/&gt;text, watermark&quot;]
+    EmptyLatent[&quot;空Latent图像&lt;br/&gt;512x512&quot;]
+    KSampler[&quot;K采样器&lt;br/&gt;euler / normal / 20步&quot;]
+    VAEDecode[&quot;VAE解码&quot;]
+    SaveImage[&quot;保存图像&lt;br/&gt;ComfyUI&quot;]
+
+    %% 连线关系 (大模型引出)
+    Ckpt -- &quot;模型&quot; --&gt; KSampler
+    Ckpt -- &quot;CLIP&quot; --&gt; ClipPos
+    Ckpt -- &quot;CLIP&quot; --&gt; ClipNeg
+    Ckpt -- &quot;VAE&quot; --&gt; VAEDecode
+
+    %% 连线关系 (提示词引出)
+    ClipPos -- &quot;条件 (正面)&quot; --&gt; KSampler
+    ClipNeg -- &quot;条件 (负面)&quot; --&gt; KSampler
+
+    %% 连线关系 (潜空间图像引出)
+    EmptyLatent -- &quot;Latent&quot; --&gt; KSampler
+
+    %% 连线关系 (采样后处理)
+    KSampler -- &quot;Latent&quot; --&gt; VAEDecode
+    VAEDecode -- &quot;图像&quot; --&gt; SaveImage</code></pre>
+<p>整个流程由 6 个节点构成，数据从左到右流动。下面逐一拆解每个节点的职责。</p>
+<h3 id="Checkpoint-加载器">Checkpoint 加载器</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">模型文件：v1-5-pruned-emaonly-fp16.safetensors</span><br><span class="line">输出：模型 / CLIP / VAE</span><br></pre></td></tr></table></figure>
+<p><strong>Checkpoint</strong> 是整个生成系统的核心，它是一个&quot;大模型包&quot;，内部集成了三个子模块：</p>
+<table>
+<thead>
+<tr>
+<th>子模块</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>U-Net</strong></td>
+<td>去噪网络，负责在潜空间中执行每一步去噪</td>
+</tr>
+<tr>
+<td><strong>CLIP 文本编码器</strong></td>
+<td>将提示词转换为语义向量</td>
+</tr>
+<tr>
+<td><strong>VAE</strong></td>
+<td>在像素空间与潜空间之间进行编解码</td>
+</tr>
+</tbody>
+</table>
+<p>Checkpoint 加载后会将这三者分别输出，供后续节点使用。文件名中的 <code>fp16</code> 表示使用半精度浮点数存储，节省显存；<code>pruned</code> 表示裁剪了训练相关权重，仅保留推理权重；<code>ema</code> 是 Exponential Moving Average 权重，推理质量更好。</p>
+<blockquote>
+<p>Checkpoint 文件通常较大（2 GB～7 GB），存放于 <code>models/checkpoints/</code> 目录。</p>
+</blockquote>
+<h3 id="CLIP-文本编码（正向-负向）">CLIP 文本编码（正向 &amp; 负向）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">正向提示词：beautiful scenery nature glass bottle landscape, purple galaxy bottle,</span><br><span class="line">负向提示词：text, watermark</span><br><span class="line">输出：条件向量（Conditioning）</span><br></pre></td></tr></table></figure>
+<p>工作流中有两个 CLIP 文本编码节点，分别对应<strong>正向提示词</strong>和<strong>负向提示词</strong>，两者都从 Checkpoint 的 CLIP 端口获取编码器。</p>
+<ul>
+<li><strong>正向提示词（Positive Prompt）</strong>：描述你希望图像中出现的内容。</li>
+<li><strong>负向提示词（Negative Prompt）</strong>：描述你<strong>不希望</strong>出现的内容。借助前面提到的 CFG 机制，负向提示词将作为无条件方向，引导生成结果远离这些描述。</li>
+</ul>
+<p>两个节点的输出（条件向量）分别接入 K 采样器的&quot;正面条件&quot;与&quot;负面条件&quot;端口。</p>
+<h3 id="空-Latent-图像">空 Latent 图像</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">宽度：512   高度：512   批量大小：1</span><br><span class="line">输出：Latent 张量</span><br></pre></td></tr></table></figure>
+<p>这个节点创建一块<strong>随机初始化的噪声潜变量</strong>，作为去噪的起点。尺寸设置的是潜空间中的尺寸，实际对应的像素分辨率需要乘以 VAE 的压缩倍率（SD 1.x 中为 8 倍），因此 <code>512×512</code> 的 Latent 对应最终 <code>512×512</code> 的像素图像（潜空间为 <code>64×64</code>）。</p>
+<p>批量大小（Batch Size）控制一次生成几张图。</p>
+<h3 id="K-采样器（KSampler）">K 采样器（KSampler）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">种子：156680208700286    步数：20</span><br><span class="line">cfg：8.0                采样器：euler</span><br><span class="line">调度器：normal          降噪：1.00</span><br></pre></td></tr></table></figure>
+<p>K 采样器是整个工作流的<strong>核心执行引擎</strong>，它将所有输入汇聚在一起，驱动去噪过程：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>种子（Seed）</strong></td>
+<td>随机数种子，相同种子在其他条件不变时可复现结果</td>
+</tr>
+<tr>
+<td><strong>步数（Steps）</strong></td>
+<td>去噪迭代次数。步数越多细节越丰富，但耗时增加；通常 20～30 步足够</td>
+</tr>
+<tr>
+<td><strong>CFG Scale</strong></td>
+<td>文本引导强度，见上文公式。常用范围 6～12</td>
+</tr>
+<tr>
+<td><strong>采样器（Sampler）</strong></td>
+<td>去噪算法，如 <code>euler</code>、<code>dpm++2m</code>、<code>ddim</code> 等，影响图像风格与收敛速度</td>
+</tr>
+<tr>
+<td><strong>调度器（Scheduler）</strong></td>
+<td>控制每步噪声衰减的曲线，如 <code>normal</code>、<code>karras</code>，与采样器配合使用</td>
+</tr>
+<tr>
+<td><strong>降噪（Denoise）</strong></td>
+<td>去噪强度，<code>1.0</code> 表示从纯噪声开始（txt2img）；图像精修（img2img）时可设为 0.5～0.8</td>
+</tr>
+</tbody>
+</table>
+<p>K 采样器完成后输出一个&quot;干净&quot;的潜变量，传递给 VAE 解码器。</p>
+<h3 id="VAE-解码">VAE 解码</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：Latent + VAE</span><br><span class="line">输出：像素图像</span><br></pre></td></tr></table></figure>
+<p><strong>VAE（Variational Autoencoder，变分自编码器）</strong> 承担空间转换的职责：</p>
+<ul>
+<li><strong>VAE 编码器（Encoder）</strong>：将像素图像压缩为潜变量（用于 img2img 场景）。</li>
+<li><strong>VAE 解码器（Decoder）</strong>：将潜变量还原为像素图像（本工作流使用此步骤）。</li>
+</ul>
+<p>SD 1.x 中 VAE 将图像压缩为原来的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{1}{8}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，即 <code>512×512</code> 像素 → <code>64×64</code> 潜变量。解码时，VAE 会补全潜变量中没有表达的高频细节，因此 VAE 的质量直接影响图像的色彩准确性和细节锐度。</p>
+<blockquote>
+<p>Checkpoint 内置了 VAE，但也可以单独加载外部 VAE 文件（存放于 <code>models/vae/</code>）来替换，以改善某些模型默认 VAE 色彩偏灰的问题。</p>
+</blockquote>
+<h3 id="保存图像">保存图像</h3>
+<p>将解码后的像素图像写入磁盘，文件名前缀默认为 <code>ComfyUI</code>。</p>
+<h2 id="ComfyUI-模型文件目录结构">ComfyUI 模型文件目录结构</h2>
+<p>ComfyUI 将不同类型的模型文件按功能分类存放在 <code>models/</code> 目录的各个子文件夹中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件夹名称</th>
+<th style="text-align:left">中文简称 / 对应模型</th>
+<th style="text-align:left">详细作用与存放的文件说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>audio_encoders</strong></td>
+<td style="text-align:left">音频编码器</td>
+<td style="text-align:left">存放处理音频输入的模型（如 Whisper 等），常用于音频驱动动画或嘴型同步等特殊工作流。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>checkpoints</strong></td>
+<td style="text-align:left">主模型 / 大模型</td>
+<td style="text-align:left">存放完整的生成模型（通常打包了 UNet、VAE 和 CLIP）。常见后缀为 <code>.safetensors</code> 或 <code>.ckpt</code>（如 SD 1.5, SDXL 的主模型）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>clip</strong></td>
+<td style="text-align:left">CLIP 文本编码器</td>
+<td style="text-align:left">存放独立的 CLIP 文本编码模型。用于将你的提示词（Prompt）翻译成 AI 能理解的特征向量。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>clip_vision</strong></td>
+<td style="text-align:left">CLIP 视觉编码器</td>
+<td style="text-align:left">存放图像特征提取模型。常用于 IP-Adapter 工作流，让 AI 能够“看懂”你提供的参考图并提取其风格或特征。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>configs</strong></td>
+<td style="text-align:left">配置文件</td>
+<td style="text-align:left">存放 YAML 格式的模型结构配置文件。加载某些特殊架构或老版本模型时需要用到。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>controlnet</strong></td>
+<td style="text-align:left">控制网模型</td>
+<td style="text-align:left">存放 ControlNet 模型（如深度图、Canny 线稿、OpenPose 骨架控制等），用于对生成的构图和姿势进行精确引导。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>diffusers</strong></td>
+<td style="text-align:left">Diffusers 格式模型</td>
+<td style="text-align:left">存放以 Hugging Face Diffusers 文件夹结构（包含多个子文件夹和 <code>model_index.json</code>）保存的模型，而不是单文件模型。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>diffusion_models</strong></td>
+<td style="text-align:left">独立扩散模型</td>
+<td style="text-align:left">存放纯粹的扩散核心网络（如纯 UNet 或 DiT），不包含 VAE 和文本编码器。在最新的 Flux 或 SD3 工作流中经常用到。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>embeddings</strong></td>
+<td style="text-align:left">文本反转 / 嵌入模型</td>
+<td style="text-align:left">存放 Textual Inversion 模型（通常称为 TI 或 embeddings）。体积很小（KB 级别），常用于特定画风、人物特征或负面提示词（如 <code>EasyNegative</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>gligen</strong></td>
+<td style="text-align:left">GLIGEN 模型</td>
+<td style="text-align:left">存放 GLIGEN 权重文件，用于基于边界框（Bounding Box）进行高度精准的局部物体位置控制生成。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>hypernetworks</strong></td>
+<td style="text-align:left">超网络模型</td>
+<td style="text-align:left">早期的一种微调模型格式，类似于 LoRA 的前身。目前已被 LoRA 大量取代，较少使用。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>latent_upscale_models</strong></td>
+<td style="text-align:left">潜空间放大模型</td>
+<td style="text-align:left">存放专门在 Latent（潜空间）层面进行分辨率放大的算法模型。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>loras</strong></td>
+<td style="text-align:left">LoRA 微调模型</td>
+<td style="text-align:left">存放低秩适应模型。体积通常在几百 MB，用于在主模型基础上叠加特定的人物脸型、画风、服装或概念。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>model_patches</strong></td>
+<td style="text-align:left">模型补丁</td>
+<td style="text-align:left">存放用于修补或动态修改底层模型网络结构的文件（较为少见的高级用法）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>onnx</strong></td>
+<td style="text-align:left">ONNX 格式模型</td>
+<td style="text-align:left">存放转换为 ONNX 格式的模型，通常配合特定节点用于 TensorRT 硬件加速计算。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>photomaker</strong></td>
+<td style="text-align:left">PhotoMaker 模型</td>
+<td style="text-align:left">存放专用于 PhotoMaker 节点的模型，常用于高质量的人物 ID 保持和换脸/面部定制工作流。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>sams</strong></td>
+<td style="text-align:left">SAM 分割模型</td>
+<td style="text-align:left">存放 Segment Anything Model 模型，用于在图像中进行极为精确的自动抠图和蒙版（Mask）生成。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>style_models</strong></td>
+<td style="text-align:left">风格模型</td>
+<td style="text-align:left">存放专门的风格迁移模型（如特定的 Style Adapter 等），用于提取和应用参考图的艺术风格。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>text_encoders</strong></td>
+<td style="text-align:left">文本编码器</td>
+<td style="text-align:left">类似于 <code>clip</code> 文件夹，但通常用于存放体积更庞大的独立文本模型（例如 SD3 或 Flux 使用的 <code>t5xxl</code> 模型文件）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ultralytics</strong></td>
+<td style="text-align:left">目标检测模型</td>
+<td style="text-align:left">存放基于 YOLO 等架构的检测模型，常用于自动检测人脸、手部（配合类似于 ADetailer 的局部重绘工作流使用）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>unet</strong></td>
+<td style="text-align:left">UNet 模型</td>
+<td style="text-align:left">作用与 <code>diffusion_models</code> 类似，专门用于存放提取出来的单文件 UNet 结构模型。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>upscale_models</strong></td>
+<td style="text-align:left">像素级放大模型</td>
+<td style="text-align:left">存放常规的高清放大算法模型（如 ESRGAN, SwinIR, RealESRGAN 等）。它们直接作用于最终生成的像素图像。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>vae</strong></td>
+<td style="text-align:left">变分自编码器</td>
+<td style="text-align:left">存放单独的 VAE 模型。它的作用像翻译官，负责在 AI 计算的“潜空间（Latent）”和你肉眼能看到的“像素图像”之间进行转换（解码/编码）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>vae_approx</strong></td>
+<td style="text-align:left">近似 VAE 模型</td>
+<td style="text-align:left">极轻量级的 VAE 模型。主要配合某些节点，让你在生图的过程中能快速预览潜空间中正在生成的模糊图像。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="小结">小结</h2>
+<p>通过最简单的 txt2img 工作流，可以梳理出 Stable Diffusion 的完整推理链路：</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>文本提示词</mtext><mover><mo stretchy="true" minsize="3.0em">→</mo><mpadded width="+0.6em" lspace="0.3em"><mtext>CLIP</mtext></mpadded></mover><mtext>条件向量</mtext><mover><mo stretchy="true" minsize="3.0em">→</mo><mpadded width="+0.6em" lspace="0.3em"><mtext>K采样器 (U-Net × N步)</mtext></mpadded></mover><mtext>干净 Latent</mtext><mover><mo stretchy="true" minsize="3.0em">→</mo><mpadded width="+0.6em" lspace="0.3em"><mtext>VAE 解码</mtext></mpadded></mover><mtext>像素图像</mtext></mrow><annotation encoding="application/x-tex">\text{文本提示词} \xrightarrow{\text{CLIP}} \text{条件向量} \xrightarrow{\text{K采样器 (U-Net × N步)}} \text{干净 Latent} \xrightarrow{\text{VAE 解码}} \text{像素图像}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1113em;vertical-align:-0.011em;"></span><span class="mord text"><span class="mord cjk_fallback">文本提示词</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1003em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">CLIP</span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.158em;vertical-align:-0.011em;"></span><span class="mord text"><span class="mord cjk_fallback">条件向量</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.147em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">K</span><span class="mord cjk_fallback mtight">采样器</span><span class="mord mtight"> (U-Net × N</span><span class="mord cjk_fallback mtight">步</span><span class="mord mtight">)</span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1113em;vertical-align:-0.011em;"></span><span class="mord text"><span class="mord cjk_fallback">干净</span><span class="mord"> Latent</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel x-arrow"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1003em;"><span style="top:-3.322em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight x-arrow-pad"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">VAE </span><span class="mord cjk_fallback mtight">解码</span></span></span></span></span><span class="svg-align" style="top:-2.689em;"><span class="pstrut" style="height:2.7em;"></span><span class="hide-tail" style="height:0.522em;min-width:1.469em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="0.522em" viewBox="0 0 400000 522" preserveAspectRatio="xMaxYMin slice"><path d="M0 241v40h399891c-47.3 35.3-84 78-110 128
+-16.7 32-27.7 63.7-33 95 0 1.3-.2 2.7-.5 4-.3 1.3-.5 2.3-.5 3 0 7.3 6.7 11 20
+ 11 8 0 13.2-.8 15.5-2.5 2.3-1.7 4.2-5.5 5.5-11.5 2-13.3 5.7-27 11-41 14.7-44.7
+ 39-84.5 73-119.5s73.7-60.2 119-75.5c6-2 9-5.7 9-11s-3-9-9-11c-45.3-15.3-85
+-40.5-119-75.5s-58.3-74.8-73-119.5c-4.7-14-8.3-27.3-11-40-1.3-6.7-3.2-10.8-5.5
+-12.5-2.3-1.7-7.5-2.5-15.5-2.5-14 0-21 3.7-21 11 0 2 2 10.3 6 25 20.7 83.3 67
+ 151.7 139 205zm0 0v40h399900v-40z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.011em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord cjk_fallback">像素图像</span></span></span></span></span></span></p>
+<p>ComfyUI 以节点图的形式将这条链路完全暴露出来，每个节点对应一个明确的计算模块。理解了各模块的职责，就能在此基础上灵活组合更复杂的工作流，例如加入 ControlNet 控制构图、使用 LoRA 调整风格、或通过 img2img 对已有图像进行精修。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io/posts/25bc50da.html">https://zhuxz0299.github.io/posts/25bc50da.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ai/">ai</a><a class="post-meta__tags" href="/tags/comfyui/">comfyui</a><a class="post-meta__tags" href="/tags/stable-diffusion/">stable diffusion</a><a class="post-meta__tags" href="/tags/image-generation/">image generation</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_194.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#AI-%E7%BB%98%E5%9B%BE%E7%9A%84%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91"><span class="toc-number">1.</span> <span class="toc-text">AI 绘图的底层逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%BB%8E%E5%99%AA%E5%A3%B0%E5%88%B0%E5%9B%BE%E5%83%8F"><span class="toc-number">1.1.</span> <span class="toc-text">扩散模型：从噪声到图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E5%A6%82%E4%BD%95%E5%BC%95%E5%AF%BC%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">文本如何引导图像生成？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CFG%EF%BC%9A%E6%97%A0%E5%88%86%E7%B1%BB%E5%99%A8%E5%BC%95%E5%AF%BC"><span class="toc-number">1.3.</span> <span class="toc-text">CFG：无分类器引导</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">最简单的工作流解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Checkpoint-%E5%8A%A0%E8%BD%BD%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text">Checkpoint 加载器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLIP-%E6%96%87%E6%9C%AC%E7%BC%96%E7%A0%81%EF%BC%88%E6%AD%A3%E5%90%91-%E8%B4%9F%E5%90%91%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">CLIP 文本编码（正向 &amp; 负向）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA-Latent-%E5%9B%BE%E5%83%8F"><span class="toc-number">2.3.</span> <span class="toc-text">空 Latent 图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#K-%E9%87%87%E6%A0%B7%E5%99%A8%EF%BC%88KSampler%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">K 采样器（KSampler）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VAE-%E8%A7%A3%E7%A0%81"><span class="toc-number">2.5.</span> <span class="toc-text">VAE 解码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E5%9B%BE%E5%83%8F"><span class="toc-number">2.6.</span> <span class="toc-text">保存图像</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ComfyUI-%E6%A8%A1%E5%9E%8B%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">ComfyUI 模型文件目录结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
