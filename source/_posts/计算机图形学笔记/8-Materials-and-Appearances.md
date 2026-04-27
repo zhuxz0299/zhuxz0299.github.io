@@ -1,6 +1,6 @@
 ---
 title: Materials and Appearances
-cover: https://source.fomal.cc/img/default_cover_103.webp
+cover: https://source.fomal.cc/img/default_cover_45.webp
 categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true

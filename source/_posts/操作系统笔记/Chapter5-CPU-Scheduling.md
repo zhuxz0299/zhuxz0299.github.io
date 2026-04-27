@@ -1,6 +1,6 @@
 ---
 title: Chapter5-CPU Scheduling
-cover: https://source.fomal.cc/img/default_cover_68.webp
+cover: https://source.fomal.cc/img/default_cover_4.webp
 categories: [Lecture Notes, Operating System]
 abbrlink: 53eb9bb1
 order: 5

@@ -4,7 +4,7 @@ tags:
   - yazi
   - tui
 description: 介绍一个非常好用的终端文件管理器
-cover: 'https://source.fomal.cc/img/default_cover_193.webp'
+cover: https://source.fomal.cc/img/default_cover_149.webp
 categories:
   - Dev Tools
   - Software

@@ -1,6 +1,6 @@
 ---
 title: 服务器部署 ollama 远程调用
-cover: 'https://source.fomal.cc/img/default_cover_148.webp'
+cover: https://source.fomal.cc/img/default_cover_108.webp
 description: 在Linux服务器上部署ollama，并且在Windows主机上调用模型
 tags:
   - ollama

@@ -1,6 +1,6 @@
 ---
 title: Linux 工作与进程管理
-cover: 'https://source.fomal.cc/img/default_cover_149.webp'
+cover: https://source.fomal.cc/img/default_cover_109.webp
 tags:
   - linux
   - process

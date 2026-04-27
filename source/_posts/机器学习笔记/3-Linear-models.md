@@ -1,6 +1,6 @@
 ---
 title: Linear models
-cover: https://source.fomal.cc/img/default_cover_88.webp
+cover: https://source.fomal.cc/img/default_cover_79.webp
 categories: [Lecture Notes, Machine Learning]
 katex: true
 description: PCA, FA, ICA

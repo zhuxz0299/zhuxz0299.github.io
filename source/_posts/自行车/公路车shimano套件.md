@@ -1,6 +1,6 @@
 ---
 title: 公路车shimano套件
-cover: https://source.fomal.cc/img/default_cover_92.webp
+cover: https://source.fomal.cc/img/default_cover_34.webp
 abbrlink: 3b34704b
 date: 2023-06-24 20:15:43
 categories: [Life, Cycling]

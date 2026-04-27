@@ -1,6 +1,6 @@
 ---
 title: Linux 包管理与库管理
-cover: 'https://source.fomal.cc/img/default_cover_133.webp'
+cover: https://source.fomal.cc/img/default_cover_95.webp
 tags:
   - linux
 description: 先介绍 Linux 中的包(package)和库(library)，接着介绍一下 dnf 之类的包管理器，以及用来管理库的 pkg-config。

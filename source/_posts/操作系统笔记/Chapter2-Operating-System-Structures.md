@@ -1,6 +1,6 @@
 ---
 title: Chapter2-Operating System Structures
-cover: https://source.fomal.cc/img/default_cover_65.webp
+cover: https://source.fomal.cc/img/default_cover_11.webp
 categories: [Lecture Notes, Operating System]
 abbrlink: e6abb60
 order: 2

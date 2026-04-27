@@ -1,6 +1,6 @@
 ---
 title: docker 使用 GPU
-cover: https://source.fomal.cc/img/default_cover_2.webp
+cover: https://source.fomal.cc/img/default_cover_90.webp
 tags:
   - linux
   - docker

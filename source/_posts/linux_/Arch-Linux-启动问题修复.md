@@ -1,6 +1,6 @@
 ---
 title: Arch Linux 启动问题修复
-cover: 'https://source.fomal.cc/img/default_cover_172.webp'
+cover: https://source.fomal.cc/img/default_cover_127.webp
 tags:
   - arch linux
 description: 记录 Arch Linux 无法开机问题的修复过程

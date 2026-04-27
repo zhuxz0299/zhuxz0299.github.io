@@ -1,6 +1,6 @@
 ---
 title: Arch Linux 安装
-cover: 'https://source.fomal.cc/img/default_cover_165.webp'
+cover: https://source.fomal.cc/img/default_cover_120.webp
 tags:
   - linux
   - arch linux

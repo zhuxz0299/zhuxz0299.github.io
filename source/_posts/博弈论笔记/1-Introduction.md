@@ -1,6 +1,6 @@
 ---
 title: Introduction
-cover: https://source.fomal.cc/img/default_cover_58.webp
+cover: https://source.fomal.cc/img/default_cover_69.webp
 categories: [Lecture Notes, Game Theory]
 katex: true
 abbrlink: ed318fdc

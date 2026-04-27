@@ -1,6 +1,6 @@
 ---
 title: 使用conda管理虚拟环境
-cover: https://source.fomal.cc/img/default_cover_1.webp
+cover: https://source.fomal.cc/img/default_cover_5.webp
 tags:
   - conda
   - python

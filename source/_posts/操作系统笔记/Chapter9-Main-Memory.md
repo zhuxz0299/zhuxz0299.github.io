@@ -1,6 +1,6 @@
 ---
 title: Chapter9-Main Memory
-cover: https://source.fomal.cc/img/default_cover_72.webp
+cover: https://source.fomal.cc/img/default_cover_15.webp
 categories: [Lecture Notes, Operating System]
 order: 9
 abbrlink: 69ff1809

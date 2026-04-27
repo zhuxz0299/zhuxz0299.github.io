@@ -1,6 +1,6 @@
 ---
 title: Logical Agents
-cover: https://source.fomal.cc/img/default_cover_50.webp
+cover: https://source.fomal.cc/img/default_cover_57.webp
 categories: [Lecture Notes, Artificial Intelligence]
 description: 人工智能笔记——逻辑智能体
 katex: true

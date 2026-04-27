@@ -1,6 +1,6 @@
 ---
 title: Strategy-form Game
-cover: https://source.fomal.cc/img/default_cover_59.webp
+cover: https://source.fomal.cc/img/default_cover_70.webp
 categories: [Lecture Notes, Game Theory]
 katex: true
 abbrlink: a4a6120d

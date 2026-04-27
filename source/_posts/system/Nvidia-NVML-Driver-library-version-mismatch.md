@@ -1,6 +1,6 @@
 ---
 title: Nvidia NVML Driver/library version mismatch
-cover: https://source.fomal.cc/img/default_cover_17.webp
+cover: https://source.fomal.cc/img/default_cover_89.webp
 tags:
   - linux
   - cuda

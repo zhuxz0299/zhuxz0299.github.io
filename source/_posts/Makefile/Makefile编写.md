@@ -1,6 +1,6 @@
 ---
 title: Makefile编写
-cover: https://source.fomal.cc/img/default_cover_22.webp
+cover: https://source.fomal.cc/img/default_cover_30.webp
 tags:
   - makefile
   - C语言

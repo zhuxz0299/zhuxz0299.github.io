@@ -1,6 +1,6 @@
 ---
 title: Data Sampling
-cover: https://source.fomal.cc/img/default_cover_84.webp
+cover: https://source.fomal.cc/img/default_cover_80.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 数据采样与数据分布之间的关系

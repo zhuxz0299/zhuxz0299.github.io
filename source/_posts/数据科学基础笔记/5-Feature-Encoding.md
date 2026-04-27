@@ -1,6 +1,6 @@
 ---
 title: Feature Encoding
-cover: https://source.fomal.cc/img/default_cover_81.webp
+cover: https://source.fomal.cc/img/default_cover_76.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 特征编码，如何把局部的特征聚合成整体的特征

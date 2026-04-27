@@ -1,6 +1,6 @@
 ---
 title: Galois理论与Galois连接
-cover: 'https://source.fomal.cc/img/default_cover_180.webp'
+cover: https://source.fomal.cc/img/default_cover_135.webp
 categories: [Lecture Notes, Applied Algebra]
 katex: true
 abbrlink: 3d2c8e8d

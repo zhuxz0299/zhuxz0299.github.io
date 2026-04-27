@@ -1,6 +1,6 @@
 ---
 title: Uncertainty and Probabilistic Reasoning
-cover: https://source.fomal.cc/img/default_cover_51.webp
+cover: https://source.fomal.cc/img/default_cover_58.webp
 abbrlink: 795e1c16
 date: 2023-10-29 13:48:26
 description: 人工智能笔记——不确定性和概率推测

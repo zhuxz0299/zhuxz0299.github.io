@@ -1,6 +1,6 @@
 ---
 title: Linear network
-cover: https://source.fomal.cc/img/default_cover_54.webp
+cover: https://source.fomal.cc/img/default_cover_46.webp
 tags: pytorch
 categories: [AI & Machine Learning, Deep Learning]
 description: 线性回归，softmax回归

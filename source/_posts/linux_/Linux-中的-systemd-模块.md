@@ -1,6 +1,6 @@
 ---
 title: Linux 中的 systemd 模块
-cover: 'https://source.fomal.cc/img/default_cover_167.webp'
+cover: https://source.fomal.cc/img/default_cover_122.webp
 tags:
   - linux
   - systemd

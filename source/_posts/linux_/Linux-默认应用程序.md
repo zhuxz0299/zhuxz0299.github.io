@@ -1,6 +1,6 @@
 ---
 title: Linux 默认应用程序
-cover: 'https://source.fomal.cc/img/default_cover_178.webp'
+cover: https://source.fomal.cc/img/default_cover_133.webp
 tags:
   - linux
   - xdg

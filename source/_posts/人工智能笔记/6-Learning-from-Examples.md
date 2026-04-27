@@ -1,6 +1,6 @@
 ---
 title: Learning from Examples
-cover: https://source.fomal.cc/img/default_cover_52.webp
+cover: https://source.fomal.cc/img/default_cover_60.webp
 description: 人工智能笔记——机器学习
 categories: [Lecture Notes, Artificial Intelligence]
 katex: true

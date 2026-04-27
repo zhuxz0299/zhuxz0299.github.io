@@ -1,6 +1,6 @@
 ---
 title: vscode中C/C++配置文件
-cover: https://source.fomal.cc/img/default_cover_44.webp
+cover: https://source.fomal.cc/img/default_cover_51.webp
 tags: vscode
 description: 对于vscode中C/C++配置文件的详细讲解
 abbrlink: 8117db7e

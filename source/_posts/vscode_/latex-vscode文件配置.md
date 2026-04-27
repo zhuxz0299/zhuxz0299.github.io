@@ -1,6 +1,6 @@
 ---
 title: latex-vscode文件配置
-cover: https://source.fomal.cc/img/default_cover_43.webp
+cover: https://source.fomal.cc/img/default_cover_2.webp
 tags: 
   - latex
   - vscode

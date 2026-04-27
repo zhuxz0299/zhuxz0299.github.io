@@ -1,6 +1,6 @@
 ---
 title: Correlation and Causation
-cover: https://source.fomal.cc/img/default_cover_82.webp
+cover: https://source.fomal.cc/img/default_cover_77.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 相关性和因果性

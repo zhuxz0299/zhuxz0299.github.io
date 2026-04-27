@@ -1,6 +1,6 @@
 ---
 title: Tailscale工作原理与NAT穿透
-cover: 'https://source.fomal.cc/img/default_cover_187.webp'
+cover: https://source.fomal.cc/img/default_cover_143.webp
 tags:
   - tailscale
   - nat

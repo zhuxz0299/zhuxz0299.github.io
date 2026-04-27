@@ -1,6 +1,6 @@
 ---
 title: 种子与磁链—p2p下载
-cover: 'https://source.fomal.cc/img/default_cover_163.webp'
+cover: https://source.fomal.cc/img/default_cover_118.webp
 description: 介绍种子与磁链的工作原理
 tags:
   - torrent

@@ -1,6 +1,6 @@
 ---
 title: hexo 博客部署记录
-cover: 'https://source.fomal.cc/img/default_cover_7.webp'
+cover: https://source.fomal.cc/img/default_cover_139.webp
 description: 为了解决博客主题版本落后的问题，重新搭建了一下博客，并且记录一下搭建流程，免得后面又忘了
 tags:
   - hexo

@@ -1,6 +1,6 @@
 ---
 title: Geometry
-cover: https://source.fomal.cc/img/default_cover_100.webp
+cover: https://source.fomal.cc/img/default_cover_42.webp
 categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true

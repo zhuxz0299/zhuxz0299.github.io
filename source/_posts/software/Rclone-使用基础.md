@@ -6,7 +6,7 @@ tags:
 categories:
   - Dev Tools
   - Software
-cover: 'https://source.fomal.cc/img/default_cover_196.webp'
+cover: https://source.fomal.cc/img/default_cover_153.webp
 description: 记录一下 Rclone 的配置方式与用法
 abbrlink: 811636f
 date: 2026-03-03 20:02:55

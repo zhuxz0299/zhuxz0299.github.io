@@ -1,6 +1,6 @@
 ---
 title: Data Domain
-cover: https://source.fomal.cc/img/default_cover_85.webp
+cover: https://source.fomal.cc/img/default_cover_81.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 关于数据分布以及如何解决数据分布差异化问题

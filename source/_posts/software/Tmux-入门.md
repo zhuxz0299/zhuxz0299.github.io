@@ -1,6 +1,6 @@
 ---
 title: Tmux 入门
-cover: https://source.fomal.cc/img/default_cover_19.webp
+cover: https://source.fomal.cc/img/default_cover_92.webp
 tags:
   - linux
   - tmux

@@ -1,6 +1,6 @@
 ---
 title: Github copilot 处于脱机状态
-cover: 'https://source.fomal.cc/img/default_cover_150.webp'
+cover: https://source.fomal.cc/img/default_cover_110.webp
 description: >-
   vscode 使用 Remote-SSH 连接服务器，使用 Copilot 时显示 “你当前处于脱机状态，请连接到Internet已使用Github
   Copilot”

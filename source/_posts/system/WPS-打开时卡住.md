@@ -6,7 +6,7 @@ tags:
 categories:
   - System & Hardware
   - System Knowledge
-cover: 'https://source.fomal.cc/img/default_cover_195.webp'
+cover: https://source.fomal.cc/img/default_cover_152.webp
 description: 解决用 WPS 打开 PPT 时加载时间过长的问题
 abbrlink: cae0e3e1
 date: 2026-03-02 17:37:09

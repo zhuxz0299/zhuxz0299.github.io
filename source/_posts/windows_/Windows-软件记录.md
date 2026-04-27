@@ -4,7 +4,7 @@ tags:
   - windows
   - software
 description: 记录一下 Windows 中用到的一些软件
-cover: 'https://source.fomal.cc/img/default_cover_189.webp'
+cover: https://source.fomal.cc/img/default_cover_145.webp
 categories:
   - System & Hardware
   - Windows

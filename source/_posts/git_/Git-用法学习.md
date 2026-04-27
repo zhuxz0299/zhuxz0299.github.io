@@ -7,7 +7,7 @@ description: 系统性地学习一下 git 的常用用法，但是略过 git add
 categories:
   - Dev Tools
   - Git
-cover: 'https://source.fomal.cc/img/default_cover_129.webp'
+cover: https://source.fomal.cc/img/default_cover_150.webp
 abbrlink: e3206b7d
 date: 2026-02-11 22:06:00
 ---

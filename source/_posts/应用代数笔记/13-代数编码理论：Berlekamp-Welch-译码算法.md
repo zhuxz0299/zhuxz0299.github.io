@@ -1,6 +1,6 @@
 ---
 title: 代数编码理论：Berlekamp-Welch 译码算法
-cover: 'https://source.fomal.cc/img/default_cover_185.webp'
+cover: https://source.fomal.cc/img/default_cover_141.webp
 categories:
   - Lecture Notes
   - Applied Algebra

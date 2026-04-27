@@ -1,6 +1,6 @@
 ---
 title: bibtex 与 biber
-cover: 'https://source.fomal.cc/img/default_cover_142.webp'
+cover: https://source.fomal.cc/img/default_cover_103.webp
 categories: [Dev Tools, LaTeX]
 description: 写毕设的时候发现除了 bibtex 之外还有 biber 能够处理 latex 中的引用信息，于是上网了解了一下。本文大概是比较全面的介绍。
 tags:

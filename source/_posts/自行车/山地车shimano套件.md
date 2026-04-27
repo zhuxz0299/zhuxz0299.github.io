@@ -1,6 +1,6 @@
 ---
 title: 山地车shimano套件
-cover: https://source.fomal.cc/img/default_cover_93.webp
+cover: https://source.fomal.cc/img/default_cover_38.webp
 categories: [Life, Cycling]
 tags:
   - 套件

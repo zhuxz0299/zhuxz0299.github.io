@@ -8,7 +8,7 @@ tags:
 categories:
   - System & Hardware
   - System Knowledge
-cover: 'https://source.fomal.cc/img/default_cover_197.webp'
+cover: https://source.fomal.cc/img/default_cover_154.webp
 abbrlink: 6b3e2f30
 date: 2026-03-21 15:11:49
 description:

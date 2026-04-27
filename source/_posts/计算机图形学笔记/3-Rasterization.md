@@ -1,6 +1,6 @@
 ---
 title: Rasterization
-cover: https://source.fomal.cc/img/default_cover_98.webp
+cover: https://source.fomal.cc/img/default_cover_36.webp
 categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true

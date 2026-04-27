@@ -1,6 +1,6 @@
 ---
 title: Arch Linux 网络相关命令
-cover: 'https://source.fomal.cc/img/default_cover_177.webp'
+cover: https://source.fomal.cc/img/default_cover_132.webp
 tags:
   - arch linux
   - network manager

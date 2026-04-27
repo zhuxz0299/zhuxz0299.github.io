@@ -1,6 +1,6 @@
 ---
 title: Multi-label and Multi-task Learning
-cover: https://source.fomal.cc/img/default_cover_75.webp
+cover: https://source.fomal.cc/img/default_cover_84.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 多标签和多任务学习

@@ -1,6 +1,6 @@
 ---
 title: Zero-shot and Few-shot Learning
-cover: https://source.fomal.cc/img/default_cover_76.webp
+cover: https://source.fomal.cc/img/default_cover_86.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: Zero-shot Learning 和 Few-shot Learning

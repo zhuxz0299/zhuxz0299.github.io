@@ -8,7 +8,7 @@ tags:
 categories:
   - Dev Tools
   - Software
-cover: 'https://source.fomal.cc/img/default_cover_194.webp'
+cover: https://source.fomal.cc/img/default_cover_151.webp
 description: 从底层原理出发，结合最基础的工作流，逐步拆解 AI 绘图的各个组件，并介绍 ComfyUI 的模型文件管理方式。
 abbrlink: 25bc50da
 date: 2026-02-28 23:28:38

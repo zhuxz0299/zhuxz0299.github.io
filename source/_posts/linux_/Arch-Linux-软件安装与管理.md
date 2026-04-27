@@ -1,6 +1,6 @@
 ---
 title: Arch Linux 软件安装与管理
-cover: 'https://source.fomal.cc/img/default_cover_166.webp'
+cover: https://source.fomal.cc/img/default_cover_121.webp
 tags:
   - arch linux
   - pacman

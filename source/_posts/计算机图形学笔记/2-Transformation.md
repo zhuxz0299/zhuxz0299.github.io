@@ -1,6 +1,6 @@
 ---
 title: Transformation
-cover: https://source.fomal.cc/img/default_cover_97.webp
+cover: https://source.fomal.cc/img/default_cover_35.webp
 categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true

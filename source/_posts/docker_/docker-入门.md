@@ -1,6 +1,6 @@
 ---
 title: docker 入门
-cover: https://source.fomal.cc/img/default_cover_3.webp
+cover: https://source.fomal.cc/img/default_cover_91.webp
 tags:
   - linux
   - docker

@@ -1,6 +1,6 @@
 ---
 title: WebDAV 协议与网盘的本地挂载
-cover: 'https://source.fomal.cc/img/default_cover_159.webp'
+cover: https://source.fomal.cc/img/default_cover_115.webp
 description: 介绍 WebDAV 协议，以及为何 OpenList + RaiDrive 能够将网盘挂载到本地
 tags: 
    - webdav

@@ -1,6 +1,6 @@
 ---
 title: Hexo 构建原理解析
-cover: 'https://source.fomal.cc/img/default_cover_151.webp'
+cover: https://source.fomal.cc/img/default_cover_111.webp
 tags:
   - hexo
   - npm

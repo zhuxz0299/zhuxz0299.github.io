@@ -1,6 +1,6 @@
 ---
 title: Shading
-cover: https://source.fomal.cc/img/default_cover_99.webp
+cover: https://source.fomal.cc/img/default_cover_39.webp
 categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true

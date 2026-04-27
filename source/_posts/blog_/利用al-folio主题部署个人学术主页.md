@@ -3,7 +3,7 @@ title: 利用al-folio主题部署个人学术主页
 categories:
   - Dev Tools
   - al-folio
-cover: 'https://source.fomal.cc/img/default_cover_186.webp'
+cover: https://source.fomal.cc/img/default_cover_142.webp
 tags:
   - al-folio
   - github action

@@ -1,6 +1,6 @@
 ---
 title: Supervised learning
-cover: https://source.fomal.cc/img/default_cover_89.webp
+cover: https://source.fomal.cc/img/default_cover_82.webp
 categories: [Lecture Notes, Machine Learning]
 katex: true
 description: 'linear/logistic regression, Neural Networks, SVM'

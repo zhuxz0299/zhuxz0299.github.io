@@ -1,6 +1,6 @@
 ---
 title: Multi-instance Learning
-cover: https://source.fomal.cc/img/default_cover_77.webp
+cover: https://source.fomal.cc/img/default_cover_87.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 abbrlink: 5050a0c5

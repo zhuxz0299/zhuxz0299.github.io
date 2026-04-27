@@ -1,6 +1,6 @@
 ---
 title: CUDA版本
-cover: 'https://source.fomal.cc/img/default_cover_132.webp'
+cover: https://source.fomal.cc/img/default_cover_94.webp
 tags:
   - cuda
   - pytorch

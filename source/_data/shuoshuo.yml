@@ -37,3 +37,9 @@
   key: log
   content: |
     把 sitemap 添加到 Google Search Console 中。添加了 RSS 订阅。
+
+- author: zhuxz0299
+  date: 2026-04-27 13:41:00
+  key: log
+  content: |
+    删掉了一批价值不高的文档放到了 Obsidian 里面；把 category 恢复了原本的格式；把 cover 的顺序做了一轮整体的调整。

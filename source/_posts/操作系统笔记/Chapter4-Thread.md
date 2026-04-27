@@ -1,6 +1,6 @@
 ---
 title: Chapter4-Thread
-cover: https://source.fomal.cc/img/default_cover_67.webp
+cover: https://source.fomal.cc/img/default_cover_3.webp
 categories: [Lecture Notes, Operating System]
 abbrlink: cb3de908
 order: 4

@@ -1,6 +1,6 @@
 ---
 title: Kernel Trick
-cover: https://source.fomal.cc/img/default_cover_79.webp
+cover: https://source.fomal.cc/img/default_cover_73.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 核方法

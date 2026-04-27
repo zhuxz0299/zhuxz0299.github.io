@@ -1,6 +1,6 @@
 ---
 title: Linux apt 换源与 docker 安装
-cover: https://source.fomal.cc/img/default_cover_4.webp
+cover: https://source.fomal.cc/img/default_cover_88.webp
 tags:
   - linux
   - apt

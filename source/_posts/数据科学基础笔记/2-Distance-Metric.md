@@ -1,6 +1,6 @@
 ---
 title: Distance Metric
-cover: https://source.fomal.cc/img/default_cover_78.webp
+cover: https://source.fomal.cc/img/default_cover_72.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 距离度量

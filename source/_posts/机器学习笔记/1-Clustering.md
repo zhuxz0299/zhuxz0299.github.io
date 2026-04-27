@@ -1,6 +1,6 @@
 ---
 title: Clustering
-cover: https://source.fomal.cc/img/default_cover_86.webp
+cover: https://source.fomal.cc/img/default_cover_67.webp
 abbrlink: e292886a
 date: 2024-03-09 15:52:43
 tags:

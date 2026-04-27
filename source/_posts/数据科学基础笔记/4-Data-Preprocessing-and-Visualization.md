@@ -1,6 +1,6 @@
 ---
 title: Data Preprocessing and Visualization
-cover: https://source.fomal.cc/img/default_cover_80.webp
+cover: https://source.fomal.cc/img/default_cover_75.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 description: 数据预处理与数据可视化

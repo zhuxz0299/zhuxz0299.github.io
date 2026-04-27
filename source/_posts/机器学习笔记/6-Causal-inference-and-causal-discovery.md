@@ -1,6 +1,6 @@
 ---
 title: Causal inference and causal discovery
-cover: https://source.fomal.cc/img/default_cover_91.webp
+cover: https://source.fomal.cc/img/default_cover_85.webp
 categories: [Lecture Notes, Machine Learning]
 katex: true
 description: 'Association, Causation'

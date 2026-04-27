@@ -1,6 +1,6 @@
 ---
 title: vscode编写Linux内核模块头文件报错解决方案
-cover: https://source.fomal.cc/img/default_cover_46.webp
+cover: https://source.fomal.cc/img/default_cover_25.webp
 tags:
   - vscode
   - linux

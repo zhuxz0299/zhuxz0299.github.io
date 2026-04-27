@@ -1,6 +1,6 @@
 ---
 title: Feature Engineering
-cover: https://source.fomal.cc/img/default_cover_73.webp
+cover: https://source.fomal.cc/img/default_cover_68.webp
 categories: [Lecture Notes, Data Science]
 katex: true
 abbrlink: 20a3e8df

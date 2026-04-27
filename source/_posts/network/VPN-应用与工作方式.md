@@ -1,6 +1,6 @@
 ---
 title: VPN 应用与工作方式
-cover: 'https://source.fomal.cc/img/default_cover_191.webp'
+cover: https://source.fomal.cc/img/default_cover_147.webp
 tags:
   - tailscale
   - wireguard

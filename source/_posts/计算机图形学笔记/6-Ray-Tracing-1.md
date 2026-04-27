@@ -1,6 +1,6 @@
 ---
 title: Ray Tracing 1
-cover: https://source.fomal.cc/img/default_cover_101.webp
+cover: https://source.fomal.cc/img/default_cover_43.webp
 categories: [Lecture Notes, Computer Graphics]
 tags: computer graphics
 katex: true

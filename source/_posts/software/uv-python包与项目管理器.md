@@ -4,7 +4,7 @@ tags:
   - uv
   - python
 description: 记录一些频繁使用到的 uv 的操作
-cover: 'https://source.fomal.cc/img/default_cover_192.webp'
+cover: https://source.fomal.cc/img/default_cover_148.webp
 categories:
   - Dev Tools
   - Software

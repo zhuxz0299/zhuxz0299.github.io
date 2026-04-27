@@ -1,6 +1,6 @@
 ---
 title: 使用vivado
-cover: https://source.fomal.cc/img/default_cover_42.webp
+cover: https://source.fomal.cc/img/default_cover_9.webp
 tags: vivado
 abbrlink: c8f9a135
 date: 2023-03-15 15:12:05
