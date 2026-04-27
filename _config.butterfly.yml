@@ -609,6 +609,7 @@ inject:
     - <link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'">
     - <link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'">
     # - <link rel="stylesheet" href="/css/tag_cloud.css" media="defer" onload="this.media='all'">
+    - <link rel="stylesheet" href="/css/tag_filter.css" media="defer" onload="this.media='all'">
     # - <link rel="stylesheet" href="/css/category.css">
   bottom:
     - <script defer src="/js/cursor.js"></script>
