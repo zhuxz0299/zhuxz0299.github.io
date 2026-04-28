@@ -3,6 +3,14 @@ title: Linux 包管理与库管理
 cover: https://source.fomal.cc/img/default_cover_95.webp
 tags:
   - linux
+  - pip
+  - package
+  - library
+  - dnf
+  - yum
+  - rpm
+  - dpkg
+  - apt
 description: 先介绍 Linux 中的包(package)和库(library)，接着介绍一下 dnf 之类的包管理器，以及用来管理库的 pkg-config。
 abbrlink: 12e1f9cc
 date: 2024-12-12 02:24:25

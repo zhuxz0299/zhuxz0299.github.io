@@ -7,6 +7,7 @@ description: 多标签和多任务学习
 abbrlink: de8d9504
 date: 2024-05-25 12:35:44
 tags:
+  - data-science
 ---
 
 ## Multi-label Learning

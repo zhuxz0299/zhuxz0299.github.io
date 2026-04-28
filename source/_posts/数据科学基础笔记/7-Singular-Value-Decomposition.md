@@ -7,6 +7,8 @@ description: SVD 和特征值分解的相关知识
 abbrlink: f7c83336
 date: 2024-04-21 19:57:15
 tags:
+  - data-science
+  - svd
 ---
 ## Singular Value Decomposition (SVD)
 ### Projection

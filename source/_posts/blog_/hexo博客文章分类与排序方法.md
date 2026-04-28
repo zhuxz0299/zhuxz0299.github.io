@@ -1,7 +1,11 @@
 ---
 title: hexo博客文章分类与排序方法
 cover: https://source.fomal.cc/img/default_cover_13.webp
-tags: hexo
+tags:
+  - hexo
+  - node
+  - front-matter
+  - order
 abbrlink: 3d9bb40a
 date: 2023-03-20 19:17:45
 description: 让文章以想要的顺序排序的方法

@@ -7,7 +7,9 @@ abbrlink: 5050a0c5
 date: 2024-06-16 14:44:40
 description: 用于决数据标签噪音的问题
 tags:
+  - data-science
 ---
+
 ## Multi-instance Learning(MLT)
 * 是为了解决数据标签噪音的问题。标签噪音指的是标签数据不可靠的问题。Weakly supervised learning 用于解决这个问题，而 multi-instance learning 是 weakly supervised learning 中一种常用的方法。
 * 将数据分为很多个 bag，每个 bag 里有很多 instance

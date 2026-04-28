@@ -6,6 +6,11 @@ katex: true
 abbrlink: 20a3e8df
 date: 2024-03-10 16:58:44
 tags:
+  - data-science
+  - feature
+  - pca
+  - lda
+  - t-sne
 description: 特征工程与数据降维
 ---
 

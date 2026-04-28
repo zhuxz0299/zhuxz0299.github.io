@@ -2,7 +2,8 @@
 title: Geometry
 cover: https://source.fomal.cc/img/default_cover_42.webp
 categories: [Lecture Notes, Computer Graphics]
-tags: computer graphics
+tags:
+  - computer-graphics
 katex: true
 description: 计算机图形学笔记——几何（基本表示方法，曲线与曲面）
 order: 5

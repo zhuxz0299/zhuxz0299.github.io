@@ -7,6 +7,8 @@ katex: true
 abbrlink: feee944d
 date: 2023-10-23 23:07:01
 tags:
+  - artificial-intelligence
+  - agent
 ---
 
 ## Knowledge-based agents

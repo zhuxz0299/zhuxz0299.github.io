@@ -1,7 +1,9 @@
 ---
 title: 使用vivado
 cover: https://source.fomal.cc/img/default_cover_9.webp
-tags: vivado
+tags: 
+    - vivado
+    - verilog
 abbrlink: c8f9a135
 date: 2023-03-15 15:12:05
 description: 关于vivado基本使用方法，主要是应付课程需要

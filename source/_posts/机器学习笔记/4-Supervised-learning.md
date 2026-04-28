@@ -7,6 +7,11 @@ description: 'linear/logistic regression, Neural Networks, SVM'
 abbrlink: 9ab684ad
 date: 2024-05-14 09:59:33
 tags:
+  - machine-learning
+  - linear-regression
+  - least-square-estimation
+  - logistic-regression
+  - backpropagation-algorithm
 ---
 ## Linear regression
 $$

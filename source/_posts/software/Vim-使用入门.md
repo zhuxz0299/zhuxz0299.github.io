@@ -2,6 +2,11 @@
 title: Vim 使用入门
 tags:
   - vim
+  - keyd
+  - linux
+  - capslock
+  - esc
+  - wayland
 description: 介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。
 cover: https://source.fomal.cc/img/default_cover_146.webp
 categories:

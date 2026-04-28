@@ -7,6 +7,8 @@ katex: true
 abbrlink: 5f9d1835
 date: 2024-01-08 23:08:41
 tags:
+  - artificial-intelligence
+  - svm
 ---
 
 ## Linear classifiers – which line is better?

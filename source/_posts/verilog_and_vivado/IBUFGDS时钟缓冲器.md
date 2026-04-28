@@ -1,7 +1,9 @@
 ---
 title: IBUFGDS时钟缓冲器
 cover: https://source.fomal.cc/img/default_cover_12.webp
-tags: verilog
+tags: 
+    - verilog
+    - fpga
 abbrlink: b2b64be7
 date: 2023-03-18 10:47:06
 description: 对IBUFGDS时钟缓冲器的介绍

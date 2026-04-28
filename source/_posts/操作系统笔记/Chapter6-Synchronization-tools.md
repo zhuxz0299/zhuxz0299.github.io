@@ -7,6 +7,7 @@ order: 6
 katex: true
 date: 2023-03-10 21:10:06
 tags:
+  - operating-system
 description: 操作系统笔记——进程线程同步
 ---
 

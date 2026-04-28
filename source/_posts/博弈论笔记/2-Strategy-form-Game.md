@@ -6,6 +6,10 @@ katex: true
 abbrlink: a4a6120d
 date: 2024-03-12 14:34:41
 tags:
+  - game-theory
+  - nash-equilibrium
+  - prisioner-dilemma
+  - dominant-strategy
 description: 关于博弈论的形式化描述
 ---
 

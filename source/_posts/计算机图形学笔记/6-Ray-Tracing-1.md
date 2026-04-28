@@ -2,7 +2,8 @@
 title: Ray Tracing 1
 cover: https://source.fomal.cc/img/default_cover_43.webp
 categories: [Lecture Notes, Computer Graphics]
-tags: computer graphics
+tags:
+  - computer-graphics
 katex: true
 description: 计算机图形学笔记——光线追踪(基本原理、加速结构)
 order: 6

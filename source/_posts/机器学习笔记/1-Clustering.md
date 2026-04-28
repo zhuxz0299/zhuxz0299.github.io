@@ -4,6 +4,12 @@ cover: https://source.fomal.cc/img/default_cover_67.webp
 abbrlink: e292886a
 date: 2024-03-09 15:52:43
 tags:
+  - machine-learning
+  - k-mean
+  - gmm
+  - clustering
+  - online-learning
+  - em-algorithm
 categories: [Lecture Notes, Machine Learning]
 katex: true
 description: K-mean, CL, GMM

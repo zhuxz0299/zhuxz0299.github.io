@@ -4,6 +4,9 @@ cover: https://source.fomal.cc/img/default_cover_91.webp
 tags:
   - linux
   - docker
+  - image
+  - container
+  - proxy
 description: 关于 docker 的一些基本概念的介绍，以及简单的操作
 abbrlink: 49f1e1db
 date: 2024-06-30 19:16:44

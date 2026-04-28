@@ -6,6 +6,11 @@ katex: true
 abbrlink: f636573c
 date: 2025-11-08 16:38:53
 description: 从正规扩张的等价定义以及性质开始，再简要介绍可分扩张，最后定义伽罗瓦扩张以及伽罗瓦群
+tag:
+  - abstract-algebra
+  - normal-extension
+  - galois-extension
+  - galois-group
 ---
 
 ## 分裂域与同构延展

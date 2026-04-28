@@ -7,6 +7,7 @@ abbrlink: '28253751'
 date: 2023-04-09 20:55:29
 katex: true
 tags:
+  - operating-system
 description: 操作系统笔记——存储系统
 ---
 

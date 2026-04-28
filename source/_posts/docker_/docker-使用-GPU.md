@@ -5,6 +5,8 @@ tags:
   - linux
   - docker
   - cuda
+  - gpu
+  - nvidia
 description: 解决使用 docker 时无法调用 GPU 问题
 abbrlink: 4f30936b
 date: 2024-06-29 23:04:14

@@ -5,6 +5,7 @@ tags:
   - tty
   - pty
   - shell
+  - ssh
 categories:
   - System & Hardware
   - System Knowledge

@@ -7,6 +7,8 @@ description: 核方法
 abbrlink: 71181c07
 date: 2024-03-23 10:55:58
 tags:
+  - data-science
+  - svm
 ---
 
 前面的特征降维是为了解决 overfitting 的问题，而 kernel trick 是为了提升维度，解决 underfitting 的问题。

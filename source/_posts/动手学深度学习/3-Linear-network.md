@@ -1,7 +1,11 @@
 ---
 title: Linear network
 cover: https://source.fomal.cc/img/default_cover_46.webp
-tags: pytorch
+tags: 
+  - pytorch
+  - linear-regression
+  - softmax
+  - gradient-descent
 categories: [AI & Machine Learning, Deep Learning]
 description: 线性回归，softmax回归
 order: 3

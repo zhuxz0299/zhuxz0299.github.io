@@ -7,6 +7,7 @@ abbrlink: 1b14f8df
 date: 2023-03-29 21:35:43
 katex: true
 tags:
+  - operating-system
 description: 操作系统笔记——虚拟内存
 ---
 

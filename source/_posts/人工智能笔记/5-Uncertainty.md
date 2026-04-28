@@ -7,7 +7,11 @@ description: 人工智能笔记——不确定性和概率推测
 categories: [Lecture Notes, Artificial Intelligence]
 katex: true
 tags:
+  - artificial-intelligence
+  - uncertainty
+  - bayesian-networks
 ---
+
 ## Uncertainty
 假如我们定义一个行为(action) $A_t$，表示在航班开始 $t$ 分钟前前往机场，然后想知道执行 $A_t$ 之后是否能够到达机场。相比之前提到的逻辑智能体，显然这里的某个行为并不能得到确切的结果。
 

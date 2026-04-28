@@ -7,6 +7,9 @@ description: Zero-shot Learning 和 Few-shot Learning
 abbrlink: 1bfa0334
 date: 2024-06-15 12:13:22
 tags:
+  - data-science
+  - zero-shot
+  - few-shot
 ---
 
 ## Zero-shot Learning

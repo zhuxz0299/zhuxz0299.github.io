@@ -7,7 +7,9 @@ description: 关于机器学习如何使用多种输入
 abbrlink: 6eec50c8
 date: 2024-05-22 00:00:00
 tags:
+  - data-science
 ---
+
 ## Multi-view learning
 在之前的学习中，每个样本都只有一个特征。训练样本特征即为 $\mathbf{X}_{a}^{s}$，测试样本特征为 $\mathbf{X}_a^{t}$。
 

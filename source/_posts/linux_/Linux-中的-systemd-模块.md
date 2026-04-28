@@ -4,6 +4,9 @@ cover: https://source.fomal.cc/img/default_cover_122.webp
 tags:
   - linux
   - systemd
+  - service
+  - rclone
+  - webdav
 description: Linux 中 systemd 模块的基本用法
 abbrlink: 5bfe7acf
 date: 2025-09-08 13:51:28
@@ -118,16 +121,21 @@ Description=Tbox WebDAV Server
 After=network.target
 
 [Service]
+# 设定工作目录，防止程序依赖相对路径而出错
+WorkingDirectory=/home/zxz/Applications/TboxWebdav
 ExecStart=/home/zxz/Applications/TboxWebdav/TboxWebdav.Server.AspNetCore
 
 User=zxz
-Group=wheel
 
+# 对于长时间运行的控制台程序，simple 是最合适的选择
 Type=simple
 
+# 自动重启策略：当程序异常退出时自动重启
 Restart=on-failure
 RestartSec=5s
 
+# 处理日志：systemd 会自动捕获所有输出到标准输出和标准错误的内容
+# 您可以使用 journalctl 来查看日志
 StandardOutput=journal
 StandardError=journal
 
@@ -144,10 +152,9 @@ Requires=network-online.target tbox-webdav.service
 
 [Service]
 User=zxz
-Group=wheel
 Type=notify
-ExecStart=/usr/bin/rclone mount Tbox:/ /mnt/Tbox/ --cache-dir /mnt/Tbox_cache --allow-non-empty --vfs-cache-mode full --vfs-cache-max-age 2h --vfs-cache-max-size 5G --vfs-read-chunk-size 64M --buffer-size 64M
-ExecStop=/usr/bin/fusermount -u /mnt/Tbox
+ExecStart=/usr/bin/rclone mount Tbox:/ /mnt/Tbox/ --cache-dir /mnt/Tbox_cache --allow-non-empty --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 32M --dir-cache-time 30m
+ExecStop=/usr/bin/fusermount -uz /mnt/Tbox
 
 [Install]
 WantedBy=multi-user.target

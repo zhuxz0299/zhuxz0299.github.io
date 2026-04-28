@@ -7,6 +7,7 @@ description: 关于数据分布以及如何解决数据分布差异化问题
 abbrlink: 5c470531
 date: 2024-05-12 21:17:17
 tags:
+  - data-science
 ---
 ## Introduction to Data Distribution Mismatch
 ### Source domain and target domain

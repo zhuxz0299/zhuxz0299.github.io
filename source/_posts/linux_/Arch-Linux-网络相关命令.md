@@ -2,8 +2,13 @@
 title: Arch Linux 网络相关命令
 cover: https://source.fomal.cc/img/default_cover_132.webp
 tags:
-  - arch linux
-  - network manager
+  - arch-linux
+  - network-manager
+  - nmcli
+  - ethtool
+  - dns
+  - ip
+  - iproute2
 abbrlink: 488724ec
 date: 2025-11-05 18:51:52
 description: 常用工具 NetworkManager、iproute2、ethtool，以及如何查询 ip 地址、网关、DNS 以及协商速率

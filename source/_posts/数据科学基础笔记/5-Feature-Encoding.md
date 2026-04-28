@@ -7,6 +7,7 @@ description: 特征编码，如何把局部的特征聚合成整体的特征
 abbrlink: d0f6435f
 date: 2024-04-09 10:41:59
 tags:
+  - data-science
 ---
 
 ## Local Descriptor

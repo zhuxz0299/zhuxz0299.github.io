@@ -1,7 +1,8 @@
 ---
 title: verilog语法简介
 cover: https://source.fomal.cc/img/default_cover_10.webp
-tags: verilog
+tags: 
+    - verilog
 abbrlink: e03b3fd8
 date: 2023-03-15 19:42:58
 description: 关于遇到的一些Verilog基础语法

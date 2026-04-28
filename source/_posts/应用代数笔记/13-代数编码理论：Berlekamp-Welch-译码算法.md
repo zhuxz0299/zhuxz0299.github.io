@@ -10,7 +10,11 @@ description: >-
   Reed-Muller (RM) 码
 abbrlink: b12c7e4b
 date: 2025-12-18 22:24:47
+tag:
+  - berlekamp
+  - encoder
 ---
+
 ## 预备知识：符号定义与基本事实
 
 ### 符号定义 (Notation)

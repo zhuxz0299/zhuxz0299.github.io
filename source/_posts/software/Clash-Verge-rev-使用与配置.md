@@ -4,6 +4,12 @@ tags:
   - proxy
   - software
   - clash
+  - configuration
+  - tun
+  - mihomo
+  - yaml
+  - rule
+  - proxy-groups
 description: 介绍 Clash 配置文件的部分写法以及 Clash Verge rev 软件使用时需要注意的一点问题
 cover: https://source.fomal.cc/img/default_cover_144.webp
 categories:

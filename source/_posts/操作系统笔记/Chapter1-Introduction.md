@@ -6,6 +6,7 @@ abbrlink: a733b7f0
 order: 1
 date: 2023-03-14 14:21:12
 tags:
+  - operating-system
 description: 操作系统笔记——绪论
 ---
 ## What Operating Systems Do

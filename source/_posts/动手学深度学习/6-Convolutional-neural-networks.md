@@ -1,7 +1,12 @@
 ---
 title: Convolutional neural networks
 cover: https://source.fomal.cc/img/default_cover_52.webp
-tags: pytorch
+tags: 
+  - pytorch
+  - convolution
+  - padding
+  - stride
+  - lenet
 categories: [AI & Machine Learning, Deep Learning]
 description: 卷积层，填充和步幅，多输入输出通道，池化层，LeNet
 order: 6

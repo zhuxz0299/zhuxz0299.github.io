@@ -6,6 +6,9 @@ katex: true
 abbrlink: ed318fdc
 date: 2024-03-11 15:43:20
 tags:
+  - game-theory
+  - prisioner-dilemma
+  - braess-paradox
 description: 博弈论基础
 ---
 

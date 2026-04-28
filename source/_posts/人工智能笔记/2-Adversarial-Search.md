@@ -7,6 +7,9 @@ katex: true
 abbrlink: fa6cbd68
 date: 2023-09-27 11:09:22
 tags:
+  - artificial-intelligence
+  - multi-agent
+  - minimax-algorithm
 ---
 
 ## Multi-Agent System

@@ -4,6 +4,7 @@ cover: https://source.fomal.cc/img/default_cover_2.webp
 tags: 
   - latex
   - vscode
+  - configuration
 categories: [Dev Tools, VS Code]
 abbrlink: 90e9784e
 date: 2023-03-07 13:00:14

@@ -3,6 +3,8 @@ title: yazi 文件管理器
 tags:
   - yazi
   - tui
+  - filechooser
+  - file-manager
 description: 介绍一个非常好用的终端文件管理器
 cover: https://source.fomal.cc/img/default_cover_149.webp
 categories:

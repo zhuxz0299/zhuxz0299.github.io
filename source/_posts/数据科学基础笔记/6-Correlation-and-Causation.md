@@ -7,6 +7,9 @@ description: 相关性和因果性
 abbrlink: e362de16
 date: 2024-04-17 11:04:27
 tags:
+  - data-science
+  - correlation
+  - causation
 ---
 
 ## Correlation

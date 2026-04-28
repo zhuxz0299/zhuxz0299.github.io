@@ -7,6 +7,10 @@ katex: true
 abbrlink: 19533d98
 date: 2023-09-22 14:07:06
 tags:
+  - artificial-intelligence
+  - agent
+  - search
+  - a-star-search
 ---
 
 ## Problem-solving agent

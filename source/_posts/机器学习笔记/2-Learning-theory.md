@@ -6,6 +6,12 @@ katex: true
 abbrlink: d6c74530
 date: 2024-03-29 23:43:12
 tags:
+  - machine-learning
+  - latent-variable
+  - em-algorithm
+  - kl-divergence
+  - bayesian-learning
+  - model-selection
 description: General EM, Maximum Likelihood, Bayesian Learning, Model Selection
 ---
 ## GMM-From generation process perspective

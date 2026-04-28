@@ -1,7 +1,11 @@
 ---
 title: Convolutional-modern
 cover: https://source.fomal.cc/img/default_cover_54.webp
-tags: pytorch
+tags: 
+  - pytorch
+  - alexnet
+  - batchsize-normalization
+  - resnet
 categories: [AI & Machine Learning, Deep Learning]
 description: AlexNet，VGG，NiN，GoogleNet
 order: 7

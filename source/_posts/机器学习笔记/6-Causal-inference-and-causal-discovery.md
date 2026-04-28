@@ -7,6 +7,9 @@ description: 'Association, Causation'
 abbrlink: 19bfb1b0
 date: 2024-06-08 11:09:21
 tags:
+  - machine-learning
+  - association
+  - causation
 ---
 
 ## Association vs. Causation (Intervention)

@@ -7,6 +7,7 @@ order: 5
 katex: true
 date: 2023-03-07 18:23:34
 tags:
+  - operating-system
 description: 操作系统笔记——CPU调度
 ---
 

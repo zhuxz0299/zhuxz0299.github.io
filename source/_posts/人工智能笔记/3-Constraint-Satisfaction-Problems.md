@@ -7,6 +7,8 @@ katex: true
 abbrlink: fd6da8cd
 date: 2023-10-16 19:51:42
 tags:
+  - artificial-intelligence
+  - csp
 ---
 
 最开始的人工智能做的都是search，而之后的机器学习才开始做inference，会自己学习知识。而CSP问题则介于两者之间，它会把inference的思路融入到search中，这是人工智能的一大进步，智能体在搜索的时候会进行思考。

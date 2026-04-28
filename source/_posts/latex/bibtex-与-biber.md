@@ -5,7 +5,9 @@ categories: [Dev Tools, LaTeX]
 description: 写毕设的时候发现除了 bibtex 之外还有 biber 能够处理 latex 中的引用信息，于是上网了解了一下。本文大概是比较全面的介绍。
 tags:
   - latex
-  - 引用
+  - biber
+  - bibtex
+  - reference
 abbrlink: 3fe7c2a1
 date: 2025-04-22 16:23:54
 ---

@@ -7,6 +7,8 @@ description: 数据采样与数据分布之间的关系
 abbrlink: 961614bd
 date: 2024-05-11 16:29:24
 tags:
+  - data-science
+  - mle
 ---
 在应用中，用于训练的源数据(source domain)和测试的目标数据(target domain)之间的分布可能会有所不同，因此需要研究两者的分布。
 

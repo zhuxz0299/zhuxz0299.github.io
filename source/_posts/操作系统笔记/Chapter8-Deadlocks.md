@@ -6,6 +6,7 @@ order: 8
 abbrlink: ac36b867
 date: 2023-03-21 00:49:59
 tags:
+  - operating-system
 description: 操作系统笔记——死锁
 ---
 

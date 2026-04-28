@@ -2,7 +2,14 @@
 title: Arch Linux 启动问题修复
 cover: https://source.fomal.cc/img/default_cover_127.webp
 tags:
-  - arch linux
+  - arch-linux
+  - linux
+  - grub
+  - uefi
+  - initramfs
+  - swap
+  - wayland
+  - esp
 description: 记录 Arch Linux 无法开机问题的修复过程
 abbrlink: 91c6fd1a
 date: 2025-10-27 21:17:07

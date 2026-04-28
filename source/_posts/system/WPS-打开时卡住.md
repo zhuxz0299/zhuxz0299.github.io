@@ -3,6 +3,7 @@ title: WPS 打开时卡住
 tags:
   - wps
   - font
+  - strace
 categories:
   - System & Hardware
   - System Knowledge

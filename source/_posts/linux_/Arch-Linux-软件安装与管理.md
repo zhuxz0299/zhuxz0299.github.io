@@ -2,11 +2,12 @@
 title: Arch Linux 软件安装与管理
 cover: https://source.fomal.cc/img/default_cover_121.webp
 tags:
-  - arch linux
+  - arch-linux
   - pacman
   - aur
   - flatpak
   - appimage
+  - yay
 description: Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新
 abbrlink: 59eaf47c
 date: 2025-09-07 15:11:59

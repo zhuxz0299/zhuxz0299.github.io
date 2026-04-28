@@ -7,6 +7,7 @@ description: 距离度量
 abbrlink: c8391a3e
 date: 2024-03-22 21:28:24
 tags:
+  - data-science
 ---
 
 ## Distance between two samples

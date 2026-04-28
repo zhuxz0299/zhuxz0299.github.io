@@ -7,6 +7,9 @@ katex: true
 abbrlink: 2a9c81bf
 date: 2023-11-08 22:36:02
 tags:
+  - artificial-intelligence
+  - linear-regression
+  - lms
 ---
 
 ## Types of Learning

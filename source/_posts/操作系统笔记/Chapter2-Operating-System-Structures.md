@@ -6,6 +6,7 @@ abbrlink: e6abb60
 order: 2
 date: 2023-03-16 22:47:21
 tags:
+  - operating-system
 description: 操作系统笔记
 ---
 

@@ -2,7 +2,8 @@
 title: Ray Tracing 2
 cover: https://source.fomal.cc/img/default_cover_44.webp
 categories: [Lecture Notes, Computer Graphics]
-tags: computer graphics
+tags:
+  - computer-graphics
 katex: true
 description: 计算机图形学笔记——光线追踪(辐射度量学、渲染方程与全局光照、蒙特卡洛积分与路径追踪)
 order: 7

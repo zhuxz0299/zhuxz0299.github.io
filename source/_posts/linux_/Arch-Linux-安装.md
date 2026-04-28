@@ -3,8 +3,16 @@ title: Arch Linux 安装
 cover: https://source.fomal.cc/img/default_cover_120.webp
 tags:
   - linux
-  - arch linux
-  - file system
+  - arch-linux
+  - file-system
+  - iso
+  - iwctl
+  - bootloader
+  - initramfs
+  - reflector
+  - btrfs
+  - volume
+  - grub
 description: 讲解 Arch Linux 安装步骤背后的工作原理
 abbrlink: 695424c6
 date: 2025-09-03 14:42:41

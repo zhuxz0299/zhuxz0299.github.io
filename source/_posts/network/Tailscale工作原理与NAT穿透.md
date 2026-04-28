@@ -5,6 +5,8 @@ tags:
   - tailscale
   - nat
   - vpn
+  - firewall
+  - stun
 categories:
   - System & Hardware
   - Network Practice

@@ -5,6 +5,8 @@ description: 介绍种子与磁链的工作原理
 tags:
   - torrent
   - magnet
+  - p2p
+  - pt
 abbrlink: ed09bf83
 date: 2025-08-27 15:34:35
 categories: [System & Hardware, Network Practice]

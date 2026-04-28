@@ -6,6 +6,7 @@ categories: [Lecture Notes, Operating System]
 order: 7
 date: 2023-03-12 17:37:54
 tags:
+  - operating-system
 description: 操作系统笔记
 ---
 

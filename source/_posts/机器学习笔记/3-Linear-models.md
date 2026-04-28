@@ -7,6 +7,12 @@ description: PCA, FA, ICA
 abbrlink: 9710e17d
 date: 2024-04-21 21:04:48
 tags:
+  - machine-learning
+  - pca
+  - svd
+  - mse
+  - gaussian-distribution
+  - ica
 ---
 
 ## Some mathematical background

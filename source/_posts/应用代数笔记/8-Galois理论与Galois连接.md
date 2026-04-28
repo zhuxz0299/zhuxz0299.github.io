@@ -6,6 +6,13 @@ katex: true
 abbrlink: 3d2c8e8d
 date: 2025-11-13 22:13:07
 description: 从伽罗瓦不动域引入伽罗瓦基本对应，再引入抽象的伽罗瓦连接来分析域和伽罗瓦群之间的关系
+tag:
+  - abstract-algebra
+  - galois-theory
+  - galois-group
+  - fixed-field
+  - galois-connection
+  - closure
 ---
 
 ## 伽罗瓦理论 (Galois Theory)

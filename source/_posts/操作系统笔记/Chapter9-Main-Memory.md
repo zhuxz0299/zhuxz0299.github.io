@@ -7,6 +7,7 @@ abbrlink: 69ff1809
 date: 2023-03-21 16:49:55
 katex: true
 tags:
+  - operating-system
 description: 操作系统笔记——主存
 ---
 

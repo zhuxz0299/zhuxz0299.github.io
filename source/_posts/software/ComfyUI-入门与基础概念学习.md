@@ -3,8 +3,8 @@ title: ComfyUI 入门与基础概念学习
 tags:
   - ai
   - comfyui
-  - stable diffusion
-  - image generation
+  - stable-diffusion
+  - image-generation
 categories:
   - Dev Tools
   - Software

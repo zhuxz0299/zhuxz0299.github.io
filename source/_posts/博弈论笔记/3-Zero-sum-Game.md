@@ -7,6 +7,9 @@ description: 零和博弈与对偶解法
 abbrlink: 3235c627
 date: 2024-03-19 14:24:21
 tags:
+  - game-theory
+  - zero-sum-game
+  - lp-duality
 ---
 
 ## LP Duality

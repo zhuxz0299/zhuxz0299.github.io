@@ -6,6 +6,7 @@ abbrlink: cb3de908
 order: 4
 date: 2023-03-07 16:04:28
 tags:
+  - operating-system
 description: 操作系统笔记——线程
 ---
 

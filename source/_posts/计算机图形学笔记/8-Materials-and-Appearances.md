@@ -2,7 +2,8 @@
 title: Materials and Appearances
 cover: https://source.fomal.cc/img/default_cover_45.webp
 categories: [Lecture Notes, Computer Graphics]
-tags: computer graphics
+tags:
+  - computer-graphics
 katex: true
 description: 计算机图形学笔记——材质与外观
 order: 8
