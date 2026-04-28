@@ -145,9 +145,11 @@ $$
 
 我们希望能够调整 $P(a)$ 使得结果更优，因此这是个优化问题：
 $$
+\begin{gather*}
 \max_{} \sum_{} p^{*}(a) u_i(a) \\
 \sum_{a\in A} p^{*}(a)=1 \\
 p^{*}(a)\ge 0
+\end{gather*}
 $$
 
 可以看出这是个线性规划，有多项式复杂度的方法可以求解。但是 MNE(Mixed Nash Equilibrium) 是没有特定解法的。因此 Correlated Equilibrium 更弱。

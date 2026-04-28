@@ -15,7 +15,9 @@ tags:
 ---
 ## Linear regression
 $$
+\begin{gather*}
 y_{i}=\beta_{1}x_{i1}+\cdots+\beta_{p}x_{ip}+\varepsilon_{i}=\mathbf{x}_{i}^{\mathrm{T}}\boldsymbol{\beta}+\varepsilon_{i},\quad i=1,\ldots,n,\\\mathbf{y}=\begin{pmatrix}y_1\\y_2\\\vdots\\y_n\end{pmatrix},\quad\mathbf{X}=\begin{pmatrix}\mathbf{x}_1^\mathrm{T}\\\mathbf{x}_2^\mathrm{T}\\\vdots\\\mathbf{x}_n^\mathrm{T}\end{pmatrix}=\begin{pmatrix}x_{11}&\cdots&x_{1p}\\x_{21}&\cdots&x_{2p}\\\vdots&\ddots&\vdots\\x_{n1}&\cdots&x_{np}\end{pmatrix},\quad\boldsymbol{\beta}=\begin{pmatrix}\beta_1\\\beta_2\\\vdots\\\beta_p\end{pmatrix},\quad\boldsymbol{\varepsilon}=\begin{pmatrix}\varepsilon_1\\\varepsilon_2\\\vdots\\\varepsilon_n\end{pmatrix}.
+\end{gather*}
 $$
 
 写成矩阵性质，为：$\mathbf{y}=\mathbf{X}\beta+\varepsilon$
@@ -114,7 +116,9 @@ Perceptron 可以做一些逻辑运算：
 
 #### Perceptron learning
 $$
+\begin{gather*}
 w_i\leftarrow w_i+\Delta w_i,\\\Delta w_i=\eta(y-\hat{y})x_i,
+\end{gather*}
 $$
 
 如果线性可分，则能收敛；反之不能。
@@ -143,8 +147,10 @@ $$
 #### Function by neural network
 1. recursive nature:
    $$
+   \begin{gather*}
    a_j=\sum_{i=1}^Dw_{ji}^{(1)}x_i+w_{j0}^{(1)},\quad j=1,\cdots,M \\
    z_j=h(a_j),\quad j=1,\cdots,M
+   \end{gather*}
    $$
 2. sigmoid/tanh function
 3. output layer

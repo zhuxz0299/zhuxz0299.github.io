@@ -377,9 +377,11 @@ $$
 
 其中 $P(\theta|K)$ 为参数的先验分布。$P(X|K)$ 称为 marginal likelihood。但是需要注意到：
 $$
+\begin{gather*}
 (\theta|k=1) = \{ \mu,\Sigma \} \\
 (\theta|k=2) = \{ \alpha_1,\mu_1,\Sigma_1,\alpha_2, \mu_2,\Sigma_2 \} \\
-\cdots 
+\cdots
+\end{gather*}
 $$
 
 可以看出想要通过积分得到 $P(X|K)$ 是非常困难的，因此我们需要一些近似的方法。

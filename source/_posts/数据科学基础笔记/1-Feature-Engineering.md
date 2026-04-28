@@ -94,7 +94,7 @@ $\bm{\tilde{x}}$ 就是进行了 $L_p$ normalization 之后的特征。
 
 假如 $p(x_1)$ 和 $p(x_2)$ 相差过大，可能会影响分类器的性能，因此我们希望拉近两个维度的分布。此时可以使用 z-score normalization。记 $x_1,x_2$ 的均值，标准差分别为 $\mu_1,\mu_2$ 和 $\sigma_1,\sigma_2$，在 z-score normalization 后，有：
 $$
-\tilde{x_1} = \frac{x_1-\mu_1}{\sigma_1}， \quad \tilde{x_2} = \frac{x_2-\mu_2}{\sigma_2}
+\tilde{x_1} = \frac{x_1-\mu_1}{\sigma_1}, \quad \tilde{x_2} = \frac{x_2-\mu_2}{\sigma_2}
 $$
 
 Z-score normalization 和 $L_p$ normalization 可以叠加使用。
@@ -194,8 +194,10 @@ $$
 $$
 
 $$
+\begin{gather*}
 \frac{\partial\mathcal{L}_\mathbf{v}}{\partial\mathbf{v}}=\mathbf{X}\mathbf{X}^T\mathbf{v}-\lambda\mathbf{v}=\mathbf{0} \\
 \Rightarrow \mathbf{X}\mathbf{X}^T\mathbf{v}=\lambda\mathbf{v}
+\end{gather*}
 $$
 
 最后的结果可以联想到特征分解。

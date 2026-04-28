@@ -109,7 +109,9 @@ $$
 ### Norm based on SVD
 矩阵的 norm 是利用 SVD 分解得到的矩阵 $\mathbf{D}$ 定义的。矩阵的 $l_p$ norm 可以写成：
 $$
+\begin{gather*}
 \mathbf{A}=\mathbf{UDV}^T=\sum_{i=1}^kd_i\mathbf{u}_i\mathbf{v}_i^T\\\mathcal{N}_{p}(\mathbf{A})=\left(\sum_{i=1}^kd_i^p\right)^{\frac1p}
+\end{gather*}
 $$
 
 下面是几个比较重要的 $p$：
@@ -183,8 +185,10 @@ $$
 $$
 
 $$
+\begin{gather*}
 \Rightarrow \mathbf{M}\mathbf{V} = \mathbf{V} \mathbf{\Sigma} \mathbf{V}^{\mathrm{T}}\mathbf{V} = \mathbf{V} \mathbf{\Sigma} \\
 M \mathbf{v} = \lambda \mathbf{v}
+\end{gather*}
 $$
 
 由 $\mathbf{D}^{\mathrm{T}}\mathbf{D}=\mathbf{\Sigma}$ 知 $\lambda=d^{2}$，且特征向量 $\mathbf{v}$ 即为 $\mathbf{V}$ 中的列向量。
@@ -200,8 +204,10 @@ $$
 
 相关性质：
 $$
+\begin{gather*}
 trace(\mathbf{M})=\sum_i\lambda_i\\
 \det(\mathbf{M})=\prod_i\lambda_i
+\end{gather*}
 $$
 
 ### Application
@@ -220,7 +226,9 @@ $$
 
 然后分别求导：
 $$
+\begin{gather*}
 \frac{\partial\mathcal{L}}{\partial\boldsymbol{\alpha}}=\mathbf{0}\Rightarrow\sum_i\mathbf{x}_i\mathbf{y}_i^T\boldsymbol{\beta}=2\lambda_1\sum_i\mathbf{x}_i\mathbf{x}_i^T\boldsymbol{\alpha}\\\frac{\partial\mathcal{L}}{\partial\boldsymbol{\beta}}=\mathbf{0}\Rightarrow\sum_i\mathbf{y}_i\mathbf{x}_i^T\boldsymbol{\alpha}=2\lambda_2\sum_i\mathbf{y}_i\mathbf{y}_i^T\boldsymbol{\beta}
+\end{gather*}
 $$
 
 可以证明 $\lambda_1=\lambda_2$，因此方程组可写成：

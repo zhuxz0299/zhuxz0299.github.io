@@ -79,7 +79,10 @@ $$
 
 于是 DIP 可以写成：
 $$
-\begin{array}{cc}\min_\mathbf{W}&&tr(\mathbf{K_WL})\\\mathrm{s.t.}&&\mathbf{W}^T\mathbf{W}=\mathbf{I}.\end{array}
+\begin{aligned}
+\min_\mathbf{W}\quad & tr(\mathbf{K_WL})\\
+\mathrm{s.t.}\quad & \mathbf{W}^T\mathbf{W}=\mathbf{I}.
+\end{aligned}
 $$
 
 在得到了 $\mathbf{W}$ 之后，$\phi(\mathbf{W}^{\mathrm{T}}X_s)$ 和 $\phi(\mathbf{W}^{\mathrm{T}}\mathbf{X}_t)$ 就有相近的分布。
@@ -136,7 +139,9 @@ $$
 
 那么我们的目标为：
 $$
+\begin{gather*}
 \min_{\mathbf{A}}\|\hat{\mathbf{C}}_{s}-\mathbf{C}_{t}\|_{F}^{2}\\=\quad\min_{\mathbf{A}}\|\mathbf{A}^{T}\mathbf{C}_{s}\mathbf{A}-\mathbf{C}_{t}\|_{F}^{2}
+\end{gather*}
 $$
 
 对协方差矩阵做特征值分解：$\mathbf{C}_s=\mathbf{U}_s\mathbf{\Sigma}_s\mathbf{U}_s^T\quad\mathbf{C}_t=\mathbf{U}_t\mathbf{\Sigma}_t\mathbf{U}_t^T$

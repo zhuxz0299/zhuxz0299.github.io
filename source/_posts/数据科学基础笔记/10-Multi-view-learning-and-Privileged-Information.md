@@ -113,8 +113,10 @@ $$
 
 保留最后一个约束，使用拉格朗日乘子法
 $$
+\begin{gather*}
 \mathcal{L}_{\mathbf{w}^{v},\boldsymbol{\alpha}}=\frac{1}{2}\sum_{v}\frac{\|\mathbf{w}^{v}\|^{2}}{d^{v}}-\sum_{i}\alpha_{i}(y_{i}\sum_{v}\mathbf{w}^{vT}\mathbf{x}_{i}^{v}-1)\\
 \frac{\partial\mathcal{L}_{\mathbf{w}^{v},\mathbf{\alpha}}}{\partial\mathbf{w}^{v}}=0\Longrightarrow\mathbf{w}^{v}=d^{v}\mathbf{X}^{v}(\boldsymbol{\alpha}\circ\mathbf{y})
+\end{gather*}
 $$
 
 此时可以得到对偶问题：

@@ -8,6 +8,8 @@
     "deploy": "hexo deploy",
     "server": "hexo server",
     "dev": "hexo clean && hexo generate && hexo server",
+    "katex:check": "node tools/check_katex_warnings.js",
+    "katex:wrap-gather": "node tools/wrap_katex_gather.js",
     "img:post": "node tools/blog_image.js optimize --post",
     "img:all": "node tools/blog_image.js optimize",
     "img:migrate": "node tools/blog_image.js migrate",

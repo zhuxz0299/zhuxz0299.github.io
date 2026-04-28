@@ -96,11 +96,13 @@ $$
 ### 从回归到多类分类——均方损失
 * 首先对每一位进行有效编码。比如有一个label为 $y$，那么编码之后 $y$ 变为 $\bm{y}$
 $$
+\begin{gather*}
 \bm{y}=[y_1,y_2, \ldots y_n]^{\mathrm{T}} \\
 y_i = \begin{cases}
     1 , \text{if } i=y\\ 
     0, \text{otherwise}
 \end{cases}
+\end{gather*}
 $$
 * 使用均方损失训练
 * 最大值为预测结果 $\hat{y}=\argmax_{i}o_i$
@@ -110,8 +112,10 @@ $$
 
 同时我们希望输出的结果是一个概率，因此可以把输出向量 $\bm{o}$ 做一个softmax操作，即
 $$
+\begin{gather*}
 \bm{\hat{y}} = \operatorname{softmax} (\bm{o}) \\ 
 \hat{y}_i=\frac{\exp (o_i)}{\sum_{k}\exp (o_k)}
+\end{gather*}
 $$
 
 这里使用指数是希望输出都为正数。

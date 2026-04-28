@@ -82,9 +82,11 @@ $$
 #### Kernel Canonical Correlation Analysis (KCCA)
 为了解决样本向量为无穷维的情况，将 correlation 进一步拓展，对每个样本做 kernel 映射，即：
 $$
+\begin{gather*}
 \mathbf{x}=[x_1,x_2,\ldots,x_n]\quad\mathbf{y}=[y_1,y_2,\ldots,y_n]\\
 \downarrow \\
 \phi(\mathbf{X})=[\phi(\mathbf{x}_1),\phi(\mathbf{x}_2),\ldots,\phi(\mathbf{x}_n)]\quad\phi(\mathbf{Y})=[\phi(\mathbf{y}_1),\phi(\mathbf{y}_2),\ldots,\phi(\mathbf{y}_n)]
+\end{gather*}
 $$
 
 由于维度为无穷，那么我们无法直接写出 $\mathbf{w}_{x}, \mathbf{w}_{y}$。但是利用 representation theorem，我们知道：$\mathbf{w}_x\leftarrow\phi(\mathbf{X})\boldsymbol{\alpha}_x,\mathbf{w}_y\leftarrow\phi(\mathbf{Y})\boldsymbol{\alpha}_y$，因此 CCA 中学习 $\mathbf{w}_{x}, \mathbf{w}_{y}$ 在这里变成了学习 $\alpha_x,\alpha_y$：

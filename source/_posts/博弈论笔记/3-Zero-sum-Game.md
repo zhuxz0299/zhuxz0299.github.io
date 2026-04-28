@@ -98,8 +98,10 @@ $$
 
 使得
 $$
+\begin{gather*}
 -\mathbf{c}^{\mathrm{T}}\lambda_0 + \mathbf{\lambda}_1^{\mathrm{T}}\mathbf{A}\ge 0 \text{ and } -(\Delta+\varepsilon)\lambda_0 + \mathbf{\lambda}_1^{\mathrm{T}}\mathbf{b} < 0 \\
 \Rightarrow \frac{1}{\lambda_0} \mathbf{\lambda}_1^{\mathrm{T}}\mathbf{A} \ge \mathbf{c}^{\mathrm{T}} \text{ and } \frac{1}{\lambda_0}\mathbf{\lambda}_1^{\mathrm{T}}\mathbf{b}<\Delta + \varepsilon
+\end{gather*}
 $$
 
 令 $y = \mathbf{\lambda}_1 / \lambda_0$，那么对于 $\forall \varepsilon>0$，都有 $\mathbf{y^{*}}^{\mathrm{T}}\mathbf{b} \le \mathbf{y}^{\mathrm{T}}\mathbf{b}<\Delta+\varepsilon$，因此
@@ -122,10 +124,12 @@ $$
 
 引入一系列系数 $y_1,y_2, \ldots ,y_n>0$，则有
 $$
+\begin{gather*}
 y_1 \mathbf{a}_1^{\mathrm{T}}\mathbf{x} \le b_1 y_1\\
 y_2 \mathbf{a}_2^{\mathrm{T}}\mathbf{x} \le b_2 y_2\\
 \cdots \\
 y_n \mathbf{a}_n^{\mathrm{T}}\mathbf{x} \le b_n y_n
+\end{gather*}
 $$
 
 假如满足条件 $y_1 \mathbf{a}_1^{\mathrm{T}} + y_2 \mathbf{a}_2^{\mathrm{T}} + \cdots + y_n \mathbf{a}_n^{\mathrm{T}}\ge \mathbf{c}^{\mathrm{T}}$，即 $\mathbf{A}^{\mathrm{T}}\mathbf{y}\ge \mathbf{c}$，则有
@@ -147,8 +151,10 @@ Let:
 * $y$: prob distribution over p2's actions
 
 $$
+\begin{gather*}
 \Rightarrow u_1(x,y)=\sum_{ij}A(i,j)x_i y_j = \mathbf{x}^{\mathrm{T}}\mathbf{A}\mathbf{y}\\
 u_2(x,y) = -u_1(x,y)
+\end{gather*}
 $$
 
 Thus a NE $(x^{*},y^{*})$ satisfies
@@ -189,22 +195,28 @@ $$
 #### Proof
 1. Suppose p1 wants to maximize its worst case payoff
     $$
+    \begin{gather*}
     \max_{x} \min_{y} x^{\mathrm{T}}Ay\\
     = \max_{x} \min_{j} (x^{\mathrm{T}}A)_{j}
+    \end{gather*}
     $$
 
     问题转化为 LP 问题，可以用 LP Duality 来解
     $$
+    \begin{gather*}
     \max_{x,v_1} v_1 \\ \tag{LP1}
     s.t. \quad v_1\le (x^{\mathrm{T}}A)_{j}  ,\forall j\\
     x\ge 0
+    \end{gather*}
     $$
 
     Similarly, p2's problem is 
     $$
+    \begin{gather*}
     \min_{y,v_2} v_2 \\ \tag{LP2}
     s.t. \quad v_2\ge (Ay)_{i}, \forall i \\
     y\ge 0
+    \end{gather*}
     $$
 
     Thus by strong duality, we have $v_1^{*}=v_2^{*}$, or 

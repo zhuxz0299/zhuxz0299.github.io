@@ -82,10 +82,12 @@ Flash是组成固态硬盘的颗粒，同时闪存也可以用来做U盘。
 就是让一个flash颗粒存储更多位的数据。方式是让不同范围的电压表示不同的数据。例如对于MLC来说，一种可行的数据表示方式如下：
 
 $$
+\begin{gather*}
 electron\ number>80\% \rightarrow 11\\
 60\sim 80\% \rightarrow 10\\
 40\sim 60\% \rightarrow 01\\
 <20\% \rightarrow 00
+\end{gather*}
 $$
 
 但是存储的数量越多，就越容易出错，耐久性也越低。所以一般来说，SLC的可靠性最高，QLC的可靠性最低。

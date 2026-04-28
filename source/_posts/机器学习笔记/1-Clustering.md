@@ -269,8 +269,10 @@ $$
 
 Multinomial distribution
 $$
+\begin{gather*}
 p(\mathbf{x}|\boldsymbol{\mu})=\prod_{k=1}^K\mu_k^{x_k}\quad\quad\boldsymbol{\mu}=(\mu_1,\ldots,\mu_K)^\mathrm{T}\quad\mu_k\geqslant0\\
 \sum_k\mu_k=1
+\end{gather*}
 $$
 
 期望为 $\mathbb{E}[\mathbf{x}|\boldsymbol{\mu}]=\sum_\mathbf{x}p(\mathbf{x}|\boldsymbol{\mu})\mathbf{x}=(\mu_1,\ldots,\mu_M)^\mathrm{T}=\boldsymbol{\mu}$。

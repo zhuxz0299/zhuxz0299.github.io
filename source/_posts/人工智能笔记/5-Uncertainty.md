@@ -96,8 +96,10 @@ $$
 
 随机变量 $A$ 和 $B$ 在 $C$ 的条件下独立，即：$\operatorname{Pr}(AB|C) = \operatorname{Pr}(A|C)\times \operatorname{Pr}(B|C)$，或者 $\operatorname{Pr}(A|C)=\operatorname{Pr}(A|BC)$。上面两个式子等价：
 $$
-\operatorname{Pr}(A|C) = \operatorname{Pr}(A|BC) = \frac{\operatorname{Pr}(ACB)}{\operatorname{Pr}(BC)} = \frac{\operatorname{Pr}(AB|C)\cdot \operatorname{Pr}(C)}{\operatorname{Pr}(B|C)\cdot P(C)} \\ 
+\begin{gather*}
+  \operatorname{Pr}(A|C) = \operatorname{Pr}(A|BC) = \frac{\operatorname{Pr}(ACB)}{\operatorname{Pr}(BC)} = \frac{\operatorname{Pr}(AB|C)\cdot \operatorname{Pr}(C)}{\operatorname{Pr}(B|C)\cdot P(C)} \\ 
 \Leftrightarrow \operatorname{Pr}(AB|C) = \operatorname{Pr}(A|C)\times \operatorname{Pr}(B|C)
+\end{gather*}
 $$
 
 继续考虑上面的例子。假如有 Toothache, Cavity, Catch 三个变量，在不考虑独立性的情况下，$\operatorname{Pr}(\text{Toothache}, \text{Cavity}, \text{Catch})$ 有 $2^{3}-1=7$ 个独立项。但假如考虑 Toothache 和 Catch 在 Cavity 的条件下独立，那么
@@ -211,9 +213,11 @@ $$
 
   则计算式：
   $$
+  \begin{gather*}
   \operatorname{Pr}(a) \operatorname{Pr}(b) \operatorname{Pr}(c|b) \operatorname{Pr}(d|a) \operatorname{Pr}(e|c,d) \operatorname{Pr}(f|a) \operatorname{Pr}(g|e) \operatorname{Pr}(h|e,f) \\ 
   \Rightarrow 
   \operatorname{Pr}(a) \operatorname{Pr}(b) \operatorname{Pr}(c|b) \operatorname{Pr}(d|a) \operatorname{Pr}(e|c,d) \operatorname{Pr}(f|a) \operatorname{Pr}(g|e) m_{h}(e,f)
+  \end{gather*}
   $$
 2. 消除 $G$
    $$
@@ -221,9 +225,11 @@ $$
    $$
 
    $$
+   \begin{gather*}
    \operatorname{Pr}(a) \operatorname{Pr}(b) \operatorname{Pr}(c|b) \operatorname{Pr}(d|a) \operatorname{Pr}(e|c,d) \operatorname{Pr}(f|a) \operatorname{Pr}(g|e) m_{h}(e,f) \\
    \Rightarrow 
    \operatorname{Pr}(a) \operatorname{Pr}(b) \operatorname{Pr}(c|b) \operatorname{Pr}(d|a) \operatorname{Pr}(e|c,d) \operatorname{Pr}(f|a) m_{h}(e,f)
+   \end{gather*}
    $$
 3. 消除 $F$
   $$
@@ -231,9 +237,11 @@ $$
   $$
 
   $$
+  \begin{gather*}
   \operatorname{Pr}(a) \operatorname{Pr}(b) \operatorname{Pr}(c|b) \operatorname{Pr}(d|a) \operatorname{Pr}(e|c,d) \operatorname{Pr}(f|a) m_{h}(e,f) \\
   \Rightarrow 
   \operatorname{Pr}(a) \operatorname{Pr}(b) \operatorname{Pr}(c|b) \operatorname{Pr}(d|a) \operatorname{Pr}(e|c,d) m_{f}(e,a)
+  \end{gather*}
   $$
 ……
 

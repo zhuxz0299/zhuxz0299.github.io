@@ -135,8 +135,10 @@ $$
 
 其中
 $$
+\begin{gather*}
 \bm{E_1}=\bm{P_1}-\bm{P_0} \quad \bm{E_2}=\bm{P_2}-\bm{P_0} \\
 \bm{S}=\bm{O}-\bm{P_0} \quad \bm{S_1}=\bm{D}\times \bm{E_2}\quad \bm{S_2}=\bm{S}\times \bm{E_1}
+\end{gather*}
 $$
 
 ### Accelerating Ray-Surface Intersection

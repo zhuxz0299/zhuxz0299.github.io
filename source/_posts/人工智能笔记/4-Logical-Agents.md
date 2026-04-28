@@ -82,7 +82,7 @@ $$
 ## Inference rules and theorem proving
 ### resolution
 归结法的推导：
-对于两个CNF $l_1 \lor  \cdots \lor l_k，m_1 \lor \cdots \lor m_n$，假如存在 $l_i$ 和 $m_j$ 互补，那么就归结出 $l_1 \lor  \cdots \lor  l_{i-1} \lor l_{i+1} \lor \cdots \lor \cdots l_k \lor  m_1 \lor \cdots \lor m_{j-1} \lor m_{j+1} \lor  \cdots  \lor  m_n$
+对于两个CNF $l_1 \lor  \cdots \lor l_k, m_1 \lor \cdots \lor m_n$，假如存在 $l_i$ 和 $m_j$ 互补，那么就归结出 $l_1 \lor  \cdots \lor  l_{i-1} \lor l_{i+1} \lor \cdots \lor \cdots l_k \lor  m_1 \lor \cdots \lor m_{j-1} \lor m_{j+1} \lor  \cdots  \lor  m_n$
 
 也就是说想要使用归结法，要首先将逻辑表达式变成合取范式。
 

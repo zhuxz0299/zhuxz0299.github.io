@@ -70,8 +70,10 @@ $$
 
 求出反射光方向的一种方式为：
 $$
+\begin{gather*}
 \omega_o+\omega_i=2\cos \theta \vec{n}=2(\omega_i\cdot \vec{n})\vec{n} \\
 \Rightarrow \omega_o=-\omega_i+2(\omega_i\cdot \vec{n})\vec{n}
+\end{gather*}
 $$
 
 我们可以看出想要计算发射光线方向需要计算一个点乘，因此在Blinn-Phong反射模型中我们没有计算反射光线以减小计算量。

@@ -45,7 +45,9 @@ tags:
 #### Solve the Problem by Randomized Experiments
 如果 
 $$
+\begin{gather*}
 \mathrm{E[Y_{1}\mid T=1]=E[Y_{1}\mid T=0]=E[Y_{1}]}\\\mathrm{E[Y_{0}\mid T=1]=E[Y_{0}\mid T=0]=E[Y_{0}]}
+\end{gather*}
 $$
 
 那么 ACE $=S^{*}$。也就是说 $T=0, 1$ 的个体需要 random assignment。
@@ -180,7 +182,9 @@ $$
 ### Darmois-Skeitovitch theorem
 $Y_1, Y_2$ 是由一系列随机变量 $S_1, S_2, \ldots S_n$ 线性组合而成
 $$
+\begin{gather*}
 Y_{1}=\alpha_1S_1+\alpha_2S_2+...+\alpha_nS_n\\Y_{2}=\beta_1S_1+\beta_2S_2+...+\beta_nS_n
+\end{gather*}
 $$
 
 如果 $Y_1, Y_2$ 是独立的，那么只要 $\alpha_j \beta_j\neq 0$，$S_j$ 就为高斯分布。此时考虑 $X,Y$ 的因果关系。

@@ -45,8 +45,10 @@ $$
 ### Support Vector Machine
 同时我们发现 $a$ 可以是任意的，因此可以取 $a=1$，问题最终被简化为
 $$
+\begin{gather*}
 \min_{w,b}w\cdot w\\
 s.t.(w\cdot x_j+b)y_j\geq1\mathrm{~}\forall j
+\end{gather*}
 $$
 
 这个问题就是容易求解的。但是这个模型没有什么实用价值，因为现实中基本没有数据集可以被完美二分。
@@ -206,8 +208,10 @@ $$
 
 可以看出对偶函数给出了主问题的下界。这个下界取决于 $\bm{\lambda}$ 和 $\bm{\mu}$，于是我们开始考虑：基于对偶函数能够获得的最好的下界是什么？这就引出了**对偶问题**
 $$
+\begin{gather*}
 \max_{\bm{\lambda},\bm{\mu}} \Gamma(\bm{\lambda},\bm{\mu}) \\
 s.t. \quad \bm{\mu}\ge 0
+\end{gather*}
 $$
 
 记对偶问题的最优值为 $d^{*}$。考虑 $p^{*}$ 和 $d^{*}$ 的关系：
@@ -253,8 +257,10 @@ $$
 
 可以发现此时 $w$ 可以表示成所有样本线性组合的形式。再将 $w$ 的值代回 $\mathcal{L}$ 的方程中，并且利用 $\sum_{i=1}^m\alpha_iy_i=0$，可以得到对偶问题
 $$
+\begin{gather*}
 \Gamma(\alpha)=\sum_{i=1}^{m}\alpha_{i}-\frac{1}{2}\sum_{i=1}^{m}\sum_{j=1}^{m}\alpha_{i}\alpha_{j}y_{i}y_{j}(x_{i}^{T}x_{j}) \\
 s.t. \quad \sum_{i=1}^m\alpha_iy_i=0, \alpha_i\ge 0
+\end{gather*}
 $$
 
 再考虑互补松弛条件，由于 SVM 问题中 $g(x)=1-(w^T\cdot x_i+b)y_i\leq0$，和置信度相关，因此如果 $\alpha_i>0$，那么说明 $(w^{\mathrm{T}}\cdot x_i+b)y_i=1$，即置信度为 $1$。假如置信度不为 $1$，那么 $\alpha_i=0$。
@@ -311,8 +317,10 @@ $$
 
 其中 $\mathbf{w}, b$ 分别满足
 $$
+\begin{gather*}
 \mathbf{w}=\sum_{\mathbf{z}_n\text{ is SV}}\alpha_ny_n\mathbf{z}_n \\
 y_m\left(\mathbf{w}^\intercal\mathbf{z}_m+b\right)=1
+\end{gather*}
 $$
 
 将 $\mathbf{w}$ 带入
