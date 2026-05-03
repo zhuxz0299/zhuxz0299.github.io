@@ -11,6 +11,6 @@ echo "Current time: $current_datetime"
 # 使用 && 确保上一步成功才执行下一步
 git add . && \
 git commit -m "Code updated: $current_datetime" && \
-git push origin hexo-v2
+git push origin hexo-v3
 
 echo "Done!"
