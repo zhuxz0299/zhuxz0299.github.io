@@ -1,3 +1,8 @@
+/* 深色模式使用与浅色模式不同的背景图 */
+[data-theme="dark"] #web_bg {
+  background-image: url("/img/skirk.jpg") !important;
+}
+
 /*top-img黑色透明玻璃效果移除，不建议加，除非你执着于完全一图流或者背景图对比色明显 */
 #page-header:not(.not-top-img):before {
   background-color: transparent !important;

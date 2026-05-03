@@ -430,13 +430,13 @@
       
         <tags>
             
-            <tag> docker </tag>
-            
             <tag> al-folio </tag>
             
             <tag> github-action </tag>
             
             <tag> blog </tag>
+            
+            <tag> docker </tag>
             
             <tag> resume </tag>
             
@@ -496,9 +496,9 @@
             
             <tag> abstract-algebra </tag>
             
-            <tag> finite-field </tag>
-            
             <tag> galois-group </tag>
+            
+            <tag> finite-field </tag>
             
             <tag> cyclotomic-extension </tag>
             
@@ -513,7 +513,7 @@
       <link href="/posts/f51eef37.html"/>
       <url>/posts/f51eef37.html</url>
       
-        <content type="html"><![CDATA[<h2 id="Hexo-Butterfly-基础安装">Hexo + Butterfly 基础安装</h2><div class="note info flat"><p>参照 <a href="https://hexo.io/docs/">hexo 文档</a>，<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 文档：快速开始</a></p></div><ol><li>安装 Node.js 以及 Git</li><li><code>npm install -g hexo-cli</code>，如果失败，就运行 <code>sudo npm install -g hexo-cli</code></li><li><code>npm install hexo-theme-butterfly</code></li><li>找一个合适的路径，<code>hexo init blog</code>，会创建一个 <code>blog</code> 文件夹并且在其中完成初始化</li><li>运行 <code>npm install</code> 安装必要的包（这一步似乎可以略过了）</li><li>修改文件夹下的 <code>_config.yml</code>，把主题改为 <code>butterfly</code>: <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure></li><li>安装 pug 以及 stylus 的渲染器： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure></li><li>在 hexo 的根目录创建一个文件 <code>_config.butterfly.yml</code>，之后的配置可以都写在这里</li><li>运行 <code>hexo g</code> 以及 <code>hexo s</code> 就可以看到部署在本地端口的网站</li></ol><h2 id="Github-配置">Github 配置</h2><p>将设备的公钥放入 Github 的 SSH keys -&gt; Authentication keys 中 (其实就是方便首先 push 的时候走 SSH)</p><p>安装远程部署所需包：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>然后在 <code>_config.yaml</code> 文件中配置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">git@github.com:zhuxz0299/zhuxz0299.github.io.git</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure><div class="note warning flat"><p>如果在上述 <code>repository</code> 中填写 <code>https://github.com/zhuxz0299/zhuxz0299.github.io.git</code>，可能会在某天 <code>hexo deploy</code> 的时候突然要求输入用户名密码登录。但是 Github 目前已经在命令行禁止了这种登录途径，导致无法正常推送代码到 GitHub。</p></div><h2 id="创建主题页面">创建主题页面</h2><div class="note info flat"><p>参照 <a href="https://butterfly.js.org/posts/dc584b87/">Butterfly 文档：主题页面</a></p></div><ul><li>创建 tag 页面：<code>hexo new page tags</code></li><li>创建 category 页面：<code>hexo new page categories</code></li><li>创建友链页面：<code>hexo new page link</code></li><li>创建说说页面：<code>hexo new page shuoshuo</code></li></ul><p>然后在几个新创建的页面中编辑 Front-matter 中的 <code>type</code>，让 butterfly 知道怎么渲染</p><h3 id="数据来源">数据来源</h3><p>tag 和 category 页面可以自动生成，但是友链和说说的页面是需要手动添加内容的。因此创建 <code>source/_data</code> 文件夹，然后分别创建 <code>link.yml</code> 以及 <code>shuoshuo.yml</code> 文件。</p><h2 id="Butterfly-主题配置">Butterfly 主题配置</h2><div class="note info flat"><p>参照 <a href="https://butterfly.js.org/posts/4aa8abbe/">Butterfly 文档：主题配置</a></p></div><p>内容见 <code>_config.yml</code> 以及 <code>_config.butterfly.yml</code> 的注释</p><p>注：数学公式支持处于不知名的原因，这段配置必须放在 <code>_config.yml</code> 下：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;@renbaoshuo/markdown-it-katex&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="后续配置">后续配置</h2><ul><li>一图流：在 <code>/source/css/only_bg_img.css</code> 中实现了配置</li><li>自定义字体：在 <code>/source/css/font.css</code> 引入字体，然后在 <code>_config.butterfly.yml</code> 的 <code>font</code> 中进行配置</li><li>wowjs 动画：<ul><li><code>npm install hexo-butterfly-wowjs --save</code></li><li>然后在 <code>_config.butterfly.yml</code> 的 <code>wowjs</code> 中进行配置</li><li>发现在新的主题下不太好用，关了</li></ul></li><li>鼠标样式：通过 <code>/source/css/cursor.css</code> 以及 <code>/source/js/cursor.js</code> 实现配置</li><li>导航栏配置：通过 <code>/source/css/nav_bar.css</code> 配置，实现页面顶部导航栏菜单居中</li><li>页面整体配置：通过 <code>/source/css/page_border.css</code> 配置，实现了页面组件的圆角</li><li>滚动条配置：通过 <code>/source/css/scroll_bar.css</code> 配置，配置文件利用了一些 Chromium 内核提供的私有属性，因此在 Chrome 与 Firefox 中的呈现会略有不同</li><li>category 页面修改：通过 <code>scripts/category_card_injector.js</code> 对页面元素进行调整，配置的数据路径为 <code>source/_data/category_images.yml</code></li><li>搜索引擎收录：<ul><li><code>npm install hexo-generator-sitemap --save</code> 用于生成 <code>sitemap</code> 文件</li><li>到 <a href="https://search.google.com/search-console">Google Search Console</a> 中获取验证码，按照 butterfly 官方文档填写到 <code>site_verification</code> 字段下</li><li>完成验证之后再到 Google Search Console 页面，在左侧导航栏点击“站点地图”，输入 <code>sitemap.xml</code> 并提交。</li></ul></li></ul><h2 id="多端同步">多端同步</h2><p>为了方便在不同的电脑上编写博客并且保持同步，可以将源码也放到 Github 中。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin https://github.com/zhuxz0299/zhuxz0299.github.io.git</span><br><span class="line">git checkout -b hexo-v2</span><br><span class="line">git push -u origin hexo-v2</span><br></pre></td></tr></table></figure><p>同时为了方便部署，还在 <code>package.json</code> 的 <code>&quot;scripts&quot;</code> 项中添加了这几条命令：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;publish&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate &amp;&amp; hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;redeploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>在调用的 hexo 命令中，<code>hexo generate</code> 用于将写好的 <code>.md</code> 渲染成 <code>.html</code>，并且将 <code>source</code> 文件夹下的其他资源文件（如图片）复制到 <code>public</code> 文件夹下；<code>hexo deploy</code> 则是将数据推送到 github 相应分支，这两个命令在部署网站的时候都必不可少。而 <code>hexo clean</code> 命令通常用于修改了修改了配置文件、主题代码之后清理缓存，防止页面错乱，不需要每次都运行。</p>]]></content>
+        <content type="html"><![CDATA[<h2 id="Hexo-Butterfly-基础安装">Hexo + Butterfly 基础安装</h2><div class="note info flat"><p>参照 <a href="https://hexo.io/docs/">hexo 文档</a>，<a href="https://butterfly.js.org/posts/21cfbf15/">Butterfly 文档：快速开始</a></p></div><p>当前博客使用的是 Hexo 8.1.1 和 Butterfly 5.5.2。由于 Butterfly 现在是作为 npm 依赖安装的，所以主题本身也会被记录在 <code>package.json</code> 和 <code>package-lock.json</code> 中，不需要再把主题代码手动复制到 <code>themes/</code> 文件夹。</p><ol><li>安装 Node.js 以及 Git</li><li><code>npm install -g hexo-cli</code>，如果失败，就运行 <code>sudo npm install -g hexo-cli</code></li><li><code>npm install hexo-theme-butterfly</code></li><li>找一个合适的路径，<code>hexo init blog</code>，会创建一个 <code>blog</code> 文件夹并且在其中完成初始化</li><li>运行 <code>npm install</code> 安装必要的包。现在 <code>hexo init</code> 通常会顺手安装一遍依赖，但是换电脑同步源码之后仍然需要在项目根目录运行 <code>npm install</code></li><li>修改文件夹下的 <code>_config.yml</code>，把主题改为 <code>butterfly</code>: <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">butterfly</span></span><br></pre></td></tr></table></figure></li><li>安装 pug 以及 stylus 的渲染器： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br></pre></td></tr></table></figure></li><li>在 hexo 的根目录创建一个文件 <code>_config.butterfly.yml</code>，之后的配置可以都写在这里</li><li>运行 <code>hexo g</code> 以及 <code>hexo s</code> 就可以看到部署在本地端口的网站</li></ol><h2 id="Github-配置">Github 配置</h2><p>将设备的公钥放入 Github 的 SSH keys -&gt; Authentication keys 中 (其实就是方便首先 push 的时候走 SSH)</p><p>安装远程部署所需包：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><p>然后在 <code>_config.yml</code> 文件中配置：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">git@github.com:zhuxz0299/zhuxz0299.github.io.git</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure><div class="note warning flat"><p>如果在上述 <code>repository</code> 中填写 <code>https://github.com/zhuxz0299/zhuxz0299.github.io.git</code>，可能会在某天 <code>hexo deploy</code> 的时候突然要求输入用户名密码登录。但是 Github 目前已经在命令行禁止了这种登录途径，导致无法正常推送代码到 GitHub。</p></div><h2 id="创建主题页面">创建主题页面</h2><div class="note info flat"><p>参照 <a href="https://butterfly.js.org/posts/dc584b87/">Butterfly 文档：主题页面</a></p></div><ul><li>创建 tag 页面：<code>hexo new page tags</code></li><li>创建 category 页面：<code>hexo new page categories</code></li><li>创建友链页面：<code>hexo new page link</code></li><li>创建说说页面：<code>hexo new page shuoshuo</code></li><li>创建关于页面：<code>hexo new page about</code></li></ul><p>然后在几个新创建的页面中编辑 Front-matter 中的 <code>type</code>，让 butterfly 知道怎么渲染</p><h3 id="数据来源">数据来源</h3><p>tag 和 category 页面可以自动生成，但是友链和说说的页面是需要手动添加内容的。因此创建 <code>source/_data</code> 文件夹，然后分别创建 <code>link.yml</code> 以及 <code>shuoshuo.yml</code> 文件。</p><p>当前导航栏中实际启用了主页、归档、标签、分类、关于、日志和学术主页。其中学术主页是跳转到 <code>/my-profile/</code>，由另一个 al-folio 项目生成；友链页面虽然还保留在 <code>source/link/</code>，但是导航栏入口暂时注释掉了。</p><h2 id="Butterfly-主题配置">Butterfly 主题配置</h2><div class="note info flat"><p>参照 <a href="https://butterfly.js.org/posts/4aa8abbe/">Butterfly 文档：主题配置</a></p></div><p>内容见 <code>_config.yml</code> 以及 <code>_config.butterfly.yml</code> 的注释。现在基本分成两类：</p><ul><li><code>_config.yml</code>：站点基础信息、永久链接、语法高亮、部署配置、全局 Markdown 渲染配置</li><li><code>_config.butterfly.yml</code>：菜单、封面、侧边栏、搜索、评论、主题样式、CDN、自定义 CSS/JS 注入等主题配置</li></ul><div class="note warning flat"><p>数学公式使用 KaTeX。目前安装的是 <code>hexo-renderer-markdown-it</code>、<code>katex</code> 和 <code>@renbaoshuo/markdown-it-katex</code>。出于不知名的原因，这段配置必须放在 <code>_config.yml</code> 下：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">markdown:</span></span><br><span class="line">  <span class="attr">plugins:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;@renbaoshuo/markdown-it-katex&#x27;</span></span><br></pre></td></tr></table></figure></div><h2 id="后续配置">后续配置</h2><ul><li>永久链接：使用 <code>hexo-abbrlink</code> 生成文章短链接，<code>_config.yml</code> 中配置为 <code>permalink: posts/:abbrlink.html</code>。这个设置会影响评论区按文章链接加载评论，所以迁移博客时尽量不要改。</li><li>一图流：在 <code>/source/css/only_bg_img.css</code> 中实现了配置，主要是让页头、页脚和部分卡片背景透明，配合 <code>_config.butterfly.yml</code> 中的 <code>background: /img/violet_light.jpg</code></li><li>自定义字体：在 <code>/source/css/font.css</code> 引入字体，目前主要用于导航栏、站点标题和文章标题</li><li>wowjs 动画：<ul><li><code>npm install hexo-butterfly-wowjs --save</code></li><li>然后在 <code>_config.butterfly.yml</code> 的 <code>wowjs</code> 中进行配置</li><li>目前 <code>wowjs.enable</code> 为 <code>false</code>，依赖和配置还保留，但是没有启用</li></ul></li><li>鼠标样式：通过 <code>/source/css/cursor.css</code> 以及 <code>/source/js/cursor.js</code> 实现配置</li><li>导航栏配置：通过 <code>/source/css/nav_bar.css</code> 配置，实现页面顶部导航栏菜单居中</li><li>页面整体配置：通过 <code>/source/css/page_border.css</code> 配置，实现了页面组件的圆角</li><li>滚动条配置：通过 <code>/source/css/scroll_bar.css</code> 配置，配置文件利用了一些 Chromium 内核提供的私有属性，因此在 Chrome 与 Firefox 中的呈现会略有不同</li><li>标签页面修改：通过 <code>scripts/tag_filter_injector.js</code> 替换 Butterfly 默认的标签云，支持标签搜索、AND/OR 匹配和按标签筛选文章；样式在 <code>/source/css/tag_filter.css</code> 中</li><li>Mermaid：在 <code>_config.butterfly.yml</code> 中启用 <code>mermaid.code_write</code>，并且在 <code>_config.yml</code> 的 <code>highlight.exclude_languages</code> 中排除 <code>mermaid</code>，避免图表代码块被语法高亮抢先处理</li><li>图片处理脚本：<code>tools/blog_image.js</code> 用于将文章图片整理到 <code>source/figure/</code> 并转换/压缩为 webp，常用命令写在 <code>package.json</code> 中：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm run img:post -- <span class="built_in">source</span>/_posts/xxx.md</span><br><span class="line">npm run img:all</span><br><span class="line">npm run img:migrate</span><br></pre></td></tr></table></figure></li><li>KaTeX 检查脚本：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm run katex:check</span><br><span class="line">npm run katex:wrap-gather</span><br></pre></td></tr></table></figure>前者用于检查公式渲染警告，后者用于把包含裸换行的显示公式包进 <code>gather*</code> 环境</li><li>搜索引擎收录：<ul><li><code>npm install hexo-generator-sitemap --save</code> 用于生成 <code>sitemap</code> 文件</li><li>到 <a href="https://search.google.com/search-console">Google Search Console</a> 中获取验证码，按照 butterfly 官方文档填写到 <code>site_verification</code> 字段下</li><li>完成验证之后再到 Google Search Console 页面，在左侧导航栏点击“站点地图”，输入 <code>sitemap.xml</code> 并提交。</li></ul></li></ul><h2 id="多端同步">多端同步</h2><p>为了方便在不同的电脑上编写博客并且保持同步，可以将源码也放到 Github 中。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git remote add origin https://github.com/zhuxz0299/zhuxz0299.github.io.git</span><br><span class="line">git checkout -b hexo-v3</span><br><span class="line">git push -u origin hexo-v3</span><br></pre></td></tr></table></figure><p>目前远程仓库中，<code>main</code> 分支用于放 <code>hexo deploy</code> 生成的静态页面，<code>hexo-v3</code> 分支用于保存 Hexo 源码。换新设备时拉取 <code>hexo-v3</code>，运行 <code>npm install</code> 恢复依赖，然后就可以继续写文章和部署。</p><p>同时为了方便部署，还在 <code>package.json</code> 的 <code>&quot;scripts&quot;</code> 项中添加了这几条命令：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="attr">&quot;dev&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;publish&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo generate &amp;&amp; hexo deploy&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;redeploy&quot;</span><span class="punctuation">:</span> <span class="string">&quot;hexo clean &amp;&amp; hexo generate &amp;&amp; hexo deploy&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>在调用的 hexo 命令中，<code>hexo generate</code> 用于将写好的 <code>.md</code> 渲染成 <code>.html</code>，并且将 <code>source</code> 文件夹下的其他资源文件（如图片）复制到 <code>public</code> 文件夹下；<code>hexo deploy</code> 则是将数据推送到 GitHub 相应分支，这两个命令在部署网站的时候都必不可少。而 <code>hexo clean</code> 命令通常用于修改了配置文件、主题配置、自定义脚本之后清理缓存，防止页面错乱，不需要每次都运行。</p>]]></content>
       
       
       <categories>
@@ -597,11 +597,11 @@
             
             <tag> abstract-algebra </tag>
             
-            <tag> finite-field </tag>
-            
             <tag> galois-theory </tag>
             
             <tag> galois-group </tag>
+            
+            <tag> finite-field </tag>
             
         </tags>
       
@@ -939,11 +939,11 @@
             
             <tag> arch-linux </tag>
             
-            <tag> initramfs </tag>
-            
             <tag> grub </tag>
             
             <tag> uefi </tag>
+            
+            <tag> initramfs </tag>
             
             <tag> swap </tag>
             
@@ -1188,6 +1188,10 @@
             
             <tag> arch-linux </tag>
             
+            <tag> grub </tag>
+            
+            <tag> initramfs </tag>
+            
             <tag> file-system </tag>
             
             <tag> iso </tag>
@@ -1196,15 +1200,11 @@
             
             <tag> bootloader </tag>
             
-            <tag> initramfs </tag>
-            
             <tag> reflector </tag>
             
             <tag> btrfs </tag>
             
             <tag> volume </tag>
-            
-            <tag> grub </tag>
             
         </tags>
       
@@ -1700,9 +1700,9 @@
             
             <tag> propositional-logic </tag>
             
-            <tag> sat-solver </tag>
-            
             <tag> normal-forms </tag>
+            
+            <tag> sat-solver </tag>
             
         </tags>
       
@@ -2197,9 +2197,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> docker </tag>
+            
+            <tag> linux </tag>
             
             <tag> image </tag>
             
@@ -2232,9 +2232,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> docker </tag>
+            
+            <tag> linux </tag>
             
             <tag> cuda </tag>
             
@@ -2300,11 +2300,11 @@
       
         <tags>
             
+            <tag> docker </tag>
+            
             <tag> linux </tag>
             
             <tag> apt </tag>
-            
-            <tag> docker </tag>
             
             <tag> ubuntu </tag>
             
@@ -2571,9 +2571,9 @@
             
             <tag> pca </tag>
             
-            <tag> svd </tag>
-            
             <tag> machine-learning </tag>
+            
+            <tag> svd </tag>
             
             <tag> mse </tag>
             
@@ -4139,9 +4139,9 @@
             
             <tag> quantum-mechanics </tag>
             
-            <tag> energy-quantization </tag>
-            
             <tag> schrödinger-equation </tag>
+            
+            <tag> energy-quantization </tag>
             
             <tag> infinite-square-potential </tag>
             
@@ -4257,13 +4257,13 @@
             
             <tag> quantum-mechanics </tag>
             
-            <tag> momentum-operator </tag>
-            
             <tag> operator </tag>
             
             <tag> eigenvalue-equation </tag>
             
             <tag> hermitian-operator </tag>
+            
+            <tag> momentum-operator </tag>
             
         </tags>
       
