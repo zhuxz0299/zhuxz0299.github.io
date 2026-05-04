@@ -29,47 +29,7 @@ Arch Linux 开机卡在“加载初始化内存盘” (Loading initial ramdisk)
 3. Kernel (Linux 内核) + initramfs (临时根文件系统) -> 
 4. 真正的根文件系统 (和 `systemd` 等 `init` 进程)
 
-#### GRUB (GRand Unified Bootloader) 的作用
-1. 启动的起点：当你按下电源按钮，电脑的 BIOS 或 UEFI 固件会进行开机自检 (POST)。自检完成后，固件会去读取硬盘的特定区域（如 MBR 或 EFI 分区）来查找并执行引导加载程序，这个程序就是 GRUB。
-2. 提供选择菜单：如果你安装了多个操作系统（比如 Windows 和 Linux 双系统）或者有多个不同版本的 Linux 内核，GRUB 会让你选择这次要启动哪一个。
-3. 加载内核和 initramfs：一旦你做出选择，GRUB 会根据其配置文件（通常是 `grub.cfg`）中的指令，去文件系统中找到两个关键文件：
-   * Linux 内核文件 (例如 `vmlinuz-linux`)
-   * initramfs 镜像文件 (例如 `initramfs-linux.img`) 然后，GRUB 会把这两个文件加载到内存 (RAM) 中。
-4. 交出控制权：当内核和 `initramfs` 都加载到内存后，GRUB 的工作就完成了。它会将执行控制权交给 Linux 内核，让内核开始运行。
-
-#### initramfs (Initial RAM Filesystem) 的作用
-`initramfs` 是一个临时的、基于内存的根文件系统。它的存在是为了解决一个“先有鸡还是先有蛋”的难题：
-> 启动难题：内核需要挂载（mount）你真正的根文件系统（比如 `/dev/nvme0n1p3`）才能继续启动，因为所有的程序、服务和驱动都在那里。 但是，如果你的根文件系统是 LVM、RAID、被加密的（LUKS），甚至是放在某个需要特殊驱动的 NVMe SSD 上，那么内核在启动初期并没有这些驱动程序（因为驱动程序本身就存在于它尚未挂载的根文件系统里）。
-
-initramfs 就是来解决这个问题的：
-1. 提供临时环境：内核被 GRUB 加载后，它会立即把一同加载进内存的 `initramfs` 镜像解压，并将其挂载为临时的根目录 (`/`)。
-2. 加载关键驱动：这个临时的根目录非常小，但五脏俱全。它包含了一个小型的 `init` 脚本和所有必要的内核模块（`.ko` 文件），比如用于 LVM、RAID、磁盘加密 (cryptsetup) 或特定硬件（如 nvme）的驱动。
-3. 挂载真正的根系统：`initramfs` 里的 `init` 脚本会自动运行，它会加载这些必要的驱动，然后去查找并挂载你真正的根文件系统（比如解密你的加密分区，或激活 LVM 卷组）。
-4. 交出控制权：一旦真正的根文件系统被成功挂载，`initramfs` 里的脚本就会执行一个叫 `switch_root` 的操作，将系统的根目录从临时的 `initramfs` 切换到你真正的硬盘分区上。
-5. 切换完成后，`initramfs` 会被从内存中清除，它占用的内存也会被释放。系统会接着运行你真正根目录里的 `init` 程序（现在通常是 `systemd`），然后开始加载所有常规的系统服务，最终带你进入登录界面。
-
-#### initramfs 为什么容易出问题
-`initramfs` 的生成是一个自动化的脚本过程，它在系统更新（尤其是内核更新）的最后一步被触发。这个脚本（如 Arch 上的 `mkinitcpio`）会读取配置文件，分析当前系统，然后打包生成一个新的 `.img` 文件。既然是自动化脚本，那么任何导致脚本意外中断、配置错误、或环境不满足的情况，都会导致生成失败。
-
-以下是最常见的几种失败原因：
-1. 🥇 最常见原因：`/boot` 分区空间不足
-   * 发生过程：系统更新时，包管理器（如 `pacman`）会先把新内核（`vmlinuz-linux`）下载并安装到 `/boot` 目录。
-   * 空间耗尽：`initramfs` 是在新内核安装之后才开始生成的。此时 `/boot` 分区可能已经塞满了新旧内核文件（或者是其他备份文件）。当 `mkinitcpio` 尝试写入一个新的、几十 MB 大小的 `initramfs-....img` 文件时，系统会报告 "No space left on device"。
-   * 灾难性后果：包管理器可能没有正确处理这个错误，它会认为“内核包安装完了”。但此时，你多半有了一个新的内核和旧的（或一个 0 字节的、损坏的）`initramfs`。下次重启时，GRUB 加载新内核，新内核尝试加载不匹配的 `initramfs`，启动过程随即崩溃（通常会卡在 "Waiting for root device..." 或直接 `kernel panic`）。
-2. 更新过程中断
-   * 发生过程：`initramfs` 的生成通常是系统更新的最后几个步骤之一。这个过程可能需要几十秒。
-   * 用户操作：如果用户在包管理器显示 "running post-transaction hooks..." 或 "generating initramfs..." 时强行按 `Ctrl+C` 中断，或者此时发生意外断电。
-   * 灾难性后果：这会留下一个不完整的、损坏的 `initramfs` 文件。结果同上。
-3. 配置文件错误 (例如 mkinitcpio.conf)
-initramfs 不是凭空生成的，它依赖于配置文件（如 Arch 的 `/etc/mkinitcpio.conf`）。
-   * 你可能为了某个教程（比如“给 initramfs 添加LVM支持”或“加密启动”）修改了这个文件。
-   * 也许你不小心在 `MODULES` 数组里写错了一个模块名（比如把 `btrfs` 写成了 `btrs`），或者在 `HOOKS` 数组里加了一个不存在的钩子。
-   * 这个错误平时无伤大雅，因为你一直在用旧的、生成好的 `initramfs`。但当内核更新时，`mkinitcpio` 脚本被强制重新运行，它读取到这个错误的配置，立刻报错并中止生成。
-   * 灾难性后果：mkinitcpio 失败了，所以新的 initramfs 没有被创建。
-4. 内核模块/钩子 (Hooks) 发生变化
-   * 这通常发生在发行版的“大版本”更新中，或者你切换了某个关键组件（比如从 `udev` 切换到 `systemd`）。
-   * 你 `initramfs` 配置文件中的 `HOOKS` 可能包含了一个在新版本中已被重命名或移除的钩子（例如，某个旧的 `encrypt` 钩子被新的 `sd-encrypt` 钩子取代了）。
-   * 更新时引爆：内核更新时，mkinitcpio 尝试寻找那个旧的钩子脚本，但它已经不存在了，于是生成失败。
+关于 Linux 启动以及 `/boot` 文件夹下各个组件的具体作用，可以参考文章[boot 文件夹与 EFI 分区](https://zhuxz0299.github.io/posts/36b44dc6.html)
 
 ### 修复方法
 从 U 盘启动 Arch Linux 的 live 环境。运行 `lsblk` 查看硬盘分区情况，方便后续挂载。其情况可能如下：
