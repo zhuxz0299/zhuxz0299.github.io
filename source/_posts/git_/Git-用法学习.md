@@ -17,7 +17,13 @@ date: 2026-02-11 22:06:00
 {% endnote %}
 
 ## Git 运行前的配置
-(配置的的 editor 会在直接运行 `git commit` 的时候使用)
+`git` 的几个配置文件：
+- `/etc/gitconfig`，系统级配置，感觉平时用不到
+- `~/.gitconfig`，用户级配置
+  - `git config --global user.name xxx` 以及 `git config --global user.name xxx` 的设置会自动存到这里
+- `.git/config`，仓库级配置
+
+运行 `git config --list --show-origin` 可以查看所有的配置以及它们所在的文件。
 
 ## Git 基础
 ### 当前文件状态
@@ -166,6 +172,8 @@ Git 的分支，其实本质上仅仅是指向提交对象的可变指针。Git 
 </div>
 
 ### 分支的创建、切换与合并
+使用 `git branch` 可以看到当前本地的所有分支；使用 `git branch -v` 能够看到更详细的信息：包含每个分支的最后一个 commit。
+
 #### 创建分支
 例如创建一个 testing 分支：
 ```bash
@@ -295,6 +303,8 @@ index.html | 1 +
 用户需要手动处理这些冲突区域，并且通过 `git add` 来将其标记为冲突已解决。
 
 ### 远程分支
+远程引用是对远程仓库的引用（指针），包括分支、标签等等。你可以通过 `git ls-remote <remote>` 来显式地获得远程引用的完整列表， 或者通过 `git remote show <remote>` 获得远程分支的更多信息。 
+
 它们以 `<remote>/<branch>` 的形式命名。例如，如果你想要看你最后一次与远程仓库 `origin` 通信时 `master` 分支的状态，你可以查看 `origin/master` 分支。
 
 来看一个例子。假设你的网络里有一个在 git.ourcompany.com 的 Git 服务器。如果你从这里克隆：
@@ -321,7 +331,18 @@ git push origin serverfix
 Git 自动将 `serverfix` 展开为 `refs/heads/serverfix:refs/heads/serverfix`，从而将本地的 `serverfix` 推送到 `origin` 的 `serverfix` 上。如果希望推送到其他分支上，可以运行 `git push origin serverfix:awesomebranch` 来将本地的 `serverfix` 分支推送到远程仓库上的 `awesomebranch` 分支。
 
 #### 跟踪分支
-跟踪分支是与远程分支有直接关系的本地分支。 如果在一个跟踪分支上输入 `git pull`，Git 能自动地识别去哪个服务器上抓取、合并到哪个分支。
+从一个远程跟踪分支 checkout 一个本地分支会自动创建所谓的“跟踪分支”（它跟踪的分支叫做“上游分支”）。跟踪分支是与远程分支有直接关系的本地分支。 如果在一个跟踪分支上输入 `git pull`，Git 能自动地识别去哪个服务器上抓取、合并到哪个分支。
+
+`git clone` 一个仓库的时候，如果远程仓库 `origin` 的 HEAD 在 `master` 分支上，那么本地也会自动创建一个跟踪 `origin/master` 的 `master` 分支。
+
+如果希望能在本地跟踪其他的分支，可以运行
+```bash
+git checkout -b <branch> <remote>/<branch>
+# 或者是下面这个简写，本地会默认使用 <branch> 作为本地分支名称
+git checkout --track <remote>/<branch> 
+# 又或者是这个更简写的。这个的前提是 <remote> 有个名为 <branch> 的分支
+git checkout -b <branch> 
+```
 
 设置已有的本地分支跟踪一个刚刚拉取下来的远程分支，或者想要修改正在跟踪的上游分支，可以使用 `-u` 或 `--set-upstream-to` 选项显式地设置：
 ```bash

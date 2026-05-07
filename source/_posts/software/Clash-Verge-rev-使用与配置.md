@@ -10,6 +10,8 @@ tags:
   - yaml
   - rule
   - proxy-groups
+  - ssh
+  - systemd
 description: 介绍 Clash 配置文件的部分写法以及 Clash Verge rev 软件使用时需要注意的一点问题
 cover: https://source.fomal.cc/img/default_cover_144.webp
 categories:
@@ -375,7 +377,7 @@ sniffer:
 ### 使用 dashboard 选择节点
 节点选择通常还是有个 GUI 会方便一些。这个时候可以先用 ssh 做端口转发：
 ```bash
-ssh -L 9190:127.0.0.1:9190 你的用户名@你的服务器IP
+ssh -L 9091:127.0.0.1:9091 你的用户名@你的服务器IP
 ```
 
 然后到任意一个 dashboard：
