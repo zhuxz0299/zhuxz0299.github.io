@@ -22,7 +22,13 @@ date: 2026-01-25 01:22:10
 
 ## Linux 下 VPN 配置与工作
 ### StrongSwan 配置
-交大 VPN 的[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)推荐使用 strongswan 软件配置 VPN 协议 IKEv2，配置文件需要在 `/etc/swanctl/conf.d/` 下创建，这里创建一个名为 `sjtuvpn.conf` 的文件，内容为：
+交大 VPN 的[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)推荐使用 StrongSwan 软件配置 VPN 协议 IKEv2。配置整体包含两个部分：
+- `/etc/swanctl/` 放具体 VPN 的连接、账号、证书。正常配置交大 VPN 时主要修改的就是这个。
+- `/etc/strongswan.d/` 放 strongSwan 自己的全局和插件配置。
+
+#### VPN 信息配置
+
+在 `/etc/swanctl/conf.d/` 下创建一个名为 `sjtuvpn.conf` 的文件，内容为：
 ```conf
 connections {
  vpn-staff {
@@ -40,7 +46,7 @@ connections {
   }
   children {
    vpn-staff {
-    remote_ts = 202.120.0.0/16, 10.0.0.0/8, 111.186.0.0/16
+    remote_ts = 202.120.0.0/16, 10.85.33.64/28, 111.186.0.0/16
     esp_proposals = aes128-sha1-modp1024, aes128-sha2_256-modp1024, 3des-sha1-modp1024,default
    }
   }
@@ -64,7 +70,7 @@ connections {
   }
   children {
    vpn-student {
-    remote_ts = 202.120.0.0/16, 10.0.0.0/8, 111.186.0.0/16
+    remote_ts = 202.120.0.0/16, 10.85.33.64/28, 111.186.0.0/16
    }
   }
   version = 2
@@ -80,29 +86,50 @@ secrets {
 ```
 其中用户 jAccount 账号名假定为 myname，密码假定为 mypassword。
 
-完成配置之后再到 `/etc/strongswan.d/charon` 底下找到 `revocation.conf` 以及其他几个和 sql 相关的插件配置，在里面设置 `load=no`，免得运行 VPN 的时候报错。
+{% note default %}
+配置文件里面一开始把整个交大的大内网 `10.0.0.0/8` 加入了分流，但是这个操作可能会导致某些利用大内网加速的服务（例如游戏下载可能会用到运营商的内网缓存）无法正常工作。所以设置了更加精确的分流策略。
+{% endnote %}
 
-然后运行以下命令设置开机自启
+然后是证书配置的问题，StrongSwan 不会像浏览器那样默认信任所有公网 CA，所以这部分权限会交给用户。经过测试，交大 VPN 服务器用了 Let’s Encrypt 这种公网 CA 签发的证书，所以可以手动添加对应证书：
+```bash
+sudo ln -sf /etc/ssl/certs/ISRG_Root_X1.pem /etc/swanctl/x509ca/
+```
+
+{% note warning %}
+[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)在配置证书的时候用的是：
+```bash
+sudo rm -f /etc/ipsec.d/cacerts/*
+sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/
+```
+
+现代的 swanctl 模式下，证书应当放在 `/etc/swanctl/x509ca/`（虽然不知道为什么 `/etc/ipsec.d/cacerts/` 也能用）。
+同时 `sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/` 属于让 StrongSwan 信任所有公网 CA 证书，比较方便，但没那么安全。
+{% endnote %}
+
+最后加载 `/etc/swanctl/` 下的所有配置：
+```bash
+sudo swanctl --load-all
+```
+
+#### strongSwan 插件配置与启动
+
+然后启动 strongSwan 服务并设置开机自启：
 ```bash
 sudo systemctl start strongswan
 sudo systemctl enable strongswan  # 开机自启
 ```
 
-如果修改了插件加载情况，则运行
+如果启动时报插件相关错误，再到 `/etc/strongswan.d/charon` 底下找到 `revocation.conf` 以及几个和 sql 相关的插件配置，在里面设置 `load = no`。这类修改影响的是 strongSwan 服务本身，因此改完以后需要重启服务，并重新加载 swanctl 配置：
 ```bash
 sudo systemctl restart strongswan
+sudo swanctl --load-all # 重启 strongSwan 后，daemon 里的 swanctl 连接配置可能会被清掉
 ```
-
-重新加载。
 
 {% note warning %}
-[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)在这里使用的是 `sudo ipsec restart` 命令，但是这个东西实在有些过时了，也不支持自启动；还有就是之前都在配置 StrongSwan，这里又跑回来使用 `ipsec` 命令，有点割裂。感觉还是使用 `strongswan` 服务靠谱一些。
+[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)在这里使用的是 `sudo ipsec restart`，不过前面既然已经使用 `/etc/swanctl/` 和 `swanctl`，这里就继续保持同一套写法：服务启停用 `systemctl`，配置加载和连接控制用 `swanctl`。
 {% endnote %}
 
-再加载 `/etc/swanctl/conf.d/` 下的配置：
-```bash
-sudo swanctl --load-all
-```
+#### 连接 VPN
 
 最后，如果开关 VPN 的命令记不住的话，可以写一个别名放在 `.zshrc` 里面：
 ```bash
@@ -113,7 +140,7 @@ alias sjtu-vpndown='sudo swanctl -t --ike vpn-student'
 ### StrongSwan 工作方式
 StrongSwan 默认是隐形的——它直接挂在物理网卡上，用内核的 XFRM 框架来截获数据包。
 
-同时在上面的 `/etc/swanctl/conf.d/sjtuvpn.conf` 配置中，有一行 `remote_ts = 202.120.0.0/16, 10.0.0.0/8, 111.186.0.0/16`，这个就是 StrongSwan 设置的分流规则。[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)为了方便，原本直接设置 `remote_ts = 0.0.0.0/0,::/0` 让 VPN 代理所有流量，但是这会导致不同 VPN 之间的冲突，以及访问非校园网信息的卡顿。
+同时在上面的 `/etc/swanctl/conf.d/sjtuvpn.conf` 配置中，有一行 `remote_ts = 202.120.0.0/16, 10.85.33.64/28, 111.186.0.0/16`，这个就是 StrongSwan 设置的分流规则。[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)为了方便，原本直接设置 `remote_ts = 0.0.0.0/0,::/0` 让 VPN 代理所有流量，但是这会导致不同 VPN 之间的冲突，以及访问非校园网信息的卡顿。
 
 #### 无线网卡新 IP
 通过 `ip addr show` 可以看到无线网卡上有两个 IP 地址：
@@ -152,7 +179,7 @@ StrongSwan 默认是隐形的——它直接挂在物理网卡上，用内核的
 
 查看路由表：`ip route show table 220`
 ```
-10.0.0.0/8 dev wlp0s20f3 proto static src 111.186.54.51
+10.85.33.64/28 dev wlp0s20f3 proto static src 111.186.54.51
 throw 10.131.147.0/24 proto static
 throw 100.90.131.9 proto static
 throw 100.94.155.95 proto static
@@ -199,15 +226,15 @@ src 111.186.0.0/16 dst 111.186.54.51/32
         dir in priority 375423 ptype main
         tmpl src 2001:da8:8000:7100::7 dst 2409:891f:6b44:97e8:ba2e:f936:a167:2654
                 proto esp reqid 1 mode tunnel
-src 111.186.54.51/32 dst 10.0.0.0/8
+src 111.186.54.51/32 dst 10.85.33.64/28
         dir out priority 379519 ptype main
         tmpl src 2409:891f:6b44:97e8:ba2e:f936:a167:2654 dst 2001:da8:8000:7100::7
                 proto esp spi 0xceb844a4 reqid 1 mode tunnel
-src 10.0.0.0/8 dst 111.186.54.51/32
+src 10.85.33.64/28 dst 111.186.54.51/32
         dir fwd priority 379519 ptype main
         tmpl src 2001:da8:8000:7100::7 dst 2409:891f:6b44:97e8:ba2e:f936:a167:2654
                 proto esp reqid 1 mode tunnel
-src 10.0.0.0/8 dst 111.186.54.51/32
+src 10.85.33.64/28 dst 111.186.54.51/32
         dir in priority 379519 ptype main
         tmpl src 2001:da8:8000:7100::7 dst 2409:891f:6b44:97e8:ba2e:f936:a167:2654
                 proto esp reqid 1 mode tunnel
@@ -409,7 +436,7 @@ Set-VpnConnection -Name "SJTU VPN" -SplitTunneling $true
 # -PassThru: 显示结果
 
 Add-VpnConnectionRoute -ConnectionName "SJTU VPN" -DestinationPrefix 202.120.0.0/16 -PassThru
-Add-VpnConnectionRoute -ConnectionName "SJTU VPN" -DestinationPrefix 10.0.0.0/8 -PassThru
+Add-VpnConnectionRoute -ConnectionName "SJTU VPN" -DestinationPrefix 10.85.33.64/28 -PassThru
 Add-VpnConnectionRoute -ConnectionName "SJTU VPN" -DestinationPrefix 111.186.0.0/16 -PassThru
 ```
 
