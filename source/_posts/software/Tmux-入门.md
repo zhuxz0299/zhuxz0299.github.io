@@ -182,12 +182,17 @@ tmux kill-server # 关闭服务器，所有的会话都将关闭
 </table>
 
 
-## 推荐配置
+## 当前配置
 配置文件为：`~/.tmux.conf`
 
 ```toml
 set -g mouse off
 set -g history-limit 10000
+
+# 让 Yazi 的图片预览在 tmux 中能正确透传终端图像协议
+set -g allow-passthrough on
+set -ga update-environment TERM
+set -ga update-environment TERM_PROGRAM
 
 # 更容易看清窗口编号
 set -g base-index 1
@@ -209,4 +214,30 @@ setw -g mode-keys vi
 
 # 快速进入 copy mode
 bind -n PageUp copy-mode -u
+
+# -----------------------------
+# 状态栏整体
+# -----------------------------
+set -g status on
+set -g status-justify left
+set -g status-left-length 0
+set -g status-right-length 0
+set -g status-right ""          # 去掉右侧时间/CPU等
+
+# 底色灰色或透明
+set -g status-bg colour236       # 深灰色，或者用 'default' 保持透明
+set -g status-fg colour255       # 默认文字颜色
+
+# -----------------------------
+# 窗口标签样式
+# -----------------------------
+# 当前窗口高亮
+set-window-option -g window-status-current-format "#[fg=black,bg=green,bold] #I:#W #[default]"
+
+# 非当前窗口灰色背景，白字
+set-window-option -g window-status-format "#[fg=white,bg=colour236] #I:#W #[default]"
+
+# 窗口标签间仅留空格
+set -g window-status-separator " "
+
 ```

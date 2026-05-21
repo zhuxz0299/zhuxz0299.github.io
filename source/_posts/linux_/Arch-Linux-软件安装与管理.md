@@ -38,29 +38,33 @@ pacman (package manager) 是 Arch Linux 官方、核心的包管理工具。它�
 4. 安装软件包：解压下载的包文件，将文件放置到系统的正确位置，并运行必要的安装后脚本。
 5. 更新数据库：将已安装的软件包信息记录到本地数据库（`/var/lib/pacman/local/`），以便进行依赖查询、更新和卸载。
 
-#### 命令参数大致含义
-pacman 的命令结构可以看作是一个"主操作"后面跟着"子选项"的模式。
+#### 命令参数含义
+pacman 的命令结构可以看作是一个"主操作"后面跟着"操作选项"的模式。主操作决定 pacman 要处理哪一类事务，后面的选项则在这个主操作的语境里生效。
 
-主操作 (Primary Operations)：命令的核心，通常是一个大写字母，且互斥（一次只能用一个）。
-| 参数 | 来源 | 含义 |
-| :--- | :--- | :--- |
-| **`-S`** | **S**ync | **同步**。让本地系统与软件仓库同步，用于安装、更新软件。 |
-| **`-Q`** | **Q**uery | **查询**。用于查询本地已安装的软件包数据库。 |
-| **`-R`** | **R**emove | **删除**。从本地系统中移除软件包。 |
-| **`-F`** | **F**iles | **文件**。查询远程软件包数据库中的文件（例如某个命令由哪个包提供）。 |
-| **`-U`** | **U**pgrade | **升级**。安装一个本地的包文件（而非从仓库下载）。 |
-| **`-V`** | **V**ersion | 显示 `pacman` 的版本信息。 |
+日常常用的大致如下：
 
-子选项/修饰符 (Options/Modifiers)：这些是小写字母，用来修饰主操作，它们可以组合使用。
-| 参数 | 来源 | 含义 | 常用组合示例 |
+| 主操作 | 常用组合/子选项 | 官方长选项 | 含义 |
 | :--- | :--- | :--- | :--- |
-| **`-s`** | **S**earch | **搜索**。在包名和描述中进行搜索。 | `-Ss` (在仓库中搜索), `-Qs` (在已安装包中搜索) |
-| **`-y`** | **Y**es | **是/刷新**。在操作前刷新远程软件包数据库。 | `-Sy` (刷新数据库), `-Syu` (刷新并更新系统) |
-| **`-u`** | **U**pgrade | **升级**。列出或执行更新（列出可用的升级）。 | `-Syu` (执行全面系统更新), `-Qu` (列出可更新的包) |
-| **`-c`** | **C**ache | **缓存**。对缓存进行操作。 | `-Sc` (清理缓存), `-Scc` (彻底清理缓存) |
-| **`-s`** | Recur**s**ive | **递归**。通常指递归地处理依赖关系。 | `-Rs` (删除时同时删除不再需要的依赖) |
-| **`-d`** | **D**ependencies | **依赖**。绕过依赖检查或操作依赖。 | `-Rdd` (强制删除一个包，即使它是其他包的依赖) |
-| **`-n`** | **N**o | **不/否定**。通常指不操作或同时操作配置文件。 | `-Rns` (删除包、依赖以及配置文件) |
+| **`-S`** | `pacman -S package` | `--sync` | 从软件仓库安装软件包。 |
+|  | `-s` / `pacman -Ss keyword` | `--search` | 在仓库中搜索软件包。 |
+|  | `-y` / `pacman -Sy` | `--refresh` | 刷新本地同步数据库；一般不要单独用，通常配合 `-u`。 |
+|  | `-u` / `pacman -Syu` | `--sysupgrade` | 刷新数据库并升级整个系统，这是 Arch 上最常见的升级方式。 |
+|  | `-c` / `pacman -Sc` | `--clean` | 清理缓存；`-Scc` 会清理得更彻底。 |
+| **`-Q`** | `pacman -Q` | `--query` | 查询本地已安装的软件包。 |
+|  | `-s` / `pacman -Qs keyword` | `--search` | 在已安装的软件包中搜索。 |
+|  | `-i` / `pacman -Qi package` | `--info` | 查看已安装软件包的详细信息。 |
+|  | `-l` / `pacman -Ql package` | `--list` | 列出某个已安装软件包包含的文件。 |
+|  | `-o` / `pacman -Qo file` | `--owns` | 查询本机某个文件属于哪个已安装软件包。 |
+|  | `-dt` / `pacman -Qdt` | `--deps` + `--unrequired` | 列出不再被需要的依赖包，常用于清理孤儿包。 |
+| **`-R`** | `pacman -R package` | `--remove` | 删除软件包，但保留其依赖。 |
+|  | `-s` / `pacman -Rs package` | `--recursive` | 删除软件包，并删除不再被其他包需要的依赖。 |
+|  | `-n` / `pacman -Rns package` | `--nosave` | 删除时不保留 `.pacsave` 配置备份；常和 `-s` 一起用。 |
+|  | `-c` / `pacman -Rsc package` | `--cascade` | 连同依赖目标包的其他包一起删除，影响范围可能很大，慎用。 |
+| **`-F`** | `pacman -F file` | `--files` | 查询文件数据库，查某个文件由哪个仓库包提供。 |
+|  | `-y` / `pacman -Fy` | `--refresh` | 刷新文件数据库，使用 `-F` 前可能需要先执行。 |
+| **`-U`** | `pacman -U package_file` | `--upgrade` | 从本地包文件或 URL 安装、升级软件包。 |
+
+官方说明见 `man pacman` 或 Arch 手册页：[pacman(8)](https://man.archlinux.org/man/pacman.8.en)。
 
 #### 常用命令
 安装：
@@ -127,10 +131,32 @@ Flatpak 通过两个关键概念实现跨平台：
 
 这意味着：只要目标 Linux 发行版安装了 Flatpak 和所需的运行时，任何为该运行时构建的 Flatpak 应用就都能运行。用户不需要担心系统上是 Ubuntu 22.04 还是 Arch Linux，或是 Fedora 39，只要运行时版本一致，应用的行为就是一致的。不过 Flatpak 应用及其运行时可能占用较多空间，建议定期执行 `flatpak uninstall --unused` 清理。
 
+#### Flatpak remote 与软件源
+Flatpak 中的 `remote` 可以理解为 Flatpak 的软件源或远程仓库。应用、运行时、扩展主题等内容都可以来自某个 remote。最常见的 remote 是 [Flathub](https://flathub.org/)，很多桌面应用都会优先发布到这里。
+
+一个系统可以同时配置多个 remote，例如 Flathub、某个软件项目自己的仓库、公司内部仓库等。每个 remote 都有自己的名称和地址，例如常见的 remote 名称是 `flathub`，它背后对应一个仓库 URL。安装应用时可以显式指定来源：
+
+```bash
+flatpak install flathub org.mozilla.firefox
+```
+
+这里的 `flathub` 就是 remote 名称，`org.mozilla.firefox` 是应用 ID。如果不指定 remote，Flatpak 会根据已配置的软件源和搜索结果让你选择。
+
+对于同一个 remote，还可以把它的 URL 改成镜像站地址。例如把 `flathub` 的下载地址换成中科大镜像：
+
+```bash
+flatpak remote-modify flathub --url=https://mirrors.ustc.edu.cn/flathub
+```
+
+这和“新增一个 remote”不是一回事。新增 remote 会让 Flatpak 把它当成另一个独立的软件源；而镜像通常只是同一个仓库内容的另一份同步副本，应用 ID、分支、commit 等信息仍然属于原来的 Flathub 仓库。把已有的 `flathub` remote 改成镜像 URL 后，原本从 `flathub` 安装的应用和运行时，后续搜索、安装、更新、回退版本时都会继续使用这个 remote 名称，只是实际下载地址换成了镜像站。
+
 #### Flatpak 常用命令
 | 功能类别         | 常用命令                                                                 | 说明                                                                         |
 | :--------------- | :----------------------------------------------------------------------- | :--------------------------------------------------------------------------- |
 | **配置**    | `flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo` | 添加主要的 Flathub 远程仓库。                                                |
+|                  | `flatpak remote-modify flathub --url=<镜像地址>`                         | 修改某个 remote 的 URL，例如把 Flathub 改为镜像源。                          |
+|                  | `flatpak remotes`                                                        | 查看已经配置的 remote。                                                      |
+|                  | `flatpak remotes --show-details`                                         | 查看 remote 的地址、优先级等详细信息。                                      |
 | **应用管理**     | `flatpak search <应用名>`                                                | 搜索应用（例如 `flatpak search gimp`）。                                     |
 |                  | `flatpak install <仓库名> <应用ID>` 或 `flatpak install <应用ID>`        | 从指定仓库（如 flathub）或默认仓库安装应用。                                 |
 |                  | `flatpak run <应用ID>`                                                   | 运行已安装的应用。                                                           |
@@ -153,17 +179,7 @@ Flatpak 通过两个关键概念实现跨平台：
 Gradia                                       be.alexandervanhee.gradia                           1.10.1                         stable           system
 Google Chrome                                com.google.Chrome                                   140.0.7339.80-1                stable           system
 扩展管理器                                    com.mattjakeman.ExtensionManager                    0.6.3                          stable           system
-Moonlight                                    com.moonlight_stream.Moonlight                      6.1.0                          stable           system
-OBS Studio                                   com.obsproject.Studio                               31.1.2                         stable           system
-Pins                                         io.github.fabrialberio.pinapp                       2.4.2                          stable           system
-Freedesktop Platform                         org.freedesktop.Platform                            freedesktop-sdk-24.08.24       24.08            system
-Mesa                                         org.freedesktop.Platform.GL.default                 25.2.1                         24.08            system
-Mesa (Extra)                                 org.freedesktop.Platform.GL.default                 25.2.1                         24.08extra       system
-nvidia-580-82-07                             org.freedesktop.Platform.GL.nvidia-580-82-07                                       1.4              system
-Intel VAAPI driver                           org.freedesktop.Platform.VAAPI.Intel                                               24.08            system
-openh264                                     org.freedesktop.Platform.openh264                   2.5.1                          2.5.1            system
-Freedesktop SDK                              org.freedesktop.Sdk                                 freedesktop-sdk-24.08.24       24.08            system
-GNOME Application Platform version 48        org.gnome.Platform                                                                 48               system
+... (省略掉一些)
 Adwaita theme                                org.kde.KStyle.Adwaita                                                             6.8              system
 Adwaita theme                                org.kde.KStyle.Adwaita                                                             6.9              system
 KDE Application Platform                     org.kde.Platform                                                                   6.8              system
