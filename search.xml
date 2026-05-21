@@ -50,7 +50,7 @@
       
       <categories>
           
-          <category> Programming Language </category>
+          <category> System &amp; Hardware </category>
           
           <category> Programming Language </category>
           
@@ -68,8 +68,6 @@
             <tag> java </tag>
             
             <tag> rust </tag>
-            
-            <tag> c/c++ </tag>
             
         </tags>
       
@@ -352,8 +350,6 @@
             
             <tag> linux </tag>
             
-            <tag> tun </tag>
-            
             <tag> tailscale </tag>
             
             <tag> vpn </tag>
@@ -365,6 +361,8 @@
             <tag> ikev2 </tag>
             
             <tag> windows </tag>
+            
+            <tag> tun </tag>
             
         </tags>
       
@@ -395,11 +393,11 @@
             
             <tag> wayland </tag>
             
+            <tag> capslock </tag>
+            
             <tag> vim </tag>
             
             <tag> keyd </tag>
-            
-            <tag> capslock </tag>
             
             <tag> esc </tag>
             
@@ -428,9 +426,9 @@
       
         <tags>
             
-            <tag> software </tag>
-            
             <tag> windows </tag>
+            
+            <tag> software </tag>
             
         </tags>
       
@@ -461,13 +459,15 @@
             
             <tag> systemd </tag>
             
+            <tag> tun </tag>
+            
+            <tag> ssh </tag>
+            
             <tag> software </tag>
             
             <tag> clash </tag>
             
             <tag> configuration </tag>
-            
-            <tag> tun </tag>
             
             <tag> mihomo </tag>
             
@@ -476,8 +476,6 @@
             <tag> rule </tag>
             
             <tag> proxy-groups </tag>
-            
-            <tag> ssh </tag>
             
         </tags>
       
@@ -539,13 +537,13 @@
       
         <tags>
             
+            <tag> docker </tag>
+            
             <tag> al-folio </tag>
             
             <tag> github-action </tag>
             
             <tag> blog </tag>
-            
-            <tag> docker </tag>
             
             <tag> resume </tag>
             
@@ -638,11 +636,11 @@
             
             <tag> hexo </tag>
             
-            <tag> butterfly </tag>
+            <tag> node </tag>
             
             <tag> npm </tag>
             
-            <tag> node </tag>
+            <tag> butterfly </tag>
             
             <tag> github </tag>
             
@@ -947,11 +945,11 @@
             
             <tag> configuration </tag>
             
+            <tag> capslock </tag>
+            
             <tag> vim </tag>
             
             <tag> keyd </tag>
-            
-            <tag> capslock </tag>
             
         </tags>
       
@@ -1634,13 +1632,13 @@
             
             <tag> hexo </tag>
             
-            <tag> butterfly </tag>
+            <tag> node </tag>
             
             <tag> npm </tag>
             
-            <tag> node </tag>
-            
             <tag> vercel </tag>
+            
+            <tag> butterfly </tag>
             
             <tag> mongodb </tag>
             
@@ -1743,13 +1741,13 @@
             
             <tag> linux </tag>
             
-            <tag> ssh </tag>
-            
             <tag> ollama </tag>
             
             <tag> tunnel </tag>
             
             <tag> port-forward </tag>
+            
+            <tag> ssh </tag>
             
         </tags>
       
@@ -2001,9 +1999,9 @@
             
             <tag> first-order-logic </tag>
             
-            <tag> s-interpretation </tag>
-            
             <tag> fol-semantics </tag>
+            
+            <tag> s-interpretation </tag>
             
         </tags>
       
@@ -2034,9 +2032,9 @@
             
             <tag> first-order-logic </tag>
             
-            <tag> fol-semantics </tag>
-            
             <tag> fol-syntax </tag>
+            
+            <tag> fol-semantics </tag>
             
             <tag> s-structure </tag>
             
@@ -2306,9 +2304,9 @@
       
         <tags>
             
-            <tag> docker </tag>
-            
             <tag> linux </tag>
+            
+            <tag> docker </tag>
             
             <tag> image </tag>
             
@@ -2341,9 +2339,9 @@
       
         <tags>
             
-            <tag> docker </tag>
-            
             <tag> linux </tag>
+            
+            <tag> docker </tag>
             
             <tag> cuda </tag>
             
@@ -2409,11 +2407,11 @@
       
         <tags>
             
-            <tag> docker </tag>
-            
             <tag> linux </tag>
             
             <tag> apt </tag>
+            
+            <tag> docker </tag>
             
             <tag> ubuntu </tag>
             
@@ -2831,9 +2829,9 @@
             
             <tag> machine-learning </tag>
             
-            <tag> em-algorithm </tag>
-            
             <tag> latent-variable </tag>
+            
+            <tag> em-algorithm </tag>
             
             <tag> kl-divergence </tag>
             
@@ -3054,6 +3052,8 @@
             
             <tag> machine-learning </tag>
             
+            <tag> em-algorithm </tag>
+            
             <tag> k-mean </tag>
             
             <tag> gmm </tag>
@@ -3061,8 +3061,6 @@
             <tag> clustering </tag>
             
             <tag> online-learning </tag>
-            
-            <tag> em-algorithm </tag>
             
         </tags>
       
@@ -4685,9 +4683,9 @@
       
         <tags>
             
-            <tag> verilog </tag>
-            
             <tag> vivado </tag>
+            
+            <tag> verilog </tag>
             
         </tags>
       
@@ -4882,9 +4880,9 @@
             
             <tag> latex </tag>
             
-            <tag> configuration </tag>
-            
             <tag> vscode </tag>
+            
+            <tag> configuration </tag>
             
         </tags>
       
