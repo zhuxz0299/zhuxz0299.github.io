@@ -231,6 +231,10 @@ sudo clash-verge-service-install
 即可。
 
 ## 服务器使用 mihomo 内核
+{% note default %}
+在服务器上新增软件、system 服务、修改配置并不是很方便的事情，尤其是当服务器比较多的时候。所以非必要还是不用使用这个方法，直接参考 服务器快捷使用代理 部分，让流量走本机代理。
+{% endnote %}
+
 Clash Verge rev 只是一个 GUI 客户端，其代理功能以及 `proxy-providers`、`proxy-groups`、`rule-providers`、`rules` 等配置功能都是 mihomo 内核提供的，所以在服务器这种非 GUI 的环境下就可以直接使用 mihomo 内核，且基本可以继承 Clash Verge rev 的配置文件。
 
 ### 下载与安装
@@ -406,3 +410,18 @@ for r in OpenAI Proxy China LAN GlobalMedia Apple Microsoft Netflix Disney+ YouT
   echo "updated rule provider: $r"
 done
 ```
+
+## 服务器快捷使用代理
+即不在服务器上运行代理软件，而是将服务器的流量转发到远程登录的本机上，使用本机的代理。开启该转发只需在 `~/.ssh/config` 文件中添加一条 `RemoteForward` 指令即可，例如：
+```
+Host 4090
+  HostName <ip>
+  User <user_name>
+  Port <port_num>
+  RemoteForward 127.0.0.1:10809 127.0.0.1:10809
+```
+
+就是将服务器上的 `10809` 端口的流量转发到本机的 `10809` 端口，其中第一个端口是服务器上的端口，第二个端口是本机的端口（在 vscode 里面手动开一个端口转发应该也是相同的效果）。
+
+然后设置服务器的 `.zshrc` （或者 `.zprofile` 之类的其他配置），总之让服务器需要走代理的流量转发到服务器的 `10809` 端口上，流量接着会转发到本机，并且被本机的代理软件捕获。
+

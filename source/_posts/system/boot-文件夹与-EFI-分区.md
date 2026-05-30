@@ -10,7 +10,7 @@ categories:
   - System Knowledge
 abbrlink: 36b44dc6
 date: 2026-05-04 11:26:50
-description:
+description: 看一下 boot 文件夹下与 EFI 分区中都会存放什么东西，及其与开机启动的关系
 ---
 
 {% note info %}
