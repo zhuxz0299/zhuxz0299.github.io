@@ -54,24 +54,22 @@ Tun 模式（实现透明代理的一种重要方式）
 以下讨论基于的 Clash Verge rev 版本为 v2.4.0。
 {% endnote %}
 
-### 配置文件
-#### 修改配置文件
+### 配置文件修改
+
 虽然通过“设置”-“Verge 高级设置”-“配置目录”可以打开一个有很多配置文件的目录，但是这里面的文件是会在订阅更新的时候自动更新的，所以不要在这里面修改配置。
 
 如果需要修改配置，比较直接的方式是在“订阅”中找到目前在用的订阅，然后右键并点击“编辑文件”，在这个配置文件里进行修改。需要修改的内容比较多的话，也可以重新写一个 `.yaml` 文件上传。
 
-#### 上传配置文件
-不知道是不是软件 bug，有时候配置文件无论是通过拖动还是点击“新建”都无法上传到软件中，这个时候关闭软件重新打开自己好了。
 
 ### Gemini 代理
 尝试过 blackmatrix7 的 [Gemini 代理规则](https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.yaml)，会遇到 `ip A≠B` 这种问题。已经有用户提出了 [issue](https://github.com/blackmatrix7/ios_rule_script/issues/1600)，但是依照 issue 里的方法依然会遇到这个问题。
 
 最后没招了，只能把 `www.google.com` 加到 Gemini 代理组里面。
 
-## 配置文件
+## 配置文件写法
 目前参考的是 [Rabbit-Spec](https://github.com/Rabbit-Spec/Clash) 的配置文件，除此之外还有一个 [lazy_script.js](https://gist.github.com/dahaha-365/0b8beb613f8d1ee656fe1f21e1a07959) 挺全面的，以后可以试试。
 
-### 语法基础
+### yaml 语法基础
 首先 yaml 是 json 的超集，所以配置文件中会出现一些 json 语法
 
 其次 yaml 中有一个语法会在配置文件中经常使用：“锚点”（Anchor `&`）和“引用”（Alias `*`），加上经常配合使用的“合并”（Merge `<<`）。
@@ -204,31 +202,6 @@ rules:
  - MATCH,Proxy
 ```
 
-## 版本更新故障
-某次更新之后，在 Arch Linux 系统下遇到界面无法显示节点问题，和 [这个 issue](https://github.com/clash-verge-rev/clash-verge-rev/issues/6257) 中情况相同。
-
-### 原因分析
-#### Clash Verge Rev 的前后端分离式设计
-报错 `Connection failed, I/O error: Permission denied (os error 13)` 本质上是 Clash Verge Rev 的前端界面（普通用户权限）与它的后台高权限服务（Root 权限）之间的 IPC 出了问题，
-
-Clash Verge Rev 为了能无感地修改系统的全局代理设置、操作底层网络或读写受保护的目录，它需要一定的特权。为了安全，Clash Verge Rev 不会让用户用 sudo 去运行整个图形界面，而是采用了一种前后端分离的安全设计：
-  * 前端（GUI）：以普通用户身份运行。
-  * 后端（Service）：向系统注册一个拥有 Root 权限的后台守护进程（即 `clash-verge-service`）。
-前端在需要高权限操作时，会通过 IPC（通常是 Socket）发送指令给后端服务代为执行。
-
-但是在 v2.4.5 版本，Clash Verge Rev 为了提升安全性，对 macOS 和 Linux 系统下的服务 IPC 权限进行了进一步的严格限制。官方在 [Release 页面](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v2.4.5)对此情况进行了说明。
-
-#### 包管理器不管动态配置
-用 `yay -Syu` 更新 Arch 的时候，包管理器把新版本的 `clash-verge-rev` 二进制文件替换了。但是负责提权和后台通信的配置文件（比如 Polkit 规则和 Systemd service 文件）是当初通过安装脚本动态生成的。包管理器在升级时，不会自动去覆写或重置这些安全规则文件。
-
-### 解决方案
-根据[官方说明](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v2.4.5) 运行
-```bash
-sudo clash-verge-service-uninstall
-sudo clash-verge-service-install
-```
-
-即可。
 
 ## 服务器使用 mihomo 内核
 {% note default %}
