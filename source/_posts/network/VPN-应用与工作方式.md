@@ -90,9 +90,9 @@ secrets {
 配置文件里面一开始把整个交大的大内网 `10.0.0.0/8` 加入了分流，但是这个操作可能会导致某些利用大内网加速的服务（例如游戏下载可能会用到运营商的内网缓存）无法正常工作。所以设置了更加精确的分流策略。
 {% endnote %}
 
-然后是证书配置的问题，StrongSwan 不会像浏览器那样默认信任所有公网 CA，所以这部分权限会交给用户。经过测试，交大 VPN 服务器用了 Let’s Encrypt 这种公网 CA 签发的证书，所以可以手动添加对应证书：
+然后是证书配置的问题，StrongSwan 不会像浏览器那样默认信任所有公网 CA，所以这部分权限会交给用户。所以可以手动添加对应证书（交大 VPN 使用的证书可能会随时间更新，所以为了防止过段时间就要手动新增一次证书，这里就把所有证书都添加了）：
 ```bash
-sudo ln -sf /etc/ssl/certs/ISRG_Root_X1.pem /etc/swanctl/x509ca/
+sudo find /etc/ssl/certs -maxdepth 1 -type l -name '*.pem' -exec ln -sf {} /etc/swanctl/x509ca/
 ```
 
 {% note warning %}
@@ -103,7 +103,7 @@ sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/
 ```
 
 现代的 swanctl 模式下，证书应当放在 `/etc/swanctl/x509ca/`（虽然不知道为什么 `/etc/ipsec.d/cacerts/` 也能用）。
-同时 `sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/` 属于让 StrongSwan 信任所有公网 CA 证书，比较方便，但没那么安全。
+同时 `sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/` 直接链接整个目录，但是目录里除了证书还有 hash 形式的重复链接，全部塞进去没必要，可能只是增加重复加载和日志噪音。
 {% endnote %}
 
 最后加载 `/etc/swanctl/` 下的所有配置：
