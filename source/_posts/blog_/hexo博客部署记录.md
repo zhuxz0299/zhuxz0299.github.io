@@ -23,7 +23,7 @@ categories: [Dev Tools, Hexo]
 当前博客使用的是 Hexo 8.1.1 和 Butterfly 5.5.2。由于 Butterfly 现在是作为 npm 依赖安装的，所以主题本身也会被记录在 `package.json` 和 `package-lock.json` 中，不需要再把主题代码手动复制到 `themes/` 文件夹。
 
 1. 安装 Node.js 以及 Git
-2. `npm install -g hexo-cli`，如果失败，就运行 `sudo npm install -g hexo-cli`
+2. `npm install -g hexo-cli`，如果失败，就运行 `sudo npm install -g hexo-cli` (事实上这个步骤也可以不需要，只是没法在任意工作目录下运行 `hexo` 命令)
 3. `npm install hexo-theme-butterfly`
 4. 找一个合适的路径，`hexo init blog`，会创建一个 `blog` 文件夹并且在其中完成初始化
 5. 运行 `npm install` 安装必要的包。现在 `hexo init` 通常会顺手安装一遍依赖，但是换电脑同步源码之后仍然需要在项目根目录运行 `npm install`
@@ -68,6 +68,10 @@ deploy:
 * 创建友链页面：`hexo new page link`
 * 创建说说页面：`hexo new page shuoshuo`
 * 创建关于页面：`hexo new page about`
+
+{% note default %}
+如果没有全局安装 `hexo-cli`，在博客目录下运行时在最前面加上 `npx` 即可，例如 `npx hexo new page tags`。
+{% endnote %}
 
 然后在几个新创建的页面中编辑 Front-matter 中的 `type`，让 butterfly 知道怎么渲染
 
