@@ -6,130 +6,410 @@ tags:
   - gcc
 abbrlink: f353ec85
 date: 2023-05-13 15:58:06
-description: 通过现有例子总结的Makefile的简单写法
+description: 系统介绍 Makefile 的工作机制与编写方法，涵盖显式规则、依赖与文件搜索、伪目标、命令执行、变量、隐含规则、模式规则及自动化变量。
 categories: [Dev Tools, Makefile]
 
 ---
 
-## 示例1
-```makefile
-CC=gcc
-CFLAGS=-Wall
+{% note info %}
+内容来自[跟我一起写Makefile](https://seisman.github.io/how-to-write-makefile/index.html)
+{% endnote %}
 
+## Makefile 介绍
+Makefile 文件用于告诉 `make` 命令需要怎么样的去编译和链接程序。Makefile 希望：
+- 如果这个工程没有编译过，那么我们的所有 c 文件都要编译并被链接。
+- 如果这个工程的某几个 c 文件被修改，那么我们只编译被修改的 c 文件，并链接目标程序。
+- 如果这个工程的头文件被改变了，那么我们需要编译引用了这几个头文件的 c 文件，并链接目标程序。
+
+并且通过一个 `make` 命令实现这些能力。
+
+假如文件夹下存在 `Makefile` 内容如下：
+```makefile
+edit : main.o kbd.o command.o display.o \
+        insert.o search.o files.o utils.o
+    cc -o edit main.o kbd.o command.o display.o \
+        insert.o search.o files.o utils.o
+
+main.o : main.c defs.h
+    cc -c main.c
+kbd.o : kbd.c defs.h command.h
+    cc -c kbd.c
+command.o : command.c defs.h command.h
+    cc -c command.c
+display.o : display.c defs.h buffer.h
+    cc -c display.c
+insert.o : insert.c defs.h buffer.h
+    cc -c insert.c
+search.o : search.c defs.h buffer.h
+    cc -c search.c
+files.o : files.c defs.h buffer.h command.h
+    cc -c files.c
+utils.o : utils.c defs.h
+    cc -c utils.c
+clean :
+    rm edit main.o kbd.o command.o display.o \
+        insert.o search.o files.o utils.o
+```
+
+反斜杠（ `\` ）是换行符，便于 Makefile 的阅读。
+
+输入 `make` 命令后：
+1. `make` 会在当前目录下找名字叫 `Makefile` 或 `makefile` 的文件。
+2. 如果找到，它会找文件中的第一个目标文件（target），在上面的例子中，他会找到 `edit`，并把这个文件作为最终的目标文件。
+3. 如果 `edit` 文件不存在，或是 `edit` 所依赖的后面的 `.o` 文件的文件修改时间要比 `edit` 这个文件新，那么，他就会执行后面所定义的命令来生成 `edit` 这个文件。
+4. 如果 `edit` 所依赖的 `.o` 文件也不存在，那么 `make` 会在当前文件中找目标为 `.o` 文件的依赖性，如果找到则再根据那一个规则生成 `.o` 文件。（这有点像一个堆栈的过程）
+
+
+## Makefile 的显式规则
+最普通易懂的规则为：
+
+```makefile
+target ... : prerequisites ...
+    recipe
+    ...
+```
+
+除此之外也有这样的写法：
+```makefile
+targets : prerequisites ; command
+    command
+    ...
+```
+
+- target：可以是一个 object file（目标文件），也可以是一个可执行文件，还可以是一个标签（label）
+- prerequisites：生成该 target 所依赖的文件和/或 target
+- recipe：该 target 要执行的命令（任意的 shell 命令）
+
+按照上述规则，prerequisites 中如果有一个以上的文件比 target 文件要新的话，recipe 所定义的命令就会被执行。
+
+
+### 在规则中使用通配符
+在 GNU make 中，常见的文件名通配符主要是：
+- `*`：匹配任意长度的字符串
+- `?`：匹配任意一个字符
+- `[...]`：匹配括号中的一个字符
+
+同时通配符出现的位置不同，处理方式也不同
+- 出现在目标或者依赖中
+  - 例如目录下有 `main.c`, `foo.c`
+    ```makefile
+    program: *.c
+	    gcc *.c -o program
+    ```
+  - 则 make 会展开得到 `program: main.c, foo.c`
+- 出现在命令中
+  - 还是上面的例子，但是底下的 `gcc *.c -o program` 会由 shell 展开
+- 出现在变量赋值中
+  - 不会自动展开，因此要使用 `wildcard`
+  - 例如 `sources := $(wildcard src/*.c)`
+
+### 文件搜索
+在大的工程中，会有大量的源文件被存放在不同的目录中。当 make 需要去找这些文件时，可以写出文件的完整路径，也可以把一个路径告诉 make，让 make 自动去找。
+
+Makefile 的 `VPATH` 变量用于完成这一工作。
+- 若未设置该变量，则 make 默认在当前目录找文件
+- 若设置了改变量，例如 `VPATH = src:../headers`，则 make 会按照 `./`->`src`->`../headers` 的顺序在目录中搜索文件，即当前目录依然是最高优先级
+
+或者也可以使用 `vpath` 关键字（也是写在 Makefile 中）
+- `vpath <pattern> <directories>`
+  - 为符合模式 `<pattern>` 的文件指定搜索目录 `<directories>`。
+- `vpath <pattern>`
+  - 清除符合模式 `<pattern>` 的文件的搜索目录。
+  - 例如使用了 `vpath %.c` 之后，之前设置的 `vpath %.c src` 就会被清除掉
+- `vpath`
+  - 清除所有已被设置好了的文件搜索目录。
+
+上述 `vpath` 使用方法中的 `<pattern>` 需要包含 `%` 字符，意为匹配零或若干字符。例如，`%.h` 表示所有以 `.h` 结尾的文件。
+
+
+### 伪目标
+某些时候并不需要生成文件，而仅仅是为了执行命令，此时的 target 就不是文件名，而是一个标签。例如
+```makefile
 clean:
-	rm -rf *.o
-	rm -rf fcfs
-	rm -rf sjf
-	rm -rf rr
-	rm -rf priority
-	rm -rf priority_rr
-
-rr: driver.o list.o CPU.o schedule_rr.o
-	$(CC) $(CFLAGS) -o rr driver.o schedule_rr.o list.o CPU.o
-
-sjf: driver.o list.o CPU.o schedule_sjf.o
-	$(CC) $(CFLAGS) -o sjf driver.o schedule_sjf.o list.o CPU.o
-
-fcfs: driver.o list.o CPU.o schedule_fcfs.o
-	$(CC) $(CFLAGS) -o fcfs driver.o schedule_fcfs.o list.o CPU.o
-
-priority: driver.o list.o CPU.o schedule_priority.o
-	$(CC) $(CFLAGS) -o priority driver.o schedule_priority.o list.o CPU.o
-
-schedule_fcfs.o: schedule_fcfs.c
-	$(CC) $(CFLAGS) -c schedule_fcfs.c
-
-priority_rr: driver.o list.o CPU.o schedule_priority_rr.o
-	$(CC) $(CFLAGS) -o priority_rr driver.o schedule_priority_rr.o list.o CPU.o
-
-driver.o: driver.c
-	$(CC) $(CFLAGS) -c driver.c
-
-schedule_sjf.o: schedule_sjf.c
-	$(CC) $(CFLAGS) -c schedule_sjf.c
-
-schedule_priority.o: schedule_priority.c
-	$(CC) $(CFLAGS) -c schedule_priority.c
-
-schedule_rr.o: schedule_rr.c
-	$(CC) $(CFLAGS) -c schedule_rr.c
-
-list.o: list.c list.h
-	$(CC) $(CFLAGS) -c list.c
-
-CPU.o: CPU.c cpu.h
-	$(CC) $(CFLAGS) -c CPU.c
-
+    rm *.o temp
 ```
 
-### 变量定义
-```c
-CC=gcc
-CFLAGS=-Wall
-```
+这里的 `clean` 就是一个标签。正因为不生成文件，make 无法生成它的依赖关系和决定它是否要执行，所以只有通过显式地指明这个“目标”才能让其生效。例如上面就是需要运行 `make clean`。
 
-这两行代码定义了变量 `CC` 和 `CFLAGS`。
-* `CC=gcc`：定义变量 `CC` 为 gcc，指定使用 gcc 编译器进行编译。
-`CFLAGS=-Wall`：定义变量 `CFLAGS` 为 `-Wall`，指定编译时使用的选项，其中 `-Wall` 表示显示所有警告信息。
-
-### Makefile执行规则
-对于
+伪目标的名称通常不要和文件名重名，否则可能会让 make 误解。如果确实有重名，则可以使用 `.PHONY` 来标记：
 ```makefile
-rr: driver.o list.o CPU.o schedule_rr.o
-	$(CC) $(CFLAGS) -o rr driver.o schedule_rr.o list.o CPU.o
+.PHONY : clean
+clean :
+    rm *.o temp
 ```
 
-开头的 `rr` 表示后面的命令行代码可以用 `make rr` 来执行。而 `rr` 后面的 `driver.o list.o CPU.o schedule_rr.o` 指的是**文件依赖项**，文件依赖项的作用在于，在执行下面的编译命令 
-```bash
-gcc -Wall -o rr driver.o schedule_rr.o list.o CPU.o
-```
+此时无论是否有 `clean` 这个文件，make 都知道这值是个标签。
 
-时，假如编译器发现找不到 `schedule_rr.o` 文件，那么它会找到 Makefile 中的这一行代码
+伪目标的其他性质：
+- 伪目标一般没有依赖的文件，但也可以手动指定
+- 伪目标同样可以作为“默认目标”，只要它是 Makefile 文件的第一个目标
 ```makefile
-schedule_rr.o: schedule_rr.c
-	$(CC) $(CFLAGS) -c schedule_rr.c
+all : prog1 prog2 prog3
+.PHONY : all
+
+prog1 : prog1.o utils.o
+    cc -o prog1 prog1.o utils.o
+
+prog2 : prog2.o
+    cc -o prog2 prog2.o
+
+prog3 : prog3.o sort.o utils.o
+    cc -o prog3 prog3.o sort.o utils.o
 ```
 
-先生成 `schedule_rr.o` 文件后再继续执行。
-### 文件依赖项作用
-* 构建顺序控制：依赖项指定了目标构建所依赖的文件或目标。如果依赖项中的文件发生变化或不存在，则目标会被重新构建。依赖项的存在可以确保在构建目标之前先构建其所依赖的文件或目标。
-* 增量构建优化，避免重复构建：依赖项允许 make 工具进行增量构建优化。只有发生变化的文件及其相关依赖项会被重新构建，而不需要重新构建所有目标。这样可以提高构建效率。
+这个例子可以说明上面两点：直接运行 `make` 命令，可以同时得到 `prog1, prog2, prog3` 程序。
 
-### 头文件的依赖关系
+- 伪目标本身同样也可成为依赖
 ```makefile
-list.o: list.c list.h
-	$(CC) $(CFLAGS) -c list.c
+.PHONY : cleanall cleanobj cleandiff
+
+cleanall : cleanobj cleandiff
+    rm program
+
+cleanobj :
+    rm *.o
+
+cleandiff :
+    rm *.diff
 ```
 
-这段代码中只指明了 `list.o` 和 `list.h` 之间的依赖关系，而事实上 `list.c` 文件中还用到了头文件 `task.h`。这样可行是因为 Makefile 文件其实并不需要显式的包含源文件和头文件的依赖关系，这个关系在编译的时候会自动读取。所以将 `list.o` 后面的 `list.h` 去掉也是可行的。
+这个例子中运行 `cleanall` 会自动调用 `cleanobj` 以及 `cleandiff`。
 
-## 示例2
+## Makefile 命令书写
+每条规则中的命令和操作系统 shell 的命令行一致。make 会一按顺序一条一条的执行命令，每条命令的开头必须以 `Tab` 键开头，除非命令紧跟在依赖规则后面的分号后。
+
+make 的命令默认被 `/bin/sh` —— UNIX 的标准 shell 解释执行的。`/bin/sh` 通常是个软链接，可能指向 `/usr/bin/dash` 或者 `/usr/bin/bash` 之类的 shell。
+
+### 命令的打印
+make 通常会把其要执行的命令行在执行前打印到屏幕上。但如果将 `@` 字符放在命令行前，则该命令本身将不被打印。例如：
 ```makefile
-obj-m += seconds.o jiffies.o
-all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
-clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) clean
+@echo 正在编译XXX模块......
 ```
 
-### 目标文件选择
-`obj-m += seconds.o jiffies.o` 指要构建的目标文件为 `seconds.o` 和 `jiffies.o`，最后将构建名为 `seconds` 和 `jiffies` 的模块。
+当 make 执行时，会输出`正在编译XXX模块……`字符串；如果没有前面的 `@`，则会输出 `echo 正在编译XXX模块......\n 正在编译XXX模块......`。
 
-### Makefile执行规则
-对于
+make 可以通过参数 `-n` 或 `--just-print` 只打印命令而不执行，便于调试 Makefile；还可以通过 `-s` 或 `--silent` 或 `--quiet` 全面禁止命令的显示。
+
+### 命令的执行
+当某条规则的目标需要被更新时，make 会一条一条的执行其后的命令。但是在默认情况下，make 会把配方中的每一行命令交给一个新的 shell 进程执行。因此对于如下命令：
 ```makefile
-all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
+exec:
+    cd /home/hchen
+    pwd
 ```
 
-开头的 `all` 表示后面的命令行代码可以用 `make` 来执行。接下来对后面的命令行进行解释：
-* 这里直接使用的是 `make` 命令而非之前那样的 `gcc`，这是因为这是因为构建 Linux 内核模块的过程通常不仅仅涉及到 C 代码的编译，还包括了其他的操作，例如链接、处理符号表、生成模块文件等。这些操作超出了单纯的 C 代码编译所需的步骤。因此，在构建内核模块时，`make` 命令会负责执行整个构建过程，其中也包含了调用 `gcc`。
-* 后面的 `-C /lib/modules/$(shell uname -r)/build` 表示指定工作目录。如果不这么做，会导致工作目录不正确，`make` 无法找到正确的库来编译生成模块。
-* `M` 参数用于指定内核模块构建过程中的路径，这里 `M=$(shell pwd)` 指指定构建过程中的路径为当前工作目录。如果不这样做同样可以生成模块（因为上一步已经进入了正确的工作目录），但是从实践来看会出现一些权限上的问题，需要使用 `sudo make` 才能正常生成内核模块。
-* 最后的 `modules` 是 `make` 命令的目标，表示要构建的目标是内核模块。
+pwd会打印出当前的 Makefile 所在目录而非 `/home/hchen`。如果希望上一条命令的结果应用在下一条命令时，需要将两个命令写在同一行，即：
+```makefile
+exec:
+    cd /home/hchen; pwd
 
-### obj-m
-在示例1中，我们的 Makefile 文件并没有用到 `obj-m`，这是因为 `obj-m` 是用于编译内核模块的特定变量，而在编译普通的用户空间程序时不会被用到。
+# 或者
+exec:
+    cd /home/hchen && pwd
+```
 
-在编写一个内核模块时，我们需要使用 `obj-m` 变量来定义的模块对象（.o 文件），以便在构建过程中让 `make` 工具会编译和链接相应的内核模块。
-对于普通的用户空间程序，我们可以直接在 Makefile 中指定你的源文件和目标文件，而无需使用 `obj-m` 变量。
+其中 `;` 和 `&&` 都是 shell 的语法。`;` 表示依次执行两条命令，无论第一条命令是否成功，第二条都执行；`&&` 则只有第一条命令成功时，第二条才会继续执行。
+
+### 嵌套执行 make
+在大的工程中，考虑到不同模块或是不同功能的源文件通常会被放在不同的目录中，给每个目录写一个 Makefile 也是合理的做法，这样能防止所有规则都放到同一个 Makefile 里面过于臃肿。
+
+例如，项目有一个子目录叫 `subdir`，其中有个 Makefile 文件用于指明该目录下文件的编译规则。那么总控的 Makefile 可以这样书写：
+```makefile
+subsystem:
+    cd subdir && $(MAKE)
+
+# 或者
+subsystem:
+    $(MAKE) -C subdir
+```
+
+宏变量 `$(MAKE)` 中可以包含一些 make 的参数，这样便于统一维护参数。
+
+
+## Makefile 的变量
+Makefile 中的变量是一个字符串，使用时与 C 语言中的宏有点相似，做文本层面的展开。
+
+变量在声明时需要给予初值，而在使用时，需要给在变量名前加上 `$` 符号，但最好用小括号 `()` 或是大括号 `{}` 把变量给包括起来。如果你要使用真实的 `$` 字符，那么你需要用 `$$` 来表示。
+
+例如最初的例子，对于
+```makefile
+edit : main.o kbd.o command.o display.o insert.o search.o files.o utils.o
+    cc -o edit main.o kbd.o command.o display.o insert.o search.o files.o utils.o
+```
+
+可以写成
+```makefile
+objects = main.o kbd.o command.o display.o insert.o search.o files.o utils.o
+
+edit : $(objects)
+    cc -o edit $(objects)
+```
+
+### 变量中的变量
+在定义变量的值时，我们可以使用其它变量来构造变量的值。第一种方式，也就是简单的使用 = 号，在 = 左侧是变量，右侧是变量的值，右侧变量的值可以定义在文件的任何一处，例如：
+
+```makefile
+CFLAGS = $(include_dirs) -O
+include_dirs = -Ifoo -Ibar
+```
+
+当 `CFLAGS` 在命令中被展开时，会是 `-Ifoo -Ibar -O` 。但这种形式也有不好的地方，那就是递归定义，如：
+```makefile
+CFLAGS = $(CFLAGS) -O
+```
+
+这会让 make 陷入无限的变量展开过程中去，当然 make 是有能力检测这样的定义，并会报错。
+
+为了避免上面的这种方法，我们可以使用 make 中的另一种用变量来定义变量的方法。这种方法使用的是 `:=` 操作符，如：
+
+```makefile
+ifeq (0,${MAKELEVEL})
+cur-dir   := $(shell pwd)
+whoami    := $(shell whoami)
+host-type := $(shell arch)
+MAKE := ${MAKE} host-type=${host-type} whoami=${whoami}
+endif
+```
+
+这里就避免了递归定义。对于系统变量 `MAKELEVEL`，其意思是，如果 make 有一个嵌套执行的动作，那么这个变量会记录当前 Makefile 的调用层数。
+
+### 追加变量值
+可以使用 `+=` 操作符给变量追加值，如：
+
+```makefile
+objects = main.o foo.o bar.o utils.o
+objects += another.o
+```
+
+于是 `$(objects)` 值变成：`main.o foo.o bar.o utils.o another.o`。如果变量之前没有定义过，那么， `+=` 会自动变成 `=`。	
+
+
+
+
+
+
+
+## Makefile 的其他规则
+### 隐含规则 (implicit rule)
+上面直接写出来的是显式规则 (explicit rule)，事实上 Makefile 也有隐含规则。例如有这样一个 Makefile：
+```makefile
+foo : foo.o bar.o
+    cc –o foo foo.o bar.o $(CFLAGS) $(LDFLAGS)
+```
+
+注意到其中没有如何生成 `foo.o` 和 `bar.o` 这两目标的规则和命令，这是因为 make 的“隐含规则”功能会自动为我们推导得到：
+```makefile
+foo.o : foo.c
+    cc –c foo.c $(CFLAGS)
+bar.o : bar.c
+    cc –c bar.c $(CFLAGS)
+```
+
+#### 常用隐含规则
+
+- 编译 C 程序的隐含规则
+  - `<n>.o` 的目标的依赖目标会自动推导为 `<n>.c `，并且其生成命令是 `$(CC) –c $(CPPFLAGS) $(CFLAGS)`
+- 编译 C++ 程序的隐含规则
+  - `<n>.o` 的目标的依赖目标会自动推导为 `<n>.cc` 或 `<n>.cpp`，并且其生成命令是 `$(CXX) –c $(CPPFLAGS) $(CXXFLAGS)` 
+- 链接 Object 文件的隐含规则
+  - `<n>` 目标依赖于 `<n>.o` ，通过运行C的编译器来运行链接程序生成（一般是 `ld` ），其生成命令是：`$(CC) $(LDFLAGS) <n>.o $(LOADLIBES) $(LDLIBS)` 
+
+#### 隐含规则使用的变量
+在隐含规则中的命令中，基本上都是使用了一些预先设置的变量。你可以在 
+- Makefile 中改变这些变量的值
+- 在 `make` 的命令行中传入这些值
+- 在你的环境变量中设置这些值
+
+无论怎么样，只要设置了这些特定的变量，那么其就会对隐含规则起作用。例如编译 C 程序的隐含规则的命令是 `$(CC) –c $(CFLAGS) $(CPPFLAGS)` 。Make默认的编译命令是 `cc` ，如果你把变量 `$(CC)` 重定义成 `gcc` ，把变量 `$(CFLAGS)` 重定义成 `-g` ，那么，隐含规则中的命令全部会以 `gcc –c -g $(CPPFLAGS)` 的样子来执行了。
+
+常用的关于命令的变量
+- `AR` : 函数库打包程序。默认命令是 `ar`
+- `AS` : 汇编语言编译程序。默认命令是 `as`
+- `CC` : C语言编译程序。默认命令是 `cc`
+- `CXX` : C++语言编译程序。默认命令是 `g++`
+- `CPP` : C程序的预处理器（输出是标准输出设备）。默认命令是 `$(CC) –E` 
+- `TEX` : 从TeX源文件创建TeX DVI文件的程序。默认命令是 `tex`
+- `RM` : 删除文件命令。默认命令是 `rm –f`
+
+常用的关于命令参数的变量
+- `ARFLAGS` : 函数库打包程序AR命令的参数。默认值是 `rv`
+- `ASFLAGS` : 汇编语言编译器参数。（当明显地调用 `.s` 或 `.S` 文件时）
+- `CFLAGS` : C语言编译器参数。
+- `CXXFLAGS` : C++语言编译器参数。
+- `CPPFLAGS` : C预处理器参数。（ C 和 Fortran 编译器也会用到）。
+- `LDFLAGS` : 链接器参数。（如： `ld` ）
+
+
+### 模式规则
+模式规则相当于是自己定义隐含规则。
+
+假设项目中有一些 `.txt` 文件，需要通过自己写的程序 `encrypt` 转换成 `.enc` 文件：
+```
+report.txt  → report.enc
+secret.txt  → secret.enc
+config.txt  → config.enc
+```
+
+如果不使用模式规则，则应当为：
+```makefile
+all: report.enc secret.enc config.enc
+
+report.enc: report.txt
+	./encrypt report.txt report.enc
+
+secret.enc: secret.txt
+	./encrypt secret.txt secret.enc
+
+config.enc: config.txt
+	./encrypt config.txt config.enc
+```
+
+如果使用模式规则，则可以简化为：
+```makefile
+all: report.enc secret.enc config.enc
+
+%.enc: %.txt
+	./encrypt $< $@
+```
+
+其中 `%.enc: %.txt; ./encrypt $< $@` 这一项即为模式规则。前面讲的隐含规则，例如 `%.o: %.c: $(CC) –c $(CPPFLAGS) $(CFLAGS) $< -o $@` 相当于是 make 预先设定的隐含规则。
+
+
+#### 自动化变量
+写模式规则通常要用到自动化变量。自动化变量是在某一条规则的命令执行时，由 make 临时填入的变量。常用的自动化变量有：
+- `$@`：当前正在生成的目标
+- `$<`：第一个依赖
+- `$^`：所有依赖，自动去重
+- `$?`：所有比目标新的依赖
+
+一个直观的例子：
+```makefile
+main.o: main.c common.h config.h
+	gcc -c $< -o $@
+```
+
+此时 `$@ = main.o $< = main.c`
+
+在模式规则中：
+```makefile
+%.o: %.c
+	gcc -c $< -o $@
+```
+
+假如 make 正在使用这个规则生成 `foo.o`，那么有 `$@ = foo.o, $< = foo.c`
+
+`$^` 在链接命令中比较常见：
+```makefile
+program: main.o utils.o math.o mian.o
+	gcc $^ -o $@
+```
+
+此时底下的命令相当于：`gcc main.o utils.o math.o -o program`
+
+`$?` 适用于只处理发生变化的依赖：
+```makefile
+backup.tar: a.txt b.txt c.txt
+	tar -uf $@ $?
+```
+
+假如 `b.txt` 和 `c.txt` 比 `backup.tar` 新，那么 `$? = b.txt c.txt`
