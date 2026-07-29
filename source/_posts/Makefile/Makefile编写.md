@@ -60,7 +60,7 @@ clean :
 4. 如果 `edit` 所依赖的 `.o` 文件也不存在，那么 `make` 会在当前文件中找目标为 `.o` 文件的依赖性，如果找到则再根据那一个规则生成 `.o` 文件。（这有点像一个堆栈的过程）
 
 
-## Makefile 的显式规则
+## Makefile 规则书写
 最普通易懂的规则为：
 
 ```makefile
@@ -175,6 +175,38 @@ cleandiff :
 
 这个例子中运行 `cleanall` 会自动调用 `cleanobj` 以及 `cleandiff`。
 
+### 静态模式
+能更容易的定义多目标的规则。语法为：
+
+```makefile
+<targets ...> : <target-pattern> : <prereq-patterns ...>
+    <commands>
+    ...
+```
+
+- `target` 为目标集合
+- `target-pattern` 为目标的模式
+- `prereq-patterns` 为依赖的模式，该模式取决于 `target-pattern`
+
+例如：
+```makefile
+objects = foo.o bar.o
+
+all: $(objects)
+
+$(objects): %.o: %.c
+    $(CC) -c $(CFLAGS) $< -o $@
+```
+
+规则展开后相当于
+```makefile
+foo.o : foo.c
+    $(CC) -c $(CFLAGS) foo.c -o foo.o
+bar.o : bar.c
+    $(CC) -c $(CFLAGS) bar.c -o bar.o
+```
+
+
 ## Makefile 命令书写
 每条规则中的命令和操作系统 shell 的命令行一致。make 会一按顺序一条一条的执行命令，每条命令的开头必须以 `Tab` 键开头，除非命令紧跟在依赖规则后面的分号后。
 
@@ -202,7 +234,6 @@ pwd会打印出当前的 Makefile 所在目录而非 `/home/hchen`。如果希�
 ```makefile
 exec:
     cd /home/hchen; pwd
-
 # 或者
 exec:
     cd /home/hchen && pwd
@@ -217,7 +248,6 @@ exec:
 ```makefile
 subsystem:
     cd subdir && $(MAKE)
-
 # 或者
 subsystem:
     $(MAKE) -C subdir
@@ -283,10 +313,166 @@ objects += another.o
 
 于是 `$(objects)` 值变成：`main.o foo.o bar.o utils.o another.o`。如果变量之前没有定义过，那么， `+=` 会自动变成 `=`。	
 
+### 替换引用
+如果希望在引用变量时，对变量值中的文件名进行一定的替换，可以使用替换引用：
+```makefile
+$(var:<old-suffix>=<new-suffix>)
+# 或者
+$(var:<old-pattern>=<new-pattern>)
+```
+
+例如：
+```makefile
+SRCS := main.c foo.c
+OBJS := $(SRCS:.c=.o)
+# 或者
+OBJS := $(SRCS:%.c=%.o)
+```
+
+- `$(SRCS:.c=.o)` 为后缀写法，它会检查 `SRCS` 中的每个单词，并把单词末尾的 `.c` 替换为 `.o`，因此 `OBJS` 的值为 `main.o foo.o`。
+- `$(SRCS:%.c=%.o)` 为更加一般的模式匹配写法，显示使用 `%` 表示需要保留的部分。在这个例子中与后缀写法效果效果相同。
 
 
+## Makefile 中的函数
+类似变量的使用，函数的调用同样通过 `$` 进行，其语法如下：
+```makefile
+$(<function> <arguments>)
+# 或者
+${<function> <arguments>}
+```
+
+`<function>` 为函数名， `<arguments>` 为函数的参数，参数间以逗号 `,` 分隔，而函数名和参数之间以空格分隔。
+
+下面介绍一些最常用的处理函数。
+
+### 字符串处理函数
+
+#### patsubst
+```makefile
+$(patsubst <pattern>,<replacement>,<text>)
+```
+ 
+- 功能：查找 `<text>` 中的单词是否符合模式 `<pattern>` ，如果匹配的话，则以 `<replacement>` 替换。
+- 返回：函数返回被替换过后的字符串。
+- 示例：`$(patsubst %.c,%.o,x.c.c bar.c)`
+  - 把字串 `x.c.c bar.c` 符合模式 `%.c` 的单词替换成 `%.o` ，返回结果是 `x.c.o bar.o`
+
+- 备注：这和我们前面“变量章节”说过的相关知识有点相似。如 `$(var:<pattern>=<replacement>;)` 相当于 `$(patsubst <pattern>,<replacement>,$(var))` ，而 `$(var: <suffix>=<replacement>)` 则相当于 `$(patsubst %<suffix>,%<replacement>,$(var))` 。
+    
+    例如有:
+    
+    objects = foo.o bar.o baz.o，
+    
+    那么， `$(objects:.o=.c)` 和 `$(patsubst %.o,%.c,$(objects))` 是一样的。
+    
+
+#### strip
+```makefile
+$(strip <string>)
+```
+
+- 功能：去掉 `<string>` 字串中开头和结尾的空字符。
+- 返回：返回被去掉空格的字符串值。
+- 示例：
+    ```makefile
+    ifeq ($(strip $(CC)),)
+        $(error CC is empty)
+    endif
+    ```
+  - 这里就是在判断变量是否为空（可以避免只有空格导致没判断不为空的情况）
 
 
+#### filter/filter-out
+```makefile
+$(filter <pattern...>,<text>)
+```
+
+- 功能：以 `<pattern>` 模式过滤 `<text>` 字符串中的单词，保留符合模式 `<pattern>` 的单词。可以有多个模式。
+- 返回：返回符合模式 `<pattern>` 的字串。
+- 示例：
+    ```makefile
+    sources := foo.c bar.c baz.s ugh.h
+    foo: $(sources)
+        cc $(filter %.c %.s,$(sources)) -o foo
+    ```
+  - `$(filter %.c %.s,$(sources))` 返回的值是 `foo.c bar.c baz.s` 。
+    
+`filter-out` 就是 `filter` 取补集，返回不匹配 pattern 的项。
+
+    
+### 文件名操作函数
+
+以下函数主要用于处理文件名。每个函数的参数字符串都会被当做一个或是一系列的文件名来对待。
+
+#### dir/notdir
+
+```makefile
+$(dir <names...>)
+```
+ 
+- 功能：从文件名序列 `<names>` 中取出目录部分。目录部分是指最后一个 `/` 之前的部分。如果没有，那么返回 `./` 。
+- 返回：返回文件名序列 `<names>` 的目录部分。
+- 示例： `$(dir src/foo.c hacks)` 返回值是 `src/ ./` 。
+
+`notdir` 是 `dir` 的补集，取非目录部分，例如 `$(dir src/foo.c hacks)` 返回值是 `foo.c hacks`
+
+#### suffix/basename
+```makefile
+$(suffix <names...>)
+```
+
+- 功能：从文件名序列 `<names>` 中取出各个文件名的后缀。
+- 返回：返回文件名序列 `<names>` 的后缀序列，如果文件没有后缀，则返回空字串。
+- 示例： `$(suffix src/foo.c src-1.0/bar.c hacks)` 返回值是 `.c .c`。
+
+`basename` 是 `suffix` 的补集，取文件名的前缀。例如 `$(basename src/foo.c src-1.0/bar.c hacks)` 返回值是 `src/foo src-1.0/bar hacks`。
+
+
+#### addsuffix/addprefix
+```makefile
+$(addsuffix <suffix>,<names...>)
+```
+- 功能：把后缀 `<suffix>` 加到 `<names>` 中的每个单词后面。
+- 返回：返回加过后缀的文件名序列。
+- 示例： `$(addsuffix .c,foo bar)` 返回值是 `foo.c bar.c` 。
+    
+`addprefix` 类似，不过加的是前缀。例如 `$(addprefix src/,foo bar)` 返回值是 `src/foo src/bar` 。
+    
+
+### foreach 函数
+
+用于循环执行，Makefile 中的 `foreach` 函数基本仿照 Unix 标准 Shell（`/bin/sh`）中的 for 语句，其语法为：
+
+```makefile
+$(foreach <var>,<list>,<text>)
+```
+
+有点类似 python 的：
+```python
+for var in list:
+    text (var)
+```
+
+例如
+```makefile
+names := a b c d
+files := $(foreach n,$(names),$(n).o)
+```
+
+`file` 的结果为 `a.o b.o c.o d.o` 。
+
+### if 函数
+
+```makefile
+$(if <condition>,<then-part>)
+# 或者
+$(if <condition>,<then-part>,<else-part>)
+```
+
+- 如果 `<condition>` 为真（返回非空字符串），那个 `<then-part>` 会是整个函数的返回值
+- 如果 `<condition>` 为假（返回空字符串），那么 `<else-part>` 会是整个函数的返回值，此时如果 `<else-part>` 没有被定义，那么，整个函数返回空字串。
+
+所以， `<then-part>` 和 `<else-part>` 只会有一个被计算。
 
 
 ## Makefile 的其他规则
