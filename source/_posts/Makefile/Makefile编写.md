@@ -206,6 +206,34 @@ bar.o : bar.c
     $(CC) -c $(CFLAGS) bar.c -o bar.o
 ```
 
+### 自动生成依赖性
+给 Makefile 写依赖的时候，对头文件的依赖通常也要手动写入。虽然编译的时候编译器知道哪些头文件被 `#include` 了，且 Makefile 某条规则的命令下通常也不用显式的写出头文件，但是如果某个头文件更新了，却没有明确写出依赖，那么后续的 object 文件也不会自动更新。例如：
+```makefile
+main.o: main.c
+	$(CC) -c main.c -o main.o
+```
+
+但是 `main.c` 中有 `#include "foo.h"`，假如 `foo.h` 更新，在上述规则下 `main.o` 不会自动更新。
+
+每次手写头文件依赖同样也带来一个问题：在比较大的工程中，手动在 Makefile 中维护头文件依赖是一件繁琐且容易出错的事情。因此可以让编译器帮我们解决头文件依赖的引入。还是上面的例子，`gcc -MM main.c` 的输出就会是 `main.o: main.c defs.h`。
+
+{% note default %}
+对于 GNU 的 C/C++ 编译器而言，`-M` 参数会将标准库的头文件也一并包含进来；因此只需要包含自定义头文件时，用的是 `-MM`。
+{% endnote %}
+
+如果希望让 Makefile 直接使用编译器生成的依赖，那 Makefile 文件会依赖于源文件，即 Makefile 中要存在用来更新自己的规则，这并不现实。因此 GNU 建议把编译器为每一个源文件的自动生成的依赖关系放到一个 `.d` 文件中，通常 Makefile 会在给出 object 的构建方法时生成 `.d` 文件：
+```makefile
+OBJS := foo.o bar.o
+CFLAGS += -MMD -MP
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+-include $(OBJS:.o=.d)
+```
+
+这里用的是 `-MMD` 作用是在编译的时候生成依赖，得到的依赖文件和 `-MM` 相同。最后通过 `-include $(OBJS:.o=.d)` 将生成的依赖引用进来。
+
 
 ## Makefile 命令书写
 每条规则中的命令和操作系统 shell 的命令行一致。make 会一按顺序一条一条的执行命令，每条命令的开头必须以 `Tab` 键开头，除非命令紧跟在依赖规则后面的分号后。
@@ -332,6 +360,52 @@ OBJS := $(SRCS:%.c=%.o)
 - `$(SRCS:.c=.o)` 为后缀写法，它会检查 `SRCS` 中的每个单词，并把单词末尾的 `.c` 替换为 `.o`，因此 `OBJS` 的值为 `main.o foo.o`。
 - `$(SRCS:%.c=%.o)` 为更加一般的模式匹配写法，显示使用 `%` 表示需要保留的部分。在这个例子中与后缀写法效果效果相同。
 
+## Makefile 中的条件判断
+### 示例
+下面的例子，判断 $(CC) 变量是否 gcc ，如果是的话，则使用GNU函数编译目标。
+```makefile
+libs_for_gcc = -lgnu
+normal_libs =
+
+foo: $(objects)
+ifeq ($(CC),gcc)
+    $(CC) -o foo $(objects) $(libs_for_gcc)
+else
+    $(CC) -o foo $(objects) $(normal_libs)
+endif
+```
+
+### 语法
+```makefile
+<conditional-directive>
+<text-if-true>
+endif
+
+# 或者
+<conditional-directive>
+<text-if-true>
+else
+<text-if-false>
+endif
+```
+
+`<conditional-directive>` 表示条件关键字，这样的关键字有四个：
+- `ifeq/ifneq`
+  - 语法为：
+    ```makefile
+    ifeq (<arg1>, <arg2>)
+    ifeq '<arg1>' '<arg2>'
+    ifeq "<arg1>" "<arg2>"
+    ifeq "<arg1>" '<arg2>'
+    ifeq '<arg1>' "<arg2>"
+    ```
+  - 用于比较两个参数 `arg1, arg2` 是否相同/不同
+- `ifdef/ifndef`
+  - 语法为：
+    ```makefile
+    ifdef <variable-name>
+    ```
+  - 用于测试一个变量是否有值/没有值
 
 ## Makefile 中的函数
 类似变量的使用，函数的调用同样通过 `$` 进行，其语法如下：
