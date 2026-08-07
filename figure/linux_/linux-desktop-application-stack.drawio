@@ -1,0 +1,272 @@
+<mxfile host="65bd71144e">
+    <diagram id="0c0a9a34-d1fc-4333-9" name="Linux 桌面端应用">
+        <mxGraphModel dx="665" dy="1130" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="GUI" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="490" y="104" width="160" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="Electron / Tauri 等网页技术" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="159" width="460" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="游戏引擎（通常带有自己的 GUI 系统）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="221" width="460" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="通用桌面 GUI 工具包（GTK、Qt）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="283" width="460" height="52" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="显示协议" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="455" width="350" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Wayland / X11" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=18;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="502" width="350" height="38" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="图形渲染 API" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="455" width="450" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="OpenGL / Vulkan&lt;br&gt;（与 Windows 中 Direct3D 处于相近层级）" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=18;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="500" width="450" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="ellipse;html=1;aspect=fixed;fillColor=#FF8000;strokeColor=#FF8000;" parent="1" vertex="1">
+                    <mxGeometry x="565" y="390" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=none;endFill=0;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;entryX=0.5;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="6" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="11" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="255" y="405"/>
+                            <mxPoint x="255" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;exitX=0.5;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="11" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="825" y="405"/>
+                            <mxPoint x="825" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;entryX=0.501;entryY=-0.047;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="8" target="77" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="255" y="577" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;" parent="1" source="10" target="31" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="视频" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1371" y="83" width="220" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="48" value="视频硬件加速 API" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1241" y="161" width="480" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;exitX=0.18;exitY=1.01;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="86" target="52" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1831.000000000001" y="454.5" as="sourcePoint"/>
+                        <mxPoint x="2138" y="709.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="62" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;可选流程：&lt;/font&gt;&lt;/div&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;dma-buf ---&amp;gt;&amp;nbsp;&lt;/font&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;GPU memory/memory&lt;br&gt;即提供一个指向 buffer 的句柄&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;dashed=1;dashPattern=8 8;" parent="1" vertex="1">
+                    <mxGeometry x="1309" y="794" width="324" height="102" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" value="Texture / Surface" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="1301" y="943" width="340" height="62" as="geometry"/>
+                </mxCell>
+                <mxCell id="64" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;exitX=0.244;exitY=0.992;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.494;entryY=0.002;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="59" target="87" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1477.4140000000002" y="713" as="sourcePoint"/>
+                        <mxPoint x="1476" y="759.58" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="65" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;" parent="1" source="62" target="63" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="作为纹理参与渲染 / 合成" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=none;endFill=0;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="63" edge="1">
+                    <mxGeometry x="0.5451" y="-25" relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1471" y="1078"/>
+                            <mxPoint x="1169" y="1078"/>
+                            <mxPoint x="1169" y="395"/>
+                            <mxPoint x="569" y="395"/>
+                        </Array>
+                        <mxPoint x="569" y="394" as="targetPoint"/>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=none;endFill=0;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" parent="1" source="29" target="44" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="235" y="1147" as="sourcePoint"/>
+                        <mxPoint x="511.2479999999996" y="1114.7099999999996" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="261" y="1051"/>
+                            <mxPoint x="840" y="1051"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="71" value="内核中的图形子系统&lt;br&gt;DRM：Direct Rendering Manager&lt;br&gt;KMS：Kernel Mode Setting" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1228" width="431" height="88" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" value="GPU 内核驱动&lt;br&gt;AMD：amdgpu　/　Intel：i915、xe&lt;br&gt;NVIDIA：nvidia、nouveau" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="1364" width="431" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;" parent="1" target="71" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="556" y="1170" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="74" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;" parent="1" source="71" target="72" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="570" y="600" width="529" height="370" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="用户态图形驱动" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="81" vertex="1">
+                    <mxGeometry x="50" width="410" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="驱动来源" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry y="46" width="155" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="155" y="46" width="115" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="开源 Mesa" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry y="94" width="155" height="168" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="Vulkan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="155" y="94" width="115" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="OpenGL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="155" y="178" width="115" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" value="NVIDIA 专有驱动" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry y="262" width="155" height="108" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="Vulkan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="155" y="262" width="115" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="44" value="OpenGL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="155" y="316" width="115" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="实现 / 驱动" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="270" y="46" width="259" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="RADV：AMD Vulkan&lt;br&gt;ANV：Intel Vulkan&lt;br&gt;NVK：NVIDIA Vulkan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="270" y="94" width="259" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="43" value="NVIDIA Vulkan 驱动" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="270" y="262" width="259" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="NVIDIA OpenGL 驱动" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="270" y="316" width="259" height="54" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="radeonsi：AMD OpenGL&lt;br&gt;Iris：Intel OpenGL&lt;br&gt;nouveau：NVIDIA OpenGL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="81" vertex="1">
+                    <mxGeometry x="270" y="178" width="259" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="通用桌面 API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="1294" y="213" width="145" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="VA-API（最常用）&lt;br&gt;Vulkan Video（比较新）&lt;br&gt;VDPAU（比较老）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="1439" y="213" width="223" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" value="NVIDIA 专有" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="1294" y="309" width="145" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="NVDECODE API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="1439" y="309" width="223" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="解码后的图像 buffer" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="1266" y="746" width="430" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="1261.5" y="426" width="439" height="274" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="用户态视频驱动" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=24;whiteSpace=wrap;" parent="88" vertex="1">
+                    <mxGeometry x="2.5" width="430" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="88" vertex="1">
+                    <mxGeometry y="60" width="145" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" value="用户态驱动 / 实现" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="88" vertex="1">
+                    <mxGeometry x="145" y="60" width="294" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="VA-API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="88" vertex="1">
+                    <mxGeometry y="108" width="145" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" value="Intel：intel-media-driver&lt;br&gt;AMD：Mesa VA driver&lt;br&gt;NVIDIA：nvidia-vaapi-driver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="88" vertex="1">
+                    <mxGeometry x="145" y="108" width="294" height="96" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="NVDECODE API" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="88" vertex="1">
+                    <mxGeometry y="204" width="145" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="59" value="NVIDIA 驱动运行库" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=left;verticalAlign=middle;spacing=8;" parent="88" vertex="1">
+                    <mxGeometry x="145" y="204" width="294" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;div&gt;&lt;font style=&quot;color: rgb(255, 128, 0);&quot;&gt;Wayland Compositor =&amp;nbsp;&lt;/font&gt;&lt;/div&gt;Display Server + Compositor + WM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="616" width="400" height="68" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="KWin（KDE）　Mutter（GNOME）&lt;br&gt;wlroots-based compositor（Sway）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="694" width="400" height="82" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="X11" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=18;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="791" width="400" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Display Server" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="830" width="141" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Compositor" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="196" y="830" width="135" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="WM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="331" y="830" width="124" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="Xorg" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="900" width="141" height="116" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="picom / Compton" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="196" y="900" width="135" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="i3 / Openbox" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="331" y="900" width="124" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="KWin / Mutter&lt;br&gt;（同时提供Compositor+WM）" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="196" y="958" width="259" height="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="Wayland" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];strokeColor=none;fillColor=none;fontColor=#FF8000;fontSize=18;whiteSpace=wrap;" parent="1" vertex="1">
+                    <mxGeometry x="55" y="578" width="400" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="dma-buf" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="369.5" y="1097" width="136" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="libdrm" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#FF8000;strokeWidth=2;fontColor=#FF8000;fontSize=18;align=center;verticalAlign=middle;spacing=8;" parent="1" vertex="1">
+                    <mxGeometry x="605.5" y="1097" width="136" height="42" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=none;endFill=0;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.428;exitY=1.025;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="89" target="90" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="351" y="1192" as="sourcePoint"/>
+                        <mxPoint x="930" y="1146" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="428" y="1171"/>
+                            <mxPoint x="673" y="1171"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="92" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="89" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="438" y="1050" as="sourcePoint"/>
+                        <mxPoint x="443" y="1085" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="93" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8000;strokeWidth=2;endArrow=block;endFill=1;fontColor=#FF8000;fontSize=18;labelBackgroundColor=none;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="90" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="674" y="1050" as="sourcePoint"/>
+                        <mxPoint x="678" y="1081" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
