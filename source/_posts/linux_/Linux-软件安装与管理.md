@@ -1,14 +1,16 @@
 ---
-title: Arch Linux 软件安装与管理
+title: Linux 软件安装与管理
 cover: https://source.fomal.cc/img/default_cover_121.webp
 tags:
   - arch-linux
+  - fedora
   - pacman
+  - dnf
   - aur
   - flatpak
   - appimage
   - yay
-description: Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新
+description: Arch Linux 与 Fedora 如何使用 pacman、dnf 安装、卸载、查询及更新软件
 abbrlink: 59eaf47c
 date: 2025-09-07 15:11:59
 categories: [System & Hardware, Linux]
@@ -120,6 +122,88 @@ yay (Yet another Yogurt) 是一个流行的 AUR 助手。它本身就是一个�
 
 可以注意到，由于 yay 最后依然是使用 pacman 安装的包，因此通过 yay 安装到本地的软件也是可以通过 `sudo pacman -Q` 来查询的。
 
+## Fedora 包管理器 - dnf
+Fedora 使用 RPM 软件包，默认的命令行包管理器是 DNF。标准 Fedora 系统主要从 `fedora` 和 `updates` 等官方仓库获取软件，也可以添加第三方仓库。仓库通常由 `/etc/yum.repos.d/` 下的 `.repo` 文件定义。
+
+
+### 工作流程
+1. 读取配置与仓库：DNF 读取主配置文件 `/etc/dnf/dnf.conf` 和已启用的仓库配置。
+2. 更新元数据：仓库元数据过期时会自动刷新，也可以通过 `--refresh` 强制刷新。root 用户的系统级缓存默认位于 `/var/cache/libdnf5/`；普通用户进行查询时，默认使用 `~/.cache/libdnf5/`。
+3. 解决依赖：计算需要安装、更新或删除的软件包，检查冲突，然后向用户展示完整的事务摘要。
+4. 下载并执行事务：下载所需的 `.rpm` 文件，校验后一次性执行安装、更新或卸载。DNF5 默认设置 `keepcache=0`，成功完成事务后不会长期保留已下载的软件包，这一点与 pacman 不同。
+5. 记录结果：已安装软件包的状态记录在 `/usr/lib/sysimage/rpm/` 中，DNF5 的事务历史则保存在 `/usr/lib/sysimage/libdnf5/transaction_history.sqlite`，可以使用 `dnf history` 查询。
+
+### 命令结构
+DNF 使用 `dnf <子命令> [选项] [软件包]` 的结构。查询操作通常不需要 root 权限，修改系统中的软件则需要使用 `sudo`。
+
+日常常用的命令大致如下：
+
+| 子命令 | 常用命令/选项 | 含义 |
+| :--- | :--- | :--- |
+| **`install`** | `dnf install package` | 从仓库安装软件包，也可安装本地 `.rpm` 文件。 |
+| **`remove`** | `dnf remove package` | 卸载软件包；默认同时删除不再被需要、且原本作为依赖安装的包。 |
+|  | `--no-autoremove` | 本次卸载保留不再被需要的依赖。 |
+| **`upgrade`** | `dnf upgrade` | 更新所有已安装的软件包。 |
+|  | `--refresh` | 在执行命令前强制刷新仓库元数据。 |
+| **`search`** | `dnf search keyword` | 按名称和摘要搜索软件包；加 `--all` 还会搜索描述和 URL。 |
+| **`list`** | `dnf list --installed` | 列出已安装的软件包。 |
+|  | `dnf list --available` | 列出仓库中可用的软件包。 |
+|  | `dnf list --upgrades` | 列出可更新的软件包。 |
+| **`info`** | `dnf info package` | 查看已安装或仓库内软件包的详细信息。 |
+| **`repoquery`** | `dnf repoquery --installed package` | 查询已安装的软件包。 |
+|  | `dnf repoquery --installed --files package` | 列出某个已安装软件包包含的文件。 |
+|  | `dnf repoquery --unneeded` | 列出不再被需要的依赖包。 |
+| **`provides`** | `dnf provides '*/command'` | 查询哪个已安装或仓库内的包提供某个文件。 |
+| **`autoremove`** | `dnf autoremove` | 删除所有不再被需要、且原本作为依赖安装的软件包。 |
+| **`clean`** | `dnf clean packages` | 清理下载的软件包缓存。 |
+|  | `dnf clean metadata` / `dnf clean all` | 清理仓库元数据，或清理所有 DNF 缓存。 |
+| **`history`** | `dnf history list` / `dnf history info ID` | 列出事务历史，或查看某次事务的详情。 |
+|  | `dnf history undo ID` | 尝试撤销指定事务；如果旧版软件已不在仓库中，可能无法完成。 |
+| **`repo list`** | `dnf repo list --all` | 列出已启用和已禁用的软件仓库。 |
+
+完整说明可以查看 `man dnf5`；每个子命令也有独立的帮助，例如 `dnf install --help`。
+
+### 常用命令
+安装：
+```bash
+# 安装单个或多个软件包
+sudo dnf install package_name_1 package_name_2 ...
+# 安装本地的 RPM 软件包，并自动解决仓库中的依赖
+sudo dnf install ./package_name.rpm
+# 安装软件包组
+sudo dnf group install group_name
+```
+
+删除：
+```bash
+# 删除软件包，并自动删除不再需要的依赖
+sudo dnf remove package_name
+# 删除软件包，但保留其不再被需要的依赖
+sudo dnf remove --no-autoremove package_name
+# 清理所有不再被需要的依赖
+sudo dnf autoremove
+```
+
+升级：
+```bash
+# 强制刷新仓库元数据，并更新所有已安装的软件包
+sudo dnf upgrade --refresh
+```
+
+查询：
+```bash
+# 搜索软件包
+dnf search keyword
+# 查看软件包详细信息
+dnf info package_name
+# 列出已安装的软件包
+dnf list --installed
+# 列出某个已安装软件包包含的文件
+dnf repoquery --installed --files package_name
+# 查询哪个软件包提供指定命令，例如 wg
+dnf provides '*/wg'
+```
+
 
 ## Flatpak 与 AppImage
 Flatpak 和 AppImage 都是被设计为跨发行版的软件打包和分发格式。
@@ -196,20 +280,3 @@ Refine                                       page.tesk.Refine                   
 * 开发者将应用本身及其所有依赖库全部打包进一个单独的可执行文件。
 * 这个文件不依赖于系统安装的任何库（除了最最基础的，如 fuse2，或者它也可以自带）。
 * 用户下载后，不需要“安装”，只需赋予它执行权限 (chmod +x)，然后双击或通过终端即可运行。
-
-## GNOME Software
-GNOME Software 是一个聚合中心，它的"已安装"标签页会显示来自多个不同来源的软件，主要包括：
-* 系统原生包：通过 `apt` (Debian/Ubuntu)、`dnf` (Fedora/RHEL)、`pacman` (Arch) 等系统自带的包管理器安装的软件。这些是传统、最常见的软件安装方式。
-* Flatpak 包：通过 Flathub 或其他 Flatpak 仓库安装的软件。
-  * 例如：在 GNOME Software 里安装了 Firefox 的 Flatpak 版，它会出现在这里。
-* Snap 包：如果发行版支持 Snap（如 Ubuntu），那么通过 Snap 安装的软件也会显示在这里。
-
-### 如何找到应用程序
-GNOME Software 依赖于 `.desktop` 文件来识别应用程序。当你用 pacman 卸载软件时，如果某个 `.desktop` 文件没有被正确清理，它就会继续显示在软件中心里，尽管软件本身已经被移除。
-
-除此之外，如果使用命令行删除了某个软件，却发现 GNOME Software 中依然存在，还有可能是缓存的问题：GNOME Software 可能没有及时更新它的应用程序列表缓存，导致仍然显示已卸载的软件。可以运行
-```bash
-sudo update-desktop-database
-```
-
-来解决问题。
