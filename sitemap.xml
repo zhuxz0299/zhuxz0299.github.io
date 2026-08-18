@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/link/index.html</loc>
+    <loc>https://zhuxz0299.github.io/shuoshuo/index.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/shuoshuo/index.html</loc>
+    <loc>https://zhuxz0299.github.io/link/index.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -119,15 +119,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/f2521a3c.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/dacca95a.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -137,7 +128,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/1bd25f8f.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/f2521a3c.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -147,6 +138,15 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/b7b4c9c7.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/1bd25f8f.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -173,7 +173,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/78542535.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/303505df.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -182,7 +182,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/303505df.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/7adc43c2.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -200,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/7ce137d0.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/78542535.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/7adc43c2.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/7ce137d0.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -290,42 +290,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/146105a1.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/967533ad.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/6365978a.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/bafb2d30.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/ec75daa1.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -344,7 +308,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/c8c4683d.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/bafb2d30.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -354,6 +318,51 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/652d7ab3.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/c8c4683d.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/967533ad.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/146105a1.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/6365978a.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/5d5705d0.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -380,15 +389,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/5d5705d0.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/6eec50c8.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -407,7 +407,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/1bfa0334.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/5050a0c5.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -416,7 +416,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/5050a0c5.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/1bfa0334.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -434,15 +434,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/71181c07.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/1eb06327.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -452,7 +443,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/d0f6435f.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/71181c07.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -462,6 +453,15 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/e362de16.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/d0f6435f.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -506,7 +506,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/9710e17d.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/d6c74530.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -515,7 +515,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/d6c74530.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/9710e17d.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -542,7 +542,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/3fd6625d.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/c86fd2a.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -552,15 +552,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/17180dd9.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/c86fd2a.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -587,15 +578,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/4b418ee3.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/a3c91c4e.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -606,6 +588,24 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/70e4cfb7.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/4b418ee3.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/3fd6625d.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -695,15 +695,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/69ff1809.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/ac36b867.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -713,7 +704,25 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/posts/69ff1809.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/posts/20a3e8df.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/c1a34926.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -740,25 +749,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/c1a34926.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/9928515a.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/253f8bf0.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -777,6 +768,15 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/b12c7e4b.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/253f8bf0.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -812,7 +812,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/af4fb932.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/ca8ef000.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -821,7 +821,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/ca8ef000.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/af4fb932.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -839,7 +839,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/c43d02cd.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/3d2c8e8d.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -848,7 +848,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/3d2c8e8d.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/c43d02cd.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -866,7 +866,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/90e9784e.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/c8f9a135.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -875,16 +875,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/2dbb0a4f.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/8117db7e.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/e03b3fd8.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -911,7 +902,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/e03b3fd8.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/90e9784e.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -920,7 +911,16 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/c8f9a135.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/8117db7e.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/2dbb0a4f.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -938,7 +938,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/fa6cbd68.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/fd6da8cd.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -947,7 +947,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/fd6da8cd.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/fa6cbd68.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -965,15 +965,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/795e1c16.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/2a9c81bf.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -983,7 +974,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/379ff448.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/795e1c16.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1001,7 +992,16 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/b4771890.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/ed318fdc.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/379ff448.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1019,6 +1019,15 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/posts/b4771890.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/posts/1d8caec6.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -1028,7 +1037,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/ed318fdc.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/25bc50da.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1038,15 +1047,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/811636f.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/25bc50da.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1082,15 +1082,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/aae19956.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/757571af.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -1100,7 +1091,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/d1c883fc.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/aae19956.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1118,6 +1109,15 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/posts/d1c883fc.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/posts/cae0e3e1.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -1127,25 +1127,16 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/36b44dc6.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/6b3e2f30.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/5a5a34b7.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/36b44dc6.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1172,7 +1163,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/c51fd072.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/6b3e2f30.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1190,79 +1181,16 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/posts/c51fd072.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/posts/a47f6917.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/91c6fd1a.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/695424c6.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/488724ec.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/5bfe7acf.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/12e1f9cc.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/b69ef682.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/7e0b85a4.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/b8ade17a.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1307,15 +1235,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/df2a656b.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/posts/ed09bf83.html</loc>
     
     <lastmod>2026-06-29</lastmod>
@@ -1325,7 +1244,88 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/posts/df2a656b.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/posts/427bd953.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/695424c6.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/91c6fd1a.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/488724ec.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/b69ef682.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/5bfe7acf.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/12e1f9cc.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/b8ade17a.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/7e0b85a4.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1370,25 +1370,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/posts/45029051.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/4f30936b.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/49f1e1db.html</loc>
+    <loc>https://zhuxz0299.github.io/posts/e3206b7d.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1398,15 +1380,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/367719ce.html</loc>
-    
-    <lastmod>2026-06-29</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/posts/e3206b7d.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1434,6 +1407,33 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/posts/caa2a28b.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/4f30936b.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/45029051.html</loc>
+    
+    <lastmod>2026-06-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/posts/49f1e1db.html</loc>
     
     <lastmod>2026-06-29</lastmod>
     
@@ -1523,27 +1523,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/makefile/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/gcc/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/github/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/al-folio/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1579,70 +1558,28 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/linux/</loc>
+    <loc>https://zhuxz0299.github.io/tags/github/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/apt/</loc>
+    <loc>https://zhuxz0299.github.io/tags/makefile/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/ubuntu/</loc>
+    <loc>https://zhuxz0299.github.io/tags/gcc/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/gpg/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/cuda/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/gpu/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/nvidia/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/image/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/container/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/proxy/</loc>
+    <loc>https://zhuxz0299.github.io/tags/git/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1678,13 +1615,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/vooc/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/git/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1831,6 +1761,76 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/linux/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/cuda/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/gpu/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/nvidia/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/apt/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/ubuntu/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/gpg/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/image/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/container/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/proxy/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/python/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1866,13 +1866,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/c-c/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/latex/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -1895,6 +1888,13 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/reference/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/c-c/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1943,419 +1943,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/arch-linux/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/grub/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/uefi/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/initramfs/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/swap/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/wayland/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/esp/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/file-system/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/iso/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/iwctl/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/bootloader/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/reflector/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/btrfs/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/volume/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/network-manager/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/nmcli/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/ethtool/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/dns/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/ip/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/iproute2/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/systemd/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/service/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/rclone/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/webdav/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/fhs/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/filesystem/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/directory/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/pip/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/package/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/library/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/dnf/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/yum/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/rpm/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/dpkg/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/process/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/job/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/shell/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/kill/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/ps/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/x11/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/mesa/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/drm/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/va-api/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/vulkan/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/suspend/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/hibernate/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/s2idle/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/fedora/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/pacman/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/aur/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/flatpak/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/appimage/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/yay/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/xdg/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/freedesktop/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/xdg-utils/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/mime/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/d-bus/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/portal/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/network/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2364,6 +1951,13 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/vscode/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/dns/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2440,6 +2034,13 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/webdav/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/openlist/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2448,6 +2049,13 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/raidrive/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/rclone/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2476,6 +2084,34 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/ssh/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/torrent/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/magnet/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/p2p/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/pt/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2531,34 +2167,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/torrent/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/magnet/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/p2p/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/pt/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/virtual-machine/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2574,6 +2182,496 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/virtualbox/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/arch-linux/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/file-system/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/iso/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/iwctl/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/bootloader/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/initramfs/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/reflector/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/btrfs/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/volume/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/grub/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/uefi/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/swap/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/wayland/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/esp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/fhs/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/filesystem/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/directory/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/network-manager/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/nmcli/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/ethtool/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/ip/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/iproute2/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/process/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/job/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/shell/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/kill/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/ps/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/systemd/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/service/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/pip/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/package/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/library/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/dnf/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/yum/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/rpm/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/dpkg/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/x11/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/mesa/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/drm/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/va-api/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/vulkan/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/xdg/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/d-bus/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/mime/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/portal/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/suspend/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/hibernate/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/s2idle/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/fedora/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/pacman/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/aur/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/flatpak/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/appimage/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/yay/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/freedesktop/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/xdg-utils/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/ai/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/comfyui/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/stable-diffusion/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/image-generation/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/sync/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/tmux/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/verilator/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/verilog/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/systemverilog/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/hdl/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/vim/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/keyd/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/capslock/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/esc/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2629,97 +2727,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/sync/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/ai/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/comfyui/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/stable-diffusion/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/image-generation/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/tmux/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/Verilator/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/Verilog/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/SystemVerilog/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/vim/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/keyd/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/capslock/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/esc/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/uv/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2769,13 +2776,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/pytorch/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/nvidia-smi/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2783,14 +2783,21 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/nvcc/</loc>
+    <loc>https://zhuxz0299.github.io/tags/kernel/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/kernel/</loc>
+    <loc>https://zhuxz0299.github.io/tags/pytorch/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/nvcc/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2818,6 +2825,27 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/operating-system/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/fc-cache/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/fpga/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/terminal/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2839,21 +2867,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/operating-system/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/fc-cache/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/mingw/</loc>
+    <loc>https://zhuxz0299.github.io/tags/vivado/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2881,21 +2895,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/verilog/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/fpga/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/vivado/</loc>
+    <loc>https://zhuxz0299.github.io/tags/mingw/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2930,6 +2930,13 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/csp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/multi-agent/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -2938,27 +2945,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/minimax-algorithm/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/csp/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/uncertainty/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/bayesian-networks/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2979,14 +2965,14 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/softmax/</loc>
+    <loc>https://zhuxz0299.github.io/tags/uncertainty/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/gradient-descent/</loc>
+    <loc>https://zhuxz0299.github.io/tags/bayesian-networks/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -2994,76 +2980,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/svm/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/convolution/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/padding/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/stride/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/lenet/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/weight-decay/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/activation-function/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/dropout/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/alexnet/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/batchsize-normalization/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/resnet/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3085,6 +3001,27 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/braess-paradox/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/abstract-algebra/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/group/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/cycle-group/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3119,27 +3056,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/abstract-algebra/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/group/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/cycle-group/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/galois-theory/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3161,7 +3077,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/frobenius/</loc>
+    <loc>https://zhuxz0299.github.io/tags/cyclotomic-extension/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3175,7 +3091,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/cyclotomic-extension/</loc>
+    <loc>https://zhuxz0299.github.io/tags/frobenius/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3238,20 +3154,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/gaussian-lemma/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/field-extension/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/finite-extension/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3260,6 +3162,20 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/algebraic-extension/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/gaussian-lemma/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/field-extension/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3295,6 +3211,90 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/closure/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/softmax/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/gradient-descent/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/weight-decay/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/activation-function/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/dropout/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/convolution/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/padding/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/stride/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/lenet/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/alexnet/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/batchsize-normalization/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/resnet/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3420,27 +3420,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/mse/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/gaussian-distribution/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/ica/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/latent-variable/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3463,6 +3442,27 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/model-selection/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/mse/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/gaussian-distribution/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/ica/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3497,35 +3497,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/computer-graphics/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/discrete-mathematics/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/propositional-logic/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/logical-equivalence/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/consequence-relation/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3567,6 +3539,27 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/propositional-logic/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/logical-equivalence/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/consequence-relation/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/s-interpretation/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3581,6 +3574,13 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/sat-solver/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/proof-theory/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3588,7 +3588,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/sat-solver/</loc>
+    <loc>https://zhuxz0299.github.io/tags/computer-graphics/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3602,35 +3602,49 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/embedded-system/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/8086/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/flag-register/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/counter/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/computer-network/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/udp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/tcp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/socket/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/isp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/osi/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/tcp-ip/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3700,42 +3714,21 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/udp/</loc>
+    <loc>https://zhuxz0299.github.io/tags/shannons-law/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/tcp/</loc>
+    <loc>https://zhuxz0299.github.io/tags/tdm/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/socket/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/isp/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/osi/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/tcp-ip/</loc>
+    <loc>https://zhuxz0299.github.io/tags/fdm/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3770,21 +3763,49 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/shannons-law/</loc>
+    <loc>https://zhuxz0299.github.io/tags/embedded-system/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/tdm/</loc>
+    <loc>https://zhuxz0299.github.io/tags/counter/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/fdm/</loc>
+    <loc>https://zhuxz0299.github.io/tags/8086/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/flag-register/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/quantum-mechanics/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/schrodinger-equation/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/tags/hamiltonian/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3882,27 +3903,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/tags/quantum-mechanics/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/schrodinger-equation/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/hamiltonian/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/tags/energy-quantization/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3959,6 +3959,13 @@
   </url>
   
   <url>
+    <loc>https://zhuxz0299.github.io/tags/quantum-tunneling/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zhuxz0299.github.io/tags/infinite-square-potential/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -3967,13 +3974,6 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/tags/finite-square-potential/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/tags/quantum-tunneling/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -3996,21 +3996,14 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/al-folio/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/Docker/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/categories/Dev-Tools/Makefile/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/Git/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4024,7 +4017,14 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/Git/</loc>
+    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/al-folio/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/Docker/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4045,7 +4045,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/System-Hardware/Linux/</loc>
+    <loc>https://zhuxz0299.github.io/categories/System-Hardware/Network-Practice/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4059,7 +4059,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/System-Hardware/Network-Practice/</loc>
+    <loc>https://zhuxz0299.github.io/categories/System-Hardware/Linux/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4080,13 +4080,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/System-Hardware/FPGA-Verilog/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/categories/Multimedia/Video-Audio/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -4101,7 +4094,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/VS-Code/</loc>
+    <loc>https://zhuxz0299.github.io/categories/System-Hardware/FPGA-Verilog/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4109,6 +4102,13 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/categories/System-Hardware/Windows/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/categories/Dev-Tools/VS-Code/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4136,13 +4136,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/AI-Machine-Learning/Deep-Learning/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Game-Theory/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -4151,6 +4144,13 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Applied-Algebra/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/categories/AI-Machine-Learning/Deep-Learning/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4178,13 +4178,6 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Computer-Graphics/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Discrete-Math/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -4192,7 +4185,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Computer-Organization/</loc>
+    <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Computer-Graphics/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4206,7 +4199,7 @@
   </url>
   
   <url>
-    <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Exam-Solutions/</loc>
+    <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Computer-Organization/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -4214,6 +4207,13 @@
   
   <url>
     <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Quantum-Mechanics/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhuxz0299.github.io/categories/Lecture-Notes/Exam-Solutions/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
