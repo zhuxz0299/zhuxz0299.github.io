@@ -22,13 +22,22 @@ date: 2026-01-25 01:22:10
 
 ## Linux 下 VPN 配置与工作
 ### StrongSwan 配置
-交大 VPN 的[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)推荐使用 StrongSwan 软件配置 VPN 协议 IKEv2。配置整体包含两个部分：
-- `/etc/swanctl/` 放具体 VPN 的连接、账号、证书。正常配置交大 VPN 时主要修改的就是这个。
-- `/etc/strongswan.d/` 放 strongSwan 自己的全局和插件配置。
+交大 VPN 的[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)推荐使用 StrongSwan 软件配置 VPN 协议 IKEv2。首先安装 StrongSwan：
+```bash
+# Arch Linux
+sudo pacman -S strongswan
+
+# Fedora
+sudo dnf install strongswan
+```
+
+下文以 Arch Linux 为例。Fedora 的配置内容相同，但软件包将所有配置统一放在 `/etc/strongswan/` 下：
+- Arch Linux：连接、账号和证书位于 `/etc/swanctl/`，插件配置位于 `/etc/strongswan.d/`。
+- Fedora：对应目录分别为 `/etc/strongswan/swanctl/` 和 `/etc/strongswan/strongswan.d/`。
 
 #### VPN 信息配置
 
-在 `/etc/swanctl/conf.d/` 下创建一个名为 `sjtuvpn.conf` 的文件，内容为：
+在 Arch Linux 的 `/etc/swanctl/conf.d/` 下创建 `sjtuvpn.conf`；Fedora 对应路径为 `/etc/strongswan/swanctl/conf.d/sjtuvpn.conf`。文件内容为：
 ```conf
 connections {
  vpn-staff {
@@ -92,21 +101,25 @@ secrets {
 
 然后是证书配置的问题，StrongSwan 不会像浏览器那样默认信任所有公网 CA，所以这部分权限会交给用户。所以可以手动添加对应证书（交大 VPN 使用的证书可能会随时间更新，所以为了防止过段时间就要手动新增一次证书，这里就把所有证书都添加了）：
 ```bash
-sudo find /etc/ssl/certs -maxdepth 1 -type l -name '*.pem' -exec ln -sf {} /etc/swanctl/x509ca/
+# Arch Linux
+sudo find /etc/ssl/certs -maxdepth 1 -type l -name '*.pem' -exec ln -sf {} /etc/swanctl/x509ca/ \;
+
+# Fedora
+sudo find /etc/pki/ca-trust/extracted/pem/directory-hash -maxdepth 1 -type f -name '*.pem' -exec ln -sfn {} /etc/strongswan/swanctl/x509ca/ \;
 ```
 
 {% note warning %}
-[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)在配置证书的时候用的是：
+[官方文档](https://net.sjtu.edu.cn/info/1200/3296.htm)以 Ubuntu 为例，在配置证书时使用的是：
 ```bash
 sudo rm -f /etc/ipsec.d/cacerts/*
 sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/
 ```
 
-现代的 swanctl 模式下，证书应当放在 `/etc/swanctl/x509ca/`（虽然不知道为什么 `/etc/ipsec.d/cacerts/` 也能用）。
+现代的 swanctl 模式下，Arch Linux 的证书应当放在 `/etc/swanctl/x509ca/`，Fedora 则放在 `/etc/strongswan/swanctl/x509ca/`（虽然不知道为什么 `/etc/ipsec.d/cacerts/` 也能用）。
 同时 `sudo ln -s /etc/ssl/certs/* /etc/ipsec.d/cacerts/` 直接链接整个目录，但是目录里除了证书还有 hash 形式的重复链接，全部塞进去没必要，可能只是增加重复加载和日志噪音。
 {% endnote %}
 
-最后加载 `/etc/swanctl/` 下的所有配置：
+最后加载 swanctl 配置；命令在两个系统上相同：
 ```bash
 sudo swanctl --load-all
 ```
@@ -119,7 +132,7 @@ sudo systemctl start strongswan
 sudo systemctl enable strongswan  # 开机自启
 ```
 
-如果启动时报插件相关错误，再到 `/etc/strongswan.d/charon` 底下找到 `revocation.conf` 以及几个和 sql 相关的插件配置，在里面设置 `load = no`。这类修改影响的是 strongSwan 服务本身，因此改完以后需要重启服务，并重新加载 swanctl 配置：
+如果启动时报插件相关错误，再到 Arch Linux 的 `/etc/strongswan.d/charon` 或 Fedora 的 `/etc/strongswan/strongswan.d/charon` 底下找到 `revocation.conf` 以及几个和 sql 相关的插件配置，在里面设置 `load = no`。这类修改影响的是 strongSwan 服务本身，因此改完以后需要重启服务，并重新加载 swanctl 配置：
 ```bash
 sudo systemctl restart strongswan
 sudo swanctl --load-all # 重启 strongSwan 后，daemon 里的 swanctl 连接配置可能会被清掉

@@ -202,7 +202,7 @@ int main(int argc, char** argv) {
     context.traceEverOn(true);
 
     dut = new Vcounter{&context};
-    dut->trace(&trace, 5);
+    dut->trace(&trace, 0);
     trace.open("waveform.fst");
 
     dut->rst_n = 0;
@@ -249,6 +249,7 @@ int main(int argc, char** argv) {
   - 实例化 DUT 时也可以直接写 `Vcounter dut`，此时会使用当前线程的默认 context，在示例这种简单的环境下也可以正常工作
 - `context.commandArgs(argc, argv)` 表示将命令行参数交给 runtime，即让编译得到的二进制文件 `obj_dir/Vcounter` 支持接受参数
 - `context.traceEverOn(true)` 也可以写成 `Verilated::traceEverOn(true)`，同样表示对当前线程的默认 context 操作
+- `dut->trace(&trace, 0)` 中的参数 `0` 在新版本的 Verilator 中没啥用，随便填什么都一样
 - `dut->eval()` 根据当前输入重新计算模型，调用该方法模型才会识别边沿并执行相应的时序逻辑
 - `context.timeInc(5)` 将仿真时间推进 5 个 time precision 单位，推进时间本身不会求值
 - `trace.dump(context.time())` 把最近一次求值后的信号状态写入当前时间点
