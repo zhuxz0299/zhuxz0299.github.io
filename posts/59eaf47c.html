@@ -1,17 +1,19 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Arch Linux 软件安装与管理 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新">
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux 软件安装与管理 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="Arch Linux 与 Fedora 如何使用 pacman、dnf 安装、卸载、查询及更新软件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Arch Linux 软件安装与管理">
+<meta property="og:title" content="Linux 软件安装与管理">
 <meta property="og:url" content="https://zhuxz0299.github.io/posts/59eaf47c.html">
 <meta property="og:site_name" content="Zhuxz&#39;s Blog">
-<meta property="og:description" content="Arch Linux 如何安装、卸载软件及其依赖，以及如何进行滚动更新">
+<meta property="og:description" content="Arch Linux 与 Fedora 如何使用 pacman、dnf 安装、卸载、查询及更新软件">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://source.fomal.cc/img/default_cover_121.webp">
 <meta property="article:published_time" content="2025-09-07T07:11:59.000Z">
-<meta property="article:modified_time" content="2026-05-18T11:52:57.669Z">
+<meta property="article:modified_time" content="2026-09-04T12:14:18.243Z">
 <meta property="article:author" content="Zhuxz">
 <meta property="article:tag" content="appimage">
 <meta property="article:tag" content="arch-linux">
 <meta property="article:tag" content="aur">
+<meta property="article:tag" content="dnf">
+<meta property="article:tag" content="fedora">
 <meta property="article:tag" content="flatpak">
 <meta property="article:tag" content="pacman">
 <meta property="article:tag" content="yay">
@@ -19,11 +21,11 @@
 <meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_121.webp"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Arch Linux 软件安装与管理",
+  "headline": "Linux 软件安装与管理",
   "url": "https://zhuxz0299.github.io/posts/59eaf47c.html",
   "image": "https://source.fomal.cc/img/default_cover_121.webp",
   "datePublished": "2025-09-07T07:11:59.000Z",
-  "dateModified": "2026-05-18T11:52:57.669Z",
+  "dateModified": "2026-09-04T12:14:18.243Z",
   "author": [
     {
       "@type": "Person",
@@ -160,12 +162,12 @@
   },
   autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'Arch Linux 软件安装与管理',
+  title: 'Linux 软件安装与管理',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/tag_filter.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="Zhuxz's Blog" type="application/atom+xml">
-</head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">152</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">346</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_121.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Arch Linux 软件安装与管理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Arch Linux 软件安装与管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-07T07:11:59.000Z" title="发表于 2025-09-07 15:11:59">2025-09-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-18T11:52:57.669Z" title="更新于 2026-05-18 19:52:57">2026-05-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/">System &amp; Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Arch-Linux-包管理器">Arch Linux 包管理器</h2>
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/tag_filter.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Zhuxz's Blog" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">363</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_121.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Linux 软件安装与管理</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Linux 软件安装与管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-07T07:11:59.000Z" title="发表于 2025-09-07 15:11:59">2025-09-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-04T12:14:18.243Z" title="更新于 2026-09-04 20:14:18">2026-09-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/">System &amp; Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="Arch-Linux-包管理器">Arch Linux 包管理器</h2>
 <p>Arch Linux 遵循 K.I.S.S. (Keep It Simple, Stupid) 原则，其包管理系统也是如此。</p>
 <ul>
 <li>官方软件源 (Official Repositories)： 由 Arch Linux 官方团队和维护者打理的软件库，包含了核心的系统软件和大量流行软件。所有包都经过严格的依赖和安全性检查。</li>
@@ -344,6 +346,140 @@
 <li>依赖处理：yay 会自动处理 AUR 包可能依赖的其他 AUR 包。</li>
 </ol>
 <p>可以注意到，由于 yay 最后依然是使用 pacman 安装的包，因此通过 yay 安装到本地的软件也是可以通过 <code>sudo pacman -Q</code> 来查询的。</p>
+<h2 id="Fedora-包管理器-dnf">Fedora 包管理器 - dnf</h2>
+<p>Fedora 使用 RPM 软件包，默认的命令行包管理器是 DNF。标准 Fedora 系统主要从 <code>fedora</code> 和 <code>updates</code> 等官方仓库获取软件，也可以添加第三方仓库。仓库通常由 <code>/etc/yum.repos.d/</code> 下的 <code>.repo</code> 文件定义。</p>
+<h3 id="工作流程-2">工作流程</h3>
+<ol>
+<li>读取配置与仓库：DNF 读取主配置文件 <code>/etc/dnf/dnf.conf</code> 和已启用的仓库配置。</li>
+<li>更新元数据：仓库元数据过期时会自动刷新，也可以通过 <code>--refresh</code> 强制刷新。root 用户的系统级缓存默认位于 <code>/var/cache/libdnf5/</code>；普通用户进行查询时，默认使用 <code>~/.cache/libdnf5/</code>。</li>
+<li>解决依赖：计算需要安装、更新或删除的软件包，检查冲突，然后向用户展示完整的事务摘要。</li>
+<li>下载并执行事务：下载所需的 <code>.rpm</code> 文件，校验后一次性执行安装、更新或卸载。DNF5 默认设置 <code>keepcache=0</code>，成功完成事务后不会长期保留已下载的软件包，这一点与 pacman 不同。</li>
+<li>记录结果：已安装软件包的状态记录在 <code>/usr/lib/sysimage/rpm/</code> 中，DNF5 的事务历史则保存在 <code>/usr/lib/sysimage/libdnf5/transaction_history.sqlite</code>，可以使用 <code>dnf history</code> 查询。</li>
+</ol>
+<h3 id="命令结构">命令结构</h3>
+<p>DNF 使用 <code>dnf &lt;子命令&gt; [选项] [软件包]</code> 的结构。查询操作通常不需要 root 权限，修改系统中的软件则需要使用 <code>sudo</code>。</p>
+<p>日常常用的命令大致如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">子命令</th>
+<th style="text-align:left">常用命令/选项</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>install</code></strong></td>
+<td style="text-align:left"><code>dnf install package</code></td>
+<td style="text-align:left">从仓库安装软件包，也可安装本地 <code>.rpm</code> 文件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>remove</code></strong></td>
+<td style="text-align:left"><code>dnf remove package</code></td>
+<td style="text-align:left">卸载软件包；默认同时删除不再被需要、且原本作为依赖安装的包。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>--no-autoremove</code></td>
+<td style="text-align:left">本次卸载保留不再被需要的依赖。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>upgrade</code></strong></td>
+<td style="text-align:left"><code>dnf upgrade</code></td>
+<td style="text-align:left">更新所有已安装的软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>--refresh</code></td>
+<td style="text-align:left">在执行命令前强制刷新仓库元数据。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>search</code></strong></td>
+<td style="text-align:left"><code>dnf search keyword</code></td>
+<td style="text-align:left">按名称和摘要搜索软件包；加 <code>--all</code> 还会搜索描述和 URL。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>list</code></strong></td>
+<td style="text-align:left"><code>dnf list --installed</code></td>
+<td style="text-align:left">列出已安装的软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dnf list --available</code></td>
+<td style="text-align:left">列出仓库中可用的软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dnf list --upgrades</code></td>
+<td style="text-align:left">列出可更新的软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>info</code></strong></td>
+<td style="text-align:left"><code>dnf info package</code></td>
+<td style="text-align:left">查看已安装或仓库内软件包的详细信息。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>repoquery</code></strong></td>
+<td style="text-align:left"><code>dnf repoquery --installed package</code></td>
+<td style="text-align:left">查询已安装的软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dnf repoquery --installed --files package</code></td>
+<td style="text-align:left">列出某个已安装软件包包含的文件。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dnf repoquery --unneeded</code></td>
+<td style="text-align:left">列出不再被需要的依赖包。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>provides</code></strong></td>
+<td style="text-align:left"><code>dnf provides '*/command'</code></td>
+<td style="text-align:left">查询哪个已安装或仓库内的包提供某个文件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>autoremove</code></strong></td>
+<td style="text-align:left"><code>dnf autoremove</code></td>
+<td style="text-align:left">删除所有不再被需要、且原本作为依赖安装的软件包。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>clean</code></strong></td>
+<td style="text-align:left"><code>dnf clean packages</code></td>
+<td style="text-align:left">清理下载的软件包缓存。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dnf clean metadata</code> / <code>dnf clean all</code></td>
+<td style="text-align:left">清理仓库元数据，或清理所有 DNF 缓存。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>history</code></strong></td>
+<td style="text-align:left"><code>dnf history list</code> / <code>dnf history info ID</code></td>
+<td style="text-align:left">列出事务历史，或查看某次事务的详情。</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"><code>dnf history undo ID</code></td>
+<td style="text-align:left">尝试撤销指定事务；如果旧版软件已不在仓库中，可能无法完成。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>repo list</code></strong></td>
+<td style="text-align:left"><code>dnf repo list --all</code></td>
+<td style="text-align:left">列出已启用和已禁用的软件仓库。</td>
+</tr>
+</tbody>
+</table>
+<p>完整说明可以查看 <code>man dnf5</code>；每个子命令也有独立的帮助，例如 <code>dnf install --help</code>。</p>
+<h3 id="常用命令-2">常用命令</h3>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装单个或多个软件包</span></span><br><span class="line"><span class="built_in">sudo</span> dnf install package_name_1 package_name_2 ...</span><br><span class="line"><span class="comment"># 安装本地的 RPM 软件包，并自动解决仓库中的依赖</span></span><br><span class="line"><span class="built_in">sudo</span> dnf install ./package_name.rpm</span><br><span class="line"><span class="comment"># 安装软件包组</span></span><br><span class="line"><span class="built_in">sudo</span> dnf group install group_name</span><br></pre></td></tr></table></figure>
+<p>删除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除软件包，并自动删除不再需要的依赖</span></span><br><span class="line"><span class="built_in">sudo</span> dnf remove package_name</span><br><span class="line"><span class="comment"># 删除软件包，但保留其不再被需要的依赖</span></span><br><span class="line"><span class="built_in">sudo</span> dnf remove --no-autoremove package_name</span><br><span class="line"><span class="comment"># 清理所有不再被需要的依赖</span></span><br><span class="line"><span class="built_in">sudo</span> dnf autoremove</span><br></pre></td></tr></table></figure>
+<p>升级：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 强制刷新仓库元数据，并更新所有已安装的软件包</span></span><br><span class="line"><span class="built_in">sudo</span> dnf upgrade --refresh</span><br></pre></td></tr></table></figure>
+<p>查询：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索软件包</span></span><br><span class="line">dnf search keyword</span><br><span class="line"><span class="comment"># 查看软件包详细信息</span></span><br><span class="line">dnf info package_name</span><br><span class="line"><span class="comment"># 列出已安装的软件包</span></span><br><span class="line">dnf list --installed</span><br><span class="line"><span class="comment"># 列出某个已安装软件包包含的文件</span></span><br><span class="line">dnf repoquery --installed --files package_name</span><br><span class="line"><span class="comment"># 查询哪个软件包提供指定命令，例如 wg</span></span><br><span class="line">dnf provides <span class="string">&#x27;*/wg&#x27;</span></span><br></pre></td></tr></table></figure>
 <h2 id="Flatpak-与-AppImage">Flatpak 与 AppImage</h2>
 <p>Flatpak 和 AppImage 都是被设计为跨发行版的软件打包和分发格式。</p>
 <h3 id="Flatpak">Flatpak</h3>
@@ -464,23 +600,7 @@
 <li>这个文件不依赖于系统安装的任何库（除了最最基础的，如 fuse2，或者它也可以自带）。</li>
 <li>用户下载后，不需要“安装”，只需赋予它执行权限 (chmod +x)，然后双击或通过终端即可运行。</li>
 </ul>
-<h2 id="GNOME-Software">GNOME Software</h2>
-<p>GNOME Software 是一个聚合中心，它的&quot;已安装&quot;标签页会显示来自多个不同来源的软件，主要包括：</p>
-<ul>
-<li>系统原生包：通过 <code>apt</code> (Debian/Ubuntu)、<code>dnf</code> (Fedora/RHEL)、<code>pacman</code> (Arch) 等系统自带的包管理器安装的软件。这些是传统、最常见的软件安装方式。</li>
-<li>Flatpak 包：通过 Flathub 或其他 Flatpak 仓库安装的软件。
-<ul>
-<li>例如：在 GNOME Software 里安装了 Firefox 的 Flatpak 版，它会出现在这里。</li>
-</ul>
-</li>
-<li>Snap 包：如果发行版支持 Snap（如 Ubuntu），那么通过 Snap 安装的软件也会显示在这里。</li>
-</ul>
-<h3 id="如何找到应用程序">如何找到应用程序</h3>
-<p>GNOME Software 依赖于 <code>.desktop</code> 文件来识别应用程序。当你用 pacman 卸载软件时，如果某个 <code>.desktop</code> 文件没有被正确清理，它就会继续显示在软件中心里，尽管软件本身已经被移除。</p>
-<p>除此之外，如果使用命令行删除了某个软件，却发现 GNOME Software 中依然存在，还有可能是缓存的问题：GNOME Software 可能没有及时更新它的应用程序列表缓存，导致仍然显示已卸载的软件。可以运行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> update-desktop-database</span><br></pre></td></tr></table></figure>
-<p>来解决问题。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io/posts/59eaf47c.html">https://zhuxz0299.github.io/posts/59eaf47c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/arch-linux/">arch-linux</a><a class="post-meta__tags" href="/tags/pacman/">pacman</a><a class="post-meta__tags" href="/tags/aur/">aur</a><a class="post-meta__tags" href="/tags/flatpak/">flatpak</a><a class="post-meta__tags" href="/tags/appimage/">appimage</a><a class="post-meta__tags" href="/tags/yay/">yay</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_121.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/91c6fd1a.html" title="Arch Linux 启动问题修复"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_127.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-27</div><div class="info-item-2">Arch Linux 启动问题修复</div></div><div class="info-2"><div class="info-item-1">记录 Arch Linux 无法开机问题的修复过程</div></div></div></a><a class="pagination-related" href="/posts/695424c6.html" title="Arch Linux 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_120.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-03</div><div class="info-item-2">Arch Linux 安装</div></div><div class="info-2"><div class="info-item-1">讲解 Arch Linux 安装步骤背后的工作原理</div></div></div></a><a class="pagination-related" href="/posts/488724ec.html" title="Arch Linux 网络相关命令"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_132.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-05</div><div class="info-item-2">Arch Linux 网络相关命令</div></div><div class="info-2"><div class="info-item-1">常用工具 NetworkManager、iproute2、ethtool，以及如何查询 ip 地址、网关、DNS 以及协商速率</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arch-Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">Arch Linux 包管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pacman"><span class="toc-number">1.1.</span> <span class="toc-text">pacman</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">命令参数含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.3.</span> <span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yay"><span class="toc-number">1.2.</span> <span class="toc-text">yay</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">工作流程：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flatpak-%E4%B8%8E-AppImage"><span class="toc-number">2.</span> <span class="toc-text">Flatpak 与 AppImage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flatpak"><span class="toc-number">2.1.</span> <span class="toc-text">Flatpak</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-remote-%E4%B8%8E%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-number">2.1.1.</span> <span class="toc-text">Flatpak remote 与软件源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.1.2.</span> <span class="toc-text">Flatpak 常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">2.1.3.</span> <span class="toc-text">Flatpak 运行时</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AppImage"><span class="toc-number">2.2.</span> <span class="toc-text">AppImage</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GNOME-Software"><span class="toc-number">3.</span> <span class="toc-text">GNOME Software</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">3.1.</span> <span class="toc-text">如何找到应用程序</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io/posts/59eaf47c.html">https://zhuxz0299.github.io/posts/59eaf47c.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/arch-linux/">arch-linux</a><a class="post-meta__tags" href="/tags/dnf/">dnf</a><a class="post-meta__tags" href="/tags/fedora/">fedora</a><a class="post-meta__tags" href="/tags/pacman/">pacman</a><a class="post-meta__tags" href="/tags/aur/">aur</a><a class="post-meta__tags" href="/tags/flatpak/">flatpak</a><a class="post-meta__tags" href="/tags/appimage/">appimage</a><a class="post-meta__tags" href="/tags/yay/">yay</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_121.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/91c6fd1a.html" title="Arch Linux 启动问题修复"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_127.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-27</div><div class="info-item-2">Arch Linux 启动问题修复</div></div><div class="info-2"><div class="info-item-1">记录 Arch Linux 无法开机问题的修复过程</div></div></div></a><a class="pagination-related" href="/posts/488724ec.html" title="Arch Linux 网络相关命令"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_132.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-05</div><div class="info-item-2">Arch Linux 网络相关命令</div></div><div class="info-2"><div class="info-item-1">常用工具 NetworkManager、iproute2、ethtool，以及如何查询 ip 地址、网关、DNS 以及协商速率</div></div></div></a><a class="pagination-related" href="/posts/695424c6.html" title="Arch Linux 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_120.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-03</div><div class="info-item-2">Arch Linux 安装</div></div><div class="info-2"><div class="info-item-1">讲解 Arch Linux 安装步骤背后的工作原理</div></div></div></a><a class="pagination-related" href="/posts/12e1f9cc.html" title="Linux 包管理与库管理"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_95.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-12-12</div><div class="info-item-2">Linux 包管理与库管理</div></div><div class="info-2"><div class="info-item-1">先介绍 Linux 中的包(package)和库(library)，接着介绍一下 dnf 之类的包管理器，以及用来管理库的 pkg-config。</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arch-Linux-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">Arch Linux 包管理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pacman"><span class="toc-number">1.1.</span> <span class="toc-text">pacman</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E5%90%AB%E4%B9%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">命令参数含义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.3.</span> <span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yay"><span class="toc-number">1.2.</span> <span class="toc-text">yay</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A"><span class="toc-number">1.2.1.</span> <span class="toc-text">工作流程：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fedora-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8-dnf"><span class="toc-number">2.</span> <span class="toc-text">Fedora 包管理器 - dnf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B-2"><span class="toc-number">2.1.</span> <span class="toc-text">工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">命令结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-2"><span class="toc-number">2.3.</span> <span class="toc-text">常用命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flatpak-%E4%B8%8E-AppImage"><span class="toc-number">3.</span> <span class="toc-text">Flatpak 与 AppImage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flatpak"><span class="toc-number">3.1.</span> <span class="toc-text">Flatpak</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-remote-%E4%B8%8E%E8%BD%AF%E4%BB%B6%E6%BA%90"><span class="toc-number">3.1.1.</span> <span class="toc-text">Flatpak remote 与软件源</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.1.2.</span> <span class="toc-text">Flatpak 常用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Flatpak-%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">3.1.3.</span> <span class="toc-text">Flatpak 运行时</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AppImage"><span class="toc-number">3.2.</span> <span class="toc-text">AppImage</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
   const runMermaid = ele => {
     window.loadMermaid = true
     const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'

@@ -1,0 +1,481 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux 桌面图标显示 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="从 desktop 启动项、图标主题与窗口身份匹配解释 Linux 应用图标的显示过程，并记录 GNOME 下 Eudic 和 LocalSend 图标异常的排查方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 桌面图标显示">
+<meta property="og:url" content="https://zhuxz0299.github.io/posts/8b8a9be8.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="从 desktop 启动项、图标主题与窗口身份匹配解释 Linux 应用图标的显示过程，并记录 GNOME 下 Eudic 和 LocalSend 图标异常的排查方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_157.webp">
+<meta property="article:published_time" content="2026-09-05T02:59:35.000Z">
+<meta property="article:modified_time" content="2026-09-05T04:29:10.326Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="desktop-entry">
+<meta property="article:tag" content="gnome">
+<meta property="article:tag" content="icon">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="wayland">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_157.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux 桌面图标显示",
+  "url": "https://zhuxz0299.github.io/posts/8b8a9be8.html",
+  "image": "https://source.fomal.cc/img/default_cover_157.webp",
+  "datePublished": "2026-09-05T02:59:35.000Z",
+  "dateModified": "2026-09-05T04:29:10.326Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "https://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="https://zhuxz0299.github.io/posts/8b8a9be8.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="OenG9gy5rfqmwly_6HPOyfKL7X8py3Qpov78G4QjyHQ"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux 桌面图标显示',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/tag_filter.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Zhuxz's Blog" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">363</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_157.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Linux 桌面图标显示</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Linux 桌面图标显示</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-05T02:59:35.000Z" title="发表于 2026-09-05 10:59:35">2026-09-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-05T04:29:10.326Z" title="更新于 2026-09-05 12:29:10">2026-09-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/">System &amp; Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>之前在 GNOME 中遇到过两次应用图标异常：一次是欧路词典 Eudic，另一次是 LocalSend。软件可以正常打开，图标文件也存在，但运行后 Dock 中显示的却是默认齿轮图标。尤其是 Eudic，即使把 <code>.desktop</code> 中的 <code>Icon=</code> 改成图标的绝对路径，再重启系统，问题依然存在。</p>
+<p>要解释这种现象，需要先弄清楚两个过程：桌面环境如何找到应用的图标，以及如何知道一个窗口属于哪个应用。</p>
+<div class="note info flat"><p>本文主要讨论应用列表、GNOME Dash / Dock 中的应用图标。桌面背景上的文件图标、文件管理器中的文件类型图标，以及系统托盘图标，还有各自的显示机制，不能完全套用本文的排查方法。</p>
+</div>
+<h2 id="应用图标的显示过程">应用图标的显示过程</h2>
+<p>一个 Linux 图形应用通常涉及下面三个相互独立的对象：</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>作用</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可执行程序</td>
+<td>运行应用、创建窗口</td>
+<td><code>/usr/bin/localsend_app</code></td>
+</tr>
+<tr>
+<td>Desktop Entry，即 <code>.desktop</code> 文件</td>
+<td>描述如何启动应用，以及名称、图标等信息</td>
+<td><code>/usr/share/applications/localsend.desktop</code></td>
+</tr>
+<tr>
+<td>图标文件</td>
+<td>提供最终显示的图片</td>
+<td>图标主题目录中的 PNG、SVG 文件</td>
+</tr>
+</tbody>
+</table>
+<p>可执行文件能运行，只能说明程序本身可以启动；它并不保证桌面环境能找到正确的启动项和图标。</p>
+<p>对于应用列表中的启动器，显示过程可以简化为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">读取 .desktop 文件 → 读取 Icon 字段 → 查找图标文件 → 显示图标</span><br></pre></td></tr></table></figure>
+<p>对于 Dock 中运行着的应用，还要多做一次窗口归属判断：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">程序创建窗口</span><br><span class="line">    ↓</span><br><span class="line">桌面环境读取窗口的身份信息</span><br><span class="line">    ↓</span><br><span class="line">匹配到对应的 .desktop 文件</span><br><span class="line">    ↓</span><br><span class="line">读取 Icon 字段 → 查找图标文件 → 显示图标</span><br></pre></td></tr></table></figure>
+<p>因此，启动器图标正常，但打开后变成齿轮，或者 Dock 中又多出一个图标时，应当优先检查窗口匹配。此时即使修改了正确启动项中的 <code>Icon=</code>，运行中的窗口也可能根本没有关联到这个启动项。</p>
+<h2 id="Desktop-Entry：应用在桌面环境中的入口">Desktop Entry：应用在桌面环境中的入口</h2>
+<h3 id="desktop-文件的内容"><code>.desktop</code> 文件的内容</h3>
+<p>以 Eudic 为例，一个启动项可以写成：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Desktop Entry]</span></span><br><span class="line"><span class="attr">Type</span>=Application</span><br><span class="line"><span class="attr">Name</span>=Eudic</span><br><span class="line"><span class="attr">Exec</span>=/usr/share/eusoft-eudic/AppRun %F</span><br><span class="line"><span class="attr">Icon</span>=com.eusoft.eudic</span><br><span class="line"><span class="attr">StartupWMClass</span>=eudic</span><br><span class="line"><span class="attr">Terminal</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">Categories</span>=Dictionary<span class="comment">;Education;</span></span><br></pre></td></tr></table></figure>
+<p>其中与本文直接相关的字段是：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td>显示给用户看的应用名称</td>
+</tr>
+<tr>
+<td><code>Exec</code></td>
+<td>启动命令；这里的 <code>%F</code> 表示传入多个本地文件</td>
+</tr>
+<tr>
+<td><code>Icon</code></td>
+<td>图标名称或者绝对路径</td>
+</tr>
+<tr>
+<td><code>StartupWMClass</code></td>
+<td>为桌面环境提供窗口匹配提示</td>
+</tr>
+</tbody>
+</table>
+<h3 id="启动项所处位置">启动项所处位置</h3>
+<p>在默认 XDG 目录配置下（见<a href="https://zhuxz0299.github.io/posts/fc95dfca.html">该文章</a>的 XDG Base Directory 章节），常见的查找位置按优先级排列为：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/.local/share/applications/    当前用户</span><br><span class="line">/usr/local/share/applications/ 本机管理员安装</span><br><span class="line">/usr/share/applications/       系统软件包安装</span><br></pre></td></tr></table></figure>
+<p>桌面环境用 <strong>desktop file ID</strong> 区分启动项。对于直接放在 <code>applications</code> 下的文件，这个 ID 就是文件名，例如 <code>localsend.desktop</code>。位于子目录时，还需要把相对路径中的 <code>/</code> 换成 <code>-</code>，详见 <a target="_blank" rel="noopener" href="https://specifications.freedesktop.org/desktop-entry/latest-single/#desktop-file-id">Desktop File ID</a>。</p>
+<p>因此，把系统文件复制到用户目录并保留同名，能够覆盖系统启动项：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.local/share/applications</span><br><span class="line"><span class="built_in">cp</span> -i /usr/share/applications/localsend.desktop ~/.local/share/applications/localsend.desktop</span><br></pre></td></tr></table></figure>
+<div class="note warning flat"><p>这里的覆盖是选择整份用户文件，不是把两份文件的字段合并。如果改成另一个文件名，就可能变成另一个启动项，导致应用列表中出现重复入口。</p>
+</div>
+<h2 id="Icon：如何找到图片">Icon：如何找到图片</h2>
+<h3 id="绝对路径与图标名称">绝对路径与图标名称</h3>
+<p><code>Icon</code> 有两种常见写法：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Icon</span>=/usr/share/pixmaps/com.eusoft.eudic.png</span><br><span class="line"><span class="comment">; 或者</span></span><br><span class="line"><span class="attr">Icon</span>=com.eusoft.eudic</span><br></pre></td></tr></table></figure>
+<p>前者直接指定文件，后者交给图标主题机制查找。使用图标名时通常省略 <code>.png</code>、<code>.svg</code> 等扩展名；使用绝对路径时需要写出完整文件名。</p>
+<div class="note warning flat"><p>因为<code>.desktop</code> 不是 Shell 脚本，不能指望 <code>Icon=~/Pictures/icon.png</code> 或 <code>Icon=$HOME/Pictures/icon.png</code> 自动展开。</p>
+</div>
+<h3 id="图标主题与-hicolor">图标主题与 hicolor</h3>
+<p>图标主题把图片按尺寸、用途等组织起来，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/icons/hicolor/</span><br><span class="line">├── index.theme</span><br><span class="line">├── 48x48/apps/com.eusoft.eudic.png</span><br><span class="line">├── 256x256/apps/com.eusoft.eudic.png</span><br><span class="line">└── scalable/apps/com.eusoft.eudic.svg</span><br></pre></td></tr></table></figure>
+<p>上面是目录结构示意，不要求一个应用同时提供这些文件。<code>apps</code> 表示应用图标，<code>256x256</code> 表示相应尺寸，<code>scalable</code> 通常用于 SVG 等可缩放图片。</p>
+<p>按图标名查找时，桌面环境先查询当前主题，再查询继承的主题，并以 <code>hicolor</code> 作为必需的兜底主题；主题中仍找不到时，还会尝试非主题图标位置，其中包括 <code>/usr/share/pixmaps</code>。</p>
+<p>如果要给当前用户补充图标，可以放在：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/.local/share/icons/hicolor/256x256/apps/com.eusoft.eudic.png</span><br></pre></td></tr></table></figure>
+<p>尺寸目录应当与实际图片尺寸相符。把图片复制到 <code>256x256</code> 目录，并不会自动把它缩放到 256 × 256。</p>
+<h2 id="窗口如何对应到启动项">窗口如何对应到启动项</h2>
+<h3 id="X11-与-XWayland：WM-CLASS">X11 与 XWayland：WM_CLASS</h3>
+<p>X11 窗口通过 <code>WM_CLASS</code> 提供身份信息，其中包含两个字符串，分别是 instance 和 class，用于标识应用实例和应用类别。</p>
+<p>在终端运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xprop WM_CLASS</span><br></pre></td></tr></table></figure>
+<p>然后点击目标窗口，就能读取这个属性。典型输出形如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WM_CLASS(STRING) = &quot;example&quot;, &quot;Example&quot;</span><br></pre></td></tr></table></figure>
+<p>GNOME 可以用这些值查找启动项文件名，也可以匹配 <code>.desktop</code> 中的 <code>StartupWMClass</code>。例如 Eudic 的那次问题中，实际确认有效的配置是：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">StartupWMClass</span>=eudic</span><br></pre></td></tr></table></figure>
+<p>它的意思是为具有这个身份的窗口提供启动项匹配线索，并不会修改窗口自身的 <code>WM_CLASS</code>。填写时应保留实际值的大小写，不要根据应用的显示名称猜测。</p>
+<p>还需要区分<strong>桌面会话使用的协议</strong>与<strong>某个应用使用的协议</strong>。即使登录的是 GNOME Wayland，会话中的旧应用仍可以通过 XWayland 运行。这些应用依然使用 X11 的窗口属性，所以 <code>xprop</code> 仍然有效；Eudic 当时就是这种情况。</p>
+<h3 id="原生-Wayland：app-id">原生 Wayland：app_id</h3>
+<p>原生 Wayland 窗口不能用 <code>xprop</code> 查询。对于常见的 <code>xdg-shell</code> 窗口，应用通过 <code>xdg_toplevel.set_app_id</code> 设置身份。协议建议这个 <code>app_id</code> 与 <code>.desktop</code> 文件去掉扩展名后的名称一致，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">窗口 app_id：org.example.Viewer</span><br><span class="line">启动项文件：org.example.Viewer.desktop</span><br></pre></td></tr></table></figure>
+<p>这样合成器就可以把窗口与桌面入口对应起来。协议说明见 <a target="_blank" rel="noopener" href="https://wayland.app/protocols/xdg-shell#xdg_toplevel:request:set_app_id">xdg_toplevel.set_app_id</a>。</p>
+<p>在 GNOME 中可以按 <code>Alt+F2</code>，输入 <code>lg</code>，打开内置调试工具 Looking Glass，可以在 Windows 页检查目标窗口及其关联的应用。</p>
+<div class="note info flat"><p>如果不方便修改 <code>.desktop</code> 文件名称，在 GNOME 中也可以使用 <code>StartupWMClass=&lt;app_id&gt;</code> 进行设置。这个与 GNOME 使用的 Mutter 的实现方式有关，并非 Wayland 桌面通用的解决方案。</p>
+</div>
+<h3 id="为什么名称不一致也可能正常">为什么名称不一致也可能正常</h3>
+<p>桌面环境通常并非只检查一个字段。它还会利用应用 ID、已知进程、启动通知、相关窗口等信息判断归属；如果始终找不到对应的桌面入口，则会为窗口建立临时的应用对象。这可以解释为什么同一软件从不同入口启动，或者升级后，图标会不同。</p>
+<p>因此，<code>.desktop</code> 没有 <code>StartupWMClass</code> 本身不代表有问题。名称和身份原本能正确对应的应用，通常不需要额外补这个字段。</p>
+<h2 id="两次问题的修复">两次问题的修复</h2>
+<h3 id="Eudic：改了-Icon-仍然显示齿轮">Eudic：改了 Icon 仍然显示齿轮</h3>
+<p>当时系统中已经有：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/applications/eusoft-eudic.desktop</span><br><span class="line">/usr/share/pixmaps/com.eusoft.eudic.png</span><br></pre></td></tr></table></figure>
+<p>把 <code>Icon=</code> 改成图片的绝对路径，并重启系统，运行后的图标仍然异常。后来确认 Eudic 通过 XWayland 运行，窗口匹配需要使用 <code>eudic</code>。</p>
+<p>最后在用户启动项的 <code>[Desktop Entry]</code> 分组中添加 <code>StartupWMClass=eudic</code> 解决了问题。</p>
+<h3 id="LocalSend：启动项名称与应用-ID-不一致">LocalSend：启动项名称与应用 ID 不一致</h3>
+<p>在 GNOME Wayland + Dash to Dock 环境中，通过 pacman 更新 archlinuxcn 软件包 <code>localsend 1.18.2-1</code> 打开后显示通用齿轮图标。排查记录中确认的情况是：</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>实际值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统启动项</td>
+<td><code>/usr/share/applications/localsend.desktop</code></td>
+</tr>
+<tr>
+<td>程序内置应用 ID</td>
+<td><code>org.localsend.localsend_app</code></td>
+</tr>
+<tr>
+<td>图标文件</td>
+<td>存在且正常</td>
+</tr>
+<tr>
+<td>原启动项的 <code>StartupWMClass</code></td>
+<td>未设置</td>
+</tr>
+</tbody>
+</table>
+<p>解决方式：保留启动项文件名，创建用户启动项覆盖，然后在 <code>[Desktop Entry]</code> 分组中添加：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">StartupWMClass</span>=org.localsend.localsend_app</span><br></pre></td></tr></table></figure>
+<p>这里保留原文件名，是为了继续覆盖 <code>localsend.desktop</code>，避免额外创建第二个入口。对于应用开发者和打包者，更一致的做法是让应用报告的身份与安装的桌面入口名称相互对应。</p>
+<h2 id="排查顺序">排查顺序</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用列表中没有入口</td>
+<td>启动项路径、格式，以及 <code>Hidden</code>、<code>NoDisplay</code> 等字段</td>
+</tr>
+<tr>
+<td>应用列表中的图标就不正确</td>
+<td>实际生效的启动项、<code>Icon</code> 和图片查找</td>
+</tr>
+<tr>
+<td>启动器正常，运行后变成齿轮或多一个图标</td>
+<td>窗口身份与启动项的匹配</td>
+</tr>
+<tr>
+<td>应用识别正常，但换图后仍显示旧图片</td>
+<td>图标主题缓存及桌面环境的内存状态</td>
+</tr>
+</tbody>
+</table>
+<p>这个表是排查入口，不是仅凭外观就能得出的诊断。例如，应用列表与 Dock 都显示齿轮，可能同时涉及图片缺失和匹配失败。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io/posts/8b8a9be8.html">https://zhuxz0299.github.io/posts/8b8a9be8.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/gnome/">gnome</a><a class="post-meta__tags" href="/tags/desktop-entry/">desktop-entry</a><a class="post-meta__tags" href="/tags/icon/">icon</a><a class="post-meta__tags" href="/tags/wayland/">wayland</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_157.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/91c6fd1a.html" title="Arch Linux 启动问题修复"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_127.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-27</div><div class="info-item-2">Arch Linux 启动问题修复</div></div><div class="info-2"><div class="info-item-1">记录 Arch Linux 无法开机问题的修复过程</div></div></div></a><a class="pagination-related" href="/posts/c70aea57.html" title="Linux 显示系统与 GPU 栈"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_155.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-05</div><div class="info-item-2">Linux 显示系统与 GPU 栈</div></div><div class="info-2"><div class="info-item-1">梳理 Linux 桌面从应用程序、图形与视频加速 API、显示协议及合成器，到用户态和内核态 GPU 驱动的整体工作栈。</div></div></div></a><a class="pagination-related" href="/posts/efca9c95.html" title="Vim 使用入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_146.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-22</div><div class="info-item-2">Vim 使用入门</div></div><div class="info-2"><div class="info-item-1">介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。</div></div></div></a><a class="pagination-related" href="/posts/45029051.html" title="Linux apt 换源与 docker 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_88.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-27</div><div class="info-item-2">Linux apt 换源与 docker 安装</div></div><div class="info-2"><div class="info-item-1">解决因为 docker 被墙无法使用官网方法安装的问题</div></div></div></a><a class="pagination-related" href="/posts/4f30936b.html" title="docker 使用 GPU"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_90.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-29</div><div class="info-item-2">docker 使用 GPU</div></div><div class="info-2"><div class="info-item-1">解决使用 docker 时无法调用 GPU 问题</div></div></div></a><a class="pagination-related" href="/posts/49f1e1db.html" title="docker 入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_91.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-30</div><div class="info-item-2">docker 入门</div></div><div class="info-2"><div class="info-item-1">关于 docker 的一些基本概念的介绍，以及简单的操作</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87%E7%9A%84%E6%98%BE%E7%A4%BA%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">应用图标的显示过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Desktop-Entry%EF%BC%9A%E5%BA%94%E7%94%A8%E5%9C%A8%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84%E5%85%A5%E5%8F%A3"><span class="toc-number">2.</span> <span class="toc-text">Desktop Entry：应用在桌面环境中的入口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#desktop-%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">2.1.</span> <span class="toc-text">.desktop 文件的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E9%A1%B9%E6%89%80%E5%A4%84%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">启动项所处位置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Icon%EF%BC%9A%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E5%9B%BE%E7%89%87"><span class="toc-number">3.</span> <span class="toc-text">Icon：如何找到图片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E4%B8%8E%E5%9B%BE%E6%A0%87%E5%90%8D%E7%A7%B0"><span class="toc-number">3.1.</span> <span class="toc-text">绝对路径与图标名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E6%A0%87%E4%B8%BB%E9%A2%98%E4%B8%8E-hicolor"><span class="toc-number">3.2.</span> <span class="toc-text">图标主题与 hicolor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E5%A6%82%E4%BD%95%E5%AF%B9%E5%BA%94%E5%88%B0%E5%90%AF%E5%8A%A8%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">窗口如何对应到启动项</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X11-%E4%B8%8E-XWayland%EF%BC%9AWM-CLASS"><span class="toc-number">4.1.</span> <span class="toc-text">X11 与 XWayland：WM_CLASS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%94%9F-Wayland%EF%BC%9Aapp-id"><span class="toc-number">4.2.</span> <span class="toc-text">原生 Wayland：app_id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%90%8D%E7%A7%B0%E4%B8%8D%E4%B8%80%E8%87%B4%E4%B9%9F%E5%8F%AF%E8%83%BD%E6%AD%A3%E5%B8%B8"><span class="toc-number">4.3.</span> <span class="toc-text">为什么名称不一致也可能正常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E6%AC%A1%E9%97%AE%E9%A2%98%E7%9A%84%E4%BF%AE%E5%A4%8D"><span class="toc-number">5.</span> <span class="toc-text">两次问题的修复</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Eudic%EF%BC%9A%E6%94%B9%E4%BA%86-Icon-%E4%BB%8D%E7%84%B6%E6%98%BE%E7%A4%BA%E9%BD%BF%E8%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">Eudic：改了 Icon 仍然显示齿轮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalSend%EF%BC%9A%E5%90%AF%E5%8A%A8%E9%A1%B9%E5%90%8D%E7%A7%B0%E4%B8%8E%E5%BA%94%E7%94%A8-ID-%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="toc-number">5.2.</span> <span class="toc-text">LocalSend：启动项名称与应用 ID 不一致</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E6%9F%A5%E9%A1%BA%E5%BA%8F"><span class="toc-number">6.</span> <span class="toc-text">排查顺序</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Linux 显示系统与 GPU 栈 | Zhuxz's Blog</title><meta name="author" content="Zhuxz"><meta name="copyright" content="Zhuxz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="梳理 Linux 桌面从应用程序、图形与视频加速 API、显示协议及合成器，到用户态和内核态 GPU 驱动的整体工作栈。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 显示系统与 GPU 栈">
+<meta property="og:url" content="https://zhuxz0299.github.io/posts/c70aea57.html">
+<meta property="og:site_name" content="Zhuxz&#39;s Blog">
+<meta property="og:description" content="梳理 Linux 桌面从应用程序、图形与视频加速 API、显示协议及合成器，到用户态和内核态 GPU 驱动的整体工作栈。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://source.fomal.cc/img/default_cover_155.webp">
+<meta property="article:published_time" content="2026-08-05T11:33:25.000Z">
+<meta property="article:modified_time" content="2026-09-04T12:14:18.243Z">
+<meta property="article:author" content="Zhuxz">
+<meta property="article:tag" content="drm">
+<meta property="article:tag" content="gpu">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="mesa">
+<meta property="article:tag" content="va-api">
+<meta property="article:tag" content="vulkan">
+<meta property="article:tag" content="wayland">
+<meta property="article:tag" content="x11">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://source.fomal.cc/img/default_cover_155.webp"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux 显示系统与 GPU 栈",
+  "url": "https://zhuxz0299.github.io/posts/c70aea57.html",
+  "image": "https://source.fomal.cc/img/default_cover_155.webp",
+  "datePublished": "2026-08-05T11:33:25.000Z",
+  "dateModified": "2026-09-04T12:14:18.243Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Zhuxz",
+      "url": "https://zhuxz0299.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/zxz.ico"><link rel="canonical" href="https://zhuxz0299.github.io/posts/c70aea57.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><meta name="google-site-verification" content="OenG9gy5rfqmwly_6HPOyfKL7X8py3Qpov78G4QjyHQ"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Linux 显示系统与 GPU 栈',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/only_bg_img.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/cursor.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/nav_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/page_border.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/font.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/scroll_bar.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/tag_filter.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"><link rel="alternate" href="/atom.xml" title="Zhuxz's Blog" type="application/atom+xml">
+</head><body><div id="web_bg" style="background-image: url(/img/violet_light.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/raiden.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">363</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://source.fomal.cc/img/default_cover_155.webp);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Zhuxz's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Linux 显示系统与 GPU 栈</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa-solid fa-server"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 日志</span></a></div><div class="menus_item"><a class="site-page" href="/my-profile/"><i class="fa-fw fas fa-graduation-cap"></i><span> 学术主页</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Linux 显示系统与 GPU 栈</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-05T11:33:25.000Z" title="发表于 2026-08-05 19:33:25">2026-08-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-04T12:14:18.243Z" title="更新于 2026-09-04 20:14:18">2026-09-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/">System &amp; Hardware</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/System-Hardware/Linux/">Linux</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="整体概览">整体概览</h2>
+<p>首先展示整体工作流程，流程比较粗糙，不一定严谨。</p>
+<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="../../figure/linux_/Linux-显示系统与-GPU-栈/linux-desktop-application-stack.webp" width=1200 style="display: block; margin-left: auto; margin-right: auto;">
+<h2 id="解释说明">解释说明</h2>
+<p>这里是对里面的每个部分做一些细节性的解释。</p>
+<h3 id="视频加速-API-用户态视频驱动">视频加速 API/用户态视频驱动</h3>
+<h4 id="VA-API">VA-API</h4>
+<p>VA 就是 Video Acceleration 的缩写。</p>
+<p>VA-API 是 Linux 桌面最通用的视频加速接口，涵盖：</p>
+<ul>
+<li>视频解码</li>
+<li>视频编码</li>
+<li>缩放、反交错、色彩转换、HDR tone mapping 等后处理</li>
+<li>以硬件 surface 形式传递图像</li>
+</ul>
+<p>它通过 libva 加载具体厂商驱动，例如：应用 → <code>libva.so</code> → <code>radeonsi_drv_video.so</code> → <code>amdgpu</code> → AMD VCN。</p>
+<ul>
+<li><code>libva.so</code> 是 VA-API 的通用加载器和用户态接口</li>
+<li><code>radeonsi_drv_video.so</code> 就是图中“用户态视频驱动”里 Mesa VA driver 的具体文件名</li>
+<li><code>amdgpu</code> 在图中“GPU 内核驱动”里面</li>
+<li>AMD VCN 是更底层的硬件引擎</li>
+</ul>
+<p>关于对应的 nvidia-vaapi-driver 驱动：是一个社区项目，它把 VA-API 解码请求转到 NVIDIA NVDEC 的兼容驱动；它只支持解码，不支持 VA-API 编码，而且主要针对 Firefox。普通 NVIDIA 播放器或转码程序还是建议直接使用 NVDEC。</p>
+<h4 id="Vulkan-Video">Vulkan Video</h4>
+<p>Vulkan Video 把编解码变成 Vulkan 队列、资源与同步模型的一部分。它的优势是：</p>
+<ul>
+<li>跨厂商</li>
+<li>可以和 Vulkan 渲染、计算、图像处理共享资源</li>
+<li>开发者能精细控制队列、内存与同步</li>
+<li>适合播放器、游戏引擎和低拷贝媒体管线</li>
+</ul>
+<p>代价是 API 更底层、更复杂，驱动和应用支持仍在快速演进。</p>
+<h4 id="VDPAU">VDPAU</h4>
+<ul>
+<li>NVIDIA 发起、后来获得跨厂商实现
+<ul>
+<li>和 VA-API 类似，有 <code>libvdpau.so</code> 作为通用加载器，可以加载各个厂商的后端</li>
+</ul>
+</li>
+<li>开放 Unix 视频解码/呈现 API
+<ul>
+<li>也就是通常不支持编码</li>
+</ul>
+</li>
+<li>如今主要承担 NVIDIA 原生兼容和旧应用支持</li>
+</ul>
+<h4 id="NVDEC-和-NVENC">NVDEC 和 NVENC</h4>
+<p>NVIDIA 的原生接口。严谨的说是这样：</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>严格含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NVDEC</td>
+<td>NVIDIA GPU 中的硬件视频解码引擎</td>
+</tr>
+<tr>
+<td>NVDECODE API</td>
+<td>访问 NVDEC 的软件编程接口</td>
+</tr>
+<tr>
+<td>NVENC</td>
+<td>NVIDIA GPU 中的硬件视频编码引擎</td>
+</tr>
+<tr>
+<td>NVENCODE API</td>
+<td>访问 NVENC 的软件编程接口</td>
+</tr>
+<tr>
+<td>Video Codec SDK</td>
+<td>包含上述 API、头文件、示例和文档的 SDK</td>
+</tr>
+</tbody>
+</table>
+<p>同时在用户态驱动方面，因为 NVDECODE API 是 NVIDIA 专有的接口，因此不需要像 VA-API 那样弄一些插件式的后端。</p>
+<h4 id="其它">其它</h4>
+<ul>
+<li>V4L2：主要用于 Rockchip、Allwinner、NXP、Qualcomm、树莓派等 SoC</li>
+<li>QSV/oneVPL：Intel 的视频接口</li>
+<li>AMF：AMD 的厂商接口</li>
+</ul>
+<p>在普通视频播放的场景下，VA-API 已经比较好用了，所以一般没有必要用 Intel 和 AMD 的厂商接口。同时在 Windows 中，这两个接口更为常用。</p>
+<h3 id="显示协议">显示协议</h3>
+<ul>
+<li>Display Server：负责应用和显示系统之间的通信。管理窗口资源、输入事件、buffer 提交等。</li>
+<li>Compositor：合成器。把多个窗口的 buffer 合成最终桌面画面，处理透明、阴影、缩放、动画，最后提交给 DRM/KMS。</li>
+<li>WM/Window Manager：窗口管理器。负责窗口位置、焦点、移动、最大化、工作区、标题栏等。</li>
+</ul>
+<h3 id="图形渲染-API-用户态图形驱动">图形渲染 API/用户态图形驱动</h3>
+<p>OpenGL 和 Vulkan 的核心工作，是让程序用一种相对统一的方式命令 GPU 完成渲染。它们处在应用/渲染引擎与具体显卡驱动之间。这个层级的 API 在不同系统为：</p>
+<ul>
+<li>Windows：Direct3D</li>
+<li>macOS/iOS：Metal</li>
+<li>Linux：主要是 Vulkan、OpenGL、OpenGL ES</li>
+</ul>
+<p>这些 API 由显卡厂商或者 Mesa 开源驱动直接实现，能直接表达 GPU 的资源、流水线以及命令。</p>
+<p>同时这些 API 画出来的结果要交给 Linux 桌面显示系统，还需要一个接入层。常用接入层包括：EGL、GLX、Vulkan WSI，它们与图形渲染 API 的对应关系为：<br>
+OpenGL</p>
+<ul>
+<li>GLX：OpenGL 连接 X11</li>
+<li>EGL：OpenGL/OpenGL ES 连接 Wayland/X11/GBM 等</li>
+</ul>
+<p>Vulkan</p>
+<ul>
+<li>WSI (Vulkan Window System Integration)：连接 Wayland / X11 / KMS / Android 等</li>
+</ul>
+<h3 id="GPU-内核驱动">GPU 内核驱动</h3>
+<p>用户态驱动和内核驱动对应关系：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">AMD：</span><br><span class="line">  用户态图形：Mesa RADV / radeonsi</span><br><span class="line">  用户态视频：Mesa VA</span><br><span class="line">  内核：amdgpu</span><br><span class="line"></span><br><span class="line">Intel：</span><br><span class="line">  用户态图形：Mesa ANV / Iris</span><br><span class="line">  用户态视频：intel-media-driver / Mesa</span><br><span class="line">  内核：i915 / xe</span><br><span class="line"></span><br><span class="line">NVIDIA 专有：</span><br><span class="line">  用户态图形/视频/计算：NVIDIA userspace stack</span><br><span class="line">  内核：nvidia</span><br><span class="line"></span><br><span class="line">NVIDIA 开源 Nouveau：</span><br><span class="line">  用户态图形：Mesa NVK / nouveau</span><br><span class="line">  内核：nouveau</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io">Zhuxz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zhuxz0299.github.io/posts/c70aea57.html">https://zhuxz0299.github.io/posts/c70aea57.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zhuxz0299.github.io" target="_blank">Zhuxz's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/linux/">linux</a><a class="post-meta__tags" href="/tags/wayland/">wayland</a><a class="post-meta__tags" href="/tags/gpu/">gpu</a><a class="post-meta__tags" href="/tags/x11/">x11</a><a class="post-meta__tags" href="/tags/mesa/">mesa</a><a class="post-meta__tags" href="/tags/drm/">drm</a><a class="post-meta__tags" href="/tags/va-api/">va-api</a><a class="post-meta__tags" href="/tags/vulkan/">vulkan</a></div><div class="post-share"><div class="social-share" data-image="https://source.fomal.cc/img/default_cover_155.webp" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/8b8a9be8.html" title="Linux 桌面图标显示"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_157.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-09-05</div><div class="info-item-2">Linux 桌面图标显示</div></div><div class="info-2"><div class="info-item-1">从 desktop 启动项、图标主题与窗口身份匹配解释 Linux 应用图标的显示过程，并记录 GNOME 下 Eudic 和 LocalSend 图标异常的排查方法。</div></div></div></a><a class="pagination-related" href="/posts/4f30936b.html" title="docker 使用 GPU"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_90.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-29</div><div class="info-item-2">docker 使用 GPU</div></div><div class="info-2"><div class="info-item-1">解决使用 docker 时无法调用 GPU 问题</div></div></div></a><a class="pagination-related" href="/posts/91c6fd1a.html" title="Arch Linux 启动问题修复"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_127.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-27</div><div class="info-item-2">Arch Linux 启动问题修复</div></div><div class="info-2"><div class="info-item-1">记录 Arch Linux 无法开机问题的修复过程</div></div></div></a><a class="pagination-related" href="/posts/efca9c95.html" title="Vim 使用入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_146.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-22</div><div class="info-item-2">Vim 使用入门</div></div><div class="info-2"><div class="info-item-1">介绍解决 Vim 中按键映射的方式，以及 Vim 的一些简单操作，最后是 Vim 的剪切板的奇怪机制。</div></div></div></a><a class="pagination-related" href="/posts/45029051.html" title="Linux apt 换源与 docker 安装"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_88.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-27</div><div class="info-item-2">Linux apt 换源与 docker 安装</div></div><div class="info-2"><div class="info-item-1">解决因为 docker 被墙无法使用官网方法安装的问题</div></div></div></a><a class="pagination-related" href="/posts/49f1e1db.html" title="docker 入门"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://source.fomal.cc/img/default_cover_91.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-30</div><div class="info-item-2">docker 入门</div></div><div class="info-2"><div class="info-item-1">关于 docker 的一些基本概念的介绍，以及简单的操作</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A6%82%E8%A7%88"><span class="toc-number">1.</span> <span class="toc-text">整体概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E9%87%8A%E8%AF%B4%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">解释说明</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E5%8A%A0%E9%80%9F-API-%E7%94%A8%E6%88%B7%E6%80%81%E8%A7%86%E9%A2%91%E9%A9%B1%E5%8A%A8"><span class="toc-number">2.1.</span> <span class="toc-text">视频加速 API&#x2F;用户态视频驱动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#VA-API"><span class="toc-number">2.1.1.</span> <span class="toc-text">VA-API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vulkan-Video"><span class="toc-number">2.1.2.</span> <span class="toc-text">Vulkan Video</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VDPAU"><span class="toc-number">2.1.3.</span> <span class="toc-text">VDPAU</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NVDEC-%E5%92%8C-NVENC"><span class="toc-number">2.1.4.</span> <span class="toc-text">NVDEC 和 NVENC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">2.1.5.</span> <span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E5%8D%8F%E8%AE%AE"><span class="toc-number">2.2.</span> <span class="toc-text">显示协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%BD%A2%E6%B8%B2%E6%9F%93-API-%E7%94%A8%E6%88%B7%E6%80%81%E5%9B%BE%E5%BD%A2%E9%A9%B1%E5%8A%A8"><span class="toc-number">2.3.</span> <span class="toc-text">图形渲染 API&#x2F;用户态图形驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU-%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">GPU 内核驱动</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2023 - 2026 By Zhuxz</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo-api-mu-three.vercel.app/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/cursor.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v7.3.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.7.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><!-- hexo injector body_end end --></body></html>
