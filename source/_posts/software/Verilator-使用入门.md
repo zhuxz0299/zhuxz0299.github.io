@@ -14,52 +14,43 @@ abbrlink: 69ebbf1e
 date: 2026-08-18 15:13:00
 ---
 
-Verilator 可以将 Verilog/SystemVerilog 设计编译成 C++ 或 SystemC 模型，这个模型再与 testbench 一起由普通 C++ 编译器构建成原生可执行文件，运行该文件即为进行仿真。
-
-本文以一个计数器为例，完整走一遍“检查 RTL → 生成 C++ 模型 → 编写 C++ testbench → 构建并运行 → 查看波形”的流程。
-
 {% note info %}
-本文主要参考 [It's Embedded! 的 Verilator 系列教程](https://www.itsembedded.com/dhd/verilator_1/)以及 [Verilator 官方文档](https://verilator.org/guide/latest/)。前者写于 2021 年，文中的总体思路仍然适用，但部分命令和功能边界已经发生变化，本文以当前 Verilator 5 的官方文档为准。
-
+本文主要参考 [It's Embedded! 的 Verilator 系列教程](https://www.itsembedded.com/dhd/verilator_1/)以及 [Verilator 官方文档](https://verilator.org/guide/latest/)。前者写于 2021 年，文中的总体思路仍然适用，但部分内容已经过时，本文以当前 Verilator 5 的官方文档为准。
 {% endnote %}
+
+Verilator 可以将 Verilog/SystemVerilog 设计编译成 C++ 或 SystemC 模型，这个模型再与 testbench 一起由 C++ 编译器构建成可执行文件，运行该文件即为进行仿真。
 
 ## Verilator 是什么
 
-[官方文档](https://verilator.org/guide/latest/overview.html)将 Verilator 定义为编译器，而不是传统意义上的仿真器。它的典型工作流程是：
+根据[官方文档](https://verilator.org/guide/latest/overview.html)，Verilator 是一个编译器，而非传统意义上的 Verilog 仿真器。它的典型工作流程是：
 
 ```text
 Verilog/SystemVerilog RTL
-          │
-          │ Verilator：解析、lint、优化、生成代码
-          ▼
-    C++/SystemC 模型 + 构建文件
-          │
-          │ GCC/Clang + C++ testbench + Verilator runtime
-          ▼
-       原生仿真可执行文件
-          │
-          ├── 终端中的检查结果
-          ├── VCD/FST 波形
-          └── 覆盖率等数据
+        │
+        │ Verilator：解析、lint、优化、生成代码
+        ▼
+C++/SystemC 模型 + 构建文件
+        │
+        │ GCC/Clang + C++ testbench + Verilator runtime
+        ▼
+    仿真可执行文件
+        │
+        ├── 终端中的检查结果
+        ├── VCD/FST 波形
+        └── 覆盖率等数据
 ```
-
-与传统 HDL 仿真器相比，Verilator 的特点为：
-
-- 生成的模型经过优化并编译为本机代码，适合大型同步数字电路、高速回归测试和软硬件协同开发；
-- testbench 可以直接使用 C++ 的类型、容器、文件 IO 和第三方库，也可以通过 DPI、VPI 等接口连接 HDL 与软件；
-- `--lint-only` 可以只做静态检查，即使不使用 Verilator 仿真，也很适合放进编辑器或 CI；
-- Verilator 是自由开源软件，不依赖商业仿真器许可证。
 
 ### 功能边界
 
-Verilator 主要面向 RTL 功能验证。它不是综合工具，也不能代替静态时序分析或布局布线后的精确时序仿真。
+Verilator 主要面向 RTL 功能验证，生成的模型经过优化并编译为本机代码，适合大型同步数字电路、高速回归测试和软硬件协同开发。但是它不是综合工具，也不能代替静态时序分析或布局布线后的精确时序仿真。
 
 {% note warning %}
-网上常把 Verilator 简化为“不支持延时的周期级仿真器”。这对早期版本大体成立，但对现代 Verilator 5 已不准确：使用 `--timing` 时，它能够处理 `#` 延时、事件控制、`wait` 和 `fork` 等结构。不过，默认模式仍然[主要采用二态模型](https://verilator.org/guide/latest/languages.html#unknown-states)，不能完全复现传统四态事件驱动仿真器中 `X`、`Z` 的传播行为，并且部分 SystemVerilog 验证特性仍只得到有限支持。Verilator 5.050 开始提供实验性的 `--fourstate`，但官方将其标为仅供开发使用，暂时不应视为成熟的四态仿真替代方案。
+网上常把 Verilator 简化为“不支持延时的周期级仿真器”。这对早期版本大体成立，但对现代 Verilator 5 已不准确：使用 `--timing` 时，它能够处理 `#` 延时、事件控制、`wait` 和 `fork` 等结构。不过，默认模式仍然[主要采用二态模型](https://verilator.org/guide/latest/languages.html#unknown-states)，不能完全复现传统四态事件驱动仿真器中 `X`、`Z` 的传播行为，并且部分 SystemVerilog 验证特性仍只得到有限支持。
 {% endnote %}
 
 
-## 一个完整的 C++ testbench 示例
+## 工作流程示例
+本章以一个计数器为例，完整走一遍“检查 RTL → 生成 C++ 模型 → 编写 C++ testbench → 构建并运行 → 查看波形”的流程。
 
 示例目录中只有两个手写文件：
 
@@ -245,10 +236,10 @@ int main(int argc, char** argv) {
 代码说明：
 
 - DUT 使用指针并在 `main()` 中创建，是为了先执行 `context.commandArgs()`，再构造 Verilated 模型
-- `Vcounter dut{&context}` 表示实例化 DUT 时将其显式绑定到仿真上下文
-  - 实例化 DUT 时也可以直接写 `Vcounter dut`，此时会使用当前线程的默认 context，在示例这种简单的环境下也可以正常工作
 - `context.commandArgs(argc, argv)` 表示将命令行参数交给 runtime，即让编译得到的二进制文件 `obj_dir/Vcounter` 支持接受参数
 - `context.traceEverOn(true)` 也可以写成 `Verilated::traceEverOn(true)`，同样表示对当前线程的默认 context 操作
+- `dut = new Vcounter{&context}` 表示实例化 DUT 时将其显式绑定到仿真上下文
+  - 实例化 DUT 时其实也可以不用指针，直接写 `Vcounter dut`，此时会使用当前线程的默认 context，在示例这种简单的环境下也可以正常工作
 - `dut->trace(&trace, 0)` 中的参数 `0` 在新版本的 Verilator 中没啥用，随便填什么都一样
 - `dut->eval()` 根据当前输入重新计算模型，调用该方法模型才会识别边沿并执行相应的时序逻辑
 - `context.timeInc(5)` 将仿真时间推进 5 个 time precision 单位，推进时间本身不会求值
