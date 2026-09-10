@@ -123,15 +123,69 @@ yay (Yet another Yogurt) 是一个流行的 AUR 助手。它本身就是一个�
 可以注意到，由于 yay 最后依然是使用 pacman 安装的包，因此通过 yay 安装到本地的软件也是可以通过 `sudo pacman -Q` 来查询的。
 
 ## Fedora 包管理器 - dnf
-Fedora 使用 RPM 软件包，默认的命令行包管理器是 DNF。标准 Fedora 系统主要从 `fedora` 和 `updates` 等官方仓库获取软件，也可以添加第三方仓库。仓库通常由 `/etc/yum.repos.d/` 下的 `.repo` 文件定义。
+Fedora 使用 RPM 软件包，默认的命令行包管理器是 DNF。标准 Fedora 系统主要从 `fedora` 和 `updates` 等官方仓库获取软件，也可以添加第三方仓库。
+
+
+### 配置目录与镜像源
+
+#### 配置目录位置与内容
+
+| 路径 | 内容 |
+| :--- | :--- |
+| `/etc/dnf/dnf.conf` | DNF 全局配置，`[main]` 段设置缓存、并行下载等行为。 |
+| `/etc/yum.repos.d/*.repo` | 软件仓库配置，包含仓库地址、启用状态和签名校验设置。常见文件有 `fedora.repo`、`fedora-updates.repo`，COPR 也会在这里添加文件。 |
+| `/etc/dnf/repos.override.d/` | DNF5 的仓库覆盖配置目录；通过 `dnf config-manager` 修改的仓库选项可能写在这里，并覆盖原 `.repo` 文件中的设置。 |
+
+例如，在 `/etc/dnf/dnf.conf` 已有的 `[main]` 段中设置：
+
+```ini
+[main]
+max_parallel_downloads=5
+keepcache=False
+```
+
+这表示最多同时下载 5 个包，事务成功后不保留下载的包。完整选项见 [DNF5 配置文档](https://dnf5.readthedocs.io/en/stable/dnf5.conf.5.html)。
+
+#### 镜像源设置文件与内容
+
+Fedora 的镜像地址直接写在 `.repo` 文件里。一个文件可以有多个仓库段，例如 `fedora.repo` 中的 `[fedora]`、`[fedora-debuginfo]` 和 `[fedora-source]`，分别对应普通软件包、调试信息和源码。
+
+`[fedora]` 段的主要内容如下（省略其他选项）：
+
+```ini
+[fedora]
+name=Fedora $releasever - $basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+```
+
+`[fedora]` 是仓库 ID，`name` 是显示名称；`$releasever` 和 `$basearch` 会替换为 Fedora 版本号和系统架构。`enabled=1` 表示启用，`gpgcheck=1` 表示校验软件包签名，`gpgkey` 指定公钥位置。
+
+仓库地址有三种常见写法：
+
+| 字段 | 含义 |
+| :--- | :--- |
+| `metalink` | 指向包含镜像地址和元数据校验信息的 Metalink，Fedora 默认使用它选择镜像。 |
+| `mirrorlist` | 指向镜像地址列表。 |
+| `baseurl` | 直接指定仓库地址，用于固定镜像站。 |
+
+三个选用一个即可。
+
+{% note default %}
+这种结构让 Fedora 可以给每个软件仓库单独设置镜像源，也可以单独设置代理。
+{% endnote %}
 
 
 ### 工作流程
-1. 读取配置与仓库：DNF 读取主配置文件 `/etc/dnf/dnf.conf` 和已启用的仓库配置。
-2. 更新元数据：仓库元数据过期时会自动刷新，也可以通过 `--refresh` 强制刷新。root 用户的系统级缓存默认位于 `/var/cache/libdnf5/`；普通用户进行查询时，默认使用 `~/.cache/libdnf5/`。
-3. 解决依赖：计算需要安装、更新或删除的软件包，检查冲突，然后向用户展示完整的事务摘要。
-4. 下载并执行事务：下载所需的 `.rpm` 文件，校验后一次性执行安装、更新或卸载。DNF5 默认设置 `keepcache=0`，成功完成事务后不会长期保留已下载的软件包，这一点与 pacman 不同。
-5. 记录结果：已安装软件包的状态记录在 `/usr/lib/sysimage/rpm/` 中，DNF5 的事务历史则保存在 `/usr/lib/sysimage/libdnf5/transaction_history.sqlite`，可以使用 `dnf history` 查询。
+1. 读取软件源：DNF 读取配置并加载已启用的仓库。用 `dnf repo list --all` 可以查看各个源及其启用状态。
+   * COPR 是社区维护的第三方 RPM 构建与仓库平台，可用于获取官方仓库未收录的软件或其他版本。运行 `sudo dnf copr enable 用户名/项目名` 会下载对应的 `.repo` 文件并启用仓库。
+   * 不再使用某个 COPR 源时，运行 `sudo dnf copr disable 用户名/项目名`；禁用源不会卸载已安装的包，但这些包也不会再从该源获取更新。
+2. 刷新软件列表：DNF 会缓存已启用仓库中的包名、版本和依赖等元数据，过期后自动刷新。`sudo dnf makecache --refresh` 只刷新缓存；`sudo dnf upgrade --refresh` 则会刷新并升级软件。
+3. 计算依赖并等待确认：DNF 列出本次要安装、升级和删除的包，以及下载大小。卸载时也会自动检查无用的依赖并卸载。
+4. 下载并安装：下载 `.rpm` 包，校验后执行安装。DNF5 默认在事务成功后删除下载的包，不像 pacman 那样长期保留包缓存。
+
 
 ### 命令结构
 DNF 使用 `dnf <子命令> [选项] [软件包]` 的结构。查询操作通常不需要 root 权限，修改系统中的软件则需要使用 `sudo`。

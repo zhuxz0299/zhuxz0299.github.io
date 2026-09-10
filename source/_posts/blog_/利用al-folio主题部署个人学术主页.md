@@ -17,7 +17,59 @@ description: 利用 al-folio 主题构建学术主页指南：详解 GitHub Acti
 
 ## 网站部署与调试
 ### 网站部署
-部署流程非常简单，只要按照官方文档 [Installing and Deploying](https://github.com/alshedivat/al-folio/blob/main/INSTALL.md) 中的 [Recommended Approach](https://github.com/alshedivat/al-folio/blob/main/INSTALL.md#recommended-approach) 一步步做就行。以及官方文档中还给了一个视频教程，看起来更直观。
+部署流程非常简单，只要按照官方文档 [Quick Start Guide](https://github.com/alshedivat/al-folio/blob/main/docs/QUICKSTART.md) 一步步做就行。
+
+{% hideToggle 当前 Quick Start Guide 内容 %}
+
+**Get your al-folio site running in 5 minutes.** This guide is for users who just want a working website quickly without deep customization.
+
+> **Video Tutorial:** Watch a walkthrough of these steps [here](https://github.com/alshedivat/al-folio/blob/main/assets/video/tutorial_al_folio.mp4)
+
+#### Step 1: Create Your Repository (1 min)
+
+**⚠️ Important:** Use the **"Use this template"** button, NOT the fork button. This ensures your site is independent and you won't accidentally submit your personal changes back to the al-folio project.
+
+1. Go to the [al-folio repository](https://github.com/alshedivat/al-folio)
+2. Click the green **"Use this template"** button (top right), then select **"Create a new repository"**
+3. Name your repository:
+   - **Personal/Organization site (if you want your site to be at `username.github.io`):** `username.github.io` (replace `username` with your GitHub username)
+   - **Project site (if you want your site to be at `username.github.io/project-name`):** Any name (e.g., `my-research-website`)
+4. Click **"Create repository from template"**
+
+**Already forked by mistake?** No problem. Your fork will work fine—just be careful when making changes. Create a new branch for your updates (e.g., `git checkout -b my-site-updates`) and make sure you push to **your own repository**, not the main al-folio project.
+
+#### Step 2: Configure Deployment (1 min)
+
+1. Go to your new repository → **Settings** → **Actions** → **General** → **Workflow permissions**
+2. Select **Read and write permissions**
+3. Click **Save**
+
+#### Step 3: Personalize (2 min)
+
+1. Open `_config.yml` in your repository
+2. Update these fields:
+   ```yaml
+   title: My Website
+   first_name: Your
+   last_name: Name
+   url: https://your-username.github.io # or your custom domain
+   baseurl: # Leave this empty (do NOT delete it)
+   ```
+3. Click **Commit changes** (at the bottom of the page)
+
+#### Step 4: View Your Site (1 min)
+
+1. Go to your repository → **Actions** tab
+2. Wait for the "Deploy site" workflow to complete (look for a green checkmark, ~4 minutes)
+3. Go to **Settings** → **Pages** → **Build and deployment**
+4. Make sure **Source** is set to **Deploy from a branch**
+5. Set the branch to **gh-pages** (NOT main)
+6. Wait for the "pages-build-deployment" workflow to complete (~45 seconds)
+7. Visit `https://your-username.github.io` in your browser
+
+**That's it!** Your site is live. You now have a working al-folio website.
+
+{% endhideToggle %}
 
 唯一一点需要注意的是，这里默认把个人主页部署在 `https://<your-github-username>.github.io`，但是如果希望把博客部署在网站的子目录下，那在 `_config.yml` 中需要把 `baseurl` 设置为 `/<your-repository-name>/`。
 
