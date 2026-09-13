@@ -24,8 +24,8 @@ abbrlink: 7e0b85a4
 - [ArchWiki - Power management/Suspend and hibernate](https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate)
 {% endnote %}
 
-本文分成两部分：前半部分解释睡眠、休眠、`s2idle`、`deep`、S3 等概念；后半部分以 Arch Linux 为例，整理一套实际配置流程。
 
+{% note primary %}
 默认场景如下：
 
 - 使用 `systemd`
@@ -34,6 +34,7 @@ abbrlink: 7e0b85a4
 - 使用独立 `swap` 分区，而不是 `swapfile`
 
 如果使用的是 `swapfile`，休眠还需要额外配置 `resume_offset=`，本文不展开。
+{% endnote %}
 
 ## 睡眠、休眠与 S 状态
 
@@ -59,7 +60,7 @@ sudo systemctl suspend-then-hibernate
 
 ### ACPI 的 S0 到 S5
 
-很多文章会把 Linux 睡眠问题和 ACPI S 状态混在一起说。它们有关系，但不是一回事。ACPI S 状态大致描述的是整机电源状态：
+ACPI S 状态大致描述的是整机电源状态：
 
 | 状态 | 常见含义 | 说明 |
 | --- | --- | --- |
@@ -73,23 +74,9 @@ sudo systemctl suspend-then-hibernate
 
 现在经常看到的争论是 S0ix 和 S3：很多新笔记本更偏向 Windows Modern Standby，也就是 S0ix 这一套；传统 Linux 用户熟悉的“睡眠”则常常指 S3 Suspend to RAM。
 
-### Linux 里看到的是 s2idle、shallow、deep
+### Linux 中的状态：s2idle、shallow、deep
 
-Linux 内核在 `/sys/power/mem_sleep` 里暴露的是另一组名字：
-
-```bash
-cat /sys/power/mem_sleep
-```
-
-可能看到：
-
-```text
-[s2idle] deep
-```
-
-方括号表示当前默认值。上面的输出表示机器支持 `s2idle` 和 `deep`，当前默认使用 `s2idle`。
-
-几个名字的含义如下：
+Linux 内核在 `/sys/power/mem_sleep` 里暴露的关于睡眠的接口输出的不是上面提到的 ACPI S 状态，而是另一组名字：
 
 | Linux 名称 | 大致对应 | 说明 |
 | --- | --- | --- |
@@ -103,22 +90,20 @@ cat /sys/power/mem_sleep
 
 ### 为什么会“睡死”
 
-所谓“睡死”，通常指机器合盖或手动睡眠后无法正常唤醒：黑屏、键盘灯不亮、风扇异常、只能长按电源键重启。它不是一个单独的错误类型，而是睡眠和唤醒链路里某一段没有配合好。
-
-常见原因有几类：
+所谓“睡死”，通常指机器合盖或手动睡眠后无法正常唤醒：黑屏、键盘灯不亮、风扇异常、只能长按电源键重启。常见原因有几类：
 
 - 固件问题：有些机器的 BIOS/UEFI 主要按 Windows Modern Standby 测试，S3 路径没有被充分维护。Linux 强行使用 `deep` 时，平台可能进得去但回不来。
 - 驱动问题：GPU、Wi-Fi、蓝牙、NVMe、USB 控制器等设备在 suspend/resume 时没有正确保存和恢复状态。
-- 唤醒源配置异常：某些 USB、蓝牙、网卡或触摸板可能无法正确唤醒机器，或者反复把机器唤醒，表现出来也像“睡眠不正常”。
-- 内核、固件、NVIDIA 驱动等版本组合问题：睡眠恢复是非常吃平台细节的路径，版本变化可能导致回归。
-
+- 唤醒源配置异常：某些 USB、蓝牙、网卡或触摸板可能无法正确唤醒机器，或者反复把机器唤醒。
+- 内核、固件、NVIDIA 驱动等版本组合问题。
 
 所以没有一个对所有机器都正确的选择。经验上：
-
 - `s2idle` 唤醒通常更快，也更符合新平台设计，但可能耗电明显。
 - `deep` 往往更省电，但如果固件 S3 实现有问题，更容易“睡死”。
 
-正确做法不是盲目迷信某一种，而是先看机器支持什么，再分别测试。
+{% note default %}
+目前来看对于个人笔记本而言，新机器大多只支持 `s2idle`，只有比较老的机器对 `deep` 有比较好的支持。
+{% endnote %}
 
 ## 实际配置
 
@@ -146,8 +131,6 @@ echo s2idle | sudo tee /sys/power/mem_sleep
 sudo systemctl suspend
 ```
 
-如果某个模式下出现无法唤醒、明显发热、掉电异常，就不要急着写成永久配置。
-
 永久配置推荐写 systemd drop-in：
 
 ```bash
@@ -169,7 +152,7 @@ MemorySleepMode=deep
 MemorySleepMode=s2idle
 ```
 
-如果 `cat /sys/power/mem_sleep` 里根本没有 `deep`，那 systemd 配置也变不出来。需要去 BIOS/UEFI 里找类似选项：
+如果 `cat /sys/power/mem_sleep` 里根本没有 `deep`，那 systemd 的相应配置没法生效。需要去 BIOS/UEFI 里找类似选项：
 
 - `S3`
 - `Linux S3`
@@ -291,7 +274,7 @@ sudo systemctl suspend-then-hibernate
 
 ### 配置合盖动作
 
-`sleep.conf.d` 只决定“睡眠动作怎么执行”，不决定“什么时候触发”。笔记本合盖由 `systemd-logind` 处理。
+`sleep.conf.d` 只决定睡眠动作怎么执行，不决定如何触发（例如最直接的触发方案就是直接输入命令，但是这个现在不在配置里）。笔记本合盖由 `systemd-logind` 处理。
 
 创建 drop-in 后，根据需要选择一个动作：
 
@@ -320,10 +303,3 @@ MemorySleepMode=deep
 AllowSuspendThenHibernate=yes
 HibernateDelaySec=30min
 ```
-
-两者关系可以这样理解：
-
-- `/etc/systemd/logind.conf.d/90-lid.conf`：合盖时触发什么动作。
-- `/etc/systemd/sleep.conf.d/90-sleep.conf`：这个动作具体怎么执行。
-
-修改后最省心的生效方式是重启。尤其是前面已经改过 GRUB，本来就需要重启。
